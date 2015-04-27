@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:pr1="clr-namespace:PeletonSoft.Sketch.ViewModel.Present;assembly=Sketch.ViewModel"
+                    xmlns:present="clr-namespace:PeletonSoft.Sketch.View.Controls.Present">
+
+
+    
+    <DataTemplate DataType="{x:Type pr1:LayoutPresentViewModel}">
+        <present:LayoutPresentView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type pr1:PreviewPresentViewModel}">
+        <present:PreviewPresentView/>
+    </DataTemplate>
+
+</ResourceDictionary>

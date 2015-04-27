@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
+                    xmlns:memento="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento;assembly=Sketch.ViewMode.Memento"
+                    xmlns:interface="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface;assembly=Sketch.ViewModel.Interface"
+                    xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
+                    xmlns:factory1="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel">
+
+    <viewModel:ScreenViewModel x:Key="ScreenViewModel"
+        Width="{StaticResource CanvasWidth}"
+        Height="{StaticResource CanvasHeight}">
+    </viewModel:ScreenViewModel>
+    
+    <interface:FactoryCollection x:Key="FactoryCollection">
+        <factory1:ScanFactoryViewModel/>
+        <factory1:PortiereFactoryViewModel/>
+        <factory1:TulleFactoryViewModel/>
+        <factory1:FilletFactoryViewModel/>
+        <factory1:PanelFactoryViewModel/>
+        <factory1:HardPelmetFactoryViewModel/>
+        <factory1:DeJabotFactoryViewModel/>
+        <factory1:ApplicationFactoryViewModel/>
+        <factory1:OverlayFactoryViewModel/>
+        <factory1:TieBackFactoryViewModel PointCount="{StaticResource PointCount}"/>
+        <factory1:EqualSwagFactoryViewModel PointCount="{StaticResource PointCount}"/>
+        <factory1:EqualTailFactoryViewModel PointCount="{StaticResource PointCount}"/>
+        <factory1:ScaleneSwagFactoryViewModel PointCount="{StaticResource PointCount}"/>
+        <factory1:ScaleneTailFactoryViewModel PointCount="{StaticResource PointCount}"/>
+    </interface:FactoryCollection>
+
+    <viewModel:WorkspaceCaretaker x:Key="Caretaker">
+        <viewModel:WorkspaceCaretaker.Memento>
+            <memento:WorkspaceMemento/>        
+        </viewModel:WorkspaceCaretaker.Memento>
+    </viewModel:WorkspaceCaretaker>
+    
+    <command:CommandFactory x:Key="CommandFactory"/>
+
+    <viewModel:WorkspaceViewModel x:Key="WorkspaceModelView"
+        Screen ="{StaticResource ScreenViewModel}"
+        SettingProvider="{StaticResource SettingProvider}"
+        Factories="{StaticResource FactoryCollection}"
+        CommandFactory="{StaticResource CommandFactory}"                           
+        Caretaker="{StaticResource Caretaker}"/>
+    
+</ResourceDictionary>

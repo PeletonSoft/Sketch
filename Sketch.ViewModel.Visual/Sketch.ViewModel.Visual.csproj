@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C5A48FC-A803-4195-9068-5564F7619D83}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PeletonSoft.Sketch.ViewModel.Visual</RootNamespace>
+    <AssemblyName>Sketch.ViewModel.Visual</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Element\ApplicationVisualViewModel.cs" />
+    <Compile Include="Element\Custom\ElementVisualViewModel.cs" />
+    <Compile Include="Element\Custom\SheetVisualViewModel.cs" />
+    <Compile Include="Element\Custom\SwagTailVisualViewModel.cs" />
+    <Compile Include="Element\DeJabotVisualViewModel.cs" />
+    <Compile Include="Element\FilletVisualViewModel.cs" />
+    <Compile Include="Element\HardPelmetVisualViewModel.cs" />
+    <Compile Include="Element\Layout\LayoutVisualViewModel.cs" />
+    <Compile Include="Element\OverlayVisualViewModel.cs" />
+    <Compile Include="Element\PanelVisualViewModel.cs" />
+    <Compile Include="Element\PortiereVisualViewModel.cs" />
+    <Compile Include="Element\Primitive\DecorativeBorderVisualViewModel.cs" />
+    <Compile Include="Element\Primitive\WavySurfaceVisualViewModel.cs" />
+    <Compile Include="Element\ScanVisualViewModel.cs" />
+    <Compile Include="Element\TieBackVisualViewModel.cs" />
+    <Compile Include="Element\TulleVisualViewModel.cs" />
+    <Compile Include="ScreenVisualViewModel.cs" />
+    <Compile Include="VisualOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
+      <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
+      <Name>Sketch.ViewModel.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel\Sketch.ViewModel.csproj">
+      <Project>{81f5e6ae-d3e0-44bf-bdec-4be4a222a09f}</Project>
+      <Name>Sketch.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
+      <Project>{8186a7aa-0320-4bf9-a9ee-6784c605da01}</Project>
+      <Name>Tools.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="PeletonSoft.Tools.View.Controls.PageField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="700">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type UserControl}">
+            <Grid Margin="0">
+                <Grid.Width>
+                    <Binding Path="Width">
+                        <Binding.RelativeSource>
+                            <RelativeSource Mode="FindAncestor" AncestorType="{x:Type FixedPage}" />
+                        </Binding.RelativeSource>
+                    </Binding>
+                </Grid.Width>
+                <Grid.Height>
+                    <Binding Path="Height">
+                        <Binding.RelativeSource>
+                            <RelativeSource Mode="FindAncestor" AncestorType="{x:Type FixedPage}" />
+                        </Binding.RelativeSource>
+                    </Binding>
+                </Grid.Height>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition>
+                        <ColumnDefinition.Width>
+                            <Binding Path="Padding.Left">
+                                <Binding.RelativeSource>
+                                    <RelativeSource Mode="FindAncestor" AncestorType="{x:Type controls:PageField}" />
+                                </Binding.RelativeSource>
+                            </Binding>
+                        </ColumnDefinition.Width>
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition>
+                        <ColumnDefinition.Width>
+                            <Binding Path="Padding.Right">
+                                <Binding.RelativeSource>
+                                    <RelativeSource Mode="FindAncestor" AncestorType="{x:Type controls:PageField}" />
+                                </Binding.RelativeSource>
+                            </Binding>
+                        </ColumnDefinition.Width>
+                    </ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <Binding Path="Padding.Top">
+                                <Binding.RelativeSource>
+                                    <RelativeSource Mode="FindAncestor" AncestorType="{x:Type controls:PageField}" />
+                                </Binding.RelativeSource>
+                            </Binding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition Height="*" />
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <Binding Path="Padding.Bottom">
+                                <Binding.RelativeSource>
+                                    <RelativeSource Mode="FindAncestor" AncestorType="{x:Type controls:PageField}" />
+                                </Binding.RelativeSource>
+                            </Binding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <ContentPresenter Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

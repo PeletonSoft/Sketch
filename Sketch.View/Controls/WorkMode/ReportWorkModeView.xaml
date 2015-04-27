@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.WorkMode.ReportWorkModeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:controls1="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:workMode1="clr-namespace:PeletonSoft.Sketch.ViewModel.WorkMode;assembly=Sketch.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance workMode1:ReportWorkModeViewModel}"
+             d:DesignHeight="300" d:DesignWidth="700">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Sketch.View;component/Dictionary/ReportDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid DataContext="{Binding Workspace}">
+        <controls1:FixedDocumentViewer>
+            <i:Interaction.Behaviors>
+                <behavior1:AddPageContentBehavior FormatPageContent="{StaticResource StandartLayoutReport}"/>
+            </i:Interaction.Behaviors>
+        </controls1:FixedDocumentViewer>
+    </Grid>
+    
+</UserControl>

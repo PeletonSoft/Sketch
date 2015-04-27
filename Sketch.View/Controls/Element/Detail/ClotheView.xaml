@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.ClotheView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+             d:DesignSource="{d:DesignInstance element:TulleViewModel}"
+             mc:Ignorable="d" 
+            d:DesignHeight="50" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:StringFormatConverter  x:Key="StringFormatConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+        <Button Content="Рассчитать" Grid.ColumnSpan="2"
+                Command="{Binding Clothe.CalculateCommand}"/>
+        <Label Content="Площадь" Grid.Row="1" Grid.Column="0" />
+        <Border Grid.Row="1" Grid.Column="1" 
+            BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" >
+            <Label
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" >
+                <Label.Content>
+                    <MultiBinding
+                        ConverterParameter="{StaticResource NumericFormat}"
+                        Converter="{StaticResource StringFormatConverter}">
+                        <Binding Path="Clothe.Area" />
+                    </MultiBinding>
+                </Label.Content>
+            </Label>
+        </Border>
+        <Label Content="Ширина" Grid.Column="2"/>
+        <Label Content="Высота" Grid.Row="1" Grid.Column="2"/>
+        <controls:NumericBox 
+            Grid.Column="3" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding Clothe.Width, Mode=TwoWay}" />
+        <controls:NumericBox 
+            Grid.Column="3" Grid.Row="1" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding Clothe.Height, Mode=TwoWay}" />
+    </Grid>
+</UserControl>

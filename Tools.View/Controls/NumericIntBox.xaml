@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="PeletonSoft.Tools.View.Controls.NumericIntBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter"
+             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior"
+             mc:Ignorable="d" 
+             x:Name="UserControl"
+             d:DesignHeight="39" d:DesignWidth="292">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <converter1:IntToStringConverter x:Key="IntToStringConverter" />
+        </Grid.Resources>
+        <TextBox x:Name="TextBox" VerticalContentAlignment="Center" TextAlignment="Right" >
+            <i:Interaction.Behaviors>
+                <behavior1:SelectAllTextOnFocusBehavior/>
+                <behavior1:SelectAllTextOnPressEnterBehavior/>
+                <behavior1:UpdatePropertyOnEnterPressBehavior
+                    Property="TextBox.Text" Element="{Binding ElementName=TextBox}"/>
+            </i:Interaction.Behaviors>
+            <TextBox.Text>
+                <Binding
+                    UpdateSourceTrigger="LostFocus"
+                    Converter="{StaticResource IntToStringConverter}"
+                    Path="Value" ElementName="UserControl"/>
+            </TextBox.Text>
+        </TextBox>
+        <Button 
+            Grid.Column="1" Focusable="False"
+            Height="{Binding ActualHeight, ElementName=TextBox, Mode=OneWay}" 
+            VerticalAlignment="Top" 
+            BorderBrush="#FFFFFFFF">
+            <i:Interaction.Behaviors>
+                <behavior1:UpdatePropertyOnClickButtonBehavior
+                    Property="TextBox.Text" Element="{Binding ElementName=TextBox}"/>
+            </i:Interaction.Behaviors>
+            <Image Source="../Icons/Check.png"/>
+        </Button>
+    </Grid>
+</UserControl>

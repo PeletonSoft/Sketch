@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Work.ToolbarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:viewModel1="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModel1:WorkspaceViewModel}"
+             d:DesignHeight="50">
+    <WrapPanel Orientation="Horizontal">
+        
+        <GroupBox Header="Режим работы">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Width="110"
+						Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+						Content="Редактор" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <i:Interaction.Behaviors>
+                        <behavior1:ToggleButtonStatePatternBehavior
+								State="{Binding WorkMode, Mode=TwoWay}"
+								TargetState="{Binding WorkModes.Editor}"/>
+                    </i:Interaction.Behaviors>
+                </RadioButton>
+                <RadioButton  Width="110"
+							Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+							Content="Отчет" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <i:Interaction.Behaviors>
+                        <behavior1:ToggleButtonStatePatternBehavior
+								State="{Binding WorkMode, Mode=TwoWay}"
+								TargetState="{Binding WorkModes.Report}"/>
+                    </i:Interaction.Behaviors>
+                </RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <ContentPresenter Content="{Binding WorkMode}">
+            <ContentPresenter.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/Sketch.View;component/Skins/WorkModeToolbarSkin.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ContentPresenter.Resources>
+        </ContentPresenter>
+        <GroupBox Header="Сохранение">
+            <StackPanel Orientation="Horizontal">
+                <Button  Width="110"
+                    Content="Сохранить" 
+                    Command="{Binding SaveCommand}" />
+                <Button  Width="110"
+                    Content="Восстановить" 
+                    Command="{Binding RestoreCommand}" />
+            </StackPanel>
+        </GroupBox>
+
+    </WrapPanel>
+</UserControl>

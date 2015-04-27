@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2E3884A0-7585-4DDF-9C6C-A063209E66EC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PeletonSoft.Sketch.View</RootNamespace>
+    <AssemblyName>Sketch.View</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\CustomFactoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ElementFactoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\SwagTailDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\DecorativeBorderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\ShoulderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Report\ElementReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Text\ElementLabelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\DeJabotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\OverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\DisabledFocusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\WavySurfaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Report\StandartLayoutReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WorkMode\EditorWorkModeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WorkMode\ReportWorkModeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Work\ElementListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Text\ElementTextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\ClotheView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\ElementDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\HardPelmetDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\ScanDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\SelectPointMarker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\SwagTailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\ElementTileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\ElementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\View\ScanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Present\Canvas3DView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Present\CanvasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Present\LayoutPresentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Present\PreviewPresentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Present\QuadrangleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Work\ToolbarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Work\WorkAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionary\DataDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionary\ReportDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionary\SettingDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionary\WorkspaceViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\DrawViewSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ElementDetailSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ElementReportTextSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ElementTextSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\ElementViewSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\FactorySkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\WavySurfaceItemSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\PresentSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\PresentToolbarSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\WorkModeSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\WorkModeToolbarSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomFactoryView.xaml.cs">
+      <DependentUpon>CustomFactoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ElementFactoryView.xaml.cs">
+      <DependentUpon>ElementFactoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\SwagTailDetailView.xaml.cs">
+      <DependentUpon>SwagTailDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\DecorativeBorderView.xaml.cs">
+      <DependentUpon>DecorativeBorderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\ShoulderView.xaml.cs">
+      <DependentUpon>ShoulderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Report\ElementReportView.xaml.cs">
+      <DependentUpon>ElementReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Text\ElementLabelView.xaml.cs">
+      <DependentUpon>ElementLabelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\DeJabotView.xaml.cs">
+      <DependentUpon>DeJabotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\OverlayView.xaml.cs">
+      <DependentUpon>OverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\DisabledFocusView.xaml.cs">
+      <DependentUpon>DisabledFocusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\WavySurfaceView.xaml.cs">
+      <DependentUpon>WavySurfaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Report\StandartLayoutReportView.xaml.cs">
+      <DependentUpon>StandartLayoutReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkMode\EditorWorkModeView.xaml.cs">
+      <DependentUpon>EditorWorkModeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkMode\ReportWorkModeView.xaml.cs">
+      <DependentUpon>ReportWorkModeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Work\ElementListView.xaml.cs">
+      <DependentUpon>ElementListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Text\ElementTextView.xaml.cs">
+      <DependentUpon>ElementTextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\ClotheView.xaml.cs">
+      <DependentUpon>ClotheView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\ElementDetailView.xaml.cs">
+      <DependentUpon>ElementDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\HardPelmetDetailView.xaml.cs">
+      <DependentUpon>HardPelmetDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\ScanDetailView.xaml.cs">
+      <DependentUpon>ScanDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\SelectPointMarker.xaml.cs">
+      <DependentUpon>SelectPointMarker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\SwagTailView.xaml.cs">
+      <DependentUpon>SwagTailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\ElementTileView.xaml.cs">
+      <DependentUpon>ElementTileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\ElementView.xaml.cs">
+      <DependentUpon>ElementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\View\ScanView.xaml.cs">
+      <DependentUpon>ScanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Present\Canvas3DView.xaml.cs">
+      <DependentUpon>Canvas3DView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Present\CanvasView.xaml.cs">
+      <DependentUpon>CanvasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Present\LayoutPresentView.xaml.cs">
+      <DependentUpon>LayoutPresentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Present\PreviewPresentView.xaml.cs">
+      <DependentUpon>PreviewPresentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Present\QuadrangleView.xaml.cs">
+      <DependentUpon>QuadrangleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Work\ToolbarView.xaml.cs">
+      <DependentUpon>ToolbarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Work\WorkAreaView.xaml.cs">
+      <DependentUpon>WorkAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\SettingData.cs" />
+    <Compile Include="Setting\SettingProvider.cs" />
+    <Compile Include="Setting\SettingService.cs" />
+    <Compile Include="Setting\VisualContainer.cs" />
+    <Compile Include="WorkspaceView.xaml.cs">
+      <DependentUpon>WorkspaceView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\Fillet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\HardPelmet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\Panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\Portiere.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\Tulle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\Swag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Application.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\DeJabot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Fillet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\HardPelmet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Portiere.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Tulle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Swag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon\Check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon\LeftAlign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon\RightAlign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\Band.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\Hexagon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\HRectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\Parallelogram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\Trapezium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\Triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Outline\VRectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Transformation\DFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Transformation\HFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Transformation\Same.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Transformation\VFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Tail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Overlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\TieBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sketch.Model.Interface\Sketch.Model.Interface.csproj">
+      <Project>{2f4be5ab-9ff4-45b5-8b8b-caca40914e14}</Project>
+      <Name>Sketch.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.Model\Sketch.Model.csproj">
+      <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
+      <Name>Sketch.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
+      <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
+      <Name>Sketch.ViewModel.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Memento\Sketch.ViewModel.Memento.csproj">
+      <Project>{39f3103a-9d28-44a6-ad61-cc3e20d9dda2}</Project>
+      <Name>Sketch.ViewModel.Memento</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Visual\Sketch.ViewModel.Visual.csproj">
+      <Project>{4c5a48fc-a803-4195-9068-5564f7619d83}</Project>
+      <Name>Sketch.ViewModel.Visual</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel\Sketch.ViewModel.csproj">
+      <Project>{81f5e6ae-d3e0-44bf-bdec-4be4a222a09f}</Project>
+      <Name>Sketch.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
+      <Project>{8186a7aa-0320-4bf9-a9ee-6784c605da01}</Project>
+      <Name>Tools.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.View\Tools.View.csproj">
+      <Project>{42867c6c-713e-4407-9d47-2226c601fb4a}</Project>
+      <Name>Tools.View</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

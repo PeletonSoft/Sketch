@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6AA3629-2AB9-4624-B0F8-15F0F67F5EE2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PeletonSoft.Sketch.ViewModel.Interface</RootNamespace>
+    <AssemblyName>Sketch.ViewModel.Interface</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Element\IAlignable.cs" />
+    <Compile Include="Element\IAlignableElementViewModel.cs" />
+    <Compile Include="Element\IClotheCalculateStrategy.cs" />
+    <Compile Include="Element\ISheetElementViewModel.cs" />
+    <Compile Include="Element\IClotheViewModel.cs" />
+    <Compile Include="Element\ILayoutable.cs" />
+    <Compile Include="Element\ILayoutableElementViewModel.cs" />
+    <Compile Include="Element\ISwagTailViewModel.cs" />
+    <Compile Include="Element\ISwagViewModel.cs" />
+    <Compile Include="Element\ITailViewModel.cs" />
+    <Compile Include="FactoryCollection.cs" />
+    <Compile Include="IElementFactoryViewModel.cs" />
+    <Compile Include="IElementListViewModel.cs" />
+    <Compile Include="Element\IElementViewModel.cs" />
+    <Compile Include="Visual\IElementVisualViewModel.cs" />
+    <Compile Include="Tools\INotifyOpacityMaskRenderChanged.cs" />
+    <Compile Include="Visual\IScreenVisualViewModel.cs" />
+    <Compile Include="Primitive\IWavySurfaceItemViewModel.cs" />
+    <Compile Include="Layout\ILayoutViewModel.cs" />
+    <Compile Include="Visual\ILayoutVisualViewModel.cs" />
+    <Compile Include="IPresentViewModel.cs" />
+    <Compile Include="IScreenViewModel.cs" />
+    <Compile Include="IWorkModeViewModel.cs" />
+    <Compile Include="IWorkspaceBit.cs" />
+    <Compile Include="IWorkspaceViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sketch.Model.Interface\Sketch.Model.Interface.csproj">
+      <Project>{2f4be5ab-9ff4-45b5-8b8b-caca40914e14}</Project>
+      <Name>Sketch.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
+      <Project>{8186a7aa-0320-4bf9-a9ee-6784c605da01}</Project>
+      <Name>Tools.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

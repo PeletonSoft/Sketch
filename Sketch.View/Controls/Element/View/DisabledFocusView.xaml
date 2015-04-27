@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.View.DisabledFocusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element;assembly=Sketch.ViewModel.Visual"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance element1:DeJabotVisualViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Rectangle Fill="Transparent" Focusable="False"
+                     Width="{Binding Layout.Width}" 
+                     Height="{Binding Layout.Height}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:workMode11="clr-namespace:PeletonSoft.Sketch.ViewModel.WorkMode;assembly=Sketch.ViewModel"
+                    xmlns:workMode1="clr-namespace:PeletonSoft.Sketch.View.Controls.WorkMode">
+
+    <DataTemplate DataType="{x:Type workMode11:EditorWorkModeViewModel}">
+        <workMode1:EditorWorkModeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type workMode11:ReportWorkModeViewModel}">
+        <workMode1:ReportWorkModeView/>
+    </DataTemplate>
+    
+</ResourceDictionary>

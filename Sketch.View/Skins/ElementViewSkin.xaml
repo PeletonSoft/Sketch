@@ -1,0 +1,78 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+                    xmlns:view1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.View"
+                    xmlns:element2="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element;assembly=Sketch.ViewModel.Visual"
+                    xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;assembly=Sketch.ViewModel.Visual">
+
+    <converter1:ScaleConverter x:Key="ScaleConverter"/>
+    <converter1:PointCollectionConverter x:Key="PointCollectionConverter"/>
+    
+    <DataTemplate DataType="{x:Type element2:FilletVisualViewModel}">
+        <view1:ElementView
+            ImageSource="/SketchView;component/Images/Element/Fillet.png"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:PortiereVisualViewModel}">
+        <view1:ElementTileView 
+            ImageSource="/SketchView;component/Images/Element/Portiere.png"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:ScanVisualViewModel}">
+        <view1:ScanView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type element2:TulleVisualViewModel}">
+        <view1:ElementTileView
+            ImageSource="/SketchView;component/Images/Element/Tulle.png"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:DeJabotVisualViewModel}">
+        <view1:DeJabotView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:PanelVisualViewModel}">
+        <view1:ElementView
+            ImageSource="/SketchView;component/Images/Element/Panel.png"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:HardPelmetVisualViewModel}">
+        <Grid>
+            <Polygon Points="{Binding Points, Converter={StaticResource PointCollectionConverter}}" 
+                     Fill="LightSeaGreen"/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:ApplicationVisualViewModel}">
+        <Grid>
+            <Polygon Points="{Binding Points, Converter={StaticResource PointCollectionConverter}}" Fill="Brown"/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:OverlayVisualViewModel}">
+        <view1:OverlayView/>        
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type custom:SwagTailVisualViewModel}">
+        <view1:SwagTailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:TieBackVisualViewModel}">
+        <Grid>
+            <view1:WavySurfaceView DataContext="{Binding WavySurface}"/>
+            <Polygon Points="{Binding Lane, Converter={StaticResource PointCollectionConverter}}" Opacity="0.8">
+                <Polygon.Fill>
+                    <ImageBrush Viewport="0,0,50,50"
+                        ImageSource="/SketchView;component/Images/Element/Fillet.png"
+                        ViewportUnits="Absolute" TileMode="Tile"/>
+                </Polygon.Fill>
+            </Polygon>
+            <view1:DisabledFocusView/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type custom:ElementVisualViewModel}"> 
+        <view1:ElementView/>
+    </DataTemplate>
+    
+</ResourceDictionary>

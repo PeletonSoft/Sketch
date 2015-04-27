@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
+                    xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.Element;assembly=Sketch.ViewMode.Memento"
+                    xmlns:setting="clr-namespace:PeletonSoft.Sketch.View.Setting"
+                    xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.Present;assembly=Sketch.ViewMode.Memento"
+                    xmlns:workMode="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.WorkMode;assembly=Sketch.ViewMode.Memento"
+                    xmlns:register="clr-namespace:PeletonSoft.Tools.Model.Register;assembly=Tools.Model"
+                    xmlns:visual="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual;assembly=Sketch.ViewModel.Visual"
+                    xmlns:model="clr-namespace:PeletonSoft.Tools.Model;assembly=Tools.Model">
+    
+    <s:Int32 x:Key="PixelPerUnit">200</s:Int32>
+    <s:Int32 x:Key="PointCount">20</s:Int32>
+    <s:Double x:Key="ScreenScale">200</s:Double>
+    <s:String x:Key="NumericFormat">{0:N3}</s:String>
+    <s:String x:Key="IntNumericFormat">{0:N0}</s:String>
+    <s:String x:Key="PairNumericFormat">{0:N3} x {1:N3}</s:String>
+    <s:Double x:Key="CanvasWidth">3</s:Double>
+    <s:Double x:Key="CanvasHeight">2</s:Double>
+    <s:Double x:Key="ImageWidth">500</s:Double>
+    <s:Double x:Key="MarkerRadius">-8</s:Double>
+    <s:Double x:Key="MinusTwo">-2</s:Double>
+    <s:Double x:Key="MinusOne">-1</s:Double>
+    <s:Double x:Key="MinusRadianToDegree">-57.295779513082320876798154814105</s:Double>
+    <s:Double x:Key="RadianToDegree">-57.295779513082320876798154814105</s:Double>
+
+    <visual:VisualOptions x:Key="VisualOptions">
+        <visual:VisualOptions.PixelPerUnit>
+            <model:PixelPerUnit Value="{StaticResource PixelPerUnit}"/>
+        </visual:VisualOptions.PixelPerUnit>
+        <visual:VisualOptions.CommandFactory>
+            <command:CommandFactory/>
+        </visual:VisualOptions.CommandFactory>
+    </visual:VisualOptions>
+    
+    <setting:VisualContainer x:Key="VisualContainer" Options="{StaticResource VisualOptions}"/>
+    
+    <converter:InjectContainerConverter 
+        x:Key="ViewModelToVisualConverter" 
+        InjectContainer="{StaticResource VisualContainer}"/>
+    <converter:InjectContainerCollectionConverter 
+        x:Key="ViewModelCollectionToVisualConverter" 
+        InjectContainer="{StaticResource VisualContainer}"/>
+
+
+    <setting:SettingProvider x:Key="SettingProvider"/>
+
+    <register:RegisterList x:Key="MementoRegisterList">
+        <element:TulleMementoRegister/>
+        <element:PortiereMementoRegister/>
+        <element:FilletMementoRegister/>
+        <element:PanelMementoRegister/>
+        <element:HardPelmetMementoRegister/>
+        <element:DeJabotMementoRegister/>
+        <element:ApplicationMementoRegister/>
+        <element:EqualWaveMementoRegister/>
+        <element:EqualTailMementoRegister/>
+        <element:ScaleneWaveMementoRegister/>
+        <element:ScaleneTailMementoRegister/>
+        <element:ScanMementoRegister/>
+        <element:OverlayMementoRegister/>
+        <element:TieBackMementoRegister/>
+        <present:LayoutPresentMementoRegister/>
+        <present:PreviewPresentMementoRegister/>
+        <workMode:ReportWorkModeMementoRegister/>
+        <workMode:EditorWorkModeMementoRegister/>
+    </register:RegisterList>
+
+    <register:SettingRegisterComposite x:Key="SettingRegister">
+        <register:SettingRegisterList>
+            <setting:SettingServiceRegister/>
+            <register:RegisterAdapter>
+                <register:RegisterComposite List="{StaticResource MementoRegisterList}"/>
+            </register:RegisterAdapter>
+        </register:SettingRegisterList>
+    </register:SettingRegisterComposite>
+
+</ResourceDictionary>

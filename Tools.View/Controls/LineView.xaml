@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="PeletonSoft.Tools.View.Controls.LineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             x:Name="UserControl"
+             d:DesignHeight="300" d:DesignWidth="300"  MouseMove="UserControl_MouseMove">
+    <UserControl.Template>
+        <ControlTemplate>
+            <Canvas>
+                <Canvas.Resources>
+                    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                </Canvas.Resources>
+
+                <Grid x:Name="line" ZIndex="1">
+                    <Line X1="0" Y1="0"
+                        X2="{Binding OffsetX, ElementName=UserControl}"
+                        Y2="{Binding OffsetY, ElementName=UserControl}"
+                        Stroke="{Binding LineColor, ElementName=UserControl}"
+                        StrokeThickness="1" MouseUp="Line_MouseUp">
+                    </Line>
+                </Grid>
+                <Grid ZIndex="0"
+                    Canvas.Left="{Binding ThumbX, ElementName=UserControl}"
+                    Canvas.Top="{Binding ThumbY, ElementName=UserControl}"
+                    Visibility="{Binding IsMouseOver, ElementName = line, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Thumb Width="4" Height="4" Cursor="Hand" Margin="-2" Focusable="False">
+                        <Thumb.Template>
+                            <ControlTemplate TargetType="Thumb">
+                                <Grid>
+                                    <Ellipse Stroke="Green" StrokeThickness="1"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Thumb.Template>
+                    </Thumb>
+                </Grid>
+            </Canvas>
+        </ControlTemplate>
+    </UserControl.Template>
+    <Grid/>
+</UserControl>
+

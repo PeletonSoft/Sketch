@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.View.ScanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element;assembly=Sketch.ViewModel.Visual"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance element1:ScanVisualViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter1:ScaleConverter x:Key="ScaleConverter"/>
+    </UserControl.Resources>
+    <Canvas>
+        <Canvas.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding ScaleX}" ScaleY="{Binding ScaleY}"></ScaleTransform>
+        </Canvas.LayoutTransform>
+        <Canvas>
+            <Image 
+                Source="{Binding FileName}" 
+                Width="{Binding ImageWidth}" 
+                Height="{Binding ImageHeight}"  
+                HorizontalAlignment="Left"  
+                VerticalAlignment="Top" Stretch="None">
+                <Canvas.Top>
+                    <Binding Path="Center.Y" Converter="{StaticResource ScaleConverter}"
+                             ConverterParameter="{StaticResource MinusOne}" />
+                </Canvas.Top>
+                <Canvas.Left>
+                    <Binding Path="Center.X" Converter="{StaticResource ScaleConverter}"
+                             ConverterParameter="{StaticResource MinusOne}" />
+                </Canvas.Left>
+                <Image.RenderTransform>
+                    <RotateTransform
+                        CenterX="{Binding Center.X}" CenterY="{Binding Center.Y}">
+                        <RotateTransform.Angle>
+                            <Binding Path="Angle" 
+                                     ConverterParameter="{StaticResource RadianToDegree}"
+                                     Converter="{StaticResource ScaleConverter}" />
+                        </RotateTransform.Angle>
+                    </RotateTransform>
+                </Image.RenderTransform>
+            </Image>
+            <Canvas.Clip>
+                <RectangleGeometry Rect="{Binding Clip}" />
+            </Canvas.Clip>
+        </Canvas>
+    </Canvas>
+</UserControl>

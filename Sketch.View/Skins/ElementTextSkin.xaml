@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+                    xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+                    xmlns:custom1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
+                    xmlns:text="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Text">
+
+    <converter:TypeToListDictionaryItemConverter x:Key="TypeToListDictionaryItemConverter"/>
+    
+    <DataTemplate DataType="{x:Type custom1:AlignableElementViewModel}">
+        <text:ElementTextView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element1:OverlayViewModel}">
+        <text:ElementTextView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element1:TieBackViewModel}">
+        <text:ElementTextView/>
+    </DataTemplate>
+</ResourceDictionary>

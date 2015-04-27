@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:report2="clr-namespace:PeletonSoft.Tools.View.Report;assembly=Tools.View"
+                    xmlns:controls1="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+                    xmlns:report="clr-namespace:PeletonSoft.Sketch.View.Controls.Report">
+
+    <report2:A4LandscapeFormatPageContent x:Key="StandartLayoutReport">
+        <report2:FixedPageList>
+            <FixedPage>
+                <controls1:PageField Padding="1cm">
+                    <report:StandartLayoutReportView />
+                </controls1:PageField>
+            </FixedPage>
+        </report2:FixedPageList>
+    </report2:A4LandscapeFormatPageContent>
+
+</ResourceDictionary>

@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.ElementDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:custom1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance custom1:AlignableElementViewModel}">
+    <UserControl.Resources>
+        <converter:StringFormatConverter  x:Key="StringFormatConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+        <Label 
+            VerticalContentAlignment="Center"
+            Content="Ширина" />
+        <Label 
+            Grid.Row="1" Grid.Column="0"
+            VerticalContentAlignment="Center"
+            Content="Высота" />
+        <Label
+            Grid.Row="0" Grid.Column="2" 
+            VerticalContentAlignment="Center"
+            Content="X-сдвиг" />
+        <Label 
+            Grid.Row="1" Grid.Column="2" 
+            VerticalContentAlignment="Center"
+            Content="Y-сдвиг" />
+
+        <controls:NumericBox
+            Grid.Row="0" Grid.Column="1" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding Width, Mode=TwoWay}" />
+        <controls:NumericBox 
+            Grid.Column="1" Grid.Row="1" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding Height, Mode=TwoWay}" />
+        <controls:NumericBox
+            Grid.Row="0" Grid.Column="3" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding OffsetX, Mode=TwoWay}" />
+        <controls:NumericBox 
+            Grid.Column="3" Grid.Row="1" 
+            StringFormat="{StaticResource NumericFormat}"
+            Value="{Binding OffsetY, Mode=TwoWay}" />
+
+        <StackPanel
+            Grid.Row="0" Grid.Column="4"
+            Orientation="Horizontal">
+            <RadioButton 
+                Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <behavior:ToggleButtonStatePatternBehavior
+                    State="{Binding Layout, Mode=TwoWay}"
+                    TargetState="{Binding Layouts.LeftLayout}"/>
+                </i:Interaction.Behaviors>
+                <Image Source="/Sketch.View;component/Images/Icon/LeftAlign.png"></Image>
+            </RadioButton>
+            <RadioButton 
+                Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center">
+                <i:Interaction.Behaviors>
+                    <behavior:ToggleButtonStatePatternBehavior
+                    State="{Binding Layout, Mode=TwoWay}"
+                    TargetState="{Binding Layouts.RightLayout}"/>
+                </i:Interaction.Behaviors>
+                <Image Source="/Sketch.View;component/Images/Icon/RightAlign.png"></Image>
+            </RadioButton>
+        </StackPanel>
+        <Border Grid.Column="4" Grid.Row="1" 
+            BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" >
+            <Label
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" >
+                <Label.Content>
+                    <MultiBinding
+                        ConverterParameter="{StaticResource PairNumericFormat}"
+                        Converter="{StaticResource StringFormatConverter}">
+                        <Binding Path="Layout.Left" />
+                        <Binding Path="Layout.Top" />
+                    </MultiBinding>
+                </Label.Content>
+            </Label>
+        </Border>
+
+    </Grid>
+
+</UserControl>

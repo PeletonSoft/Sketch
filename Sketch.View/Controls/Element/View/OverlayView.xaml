@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.View.OverlayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element;assembly=Sketch.ViewModel.Visual"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance element1:OverlayVisualViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Border Visibility="Hidden">
+            <ContentPresenter Content="{Binding OverlayElement}" Name="Presenter"/>
+        </Border>
+        <Rectangle Width="{Binding Layout.Width}" Height="{Binding Layout.Height}">
+            <Rectangle.Fill>
+                <VisualBrush Visual="{Binding ElementName=Presenter}"/>
+            </Rectangle.Fill>
+            <Rectangle.OpacityMask>
+                <DrawingBrush Stretch="None" AlignmentX="Left" AlignmentY="Top"
+                        ViewboxUnits="Absolute" Viewbox="0,0 0,0">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing Brush="Black">
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <RectangleGeometry Rect="{Binding OverRect}" />
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Rectangle.OpacityMask>
+        </Rectangle>
+    </Grid>
+</UserControl>

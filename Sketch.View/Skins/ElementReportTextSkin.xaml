@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+                    xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+                    xmlns:report="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Report"
+                    xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel">
+    
+    <converter1:StringFormatConverter x:Key="StringFormatConverter"/>
+    
+
+    <DataTemplate DataType="{x:Type element:OverlayViewModel}">
+        <StackPanel Orientation="Vertical">
+            <report:ElementReportView/>
+        </StackPanel>
+        
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type element:TieBackViewModel}">
+        <StackPanel Orientation="Vertical">
+            <report:ElementReportView/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type custom:AlignableElementViewModel}">
+        <StackPanel Orientation="Vertical">
+            <report:ElementReportView/>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

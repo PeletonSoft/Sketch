@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Report.StandartLayoutReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
+             xmlns:present="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModel:WorkspaceViewModel}"
+             d:DesignHeight="300" d:DesignWidth="700">
+    <UserControl.Resources>
+        <converter:FitInRectangleConverter x:Key="FitInRectangleConverter" />
+        <converter:StringFormatConverter x:Key="StringFormatConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Column="0" Grid.Row="0" 
+                    Orientation="Horizontal">
+            <Label>
+                <Label.Content>
+                    <MultiBinding 
+                        Converter="{StaticResource StringFormatConverter}"
+                        ConverterParameter="Ширина: {0:N2}">
+                        <Binding Path="Screen.Width"/>
+                    </MultiBinding>
+                </Label.Content>
+            </Label>
+            <Label Width="20"/>
+            <Label>
+                <Label.Content>
+                    <MultiBinding 
+                        Converter="{StaticResource StringFormatConverter}"
+                        ConverterParameter="Высота: {0:N2}">
+                        <Binding Path="Screen.Height"/>
+                    </MultiBinding>
+                </Label.Content>
+            </Label>
+        </StackPanel>
+        
+        <Grid Grid.Column="0" Grid.Row="1" Name="PresentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Viewbox Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Viewbox.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform
+                                    ScaleX="0.3"
+                                    ScaleY="0.3" />
+                        </TransformGroup>
+                    </Viewbox.LayoutTransform>
+                    <Grid Name="View">
+                    <present:CanvasView 
+                        Screen="{Binding Screen, Converter={StaticResource ViewModelToVisualConverter}}"                         
+                        DataContext="{Binding ElementList}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top">
+                    </present:CanvasView>
+                </Grid>
+            </Viewbox>
+            <Rectangle Visibility="Visible"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top">
+                <Rectangle.Fill><VisualBrush Visual="{Binding ElementName=View}"/></Rectangle.Fill>
+                <Rectangle.Width>
+                    <MultiBinding Converter="{StaticResource FitInRectangleConverter}">
+                        <Binding Path="Screen.Width"/>
+                        <Binding Path="Screen.Height"/>
+                        <Binding ElementName="PresentGrid" Path="ActualWidth"/>
+                        <Binding ElementName="PresentGrid" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Rectangle.Width>
+                <Rectangle.Height>
+                    <MultiBinding Converter="{StaticResource FitInRectangleConverter}">
+                        <Binding Path="Screen.Height"/>
+                        <Binding Path="Screen.Width"/>
+                        <Binding ElementName="PresentGrid" Path="ActualHeight"/>
+                        <Binding ElementName="PresentGrid" Path="ActualWidth"/>
+                    </MultiBinding>
+                </Rectangle.Height>
+            </Rectangle>
+        </Grid>
+        
+        <ListBox Grid.Column="1"  Grid.Row="0" Grid.RowSpan="2"
+            ItemsSource="{Binding ElementList.Items}"                 
+            HorizontalContentAlignment="Stretch" >
+            
+            <ListBox.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/Sketch.View;component/Skins/ElementReportTextSkin.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ListBox.Resources>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Padding" Value="0,0,0,0"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding}" Margin="0" AllowDrop="True"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        
+    </Grid>
+</UserControl>

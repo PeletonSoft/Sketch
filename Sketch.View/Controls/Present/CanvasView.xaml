@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Present.CanvasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface.Element;assembly=Sketch.ViewModel.Interface"
+             xmlns:custom1="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;assembly=Sketch.ViewModel.Visual"
+             xmlns:container="clr-namespace:PeletonSoft.Sketch.ViewModel.Container;assembly=Sketch.ViewModel"
+             xmlns:interface1="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface;assembly=Sketch.ViewModel.Interface"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance container:ElementListViewModel}"
+             x:Name="UserControl"
+             Width="{Binding Screen.Width, ElementName=UserControl}" 
+             Height="{Binding Screen.Height, ElementName=UserControl}" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter1:EnumerableCompositeConverter x:Key="PointCollectionToGeometryConverter">
+            <converter1:EnumerableCompositeConverter.ItemConverter>
+                <converter1:PointCollectionToPathGeometryConverter/>
+            </converter1:EnumerableCompositeConverter.ItemConverter>
+            <converter1:EnumerableCompositeConverter.ListConverter>
+                <converter1:GeometryCollectionToGeometryConverter/>
+            </converter1:EnumerableCompositeConverter.ListConverter>
+        </converter1:EnumerableCompositeConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/Sketch.View;component/Skins/ElementViewSkin.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <ListBox
+            ItemsSource="{Binding Items, Converter={StaticResource ViewModelCollectionToVisualConverter}}"                 
+            AllowDrop="True" 
+            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" Background="{x:Null}" >
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <i:Interaction.Behaviors>
+                <behavior1:DropBehavior 
+                        DataFormat="interface1:IElementFactoryViewModel" 
+                        Command="{Binding CreateElementCommand}" />
+            </i:Interaction.Behaviors>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" d:DataContext="{d:DesignInstance custom1:ElementVisualViewModel}">
+                    <Setter Property="Padding" Value="0,0,0,0"/>
+                    <Setter Property="Canvas.Left" Value="{Binding Layout.Left}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Layout.Top}" />
+                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="{Binding Layout.Width}" Height="{Binding Layout.Height}"
+                        Visibility="{Binding Visibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Opacity="{Binding Opacity}">
+                        <ContentPresenter Content="{Binding}" Margin="0">
+                            <i:Interaction.Behaviors>
+                                <behavior1:DragBehavior 
+                                    DataFormat="element1:IElementViewModel"/>
+                            </i:Interaction.Behaviors>
+                            <ContentPresenter.OpacityMask>
+                                <DrawingBrush Stretch="None" AlignmentX="Left" AlignmentY="Top" ViewboxUnits="Absolute" Viewbox="0,0 0,0">
+                                    <DrawingBrush.Drawing>
+                                        <GeometryDrawing Brush="Black">
+                                            <GeometryDrawing.Geometry>
+                                                <CombinedGeometry GeometryCombineMode="Exclude">
+                                                    <CombinedGeometry.Geometry1>
+                                                        <RectangleGeometry Rect="{Binding Layout.Rect}"/>
+                                                    </CombinedGeometry.Geometry1>
+                                                    <CombinedGeometry.Geometry2>
+                                                        <GeometryGroup FillRule="Nonzero" 
+                                                            Children="{Binding Layout.OpacityMask, Converter={StaticResource PointCollectionToGeometryConverter}}"/>
+                                                    </CombinedGeometry.Geometry2>
+                                                </CombinedGeometry>
+                                                
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </ContentPresenter.OpacityMask>
+                        </ContentPresenter>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>
+
