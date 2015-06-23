@@ -1,4 +1,5 @@
-﻿using PeletonSoft.Sketch.ViewModel.Element;
+﻿using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Factory.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
@@ -10,7 +11,7 @@ namespace PeletonSoft.Sketch.ViewModel.Factory
     {
         protected override IElementViewModel CreateRawElement(IWorkspaceBit workspaceBit)
         {
-            return new ApplicationViewModel(workspaceBit); 
+            return new ApplicationViewModel(workspaceBit, new Application()); 
         }
 
         public new ApplicationViewModel CreateElement(IWorkspaceBit workspaceBit)

@@ -46,8 +46,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Element\Application.cs" />
     <Compile Include="Element\Custom\AlignableElement.cs" />
     <Compile Include="Element\Custom\Element.cs" />
+    <Compile Include="Element\Custom\Portiere.cs" />
+    <Compile Include="Element\Custom\Sheet.cs" />
+    <Compile Include="Element\Tulle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

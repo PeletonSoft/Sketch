@@ -2,7 +2,7 @@
 
 namespace PeletonSoft.Sketch.Model.Element.Custom
 {
-    public class AlignableElement : PeletonSoft.Sketch.Model.Element.Custom.Element, IAlignableElement
+    public class AlignableElement : Element, IAlignableElement
     {
         public double Width { get; set; }
         public double Height { get; set; }

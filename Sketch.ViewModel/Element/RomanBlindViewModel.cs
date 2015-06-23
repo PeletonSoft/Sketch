@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -14,7 +15,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public class RomanBlindViewModel : AlignableElementViewModel
     {
-        public RomanBlindViewModel(IWorkspaceBit workspaceBit) : base(workspaceBit)
+        public RomanBlindViewModel(IWorkspaceBit workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
             Height = workspaceBit.Screen.Height;
             Width = workspaceBit.Screen.Width/2;

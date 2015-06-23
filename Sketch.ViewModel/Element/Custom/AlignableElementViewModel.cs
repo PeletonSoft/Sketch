@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Element.Clothe;
@@ -11,6 +10,7 @@ using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
@@ -83,7 +83,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #endregion
 
         #region implement IElementViewModel
-        public IAlignableElement Model { get; private set; }
         public string Description
         {
             get { return Model.Description; }
@@ -114,10 +113,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         }
 
         public IClotheViewModel Clothe { get; private set; }
+
         #endregion
-        protected AlignableElementViewModel(IWorkspaceBit workspaceBit)
+
+        protected IAlignableElement Model { get; private set; }
+
+        protected AlignableElementViewModel(IWorkspaceBit workspaceBit, IAlignableElement model)
         {
-            Model = new AlignableElement();
+            Model = model;
 
             WorkspaceBit = workspaceBit;
 

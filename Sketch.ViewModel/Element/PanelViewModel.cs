@@ -1,4 +1,5 @@
-﻿using PeletonSoft.Sketch.ViewModel.Element.Custom;
+﻿using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
@@ -7,7 +8,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
     {
 
         public PanelViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
         }
 

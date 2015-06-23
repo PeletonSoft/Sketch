@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -11,7 +12,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
     public class ScanViewModel : AlignableElementViewModel
     {
         public ScanViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
             CropVisible = false;
             var commandFactory = WorkspaceBit.CommandFactory;

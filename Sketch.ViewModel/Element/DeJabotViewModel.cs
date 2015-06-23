@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model;
@@ -17,7 +18,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
     public class DeJabotViewModel : AlignableElementViewModel
     {
         public DeJabotViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
             Alignment = ElementAlignment.Left;
             Height = 0.5*Screen.Height;

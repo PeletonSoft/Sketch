@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -36,7 +37,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
 
         public HardPelmetViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
             DecorativeBorder = new DecorativeBorderViewModel(workspaceBit);
 

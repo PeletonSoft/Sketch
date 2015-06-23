@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Draw;
@@ -18,7 +18,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
     public abstract class SwagTailViewModel : AlignableElementViewModel
     {
         public SwagTailViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+            : base(workspaceBit, new AlignableElement())
         {
             Height = 0.5*Screen.Height;
             Width = 0.5*Screen.Width;
