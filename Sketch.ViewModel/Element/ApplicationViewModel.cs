@@ -24,9 +24,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Transformation = Transformations.Same;
 
             this.SetPropertyChanged(
-                new[] { "Thickness", "Outline", "Transformation" }, 
+                new[] {"Thickness", "Outline", "Transformation"},
                 () => OnPropertyChanged("Points"));
-            this.SetPropertyChanged(new[] { "Width", "Height" }, SizePropertyChanged);
+            this.SetPropertyChanged(new[] {"Width", "Height"}, SizePropertyChanged);
         }
 
         private new Application Model
@@ -49,17 +49,35 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         private OutlineViewModel _outline;
+
         public OutlineViewModel Outline
         {
             get { return _outline; }
             set { SetField(ref _outline, value); }
         }
 
-        private readonly Lazy<OutlineViewModels> _lazyOutlines = 
+        private TransformationViewModel _transformation;
+
+        public TransformationViewModel Transformation
+        {
+            get { return _transformation; }
+            set { SetField(ref _transformation, value); }
+        }
+
+        private readonly Lazy<OutlineViewModels> _lazyOutlines =
             new Lazy<OutlineViewModels>(() => new OutlineViewModels());
+
         public OutlineViewModels Outlines
         {
             get { return _lazyOutlines.Value; }
+        }
+
+        private readonly Lazy<TransformationViewModels> _lazyTransformations =
+            new Lazy<TransformationViewModels>(() => new TransformationViewModels());
+
+        public TransformationViewModels Transformations
+        {
+            get { return _lazyTransformations.Value; }
         }
 
         public IEnumerable<Point> Points
@@ -69,20 +87,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 var points = Outline.GetPoints(Layout.Width, Layout.Height, Thickness);
                 return Transformation.GetPoints(points, Layout);
             }
-        }
-
-        private TransformationViewModel _transformation;
-        public TransformationViewModel Transformation
-        {
-            get { return _transformation; }
-            set { SetField(ref _transformation, value); }
-        }
-
-        private readonly Lazy<TransformationViewModels> _lazyTransformations = 
-            new Lazy<TransformationViewModels>(() => new TransformationViewModels());
-        public TransformationViewModels Transformations
-        {
-            get { return _lazyTransformations.Value; }
         }
 
     }
