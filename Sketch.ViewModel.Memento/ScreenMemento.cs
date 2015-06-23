@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento
+namespace PeletonSoft.Sketch.ViewModel.Memento
 {
     public class ScreenMemento : IMemento<IScreenViewModel>
     {

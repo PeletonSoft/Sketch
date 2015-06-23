@@ -2,14 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:spec="clr-namespace:System.Collections.Specialized;assembly=System"
                     xmlns:s="clr-namespace:System;assembly=mscorlib"
-                    xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+                    xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
                     xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel">
     <spec:ListDictionary x:Key="FactoryNames">
-        <s:String x:Key="{x:Type factory:ScanFactoryViewModel}">Готовый чер`теж</s:String>
+        <s:String x:Key="{x:Type factory:ScanFactoryViewModel}">Готовый чертеж</s:String>
         <s:String x:Key="{x:Type factory:TulleFactoryViewModel}">Тюль</s:String>
         <s:String x:Key="{x:Type factory:PortiereFactoryViewModel}">Портьера</s:String>
         <s:String x:Key="{x:Type factory:PanelFactoryViewModel}">Панно</s:String>
         <s:String x:Key="{x:Type factory:FilletFactoryViewModel}">Багет</s:String>
+        <s:String x:Key="{x:Type factory:RomanBlindFactoryViewModel}">Римская штора</s:String>
         <s:String x:Key="{x:Type factory:HardPelmetFactoryViewModel}">Жесткий ламбрекен</s:String>
         <s:String x:Key="{x:Type factory:EqualSwagFactoryViewModel}">Равносторонний сваг</s:String>
         <s:String x:Key="{x:Type factory:EqualTailFactoryViewModel}">Равносторонний перекид</s:String>
@@ -26,6 +27,7 @@
         <s:String x:Key="{x:Type factory:PortiereFactoryViewModel}">/Images/Factory/Portiere.png</s:String>
         <s:String x:Key="{x:Type factory:PanelFactoryViewModel}">/Images/Factory/Panel.png</s:String>
         <s:String x:Key="{x:Type factory:FilletFactoryViewModel}">/Images/Factory/Fillet.png</s:String>
+        <s:String x:Key="{x:Type factory:RomanBlindFactoryViewModel}">/Images/Factory/RomanBlind.png</s:String>
         <s:String x:Key="{x:Type factory:HardPelmetFactoryViewModel}">/Images/Factory/HardPelmet.png</s:String>
         <s:String x:Key="{x:Type factory:EqualSwagFactoryViewModel}">/Images/Factory/Swag.png</s:String>
         <s:String x:Key="{x:Type factory:EqualTailFactoryViewModel}">/Images/Factory/Tail.png</s:String>
@@ -37,19 +39,20 @@
         <s:String x:Key="{x:Type factory:TieBackFactoryViewModel}">/Images/Factory/TieBack.png</s:String>
     </spec:ListDictionary>
     <spec:ListDictionary x:Key="ElementNames">
-        <s:String x:Key="{x:Type element1:ScanViewModel}">Чертеж</s:String>
-        <s:String x:Key="{x:Type element1:TulleViewModel}">Тюль</s:String>
-        <s:String x:Key="{x:Type element1:PortiereViewModel}">Портьера</s:String>
-        <s:String x:Key="{x:Type element1:PanelViewModel}">Панно</s:String>
-        <s:String x:Key="{x:Type element1:FilletViewModel}">Багет</s:String>
-        <s:String x:Key="{x:Type element1:HardPelmetViewModel}">Жесткий ламбрекен</s:String>
-        <s:String x:Key="{x:Type element1:EqualSwagViewModel}">Равносторонний сваг</s:String>
-        <s:String x:Key="{x:Type element1:EqualTailViewModel}">Равносторонний перекид</s:String>
-        <s:String x:Key="{x:Type element1:ScaleneSwagViewModel}">Сваг</s:String>
-        <s:String x:Key="{x:Type element1:ScaleneTailViewModel}">Перекид</s:String>
-        <s:String x:Key="{x:Type element1:DeJabotViewModel}">Де Жабо</s:String>
-        <s:String x:Key="{x:Type element1:ApplicationViewModel}">Аппликация</s:String>
-        <s:String x:Key="{x:Type element1:OverlayViewModel}">Перекрытие</s:String>
-        <s:String x:Key="{x:Type element1:TieBackViewModel}">Подхват</s:String>
+        <s:String x:Key="{x:Type element:ScanViewModel}">Чертеж</s:String>
+        <s:String x:Key="{x:Type element:TulleViewModel}">Тюль</s:String>
+        <s:String x:Key="{x:Type element:PortiereViewModel}">Портьера</s:String>
+        <s:String x:Key="{x:Type element:PanelViewModel}">Панно</s:String>
+        <s:String x:Key="{x:Type element:FilletViewModel}">Багет</s:String>
+        <s:String x:Key="{x:Type element:RomanBlindViewModel}">Римская штора</s:String>
+        <s:String x:Key="{x:Type element:HardPelmetViewModel}">Жесткий ламбрекен</s:String>
+        <s:String x:Key="{x:Type element:EqualSwagViewModel}">Равносторонний сваг</s:String>
+        <s:String x:Key="{x:Type element:EqualTailViewModel}">Равносторонний перекид</s:String>
+        <s:String x:Key="{x:Type element:ScaleneSwagViewModel}">Сваг</s:String>
+        <s:String x:Key="{x:Type element:ScaleneTailViewModel}">Перекид</s:String>
+        <s:String x:Key="{x:Type element:DeJabotViewModel}">Де Жабо</s:String>
+        <s:String x:Key="{x:Type element:ApplicationViewModel}">Аппликация</s:String>
+        <s:String x:Key="{x:Type element:OverlayViewModel}">Перекрытие</s:String>
+        <s:String x:Key="{x:Type element:TieBackViewModel}">Подхват</s:String>
     </spec:ListDictionary>    
 </ResourceDictionary>

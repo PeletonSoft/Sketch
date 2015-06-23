@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Element.Clothe;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
-using PeletonSoft.SketchModel.Interface.Element;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.NotifyChanged;
 

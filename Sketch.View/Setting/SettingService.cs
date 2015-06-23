@@ -29,7 +29,7 @@ namespace PeletonSoft.Sketch.View.Setting
         {
             var service = new SettingService();
 
-            dynamic preferences = settings["Prefereces"];
+            dynamic preferences = settings["Preferences"];
             var args = (string[])settings["Args"];
 
             bool readOnly;

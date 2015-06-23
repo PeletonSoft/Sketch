@@ -110,7 +110,7 @@ namespace PeletonSoft.Sketch.ViewModel.Present
         }
 
         private PresentQuadrangleViewModel _quadrangle;
-        public PresentQuadrangleViewModel Quadrangle
+        public PresentQuadrangleViewModel Quadrangle 
         {
             get
             {

@@ -2,9 +2,8 @@
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.Memento;
-using SketchViewModel.Geometry;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Geometry
+namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
 {
     public class VertexMemento : IMemento<VertexViewModel>
     {

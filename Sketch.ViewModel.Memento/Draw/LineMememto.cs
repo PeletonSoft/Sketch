@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Draw
+namespace PeletonSoft.Sketch.ViewModel.Memento.Draw
 {
     public class LineMememto : IMemento<ILineViewModel>
     {

@@ -1,11 +1,11 @@
-﻿using PeletonSoft.Sketch.ViewMode.Memento.Element.Custom;
-using PeletonSoft.Sketch.ViewMode.Memento.Element.Service;
-using PeletonSoft.Sketch.ViewModel.Element;
+﻿using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Factory;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 {
 
     public sealed class PortiereMemento : CustomElementMemento, IMemento<PortiereViewModel>

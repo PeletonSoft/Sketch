@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using PeletonSoft.Sketch.ViewMode.Memento.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element.Custom
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 {
     public class CustomElementMemento : 
         IMemento<IElementViewModel>, 

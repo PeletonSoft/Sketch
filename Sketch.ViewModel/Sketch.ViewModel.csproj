@@ -59,6 +59,8 @@
     <Compile Include="Element\Clothe\ClotheCalculateStrategy.cs" />
     <Compile Include="Element\Primitive\AlignableHelper.cs" />
     <Compile Include="Element\Primitive\TieBackSideViewModel.cs" />
+    <Compile Include="Element\RomanBlindViewModel.cs" />
+    <Compile Include="Factory\RomanBlindFactoryViewModel.cs" />
     <Compile Include="Geometry\RectangleViewModel.cs" />
     <Compile Include="Geometry\VertexViewModelHelper.cs" />
     <Compile Include="Geometry\WavySurface\BottomViewModel.cs" />

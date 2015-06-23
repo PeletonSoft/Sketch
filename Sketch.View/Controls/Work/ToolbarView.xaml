@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
-             xmlns:viewModel1="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance viewModel1:WorkspaceViewModel}"
+             d:DataContext="{d:DesignInstance viewModel:WorkspaceViewModel}"
              d:DesignHeight="50">
     <WrapPanel Orientation="Horizontal">
         
@@ -17,7 +17,7 @@
 						Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 						Content="Редактор" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <i:Interaction.Behaviors>
-                        <behavior1:ToggleButtonStatePatternBehavior
+                        <behavior:ToggleButtonStatePatternBehavior
 								State="{Binding WorkMode, Mode=TwoWay}"
 								TargetState="{Binding WorkModes.Editor}"/>
                     </i:Interaction.Behaviors>
@@ -26,9 +26,13 @@
 							Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 							Content="Отчет" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <i:Interaction.Behaviors>
-                        <behavior1:ToggleButtonStatePatternBehavior
-								State="{Binding WorkMode, Mode=TwoWay}"
-								TargetState="{Binding WorkModes.Report}"/>
+                        <behavior:ImageCaptureOnButtonClickBehavior 
+                            CurrentControl="{StaticResource CurrentCanvas}"
+                            ImageData="{Binding ImageData, Mode=TwoWay}"
+                            BeforeCommand="{Binding UnselectCommand}"/>
+                        <behavior:ToggleButtonStatePatternBehavior
+						    State="{Binding WorkMode, Mode=TwoWay}"
+							TargetState="{Binding WorkModes.Report}"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
             </StackPanel>
@@ -46,7 +50,14 @@
             <StackPanel Orientation="Horizontal">
                 <Button  Width="110"
                     Content="Сохранить" 
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand}" >
+                    <i:Interaction.Behaviors>
+                        <behavior:ImageCaptureOnButtonClickBehavior 
+                            CurrentControl="{StaticResource CurrentCanvas}"
+                            ImageData="{Binding ImageData, Mode=TwoWay}"
+                            BeforeCommand="{Binding UnselectCommand}"/>
+                    </i:Interaction.Behaviors>
+                </Button>
                 <Button  Width="110"
                     Content="Восстановить" 
                     Command="{Binding RestoreCommand}" />

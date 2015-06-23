@@ -53,6 +53,7 @@
     <Compile Include="Draw\RectHelper.cs" />
     <Compile Include="Draw\PointHelper.cs" />
     <Compile Include="EnumerableHelper.cs" />
+    <Compile Include="ExportHelper.cs" />
     <Compile Include="ICommandFactory.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IViewModel.cs" />

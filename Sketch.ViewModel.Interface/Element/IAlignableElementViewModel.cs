@@ -1,4 +1,4 @@
-﻿using PeletonSoft.SketchModel.Interface.Element;
+﻿using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Tools.Model;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Element

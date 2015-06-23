@@ -14,5 +14,6 @@ namespace PeletonSoft.Sketch.ViewModel.Interface
         IElementListViewModel ElementList { get; }
         FactoryCollection Factories { get; }
         ICommandFactory CommandFactory { get;  }
+        byte[] ImageData { get; set; }
     }
 }

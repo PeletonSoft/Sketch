@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element.Service
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Service
 {
     public static class ElementMementoFactoryService
     {

@@ -506,7 +506,71 @@
             </GroupBox>
         </WrapPanel>
     </DataTemplate>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+    <DataTemplate DataType="{x:Type element:RomanBlindViewModel}">
+        <StackPanel Orientation="Vertical">
+            <WrapPanel>
+                <GroupBox Header="Макет">
+                    <detail1:ElementDetailView />
+                </GroupBox>
+                <GroupBox Header="Характеристики">
+                    <Grid>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" Content="Толщина кулисы" />
+                        <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Content="Высота в сборе" />
+                        <Label Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" Content="Количество волн" />
+                        <controls:NumericBox Grid.Row="0" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding CoulisseThickness, Mode=TwoWay}" />
+                        <controls:NumericBox  Grid.Row="1" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding DenseHeight, Mode=TwoWay}" />
+                        <controls:NumericIntBox  Grid.Row="0" Grid.Column="3" Value="{Binding WaveCount, Mode=TwoWay}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Фигурный край">
+                    <Grid>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Label Content="Высота"/>
+                        <controls:NumericBox 
+                        Grid.Row="0" Grid.Column="1"
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding DecorativeBorder.Height, Mode=TwoWay}" />
+                        <CheckBox 
+                        Grid.Row="1"  Grid.Column="0"
+                        IsChecked="{Binding DecorativeBorder.IsEdited}"
+                        Style="{StaticResource {x:Static ToolBar.CheckBoxStyleKey}}" 
+                        Content="Редактировать"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Ткань">
+                    <detail1:ClotheView />
+                </GroupBox>
+                <GroupBox Header="Описание">
+                    <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
+                </GroupBox>
+            </WrapPanel>
+            <GroupBox Header="Геометрия фигурного края"
+                  Visibility="{Binding DecorativeBorder.IsEdited, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <detail1:DecorativeBorderView DataContext="{Binding DecorativeBorder, Converter={StaticResource ViewModelToVisualConverter}}"/>
+            </GroupBox>
 
+        </StackPanel>
+    </DataTemplate>
+    
     <DataTemplate DataType="{x:Type custom:AlignableElementViewModel}">
         <WrapPanel>
             <GroupBox Header="Макет">

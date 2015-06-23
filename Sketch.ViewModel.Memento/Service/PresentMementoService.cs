@@ -4,7 +4,7 @@ using System.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Service
+namespace PeletonSoft.Sketch.ViewModel.Memento.Service
 {
     public class PresentMementoService : IMementoService<IPresentViewModel>
     {

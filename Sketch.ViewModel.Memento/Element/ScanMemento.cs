@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using PeletonSoft.Sketch.ViewMode.Memento.Element.Custom;
-using PeletonSoft.Sketch.ViewMode.Memento.Element.Service;
-using PeletonSoft.Sketch.ViewMode.Memento.Geometry;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Factory;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
+using PeletonSoft.Sketch.ViewModel.Memento.Geometry;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 {
     public sealed class ScanMemento : CustomElementMemento, IMemento<ScanViewModel>
     {

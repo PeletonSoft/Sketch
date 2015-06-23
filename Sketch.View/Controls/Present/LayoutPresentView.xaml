@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewModel.Present;assembly=Sketch.ViewModel"
-             xmlns:present1="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
+             xmlns:view="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
+             xmlns:tools="clr-namespace:PeletonSoft.Tools.View;assembly=Tools.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance present:LayoutPresentViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -22,10 +25,14 @@
                     </TransformGroup>
                 </Viewbox.LayoutTransform>
 
-                <present1:CanvasView
+                <view:CanvasView
                             Screen="{Binding Screen, Converter={StaticResource ViewModelToVisualConverter}}" 
                             DataContext="{Binding Workspace.ElementList}" 
-                            HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <i:Interaction.Behaviors>
+                        <behavior:SetCurrentOnLoadedBehavior CurrentControl="{StaticResource CurrentCanvas}"/>
+                    </i:Interaction.Behaviors>
+                </view:CanvasView>
             </Viewbox>
         </ScrollViewer>
     </Grid>

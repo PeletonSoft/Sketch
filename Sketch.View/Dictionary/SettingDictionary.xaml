@@ -3,13 +3,14 @@
                     xmlns:s="clr-namespace:System;assembly=mscorlib"
                     xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
                     xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
-                    xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.Element;assembly=Sketch.ViewMode.Memento"
+                    xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Element;assembly=Sketch.ViewModel.Memento"
                     xmlns:setting="clr-namespace:PeletonSoft.Sketch.View.Setting"
-                    xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.Present;assembly=Sketch.ViewMode.Memento"
-                    xmlns:workMode="clr-namespace:PeletonSoft.Sketch.ViewMode.Memento.WorkMode;assembly=Sketch.ViewMode.Memento"
+                    xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Present;assembly=Sketch.ViewModel.Memento"
+                    xmlns:workMode="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.WorkMode;assembly=Sketch.ViewModel.Memento"
                     xmlns:register="clr-namespace:PeletonSoft.Tools.Model.Register;assembly=Tools.Model"
                     xmlns:visual="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual;assembly=Sketch.ViewModel.Visual"
-                    xmlns:model="clr-namespace:PeletonSoft.Tools.Model;assembly=Tools.Model">
+                    xmlns:model="clr-namespace:PeletonSoft.Tools.Model;assembly=Tools.Model"
+                    xmlns:view="clr-namespace:PeletonSoft.Tools.View;assembly=Tools.View">
     
     <s:Int32 x:Key="PixelPerUnit">200</s:Int32>
     <s:Int32 x:Key="PointCount">20</s:Int32>
@@ -26,6 +27,7 @@
     <s:Double x:Key="MinusRadianToDegree">-57.295779513082320876798154814105</s:Double>
     <s:Double x:Key="RadianToDegree">-57.295779513082320876798154814105</s:Double>
 
+    <view:CurrentControl x:Key="CurrentCanvas"/>
     <visual:VisualOptions x:Key="VisualOptions">
         <visual:VisualOptions.PixelPerUnit>
             <model:PixelPerUnit Value="{StaticResource PixelPerUnit}"/>
@@ -62,6 +64,7 @@
         <element:ScanMementoRegister/>
         <element:OverlayMementoRegister/>
         <element:TieBackMementoRegister/>
+        <element:RomanBlindMementoRegister/>
         <present:LayoutPresentMementoRegister/>
         <present:PreviewPresentMementoRegister/>
         <workMode:ReportWorkModeMementoRegister/>

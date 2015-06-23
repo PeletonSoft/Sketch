@@ -8,12 +8,39 @@ namespace PeletonSoft.Tools.Model.Draw.Wave
 {
     public static class WavySurfaceHelper
     {
+        /// <summary>
+        /// Vertical concat
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
         public static IWavyBorder<IEnumerable<Point>> Glue(
             this IWavyBorder<IEnumerable<Point>> first,
             IWavyBorder<IEnumerable<Point>> second)
         {
-            return first.Zip(second, (f, s) => f.Glue(s));
+            return first.Zip(second, (f, s) => f.Init().Concat(s));
         }
+
+        /// <summary>
+        /// Horizontal concat
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static IWavyBorder<IEnumerable<Point>> Merge(
+            this IWavyBorder<IEnumerable<Point>> first,
+            IWavyBorder<IEnumerable<Point>> second)
+        {
+            var left = first.Bottoms.Last();
+            var right = second.Bottoms.First();
+            var middle = new Bottom<IEnumerable<Point>>(left.Start, right.Finish); 
+            var bottoms = (first.Bottoms.Init())
+                .Concat(new[]{middle})
+                .Concat(second.Bottoms.Tail());
+            var waves = first.Waves.Concat(second.Waves);
+            return new WavyBorder<IEnumerable<Point>>(waves,bottoms);
+        }
+
 
         public static IWavyBorder<Point> Start(
             this IWavyBorder<IEnumerable<Point>> wavySurface)

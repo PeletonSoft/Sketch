@@ -1,7 +1,7 @@
 ﻿using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element.Service
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Service
 {
     public class ElementMementoRecord
     {

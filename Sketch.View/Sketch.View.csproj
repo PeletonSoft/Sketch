@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Sketch.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -522,6 +525,15 @@
       <Project>{42867c6c-713e-4407-9d47-2226c601fb4a}</Project>
       <Name>Tools.View</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\RomanBlind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Element\RomanTexture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sketch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

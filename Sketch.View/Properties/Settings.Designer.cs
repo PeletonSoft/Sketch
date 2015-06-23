@@ -34,15 +34,12 @@ namespace PeletonSoft.Sketch.View.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("D:\\xml")]
         public string SavePath {
             get {
                 return ((string)(this["SavePath"]));
-            }
-            set {
-                this["SavePath"] = value;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -76,7 +77,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
                 var connectStrategy = VerticalWavyBorder
                     .Transform(y0 => (IConnectStrategy) new CatenaryY0ConnectStrategy(y0, PointCount, true));
                 var builder = new WavySurfaceBuilder(LeftWawyBorder, RightWavyBorder, connectStrategy);
-                return builder.WavySurface;
+                var surface = builder.WavySurface;
+                //var waves = surface.Waves.ToArray();
+                return surface;
             }
         }
 

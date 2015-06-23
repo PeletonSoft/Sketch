@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using PeletonSoft.Sketch.ViewMode.Memento.Geometry;
-using PeletonSoft.Sketch.ViewMode.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Memento.Geometry;
+using PeletonSoft.Sketch.ViewModel.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.Present;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Present
+namespace PeletonSoft.Sketch.ViewModel.Memento.Present
 {
     public sealed class PreviewPresentMemento : PresentMemento, IMemento<PreviewPresentViewModel>
     {

@@ -19,7 +19,7 @@ namespace PeletonSoft.Sketch.View
             var settings = new Dictionary<string, object>
             {
                 {"Args", e.Args},
-                {"Prefereces", Settings.Default}
+                {"Preferences", Settings.Default}
             };
 
             var register = (ISettingRegister)Resources["SettingRegister"];

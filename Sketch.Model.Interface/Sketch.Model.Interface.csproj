@@ -7,8 +7,8 @@
     <ProjectGuid>{2F4BE5AB-9FF4-45B5-8B8B-CACA40914E14}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PeletonSoft.SketchModel.Interface</RootNamespace>
-    <AssemblyName>SketchModel.Interface</AssemblyName>
+    <RootNamespace>PeletonSoft.Sketch.Model.Interface</RootNamespace>
+    <AssemblyName>Sketch.Model.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>

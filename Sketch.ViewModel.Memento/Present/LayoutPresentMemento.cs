@@ -1,9 +1,9 @@
-﻿using PeletonSoft.Sketch.ViewMode.Memento.Service;
-using PeletonSoft.Sketch.ViewModel.Interface;
+﻿using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.Present;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Present
+namespace PeletonSoft.Sketch.ViewModel.Memento.Present
 {
     public sealed class LayoutPresentMemento : PresentMemento, IMemento<LayoutPresentViewModel>
     {

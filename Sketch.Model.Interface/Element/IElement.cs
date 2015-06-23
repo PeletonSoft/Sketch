@@ -1,4 +1,4 @@
-﻿namespace PeletonSoft.SketchModel.Interface.Element
+﻿namespace PeletonSoft.Sketch.Model.Interface.Element
 {
     public interface IElement
     {

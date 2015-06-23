@@ -7,8 +7,8 @@
     <ProjectGuid>{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PeletonSoft.Sketch.ViewMode.Memento</RootNamespace>
-    <AssemblyName>Sketch.ViewMode.Memento</AssemblyName>
+    <RootNamespace>PeletonSoft.Sketch.ViewModel.Memento</RootNamespace>
+    <AssemblyName>Sketch.ViewModel.Memento</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -66,6 +66,7 @@
     <Compile Include="Element\Primitive\DecorativeBorderMemento.cs" />
     <Compile Include="Element\Primitive\ShoulderMemento.cs" />
     <Compile Include="Element\Primitive\TieBackSideMemento.cs" />
+    <Compile Include="Element\RomanBlindMemento.cs" />
     <Compile Include="Element\ScaleneSwagMemento.cs" />
     <Compile Include="Element\ScaleneTailMemento.cs" />
     <Compile Include="Element\EqualTailMemento.cs" />

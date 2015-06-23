@@ -95,31 +95,43 @@ namespace PeletonSoft.Tools.Model.SketchMath
         public static Catenary FromY0(double x1, double y1, double x2, double y2, double y0)
         {
             double left = 1;
-
             var catenary = Catenary.FromTwoPoint(x1, y1, x2, y2, left);
             var leftY0 = catenary.Y0;
+            var leftX0 = catenary.X0;
 
-            var right = left;
-            var rightY0 = leftY0;
-
-            while (leftY0 > y0)
+            while (leftY0 > y0 || leftX0 < x1 || leftX0 > x2)
             {
-                right = left;
-                rightY0 = leftY0;
                 left = left / 2;
                 catenary = FromTwoPoint(x1, y1, x2, y2, left);
                 leftY0 = catenary.Y0;
+                leftX0 = catenary.X0;
             }
 
-            while (rightY0 < y0)
-            {
-                left = right;
-                right = right * 2;
-                catenary = FromTwoPoint(x1, y1, x2, y2, right);
-                rightY0 = catenary.Y0;
-            }
+            var right = left;
+            catenary = Catenary.FromTwoPoint(x1, y1, x2, y2, right);
+            var rightY0 = catenary.Y0;
+            var rightX0 = catenary.X0;
 
             var limit = LimitDepth;
+            var step = 1.0;
+            while (limit > 0 && (rightY0 < y0 || rightX0 < x1 || rightX0 > x2))
+            {
+                var next = right * (1 + step);
+                catenary = Catenary.FromTwoPoint(x1, y1, x2, y2, next);
+                if (catenary.X0 >= x1 && catenary.X0 <= x2)
+                {
+                    right = next;
+                    rightY0 = catenary.Y0;
+                    rightX0 = catenary.X0;
+                }
+                else
+                {
+                    step = step / 2;
+                }
+                limit--;
+            }
+
+            limit = LimitDepth;
             while (limit > 0)
             {
                 var middle = (left + right) / 2;
@@ -137,11 +149,6 @@ namespace PeletonSoft.Tools.Model.SketchMath
 
             var a = (left + right) / 2;
             return FromTwoPoint(x1, y1, x2, y2, a);
-        }
-
-        public static Catenary FromLRD(double start, double finish, double depth)
-        {
-            return FromY0(start, 0, finish, 0, -depth);
         }
 
         public IEnumerable<Point> Points(double x1, double x2, int segmentCount)

@@ -1,27 +1,33 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
     public class WorkspaceViewModel : IWorkspaceViewModel
     {
+        #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.OnPropertyChanged(PropertyChanged, propertyName);
         }
+
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            return notificator.SetField(ref field, value);
+        }
+        #endregion
 
         public ISettingProvider SettingProvider { get; set; }
 
@@ -42,6 +48,8 @@ namespace PeletonSoft.Sketch.ViewModel
                     () => !SettingProvider.GetSettingData().ReadOnly));
             _restoreCommandLazy = new Lazy<ICommand>(() =>
                 CommandFactory.CreateCommand(Restore));
+            _unselectCommandLazy = new Lazy<ICommand>(() =>
+                CommandFactory.CreateCommand(() => ElementList.SelectedIndex = -1));
 
             ElementList = new ElementListViewModel(new WorkspaceBit(this));
         }
@@ -55,34 +63,27 @@ namespace PeletonSoft.Sketch.ViewModel
         private IPresentViewModel _present;
         public IPresentViewModel Present
         {
-            get
-            {
-                return _present;
-            }
-            set
-            {
-                if (value != _present)
-                {
-                    _present = value;
-                    OnPropertyChanged("Present");
-                }
-            }
+            get { return _present; }
+            set { SetField(ref _present, value); }
         }
+
+        private byte[] _imageData;
+        public byte[] ImageData
+        {
+            get { return _imageData; }
+            set { SetField(ref _imageData, value); }
+        }
+
         public IContainerOriginator<IWorkModeViewModel> WorkModes { get; private set; }
 
         private IWorkModeViewModel _workMode;
         public IWorkModeViewModel WorkMode
         {
-            get
-            {
-                return _workMode;
-            }
+            get{return _workMode;}
             set
             {
-                if (value != _workMode)
+                if (SetField(ref _workMode, value))
                 {
-                    _workMode = value;
-                    OnPropertyChanged("WorkMode");
                     if (ElementList != null)
                     {
                         ElementList.SelectedIndex = -1;
@@ -103,6 +104,11 @@ namespace PeletonSoft.Sketch.ViewModel
         public ICommand RestoreCommand
         {
             get { return _restoreCommandLazy.Value; }
+        }
+        private readonly Lazy<ICommand> _unselectCommandLazy;
+        public ICommand UnselectCommand
+        {
+            get { return _unselectCommandLazy.Value; }
         }
 
         public void Save()
@@ -128,6 +134,7 @@ namespace PeletonSoft.Sketch.ViewModel
             }
 
             Caretaker.Save(path);
+            ImageData.ExportToFile(Path.Combine(path, "content.png"));
         }
 
         public void Restore()
@@ -135,14 +142,14 @@ namespace PeletonSoft.Sketch.ViewModel
             var settingData = SettingProvider.GetSettingData();
             var path = settingData.GetOrderSavePath();
 
-            if (!Directory.Exists(path) || 
-                !File.Exists(Path.Combine(path,"content.xml")))
+            if (!Directory.Exists(path) ||
+                !File.Exists(Path.Combine(path, "content.xml")))
             {
                 return;
             }
 
-                Caretaker.Load(path);
-                Caretaker.SetState(this);
+            Caretaker.Load(path);
+            Caretaker.SetState(this);
         }
 
         public WorkspaceCaretaker Caretaker { get; set; }

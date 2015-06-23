@@ -41,5 +41,18 @@ namespace PeletonSoft.Tools.Model
 
         }
 
+        public static T Head<T>(this IEnumerable<T> list)
+        {
+            return list.First();
+        }
+
+        public static IEnumerable<T> Tail<T>(this IEnumerable<T> list)
+        {
+            return list.Where((e, i) => i > 0);
+        }
+        public static IEnumerable<T> Init<T>(this IEnumerable<T> list)
+        {
+            return list.Reverse().Tail().Reverse();
+        }
     }
 }

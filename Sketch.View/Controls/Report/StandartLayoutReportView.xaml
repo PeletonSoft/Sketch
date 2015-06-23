@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
              xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
-             xmlns:present="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance viewModel:WorkspaceViewModel}"
              d:DesignHeight="300" d:DesignWidth="700">
     <UserControl.Resources>
         <converter:FitInRectangleConverter x:Key="FitInRectangleConverter" />
         <converter:StringFormatConverter x:Key="StringFormatConverter"/>
+        <converter:ImageSourceConverter x:Key="ImageSourceConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -47,44 +47,26 @@
         </StackPanel>
         
         <Grid Grid.Column="0" Grid.Row="1" Name="PresentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Viewbox Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Viewbox.LayoutTransform>
-                        <TransformGroup>
-                            <ScaleTransform
-                                    ScaleX="0.3"
-                                    ScaleY="0.3" />
-                        </TransformGroup>
-                    </Viewbox.LayoutTransform>
-                    <Grid Name="View">
-                    <present:CanvasView 
-                        Screen="{Binding Screen, Converter={StaticResource ViewModelToVisualConverter}}"                         
-                        DataContext="{Binding ElementList}" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top">
-                    </present:CanvasView>
-                </Grid>
-            </Viewbox>
-            <Rectangle Visibility="Visible"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top">
-                <Rectangle.Fill><VisualBrush Visual="{Binding ElementName=View}"/></Rectangle.Fill>
-                <Rectangle.Width>
+            
+            <Image Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   Source="{Binding ImageData, Converter={StaticResource ImageSourceConverter}}">
+                <Image.Width>
                     <MultiBinding Converter="{StaticResource FitInRectangleConverter}">
                         <Binding Path="Screen.Width"/>
                         <Binding Path="Screen.Height"/>
                         <Binding ElementName="PresentGrid" Path="ActualWidth"/>
                         <Binding ElementName="PresentGrid" Path="ActualHeight"/>
                     </MultiBinding>
-                </Rectangle.Width>
-                <Rectangle.Height>
+                </Image.Width>
+                <Image.Height>
                     <MultiBinding Converter="{StaticResource FitInRectangleConverter}">
                         <Binding Path="Screen.Height"/>
                         <Binding Path="Screen.Width"/>
                         <Binding ElementName="PresentGrid" Path="ActualHeight"/>
                         <Binding ElementName="PresentGrid" Path="ActualWidth"/>
                     </MultiBinding>
-                </Rectangle.Height>
-            </Rectangle>
+                </Image.Height>
+            </Image>
         </Grid>
         
         <ListBox Grid.Column="1"  Grid.Row="0" Grid.RowSpan="2"

@@ -9,7 +9,7 @@ namespace PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder
             IExtraStrategy extraStrategy)
             : base(parameters, extraStrategy)
         {
-            WavyBorderOffset = new WavyBorderOffset(WaveHeight, -1);
+            WavyBorderOffset = new WavyBorderOffset(WaveHeight, -0.8);
         }
 
         protected override WavyBorder<Position> Calculate()

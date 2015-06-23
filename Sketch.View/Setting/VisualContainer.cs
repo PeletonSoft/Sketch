@@ -31,7 +31,8 @@ namespace PeletonSoft.Sketch.View.Setting
                 .Register<PortiereViewModel>(el => new PortiereVisualViewModel(Options, el))
                 .Register<ScanViewModel>(el => new ScanVisualViewModel(Options, el))
                 .Register<TieBackViewModel>(el => new TieBackVisualViewModel(Options, el))
-                .Register<TulleViewModel>(el => new TulleVisualViewModel(Options, el));
+                .Register<TulleViewModel>(el => new TulleVisualViewModel(Options, el))
+                .Register<RomanBlindViewModel>(el => new RomanBlindVisualViewModel(Options, el));
         }
     }
 }

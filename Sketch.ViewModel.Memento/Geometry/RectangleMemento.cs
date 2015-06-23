@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Geometry
+namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
 {
     public class RectangleMemento : IMemento<RectangleViewModel>
     {
@@ -27,10 +27,13 @@ namespace PeletonSoft.Sketch.ViewMode.Memento.Geometry
 
         public void SetState(RectangleViewModel originator)
         {
-            TopLeft.SetState(originator.TopLeft);
-            BottomRight.SetState(originator.BottomRight);
-            TopRight.SetState(originator.TopRight);
-            BottomLeft.SetState(originator.BottomLeft);
+            if (originator != null)
+            {
+                TopLeft.SetState(originator.TopLeft);
+                BottomRight.SetState(originator.BottomRight);
+                TopRight.SetState(originator.TopRight);
+                BottomLeft.SetState(originator.BottomLeft);
+            }
         }
 
         public IEnumerable<string> GetFiles()

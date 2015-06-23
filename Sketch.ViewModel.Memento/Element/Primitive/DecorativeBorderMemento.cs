@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.Element.Primitive
+namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive
 {
     public class DecorativeBorderMemento : IMemento<DecorativeBorderViewModel>
     {

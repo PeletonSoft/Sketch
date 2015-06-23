@@ -10,12 +10,12 @@
     
     <DataTemplate DataType="{x:Type element2:FilletVisualViewModel}">
         <view1:ElementView
-            ImageSource="/SketchView;component/Images/Element/Fillet.png"/>
+            ImageSource="/Sketch.View;component/Images/Element/Fillet.png"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type element2:PortiereVisualViewModel}">
         <view1:ElementTileView 
-            ImageSource="/SketchView;component/Images/Element/Portiere.png"/>
+            ImageSource="/Sketch.View;component/Images/Element/Portiere.png"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type element2:ScanVisualViewModel}">
@@ -24,7 +24,7 @@
     
     <DataTemplate DataType="{x:Type element2:TulleVisualViewModel}">
         <view1:ElementTileView
-            ImageSource="/SketchView;component/Images/Element/Tulle.png"/>
+            ImageSource="/Sketch.View;component/Images/Element/Tulle.png"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type element2:DeJabotVisualViewModel}">
@@ -33,7 +33,7 @@
 
     <DataTemplate DataType="{x:Type element2:PanelVisualViewModel}">
         <view1:ElementView
-            ImageSource="/SketchView;component/Images/Element/Panel.png"/>
+            ImageSource="/Sketch.View;component/Images/Element/Panel.png"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type element2:HardPelmetVisualViewModel}">
@@ -63,11 +63,30 @@
             <Polygon Points="{Binding Lane, Converter={StaticResource PointCollectionConverter}}" Opacity="0.8">
                 <Polygon.Fill>
                     <ImageBrush Viewport="0,0,50,50"
-                        ImageSource="/SketchView;component/Images/Element/Fillet.png"
+                        ImageSource="/Sketch.View;component/Images/Element/Fillet.png"
                         ViewportUnits="Absolute" TileMode="Tile"/>
                 </Polygon.Fill>
             </Polygon>
             <view1:DisabledFocusView/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element2:RomanBlindVisualViewModel}">
+        <Grid>
+            <view1:WavySurfaceView DataContext="{Binding WavySurface}"/>
+            <Polygon Points="{Binding Circuit, Converter={StaticResource PointCollectionConverter}}" Opacity="0.4">
+                <Polygon.Fill>
+                    <ImageBrush Viewport="0,0,100,100"
+                        ImageSource="/Sketch.View;component/Images/Element/RomanTexture.png"
+                        ViewportUnits="Absolute" TileMode="Tile"/>
+                </Polygon.Fill>
+            </Polygon>
+            <Polygon Points="{Binding Points, Converter={StaticResource PointCollectionConverter}}" Opacity="0.6">
+                <Polygon.Fill>
+                    <ImageBrush ImageSource="/Sketch.View;component/Images/Element/Fillet.png"/>
+                </Polygon.Fill>
+            </Polygon>
+            <view1:DisabledFocusView/>            
         </Grid>
     </DataTemplate>
 

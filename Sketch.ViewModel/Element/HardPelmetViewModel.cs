@@ -20,14 +20,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                         new Point
                         {
                             X = point.X,
-                            Y = point.Y + Layout.Height - DecorativeBorder.Height
+                            Y = point.Y + Height - DecorativeBorder.Height
                         };
                 var decorative = DecorativeBorder.Points.Select(transformer);
 
                 var points = new List<Point>
                 {
                     new Point(0, 0),
-                    new Point(Screen.Width, 0)
+                    new Point(Width, 0)
                 };
 
                 return points.Concat(decorative.Reverse());

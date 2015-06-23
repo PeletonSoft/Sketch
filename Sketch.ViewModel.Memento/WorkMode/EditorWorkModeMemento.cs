@@ -1,8 +1,8 @@
-﻿using PeletonSoft.Sketch.ViewMode.Memento.Service;
+﻿using PeletonSoft.Sketch.ViewModel.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.WorkMode;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento.WorkMode
+namespace PeletonSoft.Sketch.ViewModel.Memento.WorkMode
 {
     public class EditorWorkModeMemento : WorkModeMemento
     {

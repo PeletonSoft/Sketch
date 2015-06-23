@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using PeletonSoft.Sketch.ViewMode.Memento.Container;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Memento.Container;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Sketch.ViewMode.Memento
+namespace PeletonSoft.Sketch.ViewModel.Memento
 {
     public class WorkspaceMemento : IMemento<IWorkspaceViewModel>
     {
