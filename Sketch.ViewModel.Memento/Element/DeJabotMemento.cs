@@ -6,6 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
 using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element
@@ -49,7 +50,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 
         }
 
-        public override XElement GetXml(Dictionary<string, string> files)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
             var xml = base.GetXml(files);
 

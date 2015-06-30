@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.OverlayDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:text="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Text"
+             xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance element:OverlayViewModel}"
+             d:DesignHeight="200" d:DesignWidth="500">
+    <WrapPanel>
+        <GroupBox Header="Макет">
+            <ComboBox 
+                    ItemsSource="{Binding Below}" 
+                    SelectedIndex="{Binding SelectedIndex}"
+                    Width="150">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <text:ElementLabelView/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </GroupBox>
+        <GroupBox Header="Перекрытие">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label VerticalContentAlignment="Center" Content="Ширина" />
+                <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Content="Высота" />
+                <Label Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" Content="X-сдвиг" />
+                <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" Content="Y-сдвиг" />
+                <controls:NumericBox Grid.Row="0" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverWidth, Mode=TwoWay}" />
+                <controls:NumericBox Grid.Column="1" Grid.Row="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverHeight, Mode=TwoWay}" />
+                <controls:NumericBox Grid.Row="0" Grid.Column="3" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverOffsetX, Mode=TwoWay}" />
+                <controls:NumericBox Grid.Column="3" Grid.Row="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverOffsetY, Mode=TwoWay}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Описание">
+            <detail:DescriptionView  Width="400" Height="Auto"/>
+        </GroupBox>
+    </WrapPanel>
+</UserControl>

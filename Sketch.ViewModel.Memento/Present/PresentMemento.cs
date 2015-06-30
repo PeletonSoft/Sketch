@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Present
@@ -20,12 +21,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Present
             originator.Zoom = Zoom;
         }
 
-        public virtual IEnumerable<string> GetFiles()
+        public virtual IEnumerable<IFileBox> GetFiles()
         {
             return null;
         }
 
-        public virtual XElement GetXml(Dictionary<string, string> files)
+        public virtual XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 new XElement("Zoom", Zoom)

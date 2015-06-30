@@ -4,8 +4,7 @@ using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
-using PeletonSoft.Sketch.ViewModel.Element.Outline.Primitive;
-using PeletonSoft.Sketch.ViewModel.Element.Transformation.Primitive;
+using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
@@ -24,7 +23,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Transformation = Transformations.Same;
 
             this.SetPropertyChanged(
-                new[] {"Thickness", "Outline", "Transformation"},
+                new[] { "Thickness", "Outline", "Transformation" },
                 () => OnPropertyChanged("Points"));
             this.SetPropertyChanged(new[] {"Width", "Height"}, SizePropertyChanged);
         }
@@ -57,7 +56,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         private TransformationViewModel _transformation;
-
         public TransformationViewModel Transformation
         {
             get { return _transformation; }
@@ -84,7 +82,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         {
             get
             {
-                var points = Outline.GetPoints(Layout.Width, Layout.Height, Thickness);
+                var points = Outline.GetPoints(new Size(Width, Height), Thickness);
                 return Transformation.GetPoints(points, Layout);
             }
         }

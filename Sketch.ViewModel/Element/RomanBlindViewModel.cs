@@ -23,7 +23,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             WaveCount = 5;
             CoulisseThickness = 0.1;
             DenseHeight = 0.8*Height;
-            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit) {Width = Width, Height = 0.3*Height};
+            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit) {Width = Width, Height = 0};
 
             this.SetPropertyChanged(
                 new[] {"Width", "Height", "CoulisseThickness", "DenseHeight", "WaveCount"},

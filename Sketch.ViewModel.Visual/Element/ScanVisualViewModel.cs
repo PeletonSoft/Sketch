@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
@@ -17,19 +19,19 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         {
             switch (args.PropertyName)
             {
-                case "RectangleSize" :
+                case "Rectangle" :
                     OnPropertyChanged("Clip");
                     OnPropertyChanged("ScaleX");
                     OnPropertyChanged("ScaleY");
+                    OnPropertyChanged("Angle");
+                    OnPropertyChanged("Center");
+                    OnPropertyChanged("Shift");
                     break;
                 case "FileName":
                     OnPropertyChanged("FileName");
                     break;
-                case "ImageWidth":
-                    OnPropertyChanged("ImageWidth");
-                    break;
-                case "ImageHeight":
-                    OnPropertyChanged("ImageHeight");
+                case "ImageBox":
+                    OnPropertyChanged("ImageBox");
                     break;
                 case "Width":
                     OnPropertyChanged("ScaleX");
@@ -37,13 +39,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
                 case "Height":
                     OnPropertyChanged("ScaleY");
                     break;
-                case "RectangleAngle":
-                    OnPropertyChanged("Angle");
-                    break;
-                case "RectangleCenter":
-                    OnPropertyChanged("Center");
-                    break;
-
             }
         }
 
@@ -59,8 +54,8 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         {
             get
             {
-                var size = Element.RectangleSize;
-                return new Rect(0, 0, size.X, size.Y);
+                var size = Element.Rectangle.Size;
+                return new Rect(0, 0, size.Width, size.Height);
             }
         }
 
@@ -68,9 +63,8 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         {
             get
             {
-                var pixelPerUnit = VisualOptions.PixelPerUnit;
-                var size = Element.RectangleSize;
-                return size.X > 0 ? pixelPerUnit.Value * Element.Width / size.X : 0;
+                var size = Element.Rectangle.Size;
+                return size.Width > 0 ? Layout.Width / size.Width : 0;
             }
         }
 
@@ -78,50 +72,29 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         {
             get
             {
-                var pixelPerUnit = VisualOptions.PixelPerUnit;
-                var size = Element.RectangleSize;
-                return size.Y > 0 ? pixelPerUnit.Value * Element.Height / size.Y : 0;
+                var size = Element.Rectangle.Size;
+                return size.Height > 0 ? Layout.Height / size.Height : 0;
             }
         }
 
         public double Angle
         {
-            get
-            {
-                return Element.RectangleAngle;
-            }
+            get { return -Element.Rectangle.Angle*180/Math.PI; }
         }
 
         public Point Center
         {
-            get
-            {
-                return Element.RectangleCenter;
-            }
+            get { return Element.Rectangle.Center; }
         }
 
-        public double ImageWidth
+        public Point Shift
         {
-            get
-            {
-                return Element.ImageWidth;
-            }
+            get { return new Point(-Center.X, -Center.Y); }
         }
 
-        public double ImageHeight
+        public ImageBox ImageBox
         {
-            get
-            {
-                return Element.ImageHeight;
-            }
-        }
-
-        public string FileName
-        {
-            get
-            {
-                return Element.FileName;
-            }
+            get { return Element.ImageBox; }
         }
     }
 }

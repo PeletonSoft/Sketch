@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element;
-using PeletonSoft.Sketch.ViewModel.Element.Outline.Primitive;
-using PeletonSoft.Sketch.ViewModel.Element.Transformation.Primitive;
+using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Factory;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element
@@ -49,7 +49,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
             originator.Transformation =
                 Transformation.SetByTypeName<TransformationViewModel>(originator.Transformations);
         }
-        public override XElement GetXml(Dictionary<string, string> files)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
             var xml = base.GetXml(files);
 

@@ -74,7 +74,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Height = 0.5 * Screen.Height;
 
             DecorativeBorder.Width = Width;
-            DecorativeBorder.Height = 0.3 * Height;
+            DecorativeBorder.Height = 0;
             DecorativeBorder.ResetChains();
         }
     }

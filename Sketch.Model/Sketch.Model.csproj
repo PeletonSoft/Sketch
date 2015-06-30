@@ -44,13 +44,27 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Element\Application.cs" />
     <Compile Include="Element\Custom\AlignableElement.cs" />
     <Compile Include="Element\Custom\Element.cs" />
-    <Compile Include="Element\Custom\Portiere.cs" />
+    <Compile Include="Element\Outline\BandOutline.cs" />
+    <Compile Include="Element\Outline\HexagonOutline.cs" />
+    <Compile Include="Element\Outline\HRectangleOutline.cs" />
+    <Compile Include="Element\Outline\ParallelogramOutline.cs" />
+    <Compile Include="Element\Outline\TrapeziumOutline.cs" />
+    <Compile Include="Element\Outline\TriangleOutline.cs" />
+    <Compile Include="Element\Outline\VRectangleOutline.cs" />
+    <Compile Include="Element\Portiere.cs" />
     <Compile Include="Element\Custom\Sheet.cs" />
+    <Compile Include="Element\Primitive\Outline.cs" />
+    <Compile Include="Element\Primitive\Transformation.cs" />
+    <Compile Include="Element\Transformation\VFlipTransformation.cs" />
+    <Compile Include="Element\Transformation\DFlipTransformation.cs" />
+    <Compile Include="Element\Transformation\HFlipTransformation.cs" />
+    <Compile Include="Element\Transformation\SameTransformation.cs" />
     <Compile Include="Element\Tulle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +78,7 @@
       <Name>Tools.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

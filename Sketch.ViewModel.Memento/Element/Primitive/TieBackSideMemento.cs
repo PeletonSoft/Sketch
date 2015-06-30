@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive
@@ -21,12 +22,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive
             originator.TailScatter = TailScatter;
         }
 
-        public IEnumerable<string> GetFiles()
+        public IEnumerable<IFileBox> GetFiles()
         {
             return null;
         }
 
-        public XElement GetXml(Dictionary<string, string> files)
+        public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 new XElement("TailScatter", TailScatter),

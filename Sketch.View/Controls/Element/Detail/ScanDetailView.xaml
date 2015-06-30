@@ -4,170 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:pushBinding1="clr-namespace:PeletonSoft.Tools.View.PushBinding;assembly=Tools.View"
-             xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
-             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
-             xmlns:custom1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:vm="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
              xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
-             xmlns:detail1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
+             xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance element:ScanViewModel}" >
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <converter1:TranslationConverter x:Key="TranslationConverter"/>
-            <converter1:PointCollectionConverter x:Key="PointCollectionConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <WrapPanel>
-        <GroupBox Header="Макет">
-            <detail1:ElementDetailView d:DataContext="{d:DesignInstance custom1:AlignableElementViewModel}" />
-        </GroupBox>
-        <GroupBox Header="Избражение">
-            <Grid>
-                <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                </Grid.RowDefinitions>
-                <Button Content="Открыть..." >
-                    <i:Interaction.Behaviors>
-                        <behavior1:OpenImageFileBehavior
+    <StackPanel Orientation="Vertical">
+        <WrapPanel>
+            <GroupBox Header="Макет">
+                <detail:ElementDetailView d:DataContext="{d:DesignInstance vm:AlignableElementViewModel}" />
+            </GroupBox>
+            <GroupBox Header="Избражение">
+                <Grid>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Button Content="Открыть..." >
+                        <i:Interaction.Behaviors>
+                            <behavior:OpenImageFileBehavior
                         Command="{Binding OpenFileCommand}"/>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button Grid.Row="0" Grid.Column="1" Content="Вставить" >
-                    <i:Interaction.Behaviors>
-                        <behavior1:PasteImageFileBehavior
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Вставить" >
+                        <i:Interaction.Behaviors>
+                            <behavior:PasteImageFileBehavior
                         Command="{Binding OpenFileCommand}"/>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <CheckBox 
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <CheckBox 
                         Grid.Row="1" Grid.Column="0"
                         IsChecked="{Binding CropVisible, Mode=TwoWay}"
                         Style="{StaticResource {x:Static ToolBar.CheckBoxStyleKey}}"  
                         Content="Кадрировать" HorizontalAlignment="Stretch"/>
-            </Grid>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Описание">
+                <detail:DescriptionView  Width="400" Height="Auto"/>
+            </GroupBox>
+        </WrapPanel>
+        <GroupBox Header="Кадрирование" 
+                  Visibility="{Binding CropVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <detail:RectangleCropImageView/>            
         </GroupBox>
-        <GroupBox Header="Описание">
-            <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-        </GroupBox>
-        <GroupBox Header="Кадрирование">
-            <GroupBox.Visibility>
-                <Binding Path="CropVisible" Converter="{StaticResource BooleanToVisibilityConverter}" />
-            </GroupBox.Visibility>
-            <StackPanel Orientation="Vertical" >
-                <StackPanel Orientation="Horizontal" >
-                    <Button Content="Сбросить" Command="{Binding CancelRectangeCommand}" />
-                    <Button Content="Сохранить" Command="{Binding SaveRectangeCommand}"/>
-                    <Slider Width="300" Value="1" Maximum="5" Margin="3,1,0,1" Name="Zoom" HorizontalAlignment="Left"/>
-                </StackPanel>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.LayoutTransform>
-                            <ScaleTransform 
-                                ScaleX="{Binding Value, ElementName=Zoom}" 
-                                ScaleY="{Binding Value, ElementName=Zoom}"/>
-                        </Grid.LayoutTransform>
-                        <Grid Background="LightGray" HorizontalAlignment="Left" ZIndex="0">
-                            <Image Source="{Binding FileName}">
-                                <pushBinding1:PushBindingManager.PushBindings>
-                                    <pushBinding1:PushBinding TargetProperty="ActualHeight" Path="ImageHeight"/>
-                                    <pushBinding1:PushBinding TargetProperty="ActualWidth" Path="ImageWidth"/>
-                                </pushBinding1:PushBindingManager.PushBindings>
-                            </Image>
-                        </Grid>
-                        <Polygon 
-                            Fill="Brown" 
-                            Opacity="0.2" 
-                            Points="{Binding Rectangle.Points, Converter={StaticResource PointCollectionConverter}}" />
-                        <Canvas ZIndex="2">
-                            <detail1:SelectPointMarker>
-                                <Canvas.Top>
-                                    <Binding 
-                                        Path="Rectangle.TopLeft.Y" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Top>
-                                <Canvas.Left>
-                                    <Binding 
-                                        Path="Rectangle.TopLeft.X" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Left>
-                                <i:Interaction.Behaviors>
-                                    <behavior1:DragInCanvasBehavior/>
-                                </i:Interaction.Behaviors>
-                            </detail1:SelectPointMarker>
-                            <detail1:SelectPointMarker>
-                                <Canvas.Top>
-                                    <Binding 
-                                        Path="Rectangle.TopRight.Y" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Top>
-                                <Canvas.Left>
-                                    <Binding 
-                                        Path="Rectangle.TopRight.X" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Left>
-                                <i:Interaction.Behaviors>
-                                    <behavior1:DragInCanvasBehavior/>
-                                </i:Interaction.Behaviors>
-                            </detail1:SelectPointMarker>
-                            <detail1:SelectPointMarker>
-                                <Canvas.Top>
-                                    <Binding 
-                                        Path="Rectangle.BottomRight.Y" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Top>
-                                <Canvas.Left>
-                                    <Binding 
-                                        Path="Rectangle.BottomRight.X" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Left>
-                                <i:Interaction.Behaviors>
-                                    <behavior1:DragInCanvasBehavior/>
-                                </i:Interaction.Behaviors>
-                            </detail1:SelectPointMarker>
-                            <detail1:SelectPointMarker>
-                                <Canvas.Top>
-                                    <Binding 
-                                        Path="Rectangle.BottomLeft.Y" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Top>
-                                <Canvas.Left>
-                                    <Binding 
-                                        Path="Rectangle.BottomLeft.X" 
-                                        Mode="TwoWay" 
-                                        Converter="{StaticResource TranslationConverter}"
-                                        ConverterParameter="{StaticResource MarkerRadius}" />
-                                </Canvas.Left>
-                                <i:Interaction.Behaviors>
-                                    <behavior1:DragInCanvasBehavior/>
-                                </i:Interaction.Behaviors>
-                            </detail1:SelectPointMarker>
-                        </Canvas>
-                    </Grid>
-                </ScrollViewer>
-            </StackPanel>
-        </GroupBox>
-
-    </WrapPanel>
+    </StackPanel>
 
 </UserControl>

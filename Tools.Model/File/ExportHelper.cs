@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace PeletonSoft.Tools.Model
+namespace PeletonSoft.Tools.Model.File
 {
     public static class ExportHelper
     {

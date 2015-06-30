@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.TieBackDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance element:TieBackViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <WrapPanel>
+        <GroupBox Header="Макет">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Длина"/>
+                <controls:NumericBox
+                        Grid.Row="0" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding Length, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Толщина"/>
+                <controls:NumericBox 
+                        Grid.Row="1" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding Depth, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="2" Content="Высота крепления"/>
+                <controls:NumericBox
+                        Grid.Row="1" Grid.Column="3" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding OffsetY, Mode=TwoWay}" />
+                <Label Grid.Row="0" Grid.Column="2" Content="X-сдвиг"/>
+                <controls:NumericBox
+                        Grid.Row="0" Grid.Column="3" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding OffsetX, Mode=TwoWay}" />
+                <Label Grid.Row="0" Grid.Column="4" Content="Перепад высот"/>
+                <controls:NumericBox 
+                        Grid.Row="0" Grid.Column="5" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding DropHeight, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="4" Content="Расположение крепления"/>
+                <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+                    </StackPanel.Resources>
+                    <RadioButton 
+                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+                            HorizontalAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
+                        <Image Source="/Images/Icon/LeftAlign.png"></Image>
+                    </RadioButton>
+                    <RadioButton 
+                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
+                            HorizontalAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
+                        <Image Source="/Images/Icon/RightAlign.png"></Image>
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Внутренний край">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Cвисание"/>
+                <controls:NumericBox 
+                        Grid.Row="0" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding LeftSide.Weight, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Угол рассеивания"/>
+                <controls:NumericBox 
+                        Grid.Row="1" Grid.Column="1" 
+                        StringFormat="{StaticResource IntNumericFormat}"
+                        Value="{Binding LeftSide.TailScatter, Mode=TwoWay}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Внешний край">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Cвисание"/>
+                <controls:NumericBox 
+                        Grid.Row="0" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding RightSide.Weight, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Угол рассеивания"/>
+                <controls:NumericBox 
+                        Grid.Row="1" Grid.Column="1" 
+                        StringFormat="{StaticResource IntNumericFormat}"
+                        Value="{Binding RightSide.TailScatter, Mode=TwoWay}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Декоратор">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Ширина в сборе"/>
+                <controls:NumericBox
+                        Grid.Row="0" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding DenseWidth, Mode=TwoWay}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Количество волн"/>
+                <controls:NumericIntBox
+                        Grid.Row="1" Grid.Column="1" 
+                        Value="{Binding WaveCount, Mode=TwoWay}" />
+                <Label Grid.Row="0" Grid.Column="2" Content="Выступ макета"/>
+                <controls:NumericBox
+                        Grid.Row="0" Grid.Column="3" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding Protrusion, Mode=TwoWay}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Описание">
+            <detail:DescriptionView  Width="400" Height="Auto"/>
+        </GroupBox>
+    </WrapPanel>
+</UserControl>

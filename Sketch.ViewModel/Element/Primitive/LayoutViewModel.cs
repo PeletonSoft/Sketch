@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
-namespace PeletonSoft.Sketch.ViewModel.Element.Layout.Custom
+namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public abstract class CustomLayoutViewModel : ILayoutViewModel
+    public abstract class LayoutViewModel : ILayoutViewModel
     {
         #region implement INotifyPropertyChanged
 
@@ -66,7 +65,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout.Custom
             return point;
         }
 
-        public CustomLayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
+        public LayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
         {
             WorkspaceBit = workspaceBit;
             Element = element;
@@ -116,7 +115,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout.Custom
         public void RestoreDefault()
         {
         }
-
 
         private IEnumerable<IEnumerable<Point>> _opacityMask;
         public IEnumerable<IEnumerable<Point>> OpacityMask

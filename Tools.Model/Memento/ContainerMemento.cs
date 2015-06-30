@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.Model.Memento
 {
@@ -44,14 +45,14 @@ namespace PeletonSoft.Tools.Model.Memento
             }
         }
 
-        public IEnumerable<string> GetFiles()
+        public IEnumerable<IFileBox> GetFiles()
         {
             var filess = Mementoes
                 .Select(x => x.Value.GetFiles());
             return filess.GetFiles();
         }
 
-        public XElement GetXml(Dictionary<string, string> files)
+        public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 Mementoes.Select(x => new XElement(_typeName,

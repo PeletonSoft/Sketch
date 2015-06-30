@@ -1,30 +1,53 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
-                    xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
-                    xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
                     xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
                     xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
-                    xmlns:detail1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
-                    xmlns:text1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Text">
+                    xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail">
+
+    <DataTemplate DataType="{x:Type element:HardPelmetViewModel}">
+        <detail:HardPelmetDetailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element:DeJabotViewModel}">
+        <detail:DeJabotDetailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element:ApplicationViewModel}">
+        <detail:ApplicationDetailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element:ScanViewModel}">
+        <detail:ScanDetailView/>
+    </DataTemplate>
     
+    <DataTemplate DataType="{x:Type element:OverlayViewModel}">
+        <detail:OverlayDetailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element:TieBackViewModel}">
+        <detail:TieBackDetailView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type element:RomanBlindViewModel}">
+        <detail:RomanBlindDetailView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type custom:EqualSwagTailViewModel}">
         <WrapPanel>
             <GroupBox Header="Макет">
-                <detail1:ElementDetailView />
+                <detail:ElementDetailView />
             </GroupBox>
             <GroupBox Header="Характеристики">
-                <detail1:SwagTailDetailView/>
+                <detail:SwagTailDetailView/>
             </GroupBox>
             <GroupBox Header="Ткань">
-                <detail1:ClotheView />
+                <detail:ClotheView />
             </GroupBox>
             <GroupBox Header="Стороны">
-                <detail1:ShoulderView DataContext="{Binding Shoulder}"/>
+                <detail:ShoulderView DataContext="{Binding Shoulder}"/>
             </GroupBox>
             <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
+                <detail:DescriptionView  Width="400" Height="Auto"/>
             </GroupBox>
         </WrapPanel>
     </DataTemplate>
@@ -32,555 +55,36 @@
     <DataTemplate DataType="{x:Type custom:ScaleneSwagTailViewModel}">
         <WrapPanel>
             <GroupBox Header="Макет">
-                <detail1:ElementDetailView />
+                <detail:ElementDetailView />
             </GroupBox>
             <GroupBox Header="Характеристики">
-                <detail1:SwagTailDetailView/>
+                <detail:SwagTailDetailView/>
             </GroupBox>
             <GroupBox Header="Левая сторона">
-                <detail1:ShoulderView DataContext="{Binding LeftShoulder}"/>
+                <detail:ShoulderView DataContext="{Binding LeftShoulder}"/>
             </GroupBox>
             <GroupBox Header="Правая сторона">
-                <detail1:ShoulderView DataContext="{Binding RightShoulder}"/>
-            </GroupBox>            
-            <GroupBox Header="Ткань">
-                <detail1:ClotheView />
-            </GroupBox>
-            <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-            </GroupBox>
-        </WrapPanel>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type element:HardPelmetViewModel}">
-        <detail1:HardPelmetDetailView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type element:DeJabotViewModel}">
-        <WrapPanel>
-            <GroupBox Header="Макет">
-                <detail1:ElementDetailView />
+                <detail:ShoulderView DataContext="{Binding RightShoulder}"/>
             </GroupBox>
             <GroupBox Header="Ткань">
-                <detail1:ClotheView />
-            </GroupBox>
-            <GroupBox Header="Характеристики">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label Content="Высота малого края"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding SmallHeight, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Выравнивание малого края"/>
-                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-                        </StackPanel.Resources>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                            <Image Source="/Images/Icon/LeftAlign.png"></Image>
-                        </RadioButton>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                            <Image Source="/Images/Icon/RightAlign.png"></Image>
-                        </RadioButton>
-                    </StackPanel>
-                    <Label
-                        Grid.Row="0" Grid.Column="2" 
-                        Content="Количество волн"/>
-                    <controls:NumericIntBox
-                        Grid.Row="0" Grid.Column="3" 
-                        Value="{Binding WaveCount, Mode=TwoWay}" />
-                    <Label
-                        Grid.Column="2" 
-                        Grid.Row="1"
-                        Content="Высота волны"/>
-                    <controls:NumericBox 
-                        Grid.Column="3" 
-                        Grid.Row="1"
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding WaveHeight, Mode=TwoWay}" />
-                    <Label Grid.Row="0" Grid.Column="4" Content="Направление волн"/>
-                    <StackPanel Grid.Row="0" Grid.Column="5" Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-                        </StackPanel.Resources>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding WaveAlignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                            <Image Source="/Images/Icon/LeftAlign.png"></Image>
-                        </RadioButton>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding WaveAlignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                            <Image Source="/Images/Icon/RightAlign.png"></Image>
-                        </RadioButton>
-                    </StackPanel>
-                </Grid>
+                <detail:ClotheView />
             </GroupBox>
             <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
+                <detail:DescriptionView  Width="400" Height="Auto"/>
             </GroupBox>
         </WrapPanel>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type element:ApplicationViewModel}">
-        <WrapPanel>
-            <GroupBox Header="Макет">
-                <detail1:ElementDetailView />
-            </GroupBox>
-            <GroupBox Header="Характеристики">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label Content="Толщина"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Thickness, Mode=TwoWay}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Форма">
-                <WrapPanel Orientation="Horizontal">
-                    <WrapPanel.Resources>
-                        <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-                    </WrapPanel.Resources>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Band.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Band}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Hexagon.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Hexagon}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/HRectangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.HRectangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/VRectangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.VRectangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>                    
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Trapezium.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Trapezium}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Triangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Triangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Parallelogram.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Parallelogram}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="Ориентация">
-                <WrapPanel Orientation="Horizontal">
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/Same.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.Same}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/HFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.HFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/DFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.DFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>                    
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/VFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.VFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="Ткань">
-                <detail1:ClotheView />
-            </GroupBox>
-            <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-            </GroupBox>
-        </WrapPanel>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type element:ScanViewModel}">
-        <detail1:ScanDetailView/>
-    </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type element:OverlayViewModel}">
-        <WrapPanel>
-            <GroupBox Header="Макет">
-                <ComboBox 
-                    ItemsSource="{Binding Below}" 
-                    SelectedIndex="{Binding SelectedIndex}"
-                    Width="150">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <text1:ElementLabelView/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </GroupBox>
-            <GroupBox Header="Перекрытие">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label VerticalContentAlignment="Center" Content="Ширина" />
-                    <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Content="Высота" />
-                    <Label Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" Content="X-сдвиг" />
-                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" Content="Y-сдвиг" />
-                    <controls:NumericBox Grid.Row="0" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverWidth, Mode=TwoWay}" />
-                    <controls:NumericBox Grid.Column="1" Grid.Row="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverHeight, Mode=TwoWay}" />
-                    <controls:NumericBox Grid.Row="0" Grid.Column="3" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverOffsetX, Mode=TwoWay}" />
-                    <controls:NumericBox Grid.Column="3" Grid.Row="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding OverOffsetY, Mode=TwoWay}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-            </GroupBox>
-        </WrapPanel>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type element:TieBackViewModel}">
-        <WrapPanel>
-            <GroupBox Header="Макет">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Длина"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Length, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Толщина"/>
-                    <controls:NumericBox 
-                        Grid.Row="1" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Depth, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="2" Content="Высота крепления"/>
-                    <controls:NumericBox
-                        Grid.Row="1" Grid.Column="3" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding OffsetY, Mode=TwoWay}" />
-                    <Label Grid.Row="0" Grid.Column="2" Content="X-сдвиг"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="3" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding OffsetX, Mode=TwoWay}" />
-                    <Label Grid.Row="0" Grid.Column="4" Content="Перепад высот"/>
-                    <controls:NumericBox 
-                        Grid.Row="0" Grid.Column="5" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding DropHeight, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="4" Content="Расположение крепления"/>                    
-                    <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-                        </StackPanel.Resources>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                            <Image Source="/Images/Icon/LeftAlign.png"></Image>
-                        </RadioButton>
-                        <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                            <Image Source="/Images/Icon/RightAlign.png"></Image>
-                        </RadioButton>
-                    </StackPanel>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Внутренний край">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Cвисание"/>
-                    <controls:NumericBox 
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding LeftSide.Weight, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Угол рассеивания"/>
-                    <controls:NumericBox 
-                        Grid.Row="1" Grid.Column="1" 
-                        StringFormat="{StaticResource IntNumericFormat}"
-                        Value="{Binding LeftSide.TailScatter, Mode=TwoWay}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Внешний край">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Cвисание"/>
-                    <controls:NumericBox 
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding RightSide.Weight, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Угол рассеивания"/>
-                    <controls:NumericBox 
-                        Grid.Row="1" Grid.Column="1" 
-                        StringFormat="{StaticResource IntNumericFormat}"
-                        Value="{Binding RightSide.TailScatter, Mode=TwoWay}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Декоратор">
-                <Grid>
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Ширина в сборе"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="1" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding DenseWidth, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Количество волн"/>
-                    <controls:NumericIntBox
-                        Grid.Row="1" Grid.Column="1" 
-                        Value="{Binding WaveCount, Mode=TwoWay}" />
-                    <Label Grid.Row="0" Grid.Column="2" Content="Выступ макета"/>
-                    <controls:NumericBox
-                        Grid.Row="0" Grid.Column="3" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Protrusion, Mode=TwoWay}" />
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-            </GroupBox>
-        </WrapPanel>
-    </DataTemplate>
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
-    <DataTemplate DataType="{x:Type element:RomanBlindViewModel}">
-        <StackPanel Orientation="Vertical">
-            <WrapPanel>
-                <GroupBox Header="Макет">
-                    <detail1:ElementDetailView />
-                </GroupBox>
-                <GroupBox Header="Характеристики">
-                    <Grid>
-                        <Grid.ColumnDefinitions >
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="25" />
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" Content="Толщина кулисы" />
-                        <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Content="Высота в сборе" />
-                        <Label Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" Content="Количество волн" />
-                        <controls:NumericBox Grid.Row="0" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding CoulisseThickness, Mode=TwoWay}" />
-                        <controls:NumericBox  Grid.Row="1" Grid.Column="1" StringFormat="{StaticResource NumericFormat}" Value="{Binding DenseHeight, Mode=TwoWay}" />
-                        <controls:NumericIntBox  Grid.Row="0" Grid.Column="3" Value="{Binding WaveCount, Mode=TwoWay}" />
-                    </Grid>
-                </GroupBox>
-                <GroupBox Header="Фигурный край">
-                    <Grid>
-                        <Grid.ColumnDefinitions >
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="25" />
-                        </Grid.RowDefinitions>
-                        <Label Content="Высота"/>
-                        <controls:NumericBox 
-                        Grid.Row="0" Grid.Column="1"
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding DecorativeBorder.Height, Mode=TwoWay}" />
-                        <CheckBox 
-                        Grid.Row="1"  Grid.Column="0"
-                        IsChecked="{Binding DecorativeBorder.IsEdited}"
-                        Style="{StaticResource {x:Static ToolBar.CheckBoxStyleKey}}" 
-                        Content="Редактировать"/>
-                    </Grid>
-                </GroupBox>
-                <GroupBox Header="Ткань">
-                    <detail1:ClotheView />
-                </GroupBox>
-                <GroupBox Header="Описание">
-                    <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
-                </GroupBox>
-            </WrapPanel>
-            <GroupBox Header="Геометрия фигурного края"
-                  Visibility="{Binding DecorativeBorder.IsEdited, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <detail1:DecorativeBorderView DataContext="{Binding DecorativeBorder, Converter={StaticResource ViewModelToVisualConverter}}"/>
-            </GroupBox>
-
-        </StackPanel>
-    </DataTemplate>
-    
     <DataTemplate DataType="{x:Type custom:AlignableElementViewModel}">
         <WrapPanel>
             <GroupBox Header="Макет">
-                <detail1:ElementDetailView />
+                <detail:ElementDetailView />
             </GroupBox>
             <GroupBox Header="Ткань">
-                <detail1:ClotheView />
+                <detail:ClotheView />
             </GroupBox>
             <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
+                <detail:DescriptionView  Width="400" Height="Auto"/>
             </GroupBox>
         </WrapPanel>
     </DataTemplate>

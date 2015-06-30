@@ -75,14 +75,7 @@
     <Compile Include="Element\OverlayViewModel.cs" />
     <Compile Include="Factory\TieBackFactoryViewModel.cs" />
     <Compile Include="WorkspaceBit.cs" />
-    <Compile Include="Element\Outline\Primitive\OutlineViewModel.cs" />
-    <Compile Include="Element\Outline\ParallelogramOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\TriangleOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\TrapeziumOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\VRectangleOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\HRectangleOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\HexagonOutlineViewModel.cs" />
-    <Compile Include="Element\Outline\BandOutlineViewModel.cs" />
+    <Compile Include="Element\Primitive\OutlineViewModel.cs" />
     <Compile Include="Element\Primitive\ClotheViewModel.cs" />
     <Compile Include="Geometry\DecorativeBorder\LineViewModel.cs" />
     <Compile Include="Geometry\DecorativeBorder\PointViewModel.cs" />
@@ -121,7 +114,7 @@
     <Compile Include="Element\Primitive\PresentQuadrangleViewModel.cs" />
     <Compile Include="Factory\PortiereFactoryViewModel.cs" />
     <Compile Include="Factory\TulleFactoryViewModel.cs" />
-    <Compile Include="Element\Layout\Custom\CustomLayoutViewModel.cs" />
+    <Compile Include="Element\Primitive\LayoutViewModel.cs" />
     <Compile Include="Element\Layout\RightLayoutViewModel.cs" />
     <Compile Include="Element\Layout\LeftLayoutViewModel.cs" />
     <Compile Include="Present\CustomPresentViewModel.cs" />
@@ -130,11 +123,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenViewModel.cs" />
-    <Compile Include="Element\Transformation\DFlipTransformationViewModel.cs" />
-    <Compile Include="Element\Transformation\VFlipTransformationViewModel.cs" />
-    <Compile Include="Element\Transformation\HFlipTransformationViewModel.cs" />
-    <Compile Include="Element\Transformation\SameTransformationViewModel.cs" />
-    <Compile Include="Element\Transformation\Primitive\TransformationViewModel.cs" />
+    <Compile Include="Element\Primitive\TransformationViewModel.cs" />
     <Compile Include="Container\TransformationViewModels.cs" />
     <Compile Include="WorkMode\CustomWorkModeViewModel.cs" />
     <Compile Include="WorkMode\EditorWorkModeViewModel.cs" />

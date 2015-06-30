@@ -6,6 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Memento.Geometry;
 using PeletonSoft.Sketch.ViewModel.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.Present;
 using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Present
@@ -49,17 +50,16 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Present
 
         }
 
-        public override IEnumerable<string> GetFiles()
+        public override IEnumerable<IFileBox> GetFiles()
         {
             var filess = new[]
             {
-                base.GetFiles(),
-                new[] {FileName}
+                base.GetFiles()//,new[] {FileName}
             };
             return filess.GetFiles();
         }
 
-        public override XElement GetXml(Dictionary<string, string> files)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
             var xml = base.GetXml(files);
 

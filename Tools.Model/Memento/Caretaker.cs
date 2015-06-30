@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.Model.Memento
 {
@@ -33,22 +34,20 @@ namespace PeletonSoft.Tools.Model.Memento
             }
 
             var files = Memento.GetFiles()
-                .Select((file, index) => new {File = file, Index = index + 1})
+                .Select((fileBox, index) => new {FileBox = fileBox, Index = index + 1})
                 .ToDictionary(
-                    x => x.File,
-                    x => x.Index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(x.File)
-                );
+                    file => file.FileBox.GetFileName(file.Index.ToString(CultureInfo.InvariantCulture)),
+                    file => file.FileBox);
 
             var xml = Memento.GetXml(files);
             xml.Save(Path.Combine(path,"content.xml"));
 
             foreach (var file in files)
             {
-                File.Copy(file.Key, Path.Combine(path, file.Value), true);
+                file.Value.WriteToFile(Path.Combine(path, file.Key));
             }
 
         }
-
         public void Load(string path)
         {
             if (Memento == null)

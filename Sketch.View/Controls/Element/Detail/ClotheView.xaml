@@ -6,7 +6,7 @@
              xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
              xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
              xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
-             d:DesignSource="{d:DesignInstance element:TulleViewModel}"
+             d:DataContext="{d:DesignInstance element:TulleViewModel}"
              mc:Ignorable="d" 
             d:DesignHeight="50" d:DesignWidth="300">
     <UserControl.Resources>

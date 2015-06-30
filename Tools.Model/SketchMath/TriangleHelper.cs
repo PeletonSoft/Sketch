@@ -3,7 +3,7 @@ using PeletonSoft.Tools.Model.Draw;
 
 namespace PeletonSoft.Tools.Model.SketchMath
 {
-    public static class Triangle
+    public static class TriangleHelper
     {
         public static Point SaveOrthogonal(this Point r, Point f, Point m)
         {

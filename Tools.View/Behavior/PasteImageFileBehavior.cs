@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interactivity;
-using System.Windows.Media.Imaging;
 
 namespace PeletonSoft.Tools.View.Behavior
 {
@@ -20,18 +18,9 @@ namespace PeletonSoft.Tools.View.Behavior
         {
             try
             {
-                var bitmapSource = Clipboard.GetImage();
-                var encoder = new JpegBitmapEncoder();
-                var outputFrame = BitmapFrame.Create(bitmapSource);
-                encoder.Frames.Add(outputFrame);
-                encoder.QualityLevel = 80;
-                var fileName = Path.GetTempFileName();
-                using (var file = File.OpenWrite(fileName))
-                {
-                    encoder.Save(file);
-                }
+                var source = Clipboard.GetImage();
+                var parameter = source.ToPngImageBox();
 
-                var parameter = fileName;
                 if (Command.CanExecute(parameter))
                 {
                     Command.Execute(parameter);
@@ -47,11 +36,11 @@ namespace PeletonSoft.Tools.View.Behavior
         {
             get
             {
-                return (ICommand)this.GetValue(CommandProperty);
+                return (ICommand)GetValue(CommandProperty);
             }
             set
             {
-                this.SetValue(CommandProperty, value);
+                SetValue(CommandProperty, value);
             }
         }
 

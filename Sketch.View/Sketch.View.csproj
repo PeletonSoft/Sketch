@@ -78,6 +78,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Element\Detail\ApplicationDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\DeJabotDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\DescriptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\OverlayDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\RectangleCropImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\RomanBlindDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Element\Detail\SwagTailDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +111,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Element\Detail\ShoulderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\TieBackDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,6 +300,24 @@
     <Compile Include="Controls\ElementFactoryView.xaml.cs">
       <DependentUpon>ElementFactoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Element\Detail\ApplicationDetailView.xaml.cs">
+      <DependentUpon>ApplicationDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\DeJabotDetailView.xaml.cs">
+      <DependentUpon>DeJabotDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\DescriptionView.xaml.cs">
+      <DependentUpon>DescriptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\OverlayDetailView.xaml.cs">
+      <DependentUpon>OverlayDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\RectangleCropImageView.xaml.cs">
+      <DependentUpon>RectangleCropImageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\RomanBlindDetailView.xaml.cs">
+      <DependentUpon>RomanBlindDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Element\Detail\SwagTailDetailView.xaml.cs">
       <DependentUpon>SwagTailDetailView.xaml</DependentUpon>
     </Compile>
@@ -280,6 +326,9 @@
     </Compile>
     <Compile Include="Controls\Element\Detail\ShoulderView.xaml.cs">
       <DependentUpon>ShoulderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\TieBackDetailView.xaml.cs">
+      <DependentUpon>TieBackDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\Report\ElementReportView.xaml.cs">
       <DependentUpon>ElementReportView.xaml</DependentUpon>

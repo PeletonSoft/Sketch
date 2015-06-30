@@ -2,11 +2,11 @@
 using System.IO;
 using System.Linq;
 
-namespace PeletonSoft.Tools.Model
+namespace PeletonSoft.Tools.Model.File
 {
     public static class FileHelper
     {
-        public static IEnumerable<string> GetFiles(this IEnumerable<IEnumerable<string>> filess)
+        public static IEnumerable<IFileBox> GetFiles(this IEnumerable<IEnumerable<IFileBox>> filess)
         {
             if (filess == null)
             {
@@ -22,13 +22,13 @@ namespace PeletonSoft.Tools.Model
                 return null;
             }
 
-            List<string> list = null;
+            List<IFileBox> list = null;
 
             foreach (var files in filesList)
             {
                 if (list == null)
                 {
-                    list = new List<string>();
+                    list = new List<IFileBox>();
                 }
 
                 var range = files
@@ -44,7 +44,7 @@ namespace PeletonSoft.Tools.Model
             var copy = Path.GetTempFileName() +
                        Path.GetExtension(fileName);
 
-            File.Copy(fileName, copy, true);
+            System.IO.File.Copy(fileName, copy, true);
             return copy;
         }
     }

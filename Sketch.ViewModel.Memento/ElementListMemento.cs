@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
 using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento
@@ -62,14 +63,14 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             }
         }
 
-        public IEnumerable<string> GetFiles()
+        public IEnumerable<IFileBox> GetFiles()
         {
             var filess = List
                 .Select(x => x.Element.GetFiles());
             return filess.GetFiles(); 
         }
 
-        public XElement GetXml(Dictionary<string, string> files)
+        public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 new XElement("Elements", List

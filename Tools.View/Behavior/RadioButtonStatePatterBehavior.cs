@@ -14,9 +14,8 @@ namespace PeletonSoft.Tools.View.Behavior
             base.OnAttached();
             AssociatedObject.Click += AssociatedObjectOnChecked;
 
-            var binding = new MultiBinding();
-            binding.Converter = new StatePatternToBooleanConverter();
-        
+            var binding = new MultiBinding {Converter = new StatePatternToBooleanConverter()};
+
             binding.Bindings.Add(new Binding("State") {Source = this});
             binding.Bindings.Add(new Binding("TargetState") {Source = this});
 
@@ -28,7 +27,7 @@ namespace PeletonSoft.Tools.View.Behavior
             if (AssociatedObject.IsChecked == true)
             {
                 if (State != null && TargetState != null &&
-                    State.GetType() != TargetState.GetType())
+                    State != TargetState)
                 {
                     State = TargetState;
                 }

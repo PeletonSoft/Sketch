@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Factory;
@@ -7,17 +8,16 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
 using PeletonSoft.Sketch.ViewModel.Memento.Geometry;
-using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 {
     public sealed class ScanMemento : CustomElementMemento, IMemento<ScanViewModel>
     {
-        public string FileName { get; set; }
+        
         public RectangleMemento Rectangle { get; set; }
-        public double ImagePixelWidth { get; set; }
-        public double ImagePixelHeight { get; set; }
+        public ImageBox ImageBox { get; set; }
         protected override void GetState(IElementViewModel originator)
         {
             GetState((ScanViewModel)originator);
@@ -32,49 +32,46 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
             base.GetState(originator);
 
             Rectangle = new RectangleMemento();
-
-            FileName = originator.FileName;
-            Rectangle.GetState(originator.Rectangle);
-            ImagePixelWidth = originator.ImageWidth;
-            ImagePixelHeight = originator.ImageHeight;
+            if (originator.ImageBox != null)
+            {
+                ImageBox = originator.ImageBox;
+                Rectangle.GetState(originator.Rectangle);
+            }
         }
 
         public void SetState(ScanViewModel originator)
         {
             base.SetState(originator);
 
-            originator.FileName = FileName;
-
-            originator.ImageWidth = ImagePixelWidth;
-            originator.ImageHeight = ImagePixelHeight;
-
+            originator.ImageBox = ImageBox;
             Rectangle.SetState(originator.Rectangle);
-            originator.SaveRectange();
 
         }
 
-        public override IEnumerable<string> GetFiles()
+        public override IEnumerable<IFileBox> GetFiles()
         {
             var filess = new[]
             {
                 base.GetFiles(),
                 Rectangle.GetFiles(),
-                new[]{FileName}
+                new IFileBox[]{ImageBox}
             };
             return filess.GetFiles();
         }
 
-        public override XElement GetXml(Dictionary<string, string> files)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
-            var xml = base.GetXml(files);
 
-            xml.Add(
-                new XElement("ImageWidth", ImagePixelWidth),
-                new XElement("ImageHeight", ImagePixelHeight),
-                new XElement("FileName", files[FileName]),
+            var xml = base.GetXml(files);
+            if (ImageBox != null)
+            {
+                xml.Add(
+                new XElement("ImageWidth", ImageBox.Width),
+                new XElement("ImageHeight", ImageBox.Height),
+                new XElement("FileName", files.Single(x => x.Value.Data == ImageBox.Data).Key),
                 new XElement("Rectangle", Rectangle.GetXml(files).Elements())
                 );
-
+            }
             return xml;
         }
 
@@ -83,16 +80,18 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
             base.SetXml(xml, path);
 
             Rectangle = new RectangleMemento();
-            FileName = null;
-
-            ImagePixelWidth = (double)xml.Element("ImageWidth");
-            ImagePixelHeight = (double) xml.Element("ImageHeight");
 
             var xFileName = xml.Element("FileName");
             if (xFileName != null)
             {
                 var fileName = Path.Combine(path, (string) xFileName);
-                FileName = fileName.GetTemporaryCopy();
+                if (Path.GetExtension(fileName).ToLower() == ".png")
+                {
+                    ImageBox = new PngImageBox(
+                        File.ReadAllBytes(fileName),
+                        (int) xml.Element("ImageWidth"),
+                        (int) xml.Element("ImageHeight"));
+                }
             }
 
             var xRectangle = xml.Element("Rectangle");

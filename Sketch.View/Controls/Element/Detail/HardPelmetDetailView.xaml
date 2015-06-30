@@ -7,7 +7,8 @@
              xmlns:element1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
              xmlns:detail1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
              d:DataContext="{d:DesignInstance element1:HardPelmetViewModel}"
-             mc:Ignorable="d" >
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
         <StackPanel.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -43,7 +44,7 @@
                 <detail1:ClotheView />
             </GroupBox>
             <GroupBox Header="Описание">
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Width="400"/>
+                <detail1:DescriptionView  Width="400" Height="Auto"/>
             </GroupBox>
         </WrapPanel>
         <GroupBox Header="Геометрия фигурного края"

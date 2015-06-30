@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 {
@@ -33,7 +34,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 
         }
 
-        public override XElement GetXml(Dictionary<string, string> files)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
             var xml = base.GetXml(files);
             xml.Add(new XElement("Shoulder", Shoulder.GetXml(files).Elements()));

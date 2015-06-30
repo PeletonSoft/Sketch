@@ -53,9 +53,15 @@
     <Compile Include="Draw\RectHelper.cs" />
     <Compile Include="Draw\PointHelper.cs" />
     <Compile Include="EnumerableHelper.cs" />
-    <Compile Include="ExportHelper.cs" />
+    <Compile Include="File\ExportHelper.cs" />
+    <Compile Include="File\FileBox.cs" />
+    <Compile Include="File\FileBoxHelper.cs" />
+    <Compile Include="File\FileExtentionAttribute.cs" />
+    <Compile Include="File\IFileBox.cs" />
+    <Compile Include="File\PngImageBox.cs" />
     <Compile Include="ICommandFactory.cs" />
     <Compile Include="IContainer.cs" />
+    <Compile Include="File\ImageBox.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="NotifyChanged\ElementList\ChangedInfo\MoveElementListChangedInfo.cs" />
     <Compile Include="NotifyChanged\ElementList\ChangedInfo\Primitive\ElementListChangedInfo.cs" />
@@ -77,7 +83,7 @@
     <Compile Include="Memento\Caretaker.cs" />
     <Compile Include="Memento\ContainerMemento.cs" />
     <Compile Include="Memento\IContainerOriginator.cs" />
-    <Compile Include="FileHelper.cs" />
+    <Compile Include="File\FileHelper.cs" />
     <Compile Include="Memento\IMementoService.cs" />
     <Compile Include="Setting\ISettingService.cs" />
     <Compile Include="Setting\SettingDataExtention.cs" />
@@ -99,7 +105,8 @@
     <Compile Include="SketchMath\IConnectStrategy.cs" />
     <Compile Include="SketchMath\IPoint.cs" />
     <Compile Include="SketchMath\PointConnection.cs" />
-    <Compile Include="SketchMath\Triangle.cs" />
+    <Compile Include="SketchMath\RectangleHelper.cs" />
+    <Compile Include="SketchMath\TriangleHelper.cs" />
     <Compile Include="SketchMath\Wave\IBottom.cs" />
     <Compile Include="SketchMath\Wave\IWave.cs" />
     <Compile Include="SketchMath\Wave\IWavyBorder.cs" />

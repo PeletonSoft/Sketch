@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using PeletonSoft.Sketch.ViewModel.Element.Layout.Custom;
+using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 {
-    public sealed class RightLayoutViewModel : CustomLayoutViewModel
+    public sealed class RightLayoutViewModel : LayoutViewModel
     {
         public override Rect Transform(Rect rect)
         {

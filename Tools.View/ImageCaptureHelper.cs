@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.View
 {
@@ -33,6 +35,22 @@ namespace PeletonSoft.Tools.View
             {
                 surface.LayoutTransform = transform;
             }
+        }
+
+        public static PngImageBox ToPngImageBox(this BitmapSource source)
+        {
+            var frame = BitmapFrame.Create(source);
+            byte[] data;
+
+            var png = new PngBitmapEncoder();
+            png.Frames.Add(frame);
+            using (var mem = new MemoryStream())
+            {
+                png.Save(mem);
+                data = mem.ToArray();
+            }
+
+            return new PngImageBox(data, frame.PixelWidth, frame.PixelHeight);
         }
     }
 }

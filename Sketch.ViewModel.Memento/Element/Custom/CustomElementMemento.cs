@@ -4,6 +4,7 @@ using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
@@ -91,12 +92,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
             
         }
 
-        public virtual IEnumerable<string> GetFiles()
+        public virtual IEnumerable<IFileBox> GetFiles()
         {
             return null;
         }
 
-        public virtual XElement GetXml(Dictionary<string, string> files)
+        public virtual XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 new XElement("Clothe", Clothe.GetXml(files).Elements()),

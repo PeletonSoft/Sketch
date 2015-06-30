@@ -6,6 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
 using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element
@@ -89,12 +90,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
             SetState((TieBackViewModel)originator);
         }
 
-        public IEnumerable<string> GetFiles()
+        public IEnumerable<IFileBox> GetFiles()
         {
             return null;
         }
 
-        public XElement GetXml(Dictionary<string, string> files)
+        public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
                 new XElement("Description", Description),

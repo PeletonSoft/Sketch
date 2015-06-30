@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using PeletonSoft.Tools.Model.Draw;
+using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Draw
@@ -25,12 +26,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Draw
 
         }
 
-        public IEnumerable<string> GetFiles()
+        public IEnumerable<IFileBox> GetFiles()
         {
             return null;
         }
 
-        public XElement GetXml(Dictionary<string, string> files)
+        public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             throw new NotImplementedException();
         }

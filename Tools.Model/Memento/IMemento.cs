@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.Model.Memento
 {
@@ -8,9 +9,9 @@ namespace PeletonSoft.Tools.Model.Memento
         void GetState(T originator);
         void SetState(T originator);
 
-        IEnumerable<string> GetFiles();
+        IEnumerable<IFileBox> GetFiles();
 
-        XElement GetXml(Dictionary<string,string> files);
+        XElement GetXml(Dictionary<string,IFileBox> files);
         void SetXml(XElement xml, string path);
     }
 }

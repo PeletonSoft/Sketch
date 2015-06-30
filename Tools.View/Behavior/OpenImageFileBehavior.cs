@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using PeletonSoft.Tools.Model;
 
@@ -28,7 +30,9 @@ namespace PeletonSoft.Tools.View.Behavior
 
             if (fileDialog.ShowDialog() == true && Command != null)
             {
-                var parameter = fileDialog.FileName.GetTemporaryCopy();
+                var source = new BitmapImage(new Uri(fileDialog.FileName));
+                var parameter = source.ToPngImageBox();
+
                 if (Command.CanExecute(parameter))
                 {
                     Command.Execute(parameter);

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath;
@@ -31,6 +33,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
                 new[] {"X", "Y"},
                 OnPropertyChanged);
 
+            this.SetPropertyChanged(
+                new[] {"TopLeft", "TopRight", "BottomLeft", "BottomRight"},
+                () => OnPropertyChanged("Vertex"));
+
             PropertyChanged += VertexChanged;
 
         }
@@ -44,35 +50,58 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             }
 
             _lock = true;
-            try
+            if (_lock)
             {
-                switch (args.PropertyName)
+                try
                 {
-                    case "TopLeft":
-                        TopRight.Point = TopRight.SaveOrthogonal(BottomRight, TopLeft);
-                        BottomLeft.Point = BottomLeft.SaveOrthogonal(BottomRight, TopLeft);
-                        OnPropertyChanged("Point");
-                        break;
-                    case "TopRight":
-                        BottomRight.Point = BottomRight.SaveDiagonal(TopLeft, TopRight);
-                        BottomLeft.Point = TopRight.FindSymmetry(TopLeft, BottomRight);
-                        OnPropertyChanged("Point");
-                        break;
-                    case "BottomLeft":
-                        TopLeft.Point = TopLeft.SaveDiagonal(BottomRight, BottomLeft);
-                        TopRight.Point = BottomLeft.FindSymmetry(BottomRight, TopLeft);
-                        OnPropertyChanged("Point");
-                        break;
-                    case "BottomRight":
-                        TopRight.Point = TopRight.SaveOrthogonal(TopLeft, BottomRight);
-                        BottomLeft.Point = BottomLeft.SaveOrthogonal(TopLeft, BottomRight);
-                        OnPropertyChanged("Point");
-                        break;
+                    switch (args.PropertyName)
+                    {
+                        case "TopLeft":
+                            TopRight.Point = TopRight.SaveOrthogonal(BottomRight, TopLeft);
+                            BottomLeft.Point = BottomLeft.SaveOrthogonal(BottomRight, TopLeft);
+                            OnPropertyChanged("Points");
+                            break;
+                        case "TopRight":
+                            BottomRight.Point = BottomRight.SaveDiagonal(TopLeft, TopRight);
+                            BottomLeft.Point = TopRight.FindSymmetry(TopLeft, BottomRight);
+                            OnPropertyChanged("Points");
+                            break;
+                        case "BottomLeft":
+                            TopLeft.Point = TopLeft.SaveDiagonal(BottomRight, BottomLeft);
+                            TopRight.Point = BottomLeft.FindSymmetry(BottomRight, TopLeft);
+                            OnPropertyChanged("Points");
+                            break;
+                        case "BottomRight":
+                            TopRight.Point = TopRight.SaveOrthogonal(TopLeft, BottomRight);
+                            BottomLeft.Point = BottomLeft.SaveOrthogonal(TopLeft, BottomRight);
+                            OnPropertyChanged("Points");
+                            break;
+                    }
+                }
+                finally
+                {
+                    _lock = false;
                 }
             }
-            finally
+        }
+
+        public Point Center
+        {
+            get { return new Point(TopLeft.X, TopLeft.Y); }
+        }
+
+        public double Angle
+        {
+            get { return Math.Atan2(TopRight.Y - TopLeft.Y, TopRight.X - TopLeft.X); }
+        }
+
+        public Size Size
+        {
+            get
             {
-                _lock = false;
+                var a = Math.Pow(TopRight.X - TopLeft.X, 2) + Math.Pow(TopRight.Y - TopLeft.Y, 2);
+                var b = Math.Pow(BottomRight.X - TopRight.X, 2) + Math.Pow(BottomRight.Y - TopRight.Y, 2);
+                return new Size(Math.Sqrt(a), Math.Sqrt(b));
             }
         }
     }
