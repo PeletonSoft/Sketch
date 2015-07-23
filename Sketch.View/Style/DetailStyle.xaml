@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="IconRadioButtonStyle" TargetType="{x:Type RadioButton}" 
+           BasedOn="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+    </Style>
+    <Style x:Key="TextRadioButtonStyle" TargetType="{x:Type RadioButton}" 
+           BasedOn="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="25"/>
+    </Style>    
+</ResourceDictionary>

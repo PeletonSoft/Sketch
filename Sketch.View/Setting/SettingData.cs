@@ -8,5 +8,7 @@ namespace PeletonSoft.Sketch.View.Setting
         public string SavePath { get; set; }
         public int OrderId { get; set; }
         public bool ReadOnly { get; set; }
+        public string ProgramName { get; set; }
+        public string Version { get; set; }
     }
 }

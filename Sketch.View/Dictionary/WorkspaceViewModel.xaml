@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
                     xmlns:memento="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento;assembly=Sketch.ViewModel.Memento"
-                    xmlns:interface="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface;assembly=Sketch.ViewModel.Interface"
                     xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
                     xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel">
 
@@ -11,7 +10,7 @@
         Height="{StaticResource CanvasHeight}">
     </viewModel:ScreenViewModel>
     
-    <interface:FactoryCollection x:Key="FactoryCollection">
+    <viewModel:FactoryCollection x:Key="FactoryCollection">
         <factory:ScanFactoryViewModel/>
         <factory:PortiereFactoryViewModel/>
         <factory:TulleFactoryViewModel/>
@@ -22,12 +21,13 @@
         <factory:DeJabotFactoryViewModel/>
         <factory:ApplicationFactoryViewModel/>
         <factory:OverlayFactoryViewModel/>
+        <factory:LatticeFactoryViewModel/>
         <factory:TieBackFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:EqualSwagFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:EqualTailFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:ScaleneSwagFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:ScaleneTailFactoryViewModel PointCount="{StaticResource PointCount}"/>
-    </interface:FactoryCollection>
+    </viewModel:FactoryCollection>
 
     <viewModel:WorkspaceCaretaker x:Key="Caretaker">
         <viewModel:WorkspaceCaretaker.Memento>

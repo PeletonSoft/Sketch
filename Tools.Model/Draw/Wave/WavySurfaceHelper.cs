@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.SketchMath;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 

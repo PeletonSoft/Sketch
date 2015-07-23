@@ -19,6 +19,7 @@
         <s:String x:Key="{x:Type factory:DeJabotFactoryViewModel}">Де Жабо</s:String>
         <s:String x:Key="{x:Type factory:ApplicationFactoryViewModel}">Аппликация</s:String>
         <s:String x:Key="{x:Type factory:OverlayFactoryViewModel}">Перекрытие</s:String>
+        <s:String x:Key="{x:Type factory:LatticeFactoryViewModel}">Сетка</s:String>
         <s:String x:Key="{x:Type factory:TieBackFactoryViewModel}">Подхват</s:String>
     </spec:ListDictionary>
     <spec:ListDictionary x:Key="FactoryImages">
@@ -36,6 +37,7 @@
         <s:String x:Key="{x:Type factory:DeJabotFactoryViewModel}">/Images/Factory/DeJabot.png</s:String>
         <s:String x:Key="{x:Type factory:ApplicationFactoryViewModel}">/Images/Factory/Application.png</s:String>
         <s:String x:Key="{x:Type factory:OverlayFactoryViewModel}">/Images/Factory/Overlay.png</s:String>
+        <s:String x:Key="{x:Type factory:LatticeFactoryViewModel}">/Images/Factory/lattice.png</s:String>
         <s:String x:Key="{x:Type factory:TieBackFactoryViewModel}">/Images/Factory/TieBack.png</s:String>
     </spec:ListDictionary>
     <spec:ListDictionary x:Key="ElementNames">
@@ -53,6 +55,7 @@
         <s:String x:Key="{x:Type element:DeJabotViewModel}">Де Жабо</s:String>
         <s:String x:Key="{x:Type element:ApplicationViewModel}">Аппликация</s:String>
         <s:String x:Key="{x:Type element:OverlayViewModel}">Перекрытие</s:String>
+        <s:String x:Key="{x:Type element:LatticeViewModel}">Сетка</s:String>
         <s:String x:Key="{x:Type element:TieBackViewModel}">Подхват</s:String>
     </spec:ListDictionary>    
 </ResourceDictionary>

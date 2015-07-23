@@ -1,20 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Primitive;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.NotifyChanged;
-using PeletonSoft.Tools.Model.SketchMath;
-using PeletonSoft.Tools.Model.SketchMath.Wave;
-using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder;
-using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder.ExtraStrategy;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public class ShoulderViewModel : INotifyPropertyChanged, IOriginator
+    public sealed class ShoulderViewModel : IOriginator, INotifyViewModel<Shoulder>, ISynchViewModel<ShoulderViewModel>
     {
         #region implement INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
@@ -28,59 +24,58 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             notificator.SetField(ref field, value);
         }
 
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            notificator.SetField(getValue, setValue, value);
+        }
         #endregion
-
-
-        private double _length;
-        public double Length
-        {
-            get { return _length; }
-            set { SetField(ref _length, value); }
-        }
-
-        private double _offsetY;
-
-        public double OffsetY
-        {
-            get { return _offsetY; }
-            set { SetField(ref _offsetY, value); }
-        }
-
-        private double _waveHeight;
-
-        public double WaveHeight
-        {
-            get { return _waveHeight; }
-            set { SetField(ref _waveHeight, value); }
-        }
-
-        private double _slope;
-
-        public double Slope
-        {
-            get { return _slope; }
-            set { SetField(ref _slope, value); }
-        }
-
-        public double Angle
-        {
-            get { return Math.Asin(Slope/Length); }
-        }
-
-        public Func<double, Point> Transformer
-        {
-            get { return x => new Point(x*Math.Cos(Angle), x*Math.Sin(Angle) + OffsetY); }
-        }
-        public IWavyBorder<double> GetWavyBorder(
-            Func<WavyBorderParameters,IExtraStrategy,IWavyBorderBuilder> createBuilder, int waveCount)
-        {
-            var parameters = new WavyBorderParameters(Length, WaveHeight, waveCount);
-            var builder = createBuilder(parameters, new HalfStepExtraFinishStrategy());
-            return builder.WavyBorder.Transform(pos => pos.X);
-        }
-
+        
+        #region implement IOriginator 
         public void RestoreDefault()
         {
         }
+        #endregion
+
+        #region implement ViewModel
+        public Shoulder Model { get; private set; }
+
+        public void Synchronize(ShoulderViewModel destination)
+        {
+            this
+                .SetPropertyChanged(el => el.Length, () => destination.Length = Length)
+                .SetPropertyChanged(el => el.WaveHeight, () => destination.WaveHeight = WaveHeight)
+                .SetPropertyChanged(el => el.OffsetY, () => destination.OffsetY = OffsetY)
+                .SetPropertyChanged(el => el.Slope, () => destination.Slope = Slope);
+        }
+
+        #endregion
+
+        public ShoulderViewModel(Shoulder model)
+        {
+            Model = model;
+        }
+        public double Length
+        {
+            get { return Model.Length; }
+            set { SetField(() => Model.Length, v => Model.Length = v, value); }
+        }
+        public double OffsetY
+        {
+            get { return Model.OffsetY; }
+            set { SetField(() => Model.OffsetY, v => Model.OffsetY = v, value); }
+        }
+
+        public double WaveHeight
+        {
+            get { return Model.WaveHeight; }
+            set { SetField(() => Model.WaveHeight, v => Model.WaveHeight = v, value); }
+        }
+        public double Slope
+        {
+            get { return Model.Slope; }
+            set { SetField(() => Model.Slope, v => Model.Slope = v, value); }
+        }
+
     }
 }

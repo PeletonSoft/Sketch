@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.Dependency;
 
 namespace PeletonSoft.Tools.View.Converter
 {
@@ -10,7 +11,15 @@ namespace PeletonSoft.Tools.View.Converter
         public InjectContainer InjectContainer { get; set; }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return InjectContainer.Resolve(value.GetType(), value);
+            try
+            {
+                return InjectContainer.Resolve(value.GetType(), value);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

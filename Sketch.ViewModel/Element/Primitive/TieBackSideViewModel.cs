@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using PeletonSoft.Tools.Model.Draw;
+using PeletonSoft.Sketch.Model.Element.Primitive;
+using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.NotifyChanged;
-using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public class TieBackSideViewModel : INotifyPropertyChanged, IOriginator
+    public sealed class TieBackSideViewModel : INotifyPropertyChanged, IOriginator, IViewModel<TieBackSide>
     {
         #region implement INotifyPropertyChanged
 
@@ -28,38 +26,41 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             notificator.SetField(ref field, value);
         }
 
+        private bool SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            return notificator.SetField(getValue, setValue, value);
+        }
+
+
         #endregion
 
-        private double _tailScatter;
-        public double TailScatter
-        {
-            get { return _tailScatter; }
-            set { SetField(ref _tailScatter, value); }
-        }
-
-        private double _weight;
-        public double Weight
-        {
-            get { return _weight; }
-            set { SetField(ref _weight, value); }
-        }
-
-        public TieBackSideViewModel()
-        {
-            TailScatter = 0;
-            Weight = 0.1;
-        }
-
-        public double GetLength(IWave<IEnumerable<Point>> wave, Point point)
-        {
-            var chain = wave.Peak.ToList();
-            var min = chain.First().DistanceTo(point);
-            var max = chain.Length();
-            return min + Weight*(max - min);
-        }
-
+        #region implement IOriginator
         public void RestoreDefault()
         {
+        }
+        #endregion
+
+        #region implement IViewModel
+        public TieBackSide Model { get; private set; }
+        #endregion
+
+        public double TailScatter
+        {
+            get { return Model.TailScatter; }
+            set { SetField(() => Model.TailScatter, v => Model.TailScatter = v, value); }
+        }
+        public double Weight
+        {
+            get { return Model.Weight; }
+            set { SetField(() => Model.Weight, v => Model.Weight = v, value); }
+        }
+        
+        public TieBackSideViewModel(TieBackSide model)
+        {
+            Model = model;
+            TailScatter = 0;
+            Weight = 0.1;
         }
     }
 }

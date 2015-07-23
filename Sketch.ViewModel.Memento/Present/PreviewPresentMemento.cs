@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Memento.Geometry;
 using PeletonSoft.Sketch.ViewModel.Memento.Service;
 using PeletonSoft.Sketch.ViewModel.Present;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
@@ -13,48 +14,50 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Present
 {
     public sealed class PreviewPresentMemento : PresentMemento, IMemento<PreviewPresentViewModel>
     {
-        public string FileName { get; set; }
+        public ImageBox ImageBox { get; set; }
         public RectangleMemento Quadrangle { get; set; }
-
+        public SuperimposeOptionMemento SuperimposeOption { get; set; }
         public override void GetState(IPresentViewModel originator)
         {
-            GetState((PreviewPresentViewModel)originator);
+            GetState((PreviewPresentViewModel) originator);
         }
 
         public override void SetState(IPresentViewModel originator)
         {
-            SetState((PreviewPresentViewModel)originator);
+            SetState((PreviewPresentViewModel) originator);
         }
 
         public void GetState(PreviewPresentViewModel originator)
         {
             base.GetState(originator);
+            SuperimposeOption = new SuperimposeOptionMemento();
 
-            FileName = originator.FileName;
-            if (originator.Quadrangle != null)
+            if (originator.ImageBox != null)
             {
+                ImageBox = originator.ImageBox;
                 Quadrangle = new RectangleMemento();
                 Quadrangle.GetState(originator.Quadrangle);
             }
+            SuperimposeOption.GetState(originator.SuperimposeOption);
         }
 
         public void SetState(PreviewPresentViewModel originator)
         {
             base.SetState(originator);
 
-            originator.FileName = FileName;
-            if (Quadrangle != null)
+            if (ImageBox != null)
             {
+                originator.ImageBox = ImageBox;
                 Quadrangle.SetState(originator.Quadrangle);
             }
-
+            SuperimposeOption.SetState(originator.SuperimposeOption);
         }
 
         public override IEnumerable<IFileBox> GetFiles()
         {
             var filess = new[]
             {
-                base.GetFiles()//,new[] {FileName}
+                base.GetFiles(), new[] {ImageBox}
             };
             return filess.GetFiles();
         }
@@ -63,14 +66,19 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Present
         {
             var xml = base.GetXml(files);
 
-            if (FileName != null)
+            xml.Add(new XElement("SuperimposeOption", SuperimposeOption.GetXml(files).Elements()));
+            if (ImageBox != null)
             {
-                xml.Add(new XElement("FileName",files[FileName]));
+                xml.Add(
+                    new XElement("ImageWidth", ImageBox.Width),
+                    new XElement("FileName", files.Single(x => x.Value.Data == ImageBox.Data).Key),
+                    new XElement("ImageHeight", ImageBox.Height),
+                    new XElement("Quadrangle", Quadrangle.GetXml(files).Elements()));
             }
 
             if (Quadrangle != null)
             {
-                xml.Add(new XElement("Quadrangle",Quadrangle.GetXml(files).Elements()));
+
             }
             return xml;
         }
@@ -78,24 +86,39 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Present
         public override void SetXml(XElement xml, string path)
         {
             base.SetXml(xml, path);
+            SuperimposeOption = new SuperimposeOptionMemento {ForegroundOpacity = 0.9};
 
-            FileName = null;
+            ImageBox = null;
             Quadrangle = null;
 
             var xFileName = xml.Element("FileName");
             if (xFileName != null)
             {
-                var fileName = Path.Combine(path, (string)xFileName);
-                FileName = fileName.GetTemporaryCopy();
+                var fileName = Path.Combine(path, (string) xFileName);
+                try
+                {
+                    if (Path.GetExtension(fileName).ToLower() == ".png")
+                    {
+                        ImageBox = new PngImageBox(
+                            File.ReadAllBytes(fileName),
+                            (int)xml.Element("ImageWidth"),
+                            (int)xml.Element("ImageHeight"));
+                        var xQuadrangle = xml.Element("Quadrangle");
+                        Quadrangle = new RectangleMemento();
+                        Quadrangle.SetXml(xQuadrangle, path);
+                    }
+                }
+                catch
+                {
+                }
             }
-
-            var xQuadrangle = xml.Element("Quadrangle");
-            if (xQuadrangle != null)
+            var superimposeOption = xml.Element("SuperimposeOption");
+            if (superimposeOption != null)
             {
-                Quadrangle = new RectangleMemento();
-                Quadrangle.SetXml(xQuadrangle,path);
+                SuperimposeOption.SetXml(superimposeOption, path);
             }
         }
+
     }
 
     public sealed class PreviewPresentMementoRegister : IMementoRegister

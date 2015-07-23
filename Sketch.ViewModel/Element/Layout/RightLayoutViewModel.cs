@@ -1,13 +1,20 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 {
     public sealed class RightLayoutViewModel : LayoutViewModel
     {
+        private void OnPropertyChanged<T>(Expression<Func<RightLayoutViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
         public override Rect Transform(Rect rect)
         {
             return new Rect()
@@ -27,27 +34,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
         public RightLayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
             : base(workspaceBit, element)
         {
+            this.SetPropertyChanged(el => el.Width, () => OnPropertyChanged(el => el.Left));
         }
-
-        protected override void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "Width":
-                    OnPropertyChanged("Width");
-                    OnPropertyChanged("Left");
-                    break;
-                case "Height":
-                    OnPropertyChanged("Height");
-                    break;
-                case "OffsetX":
-                    OnPropertyChanged("Left");
-                    break;
-                case "OffsetY":
-                    OnPropertyChanged("Top");
-                    break;
-            }
-        }
-
     }
 }

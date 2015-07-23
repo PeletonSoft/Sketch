@@ -5,29 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
-             xmlns:controls1="clr-namespace:PeletonSoft.Sketch.View.Controls"
-             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
-             xmlns:interface1="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface;assembly=Sketch.ViewModel.Interface"
+             xmlns:controls="clr-namespace:PeletonSoft.Sketch.View.Controls"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:interface="clr-namespace:PeletonSoft.Sketch.ViewModel.Interface;assembly=Sketch.ViewModel.Interface"
              xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory.Custom;assembly=Sketch.ViewModel"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance custom:CustomElementFactoryViewModel}"
+             d:DataContext="{d:DesignInstance custom:ElementFactoryViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
             <converter:TypeToListDictionaryItemConverter x:Key="TypeToListDictionaryItemConverter"/>
     </UserControl.Resources>
     <Grid>
-        <controls1:ElementFactoryView>
-            <controls1:ElementFactoryView.ImageSource>
+        <controls:ElementFactoryView>
+            <controls:ElementFactoryView.ImageSource>
                 <Binding Converter="{StaticResource TypeToListDictionaryItemConverter}"
                              ConverterParameter="{StaticResource FactoryImages}" />
-            </controls1:ElementFactoryView.ImageSource>
-            <controls1:ElementFactoryView.Title>
+            </controls:ElementFactoryView.ImageSource>
+            <controls:ElementFactoryView.Title>
                 <Binding Converter="{StaticResource TypeToListDictionaryItemConverter}"
                              ConverterParameter="{StaticResource FactoryNames}" />
-            </controls1:ElementFactoryView.Title>
+            </controls:ElementFactoryView.Title>
             <i:Interaction.Behaviors>
-                <behavior1:DragBehavior DataFormat="interface1:IElementFactoryViewModel"/>
+                <behavior:DragBehavior DataFormat="interface:IElementFactoryViewModel"/>
             </i:Interaction.Behaviors>
-        </controls1:ElementFactoryView>
+        </controls:ElementFactoryView>
     </Grid>
 </UserControl>

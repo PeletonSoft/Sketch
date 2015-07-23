@@ -3,12 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:pushBinding1="clr-namespace:PeletonSoft.Tools.View.PushBinding;assembly=Tools.View"
-             xmlns:present1="clr-namespace:PeletonSoft.Sketch.ViewModel.Present;assembly=Sketch.ViewModel"
-             xmlns:present2="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
-             d:DataContext="{d:DesignInstance present1:PreviewPresentViewModel}"
+             xmlns:vm="clr-namespace:PeletonSoft.Sketch.ViewModel.Present;assembly=Sketch.ViewModel"
+             xmlns:present="clr-namespace:PeletonSoft.Sketch.View.Controls.Present"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             d:DataContext="{d:DesignInstance vm:PreviewPresentViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:ImageSourceConverter x:Key="ImageSourceConverter"/>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer Padding="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
@@ -19,27 +22,23 @@
                     </TransformGroup>
                 </Viewbox.LayoutTransform>
                 <Grid>
-                    <Canvas ZIndex="0" Width="{Binding Width}" Height="{Binding Height}">
-                        <Image Width="{StaticResource ImageWidth}" Stretch="Uniform" Source="{Binding FileName}">
-                            <pushBinding1:PushBindingManager.PushBindings>
-                                <pushBinding1:PushBinding TargetProperty="ActualHeight" Path="Height"/>
-                                <pushBinding1:PushBinding TargetProperty="ActualWidth" Path="Width"/>
-                            </pushBinding1:PushBindingManager.PushBindings>
-                        </Image>
-                    </Canvas>
+                    <Grid ZIndex="0">
+                        <Image Stretch="Uniform" Opacity="{Binding SuperimposeOption.BackgroundOpacity}"
+                               Width="{Binding ImageBox.Width}" Height="{Binding ImageBox.Height}" 
+                               Source="{Binding ImageBox.Data, Converter={StaticResource ImageSourceConverter}}" />
+                    </Grid>
                     <Grid ZIndex="1">
                         <Grid.LayoutTransform>
                             <ScaleTransform ScaleX ="1" ScaleY="{Binding Ratio}" />
                         </Grid.LayoutTransform>
 
                         <Grid ZIndex="1">
-                            <present2:QuadrangleView 
-                                DataContext="{Binding Quadrangle}" 
+                            <present:QuadrangleView DataContext="{Binding Quadrangle}" 
                                 Width="{Binding Size}" Height="{Binding Size}"/>
                         </Grid>
 
-                        <Grid ZIndex="0">
-                            <present2:Canvas3DView/>
+                        <Grid ZIndex="0" Opacity="{Binding SuperimposeOption.ForegroundOpacity}">
+                            <present:Canvas3DView/>
                         </Grid>
 
                     </Grid>

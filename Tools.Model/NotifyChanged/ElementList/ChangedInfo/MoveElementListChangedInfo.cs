@@ -26,8 +26,8 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo
             }
 
             var result = index;
-            result -= index < SourceIndex ? 0 : 1;
-            result += index < DestionationIndex ? 0 : 1;
+            result -= result > SourceIndex ? 1 : 0;
+            result += result >= DestionationIndex ? 1 : 0;
             return result;
         }
     }

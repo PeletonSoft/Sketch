@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
                     xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
-                    xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail">
+                    xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
+                    xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View">
 
     <DataTemplate DataType="{x:Type element:HardPelmetViewModel}">
         <detail:HardPelmetDetailView/>
@@ -30,6 +31,37 @@
     
     <DataTemplate DataType="{x:Type element:RomanBlindViewModel}">
         <detail:RomanBlindDetailView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type element:LatticeViewModel}">
+        <WrapPanel>
+            <GroupBox Header="Макет">
+                <detail:ElementDetailView />
+            </GroupBox>
+            <GroupBox Header="Рамеры ячейки">
+                <Grid>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Ширина"/>
+                    <controls:NumericBox Grid.Row="0" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding CellWidth, Mode=TwoWay}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Высота"/>
+                    <controls:NumericBox Grid.Row="1" Grid.Column="1" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding CellHeight, Mode=TwoWay}" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Описание">
+                <detail:DescriptionView  Width="400" Height="Auto"/>
+            </GroupBox>
+        </WrapPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type custom:EqualSwagTailViewModel}">
@@ -88,5 +120,7 @@
             </GroupBox>
         </WrapPanel>
     </DataTemplate>
+    
+    
     
 </ResourceDictionary>

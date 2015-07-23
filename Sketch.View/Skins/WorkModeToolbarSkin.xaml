@@ -6,32 +6,56 @@
                     xmlns:workMode1="clr-namespace:PeletonSoft.Sketch.ViewModel.WorkMode;assembly=Sketch.ViewModel">
 
     <DataTemplate DataType="{x:Type workMode1:EditorWorkModeViewModel}">
-        <WrapPanel DataContext="{Binding Workspace}">
+        <StackPanel Orientation="Vertical">
+            <WrapPanel DataContext="{Binding Workspace}">
 
-            <GroupBox Header="Отображение">
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Width="110"
+                <GroupBox Header="Отображение">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Width="110"
 						Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 						Content="Макет" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
+                            <i:Interaction.Behaviors>
+                                <behavior:ToggleButtonStatePatternBehavior
 								State="{Binding Present, Mode=TwoWay}"
 								TargetState="{Binding Presents.LayoutPresent}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton  Width="110"
+                            </i:Interaction.Behaviors>
+                        </RadioButton>
+                        <RadioButton  Width="110"
 							Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 							Content="Презентация" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
+                            <i:Interaction.Behaviors>
+                                <behavior:ToggleButtonStatePatternBehavior
 								State="{Binding Present, Mode=TwoWay}"
 								TargetState="{Binding Presents.PreviewPresent}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                </StackPanel>
-            </GroupBox>
+                            </i:Interaction.Behaviors>
+                        </RadioButton>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Габариты">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Ширина" Width="55"/>
+                        <controls:NumericBox Width="110"
+                        IsEnabled="{Binding ElementList.IsEmpty}" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding Screen.Width, Mode=TwoWay}" />
+                        <Label Content="Высота" Width="55"/>
+                        <controls:NumericBox Width="110"
+                        IsEnabled="{Binding ElementList.IsEmpty}" 
+                        StringFormat="{StaticResource NumericFormat}"
+                        Value="{Binding Screen.Height, Mode=TwoWay}" />
+                    </StackPanel>
+                </GroupBox>
 
-            <ContentPresenter Content="{Binding Present}">
+                <GroupBox Header="Масштаб">
+                    <Slider Width="300" 
+                    VerticalAlignment="Center"
+                    Value="{Binding Present.Zoom, Mode=TwoWay}" 
+                    Maximum="5"/>
+                </GroupBox>
+
+            </WrapPanel>
+
+            <ContentPresenter Content="{Binding Workspace.Present}">
                 <ContentPresenter.Resources>
                     <ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
@@ -41,29 +65,7 @@
                 </ContentPresenter.Resources>
             </ContentPresenter>
 
-            <GroupBox Header="Габариты">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Ширина" Width="55"/>
-                    <controls:NumericBox Width="110"
-                        IsEnabled="{Binding ElementList.IsEmpty}" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Screen.Width, Mode=TwoWay}" />
-                    <Label Content="Высота" Width="55"/>
-                    <controls:NumericBox Width="110"
-                        IsEnabled="{Binding ElementList.IsEmpty}" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Screen.Height, Mode=TwoWay}" />
-                </StackPanel>
-            </GroupBox>
-
-            <GroupBox Header="Масштаб">
-                <Slider Width="300" 
-                    VerticalAlignment="Center"
-                    Value="{Binding Present.Zoom, Mode=TwoWay}" 
-                    Maximum="5"/>
-            </GroupBox>
-            
-        </WrapPanel>
+        </StackPanel>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type workMode1:ReportWorkModeViewModel}">

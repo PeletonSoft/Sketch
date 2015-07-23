@@ -14,7 +14,7 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
@@ -24,7 +24,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             Action notificator = () => OnPropertyChanged(propertyName);
             return notificator.SetField(ref field, value);
         }
-
         #endregion
 
         #region implement IOriginator

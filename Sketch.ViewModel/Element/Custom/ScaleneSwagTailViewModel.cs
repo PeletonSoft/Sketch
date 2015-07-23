@@ -1,12 +1,13 @@
-﻿using PeletonSoft.Sketch.ViewModel.Element.Primitive;
+﻿using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
     public abstract class ScaleneSwagTailViewModel : SwagTailViewModel
     {
-        public ScaleneSwagTailViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit)
+        public ScaleneSwagTailViewModel(IWorkspaceBit workspaceBit, SwagTail model)
+            : base(workspaceBit, model)
         {
             LeftShoulder.Length = 0.25 * Layout.Width;
             LeftShoulder.WaveHeight = LeftShoulder.Length / WaveCount * 1.3;

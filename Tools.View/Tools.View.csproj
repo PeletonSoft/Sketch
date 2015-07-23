@@ -91,7 +91,11 @@
     <Compile Include="Controls\PageField.xaml.cs">
       <DependentUpon>PageField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SelectPointMarker.xaml.cs">
+      <DependentUpon>SelectPointMarker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\CollapsedVisibilityIfEmptyConverter.cs" />
+    <Compile Include="Converter\ContainerItemConverter.cs" />
     <Compile Include="Converter\DoubleFormatConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
     <Compile Include="Converter\FitInRectangleConverter.cs" />
@@ -104,16 +108,18 @@
     <Compile Include="Converter\BottomToPointCollectionConverter.cs" />
     <Compile Include="Converter\PointCollectionConverter.cs" />
     <Compile Include="Converter\EnumerableCompositeConverter.cs" />
+    <Compile Include="Converter\LineCollectionToPathGeometryConverter.cs" />
     <Compile Include="Converter\PointCollectionToPathGeometryConverter.cs" />
     <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\ScaleConverter.cs" />
+    <Compile Include="Converter\ShiftMarginConverter.cs" />
     <Compile Include="Converter\StatePatternToBooleanConverter.cs" />
-    <Compile Include="Converter\StatePatternToBooleanVisibility.cs" />
     <Compile Include="Converter\StringFormatConverter.cs" />
     <Compile Include="Converter\Transfom3DConverter.cs" />
     <Compile Include="Converter\TranslationConverter.cs" />
     <Compile Include="Converter\TypeToListDictionaryItemConverter.cs" />
     <Compile Include="CurrentControl.cs" />
+    <Compile Include="Drawing\PointCollectionHelper.cs" />
     <Compile Include="ImageCaptureHelper.cs" />
     <Compile Include="ICurrent.cs" />
     <Compile Include="ILineView.cs" />
@@ -142,6 +148,10 @@
     <Page Include="Controls\PageField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SelectPointMarker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Style\ReportStyle.xaml">
       <Generator>MSBuild:Compile</Generator>

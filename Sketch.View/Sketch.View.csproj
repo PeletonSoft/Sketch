@@ -98,7 +98,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Element\Detail\OutlineDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Element\Detail\RomanBlindDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\RotationDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\SuperimposeOptionDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Element\Detail\TieBackDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\TransformationDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Element\View\DisabledFocusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\ReflectionDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,10 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Element\Detail\ScanDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Element\Detail\SelectPointMarker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,10 +282,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Skins\WavySurfaceItemSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Skins\PresentSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -283,6 +295,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\WorkModeToolbarSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\DetailStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\GeneralStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,8 +335,17 @@
     <Compile Include="Controls\Element\Detail\RectangleCropImageView.xaml.cs">
       <DependentUpon>RectangleCropImageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Element\Detail\OutlineDetailView.xaml.cs">
+      <DependentUpon>OutlineDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Element\Detail\RomanBlindDetailView.xaml.cs">
       <DependentUpon>RomanBlindDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\RotationDetailView.xaml.cs">
+      <DependentUpon>RotationDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\SuperimposeOptionDetailView.xaml.cs">
+      <DependentUpon>SuperimposeOptionDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\Detail\SwagTailDetailView.xaml.cs">
       <DependentUpon>SwagTailDetailView.xaml</DependentUpon>
@@ -329,6 +358,9 @@
     </Compile>
     <Compile Include="Controls\Element\Detail\TieBackDetailView.xaml.cs">
       <DependentUpon>TieBackDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\TransformationDetailView.xaml.cs">
+      <DependentUpon>TransformationDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\Report\ElementReportView.xaml.cs">
       <DependentUpon>ElementReportView.xaml</DependentUpon>
@@ -344,6 +376,9 @@
     </Compile>
     <Compile Include="Controls\Element\View\DisabledFocusView.xaml.cs">
       <DependentUpon>DisabledFocusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\ReflectionDetailView.xaml.cs">
+      <DependentUpon>ReflectionDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\View\WavySurfaceView.xaml.cs">
       <DependentUpon>WavySurfaceView.xaml</DependentUpon>
@@ -374,9 +409,6 @@
     </Compile>
     <Compile Include="Controls\Element\Detail\ScanDetailView.xaml.cs">
       <DependentUpon>ScanDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Element\Detail\SelectPointMarker.xaml.cs">
-      <DependentUpon>SelectPointMarker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\View\SwagTailView.xaml.cs">
       <DependentUpon>SwagTailView.xaml</DependentUpon>
@@ -449,9 +481,6 @@
     <Resource Include="Images\Element\Fillet.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Element\HardPelmet.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Element\Panel.png" />
   </ItemGroup>
   <ItemGroup>
@@ -459,9 +488,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Element\Tulle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Element\Swag.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Factory\Application.png" />
@@ -521,16 +547,16 @@
     <Resource Include="Images\Outline\VRectangle.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Transformation\DFlip.png" />
+    <Resource Include="Images\Transformation\Reflection\DFlip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Transformation\HFlip.png" />
+    <Resource Include="Images\Transformation\Reflection\HFlip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Transformation\Same.png" />
+    <Resource Include="Images\Transformation\Reflection\Same.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Transformation\VFlip.png" />
+    <Resource Include="Images\Transformation\Reflection\VFlip.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Factory\Tail.png" />
@@ -549,6 +575,10 @@
     <ProjectReference Include="..\Sketch.Model\Sketch.Model.csproj">
       <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
       <Name>Sketch.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Design\Sketch.ViewModel.Design.csproj">
+      <Project>{e05ca886-941f-4a85-9dda-fe32c4769ac3}</Project>
+      <Name>Sketch.ViewModel.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
       <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
@@ -583,6 +613,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Sketch.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Lattice.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,5 +6,7 @@
         string SavePath { get; }
         int OrderId { get; }
         bool ReadOnly { get;  }
+        string ProgramName { get; }
+        string Version { get; }
     }
 }

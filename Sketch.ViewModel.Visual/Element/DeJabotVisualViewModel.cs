@@ -1,27 +1,22 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System;
+using System.Linq.Expressions;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
+using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
     public class DeJabotVisualViewModel : ElementVisualViewModel
     {
+        private void OnPropertyChanged<T>(Expression<Func<DeJabotVisualViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
         public DeJabotVisualViewModel(VisualOptions visualOptions, DeJabotViewModel element)
             : base(visualOptions, element)
         {
-            Element.PropertyChanged += ElementOnPropertyChanged;
-        }
-
-        private void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "WavySurface":
-                    OnPropertyChanged("WavySurface");
-                    break;
-            }
+            Element.SetPropertyChanged(el => el.WavySurface, () => OnPropertyChanged(v => v.WavySurface));
         }
 
         private new DeJabotViewModel Element
@@ -38,8 +33,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
                     return null;
                 }
                 
-                var size = new Size(Element.Width, Element.Height);
-                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface, size);
+                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface);
             }
         }
     }

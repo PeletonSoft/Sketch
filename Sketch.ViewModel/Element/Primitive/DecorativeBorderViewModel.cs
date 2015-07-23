@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using PeletonSoft.Sketch.Model.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class DecorativeBorderViewModel : INotifyPropertyChanged, IOriginator
+    public sealed class DecorativeBorderViewModel : IOriginator, INotifyViewModel<DecorativeBorder>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,10 +21,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
+        }
+
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            notificator.SetField(getValue, setValue, value);
         }
         #endregion
 
@@ -33,26 +41,29 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         }
         #endregion
 
-        public DecorativeBorderViewModel(IWorkspaceBit workspaceBit)
+        #region implement IViewModel
+        public DecorativeBorder Model { get; private set; }
+        #endregion
+
+        public DecorativeBorderViewModel(IWorkspaceBit workspaceBit, DecorativeBorder model)
         {
             WorkspaceBit = workspaceBit;
+            Model = model;
             IsEdited = false;
         }
 
-        public IWorkspaceBit WorkspaceBit { get; private set; }
+        private IWorkspaceBit WorkspaceBit { get; set; }
 
-        private double _width;
         public double Width
         {
-            get { return _width; }
-            set { SetField(ref _width, value); }
+            get { return Model.Width; }
+            set { SetField(() => Model.Width, v => Model.Width = v, value); }
         }
 
-        private double _height;
         public double Height
         {
-            get { return _height; }
-            set { SetField(ref _height, value); }
+            get { return Model.Height; }
+            set { SetField(() => Model.Height, v => Model.Height = v, value); }
         }
 
         private bool _isEdited;
@@ -62,11 +73,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             set { SetField(ref _isEdited, value); }
         }
 
-        private IEnumerable<Point> _points;
         public IEnumerable<Point> Points
         {
-            get { return _points; }
-            set { SetField(ref _points, value); }
+            get { return Model.Points; }
+            set { SetField(() => Model.Points, v => Model.Points = v, value); }
         }
 
         public void ResetChains()
@@ -77,6 +87,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
                 new Point(Width, Height)
             };
         }
+
+        
     }
 }
 

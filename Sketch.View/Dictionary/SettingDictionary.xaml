@@ -21,7 +21,7 @@
     <s:Double x:Key="CanvasWidth">3</s:Double>
     <s:Double x:Key="CanvasHeight">2</s:Double>
     <s:Double x:Key="ImageWidth">500</s:Double>
-    <s:Double x:Key="MarkerRadius">-8</s:Double>
+    <s:Double x:Key="MarkerRadius">8</s:Double>
     <s:Double x:Key="MinusTwo">-2</s:Double>
     <s:Double x:Key="MinusOne">-1</s:Double>
     <s:Double x:Key="MinusRadianToDegree">-57.295779513082320876798154814105</s:Double>
@@ -65,6 +65,7 @@
         <element:OverlayMementoRegister/>
         <element:TieBackMementoRegister/>
         <element:RomanBlindMementoRegister/>
+        <element:LatticeMementoRegister/>
         <present:LayoutPresentMementoRegister/>
         <present:PreviewPresentMementoRegister/>
         <workMode:ReportWorkModeMementoRegister/>

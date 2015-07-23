@@ -1,17 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
+using PeletonSoft.Tools.Model.Collection;
+using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class ApplicationViewModel : AlignableElementViewModel
+    public sealed class ApplicationViewModel : AlignableElementViewModel, IReflectableViewModel, IViewModel<Application>
     {
+        private void OnPropertyChanged<T>(Expression<Func<ApplicationViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+        public new Application Model
+        {
+            get { return (Application)base.Model; }
+        }
+
         public ApplicationViewModel(IWorkspaceBit workspaceBit, Application model)
             : base(workspaceBit, model)
         {
@@ -19,26 +33,20 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Height = Screen.Height*0.3;
             Thickness = 0.3*Layout.Height;
 
-            Outline = Outlines.Band;
-            Transformation = Transformations.Same;
+            Outline = Outlines.Default;
+            Reflection = Reflections.Default;
 
-            this.SetPropertyChanged(
-                new[] { "Thickness", "Outline", "Transformation" },
-                () => OnPropertyChanged("Points"));
-            this.SetPropertyChanged(new[] {"Width", "Height"}, SizePropertyChanged);
-        }
-
-        private new Application Model
-        {
-            get { return (Application) base.Model; }
-        }
-
-        private void SizePropertyChanged()
-        {
-            if (Width > 0.001 && Height > 0.005)
-            {
-                OnPropertyChanged("Points");
-            }
+            this
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.Thickness),
+                        this.GetPropertyName(el => el.Outline),
+                        this.GetPropertyName(el => el.Reflection),
+                        this.GetPropertyName(el => el.Width),
+                        this.GetPropertyName(el => el.Height)
+                    },
+                    () => OnPropertyChanged(el => el.Points));
         }
 
         public double Thickness
@@ -55,25 +63,26 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(ref _outline, value); }
         }
 
-        private TransformationViewModel _transformation;
-        public TransformationViewModel Transformation
+        private IReflectionViewModel _reflection;
+
+        public IReflectionViewModel Reflection
         {
-            get { return _transformation; }
-            set { SetField(ref _transformation, value); }
+            get { return _reflection; }
+            set { SetField(ref _reflection, value); }
         }
 
-        private readonly Lazy<OutlineViewModels> _lazyOutlines =
-            new Lazy<OutlineViewModels>(() => new OutlineViewModels());
+        private readonly Lazy<IContainer<OutlineViewModel>> _lazyOutlines =
+            new Lazy<IContainer<OutlineViewModel>>(() => new OutlineViewModels());
 
-        public OutlineViewModels Outlines
+        public IContainer<OutlineViewModel> Outlines
         {
             get { return _lazyOutlines.Value; }
         }
 
-        private readonly Lazy<TransformationViewModels> _lazyTransformations =
-            new Lazy<TransformationViewModels>(() => new TransformationViewModels());
+        private readonly Lazy<IContainer<IReflectionViewModel>> _lazyTransformations =
+            new Lazy<IContainer<IReflectionViewModel>>(() => new ReflectionViewModels());
 
-        public TransformationViewModels Transformations
+        public IContainer<IReflectionViewModel> Reflections
         {
             get { return _lazyTransformations.Value; }
         }
@@ -83,9 +92,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             get
             {
                 var points = Outline.GetPoints(new Size(Width, Height), Thickness);
-                return Transformation.GetPoints(points, Layout);
+                return Reflection.GetPoints(points, Layout);
             }
         }
-
     }
 }

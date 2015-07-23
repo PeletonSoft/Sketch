@@ -1,112 +1,84 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
+using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.File;
+using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Present
 {
     public class PreviewPresentViewModel : CustomPresentViewModel
     {
-        private readonly Lazy<ICommand> _openFileCommand;
+        private void OnPropertyChanged<T>(Expression<Func<PreviewPresentViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
+        private readonly Lazy<ICommand> _lazyOpenFileCommand;
         public ICommand OpenFileCommand
         {
-            get { return _openFileCommand.Value; }
+            get { return _lazyOpenFileCommand.Value; }
+        }
+
+        private readonly Lazy<ICommand> _lazyCancelQuadrangleCommand;
+        public ICommand CancelQuadrangleCommand
+        {
+            get { return _lazyCancelQuadrangleCommand.Value; }
         }
 
         public PreviewPresentViewModel(IWorkspaceViewModel workspace)
             : base(workspace)
         {
             Workspace = workspace;
-            _openFileCommand = new Lazy<ICommand>(
+            SuperimposeOption = new SuperimposeOptionViewModel {ForegroundOpacity = 0.9};
+
+            _lazyCancelQuadrangleCommand = new Lazy<ICommand>(
+                () => Workspace.CommandFactory.CreateCommand(CancelQuadrangle));
+            _lazyOpenFileCommand = new Lazy<ICommand>(
                 () => Workspace.CommandFactory.CreateCommand(
-                    (parameters) => FileName = (string) parameters));
+                    parameter => OpenFile((ImageBox)parameter)));
         }
 
-        private string _fileName;
+        private void OpenFile(ImageBox imageBox)
+        {
+            ImageBox = imageBox;
+            CancelQuadrangle();
+        }
 
-        public string FileName
+        private void CancelQuadrangle()
+        {
+            _quadrangle = null;
+            OnPropertyChanged(p => p.Quadrangle);
+            OnPropertyChanged(p => p.ScreenScale);
+            OnPropertyChanged(p => p.Ratio);
+        }
+
+        private ImageBox _imageBox;
+        public ImageBox ImageBox
+        {
+            get { return _imageBox; }
+            set { SetField(ref _imageBox, value); }
+        }
+
+        public Point ScreenScale
         {
             get
             {
-                return _fileName;
-                
-            }
-            set
-            {
-                if (value != _fileName)
-                {
-                    _fileName = value;
-                    _quadrangle = null;
-                    OnPropertyChanged("FileName");
-                    OnPropertyChanged("Quadrangle");
-                }
+                return ImageBox != null
+                    ? new Point(
+                        ImageBox.Width/Workspace.Screen.Width, 
+                        ImageBox.Height/Workspace.Screen.Width)
+                    : new Point(0, 0);
             }
         }
 
-        private double _width;
-        public double Width
-        {
-            get
-            {
-                return _width;
-
-            }
-            set
-            {
-                if (value != _width && _quadrangle == null)
-                {
-                    _width = value;
-                    OnPropertyChanged("Width");
-                    OnPropertyChanged("ScreenScaleX");
-                    OnPropertyChanged("Ratio");
-                    OnPropertyChanged("Quadrangle");
-                }
-            }
-        }
-
-        public double ScreenScaleX
-        {
-            get
-            {
-                return Width/Workspace.Screen.Width;
-            }
-        }
-
-        public double ScreenScaleY
-        {
-            get
-            {
-                return Height / Workspace.Screen.Width;
-            }
-        }
-
-        private double _height;
-        public double Height
-        {
-            get
-            {
-                return _height;
-
-            }
-            set
-            {
-                if (value != _height && _quadrangle == null)
-                {
-                    _height = value;
-                    OnPropertyChanged("Height");
-                    OnPropertyChanged("ScreenScaleY");
-                    OnPropertyChanged("Ratio");
-                    OnPropertyChanged("Quadrangle");
-                }
-            }
-        }
 
         public double Ratio
         {
-            get
-            {
-                return _width != 0 ? Height/Width : 1;
-            }
+            get { return ImageBox != null ? ImageBox.Height/(double) ImageBox.Width : 1; }
         }
 
         private PresentQuadrangleViewModel _quadrangle;
@@ -116,15 +88,16 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             {
                 if (_quadrangle == null)
                 {
-                    if (Width > 0 && Height > 0)
+                    if (ImageBox != null)
                     {
-                        _quadrangle = new PresentQuadrangleViewModel(Width);
+                        _quadrangle = new PresentQuadrangleViewModel(ImageBox.Width, SuperimposeOption);
                     }
                 }
                 return _quadrangle;
-
             }
         }
+
+        public SuperimposeOptionViewModel SuperimposeOption { get; private set; }
 
 
     }

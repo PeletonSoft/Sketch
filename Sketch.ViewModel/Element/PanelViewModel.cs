@@ -1,16 +1,21 @@
-﻿using PeletonSoft.Sketch.Model.Element.Custom;
+﻿using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.Logic;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public class PanelViewModel : AlignableElementViewModel
+    public sealed class PanelViewModel : AlignableElementViewModel, IViewModel<Panel>
     {
 
-        public PanelViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit, new AlignableElement())
+        public PanelViewModel(IWorkspaceBit workspaceBit, Panel model)
+            : base(workspaceBit, model)
         {
         }
 
+        public new Panel Model
+        {
+            get { return (Panel) base.Model; }
+        }
     }
 }

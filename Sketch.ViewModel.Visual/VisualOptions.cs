@@ -1,4 +1,5 @@
 ﻿using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.Dependency;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual
 {

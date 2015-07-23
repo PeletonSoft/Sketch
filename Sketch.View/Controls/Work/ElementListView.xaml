@@ -20,27 +20,30 @@
          HorizontalAlignment="Stretch">
             <DockPanel>
                 <DockPanel.Width>
-                    <Binding 
-                        Path="ActualWidth" 
-                        RelativeSource="{RelativeSource AncestorType={x:Type ToolBarPanel}}" />
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type ToolBarPanel}}" />
                 </DockPanel.Width>
-                <Button Width="50" Command="{Binding MoveUpElementCommand}" >Вверх</Button>
-                <Button Width="50" Command="{Binding MoveDownElementCommand}">Вниз</Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Width="55" Command="{Binding MoveUpElementCommand}" >Вверх</Button>
+                    <Button Width="55" Command="{Binding MoveDownElementCommand}">Вниз</Button>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Width="55" Command="{Binding UnselectElementCommand}">Деселект</Button>
+                    <Button Width="55" Command="{Binding RemoveElementCommand}">Удалить</Button>
+                </StackPanel>
+                
 
-                <Button 
-                    HorizontalAlignment="Right" Width="50" 
-                    Command="{Binding RemoveElementCommand}">Удалить
-                </Button>
+                
             </DockPanel>
         </ToolBar>
 
         <ScrollViewer Grid.Row="1" 
                       HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
             <ListBox 
-            ItemsSource="{Binding Items}"                 
-            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" 
-            VerticalAlignment="Stretch" 
-            HorizontalContentAlignment="Stretch" >
+                ItemsSource="{Binding Collection}"                 
+                SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" 
+                VerticalAlignment="Stretch" 
+                HorizontalContentAlignment="Stretch" >
 
             <ListBox.Resources>
                 <ResourceDictionary>

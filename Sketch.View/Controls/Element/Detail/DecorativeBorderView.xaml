@@ -3,10 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:primitive="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;assembly=Sketch.ViewModel.Visual"
+             xmlns:vm="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;assembly=Sketch.ViewModel.Visual"
+             xmlns:db="clr-namespace:PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;assembly=Sketch.ViewModel"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance primitive:DecorativeBorderVisualViewModel}"
+             d:DataContext="{d:DesignInstance vm:DecorativeBorderVisualViewModel}"
              d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Sketch.View;component/Style/GeneralStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <StackPanel Orientation="Vertical">
         <WrapPanel>
             <Button Content="Сбросить" Command="{Binding ResetCommand}" Margin="3,1"/>
@@ -22,47 +31,7 @@
                 <Grid>
                     <Grid ZIndex="1">
                         <ListBox Background="{x:Null}" ItemsSource="{Binding Chains}" >
-                            <ListBox.Template>
-                                <ControlTemplate>
-                                    <ScrollViewer Focusable="False" Padding="0">
-                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                    </ScrollViewer>
-                                </ControlTemplate>
-                            </ListBox.Template>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas Margin="10" Width="{Binding Width}"
-                                        Height="{Binding Height}"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ItemsControl.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="Padding" Value="0,0,0,0"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Top" />
-                                    <Setter Property="Canvas.Left" Value="{Binding X, Mode=TwoWay}"/>
-                                    <Setter Property="Canvas.Top" Value="{Binding Y, Mode=TwoWay}"/>
-                                    <Setter Property="Focusable" Value="False"/>
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
-                                                    Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsSelected" Value="true">
-                                                        <Setter Property="Background" TargetName="Bd" Value="WhiteSmoke"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ItemsControl.ItemContainerStyle>
+
                             <ListBox.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.MergedDictionaries>
@@ -70,6 +39,29 @@
                                     </ResourceDictionary.MergedDictionaries>
                                 </ResourceDictionary>
                             </ListBox.Resources>
+
+                            <ListBox.Template>
+                                <ControlTemplate>
+                                    <ScrollViewer Focusable="False" Padding="0">
+                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </ScrollViewer>
+                                </ControlTemplate>
+                            </ListBox.Template>
+                            
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Margin="10" Width="{Binding Width}" Height="{Binding Height}"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource GeometryListBoxItemStyle}"
+                                       d:DataContext="{d:DesignInstance db:PointViewModel}">
+                                    <Setter Property="Canvas.Left" Value="{Binding X, Mode=TwoWay}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding Y, Mode=TwoWay}"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <ContentPresenter Content="{Binding}" Focusable="False"/>
@@ -78,11 +70,7 @@
                         </ListBox>
                     </Grid>
                     <Grid ZIndex="0">
-                        <Rectangle 
-                                Margin="10" 
-                                Fill="AliceBlue"
-                                Width="{Binding Width}"
-                                Height="{Binding Height}"/>
+                        <Rectangle Margin="10" Fill="AliceBlue" Width="{Binding Width}" Height="{Binding Height}"/>
                     </Grid>
                 </Grid>
             </GroupBox>

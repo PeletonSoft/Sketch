@@ -1,31 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using PeletonSoft.Sketch.ViewModel.Geometry.WavySurface;
-using PeletonSoft.Sketch.ViewModel.Interface.Primitive;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 {
     public class WavySurfaceVisualViewModel
     {
-        public WavySurfaceVisualViewModel(VisualOptions visualOptions, IWavyBorder<IEnumerable<Point>> wavySurface, Size size)
+        public WavySurfaceVisualViewModel(VisualOptions visualOptions, IWavyBorder<IEnumerable<Point>> wavySurface)
         {
             var pixelPerUnit = visualOptions.PixelPerUnit;
-            Width = pixelPerUnit.Transform(size.Width);
-            Height = pixelPerUnit.Transform(size.Height);
             var vavySurfaceTransform = wavySurface.Transform(pixelPerUnit.Transform);
 
-            IEnumerable<IWavySurfaceItemViewModel> bottoms = vavySurfaceTransform.Bottoms
-                .Select(bottom => new BottomViewModel(bottom));
-            IEnumerable<IWavySurfaceItemViewModel> waves = vavySurfaceTransform.Waves
-                .Select(wave => new WaveViewModel(wave));
+            Func<IBottom<IEnumerable<Point>>, IEnumerable<Point>> transform = b => b.Start.Concat(b.Finish.Reverse()); 
 
-            Items = bottoms.Concat(waves);
+            Peak = vavySurfaceTransform.Waves.Select(w => w.Peak);
+            InSide = vavySurfaceTransform.Waves.Select(w => transform(w.InSide));
+            OutSide = vavySurfaceTransform.Waves.Select(w => transform(w.OutSide));
+            Bottom = vavySurfaceTransform.Bottoms.Select(transform);
 
         }
-        public IEnumerable<IWavySurfaceItemViewModel> Items { get; private set; }
-        public double Width { get; private set; }
-        public double Height { get; private set; }    
+
+        public IEnumerable<IEnumerable<Point>> Peak { get; private set; }
+        public IEnumerable<IEnumerable<Point>> InSide { get; private set; }
+        public IEnumerable<IEnumerable<Point>> OutSide { get; private set; }
+        public IEnumerable<IEnumerable<Point>> Bottom { get; private set; } 
+
+
     }
 }

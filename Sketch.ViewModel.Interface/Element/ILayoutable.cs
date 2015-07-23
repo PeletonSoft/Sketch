@@ -4,6 +4,6 @@ namespace PeletonSoft.Sketch.ViewModel.Interface.Element
 {
     public interface ILayoutable
     {
-        ILayoutViewModel Layout { get; set; }
+        ILayoutViewModel Layout { get; }
     }
 }

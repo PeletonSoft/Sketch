@@ -9,25 +9,35 @@
              d:DataContext="{d:DesignInstance element:ScanVisualViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <converter:ScaleConverter x:Key="ScaleConverter"/>
         <converter:ImageSourceConverter x:Key="ImageSourceConverter"/>
     </UserControl.Resources>
-    <Canvas>
-        <Canvas.LayoutTransform>
-            <ScaleTransform ScaleX="{Binding ScaleX}" ScaleY="{Binding ScaleY}"></ScaleTransform>
-        </Canvas.LayoutTransform>
-        <Canvas>
-            <Canvas.Clip>
-                <RectangleGeometry Rect="{Binding Clip}" />
-            </Canvas.Clip>
-            <Image Source="{Binding ImageBox.Data, Converter={StaticResource ImageSourceConverter}}" 
-                Width="{Binding ImageBox.Width}" Height="{Binding ImageBox.Height}"  
-                Canvas.Left="{Binding Shift.X}" Canvas.Top="{Binding Shift.Y}"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None">
-                <Image.RenderTransform>
-                    <RotateTransform CenterX="{Binding Center.X}" CenterY="{Binding Center.Y}" Angle="{Binding Angle}"/>
-                </Image.RenderTransform>
-            </Image>
-        </Canvas>
-    </Canvas>
+    
+    <Grid>
+        <Grid.LayoutTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="{Binding RotationScale.X}" ScaleY="{Binding RotationScale.Y}"/>
+                <RotateTransform Angle="{Binding RotationAngle}"/>
+            </TransformGroup>
+        </Grid.LayoutTransform>
+        <Grid Width="{Binding Layout.Width}" Height="{Binding Layout.Height}">
+            <Canvas>
+                <Canvas.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding Scale.X}" ScaleY="{Binding Scale.Y}"/>
+                </Canvas.LayoutTransform>
+                <Canvas>
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="{Binding Clip}" />
+                    </Canvas.Clip>
+                    <Image Source="{Binding ImageBox.Data, Converter={StaticResource ImageSourceConverter}}" 
+                        Width="{Binding ImageBox.Width}" Height="{Binding ImageBox.Height}"  
+                        Canvas.Left="{Binding Shift.X}" Canvas.Top="{Binding Shift.Y}"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Fill">
+                    <Image.RenderTransform>
+                        <RotateTransform CenterX="{Binding Center.X}" CenterY="{Binding Center.Y}" Angle="{Binding Angle}"/>
+                    </Image.RenderTransform>
+                    </Image>
+                </Canvas>
+            </Canvas>
+        </Grid>
+    </Grid>
 </UserControl>

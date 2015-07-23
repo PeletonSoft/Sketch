@@ -2,6 +2,7 @@
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.View.Behavior
 {
@@ -25,7 +26,10 @@ namespace PeletonSoft.Tools.View.Behavior
                         BeforeCommand.Execute(null);
                     }
                 }
-                ImageData = element.ExportToPng();
+                ImageBox = new PngImageBox(
+                    element.ExportToPng(),
+                    (int) element.ActualWidth,
+                    (int) element.ActualHeight);
             }
         }
 
@@ -50,20 +54,20 @@ namespace PeletonSoft.Tools.View.Behavior
           "CurrentControl", typeof(CurrentControl), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
 
 
-        public byte[] ImageData
+        public ImageBox ImageBox
         {
             get
             {
-                return (byte[])GetValue(ImageDataProperty);
+                return (ImageBox)GetValue(ImageBoxProperty);
             }
             set
             {
-                SetValue(ImageDataProperty, value);
+                SetValue(ImageBoxProperty, value);
             }
         }
 
-        public static readonly DependencyProperty ImageDataProperty = DependencyProperty.Register(
-          "ImageData", typeof(byte[]), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
+        public static readonly DependencyProperty ImageBoxProperty = DependencyProperty.Register(
+          "ImageBox", typeof(ImageBox), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
 
         public ICommand BeforeCommand
         {

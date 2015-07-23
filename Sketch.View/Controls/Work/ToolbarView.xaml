@@ -9,34 +9,52 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance viewModel:WorkspaceViewModel}"
              d:DesignHeight="50">
-    <WrapPanel Orientation="Horizontal">
-        
-        <GroupBox Header="Режим работы">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton Width="110"
+    <StackPanel Orientation="Vertical">
+        <WrapPanel Orientation="Horizontal">
+            <GroupBox Header="Режим работы">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Width="110"
 						Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 						Content="Редактор" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                    <i:Interaction.Behaviors>
-                        <behavior:ToggleButtonStatePatternBehavior
+                        <i:Interaction.Behaviors>
+                            <behavior:ToggleButtonStatePatternBehavior
 								State="{Binding WorkMode, Mode=TwoWay}"
 								TargetState="{Binding WorkModes.Editor}"/>
-                    </i:Interaction.Behaviors>
-                </RadioButton>
-                <RadioButton  Width="110"
+                        </i:Interaction.Behaviors>
+                    </RadioButton>
+                    <RadioButton  Width="110"
 							Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
 							Content="Отчет" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                    <i:Interaction.Behaviors>
-                        <behavior:ImageCaptureOnButtonClickBehavior 
+                        <i:Interaction.Behaviors>
+                            <behavior:ImageCaptureOnButtonClickBehavior 
                             CurrentControl="{StaticResource CurrentCanvas}"
-                            ImageData="{Binding ImageData, Mode=TwoWay}"
-                            BeforeCommand="{Binding UnselectCommand}"/>
-                        <behavior:ToggleButtonStatePatternBehavior
+                            ImageBox="{Binding ImageBox, Mode=TwoWay}"
+                            BeforeCommand="{Binding ElementList.UnselectElementCommand}"/>
+                            <behavior:ToggleButtonStatePatternBehavior
 						    State="{Binding WorkMode, Mode=TwoWay}"
 							TargetState="{Binding WorkModes.Report}"/>
-                    </i:Interaction.Behaviors>
-                </RadioButton>
-            </StackPanel>
-        </GroupBox>
+                        </i:Interaction.Behaviors>
+                    </RadioButton>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Сохранение">
+                <StackPanel Orientation="Horizontal">
+                    <Button  Width="110"
+                    Content="Сохранить" 
+                    Command="{Binding SaveCommand}" >
+                        <i:Interaction.Behaviors>
+                            <behavior:ImageCaptureOnButtonClickBehavior 
+                            CurrentControl="{StaticResource CurrentCanvas}"
+                            ImageBox="{Binding ImageBox, Mode=TwoWay}"
+                            BeforeCommand="{Binding UnselectCommand}"/>
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <Button  Width="110"
+                    Content="Восстановить" 
+                    Command="{Binding RestoreCommand}" />
+                </StackPanel>
+            </GroupBox>
+        </WrapPanel>
         <ContentPresenter Content="{Binding WorkMode}">
             <ContentPresenter.Resources>
                 <ResourceDictionary>
@@ -46,23 +64,5 @@
                 </ResourceDictionary>
             </ContentPresenter.Resources>
         </ContentPresenter>
-        <GroupBox Header="Сохранение">
-            <StackPanel Orientation="Horizontal">
-                <Button  Width="110"
-                    Content="Сохранить" 
-                    Command="{Binding SaveCommand}" >
-                    <i:Interaction.Behaviors>
-                        <behavior:ImageCaptureOnButtonClickBehavior 
-                            CurrentControl="{StaticResource CurrentCanvas}"
-                            ImageData="{Binding ImageData, Mode=TwoWay}"
-                            BeforeCommand="{Binding UnselectCommand}"/>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button  Width="110"
-                    Content="Восстановить" 
-                    Command="{Binding RestoreCommand}" />
-            </StackPanel>
-        </GroupBox>
-
-    </WrapPanel>
+    </StackPanel>
 </UserControl>

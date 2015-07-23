@@ -2,8 +2,10 @@
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Memento.Container;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento
 {
@@ -11,10 +13,10 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
     {
         public ScreenMemento Screen { get; set; }
         public PresentContainerMemento Presents { get; set; }
-
         public WorkModeContainerMemento WorkModes { get; set; }
         public ElementListMemento ElementList { get; set; }
-
+        public string ProgramName { get; set; }
+        public string Version { get; set; }
         string Present { get; set; }
         string WorkMode { get; set; }
 
@@ -30,8 +32,11 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             ElementList.GetState(originator.ElementList);
             WorkModes.GetState(originator.WorkModes);
 
-            Present = originator.Present.GetType().Name;
-            WorkMode = originator.WorkMode.GetType().Name;
+            Present = originator.Presents.GetKeyByValue(originator.Present);
+            WorkMode = originator.WorkModes.GetKeyByValue(originator.WorkMode);
+            var settingData = originator.SettingProvider.GetSettingData();
+            ProgramName = settingData.ProgramName;
+            Version = settingData.Version;
         }
 
         public void SetState(IWorkspaceViewModel originator)
@@ -43,8 +48,8 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             WorkModes.SetState(originator.WorkModes);
             ElementList.SetState(originator.ElementList);
 
-            originator.Present = Present.SetByTypeName<IPresentViewModel>(originator.Presents);
-            originator.WorkMode = WorkMode.SetByTypeName<IWorkModeViewModel>(originator.WorkModes);
+            originator.Present = originator.Presents.GetValueByKeyOrDefault(Present);
+            originator.WorkMode = originator.WorkModes.GetValueByKeyOrDefault(WorkMode);
         }
 
         public IEnumerable<IFileBox> GetFiles()
@@ -62,12 +67,14 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
         public XElement GetXml(Dictionary<string, IFileBox> files)
         {
             return new XElement("root",
+                new XElement("ProgramName", ProgramName),
+                new XElement("Version", Version),
+                new XElement("Present", Present),
+                new XElement("WorkMode", WorkMode),
                 new XElement("Screen", Screen.GetXml(files).Elements()),
                 new XElement("Presents", Presents.GetXml(files).Elements()),
                 new XElement("WorkModes", WorkModes.GetXml(files).Elements()),
-                new XElement("ElementList", ElementList.GetXml(files).Elements()),
-                new XElement("Present", Present),
-                new XElement("WorkMode", WorkMode)
+                new XElement("ElementList", ElementList.GetXml(files).Elements())
                 );
         }
 

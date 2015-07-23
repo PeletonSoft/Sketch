@@ -13,7 +13,7 @@ namespace PeletonSoft.Tools.Model
         public static ElementAlignment ToElementAlignment(this string value)
         {
             ElementAlignment result;
-            var success = Enum.TryParse<ElementAlignment>(value, out result);
+            var success = Enum.TryParse(value, out result);
             return success ? result : ElementAlignment.Left;
         }
     }

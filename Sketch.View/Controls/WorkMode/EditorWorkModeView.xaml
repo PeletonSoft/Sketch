@@ -21,13 +21,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="2" 
+        <ScrollViewer Grid.Row="2" Grid.Column="0"
                       HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-            <ListBox ItemsSource="{Binding Factories}"  >
+            <ListBox ItemsSource="{Binding Factories}"  ItemContainerStyle="{DynamicResource GeneralListBoxItemStyle}">
                 <ListBox.Resources>
                     <ResourceDictionary>
                         <ResourceDictionary.MergedDictionaries>
                             <ResourceDictionary Source="/Sketch.View;component/Skins/FactorySkin.xaml"/>
+                            <ResourceDictionary Source="/Sketch.View;component/Style/GeneralStyle.xaml"/>
                         </ResourceDictionary.MergedDictionaries>
                     </ResourceDictionary>
                 </ListBox.Resources>

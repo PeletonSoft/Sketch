@@ -55,18 +55,24 @@
     <Compile Include="Container\LayoutViewModels.cs" />
     <Compile Include="Container\OutlineViewModels.cs" />
     <Compile Include="Container\PresentViewModels.cs" />
+    <Compile Include="Container\RotationViewModels.cs" />
     <Compile Include="Container\WorkModeViewModels.cs" />
-    <Compile Include="Element\Clothe\ClotheCalculateStrategy.cs" />
+    <Compile Include="Element\Null\NullElementViewModel.cs" />
+    <Compile Include="Element\Null\NullSheetViewModel.cs" />
+    <Compile Include="Element\LatticeViewModel.cs" />
+    <Compile Include="Element\Layout\NullLayoutViewModel.cs" />
     <Compile Include="Element\Primitive\AlignableHelper.cs" />
+    <Compile Include="Element\Primitive\NullClotheViewModel.cs" />
+    <Compile Include="FactoryCollection.cs" />
+    <Compile Include="Factory\LatticeFactoryViewModel.cs" />
+    <Compile Include="Geometry\RotationViewModel.cs" />
     <Compile Include="Element\Primitive\TieBackSideViewModel.cs" />
     <Compile Include="Element\RomanBlindViewModel.cs" />
     <Compile Include="Factory\RomanBlindFactoryViewModel.cs" />
     <Compile Include="Geometry\RectangleViewModel.cs" />
+    <Compile Include="Geometry\SuperimposeOptionViewModel.cs" />
+    <Compile Include="Geometry\TransformationViewModel.cs" />
     <Compile Include="Geometry\VertexViewModelHelper.cs" />
-    <Compile Include="Geometry\WavySurface\BottomViewModel.cs" />
-    <Compile Include="Geometry\WavySurface\WaveViewModel.cs" />
-    <Compile Include="Element\Custom\SwagViewModelHelper.cs" />
-    <Compile Include="Element\Custom\TailViewModelHelper.cs" />
     <Compile Include="Element\Layout\TieBackLayoutViewModel.cs" />
     <Compile Include="Element\Primitive\DecorativeBorderViewModel.cs" />
     <Compile Include="Element\Primitive\ShoulderViewModel.cs" />
@@ -81,7 +87,7 @@
     <Compile Include="Geometry\DecorativeBorder\PointViewModel.cs" />
     <Compile Include="Factory\ApplicationFactoryViewModel.cs" />
     <Compile Include="Factory\Custom\SwagTailFactoryViewModel.cs" />
-    <Compile Include="Factory\Custom\CustomElementFactoryViewModel.cs" />
+    <Compile Include="Factory\Custom\ElementFactoryViewModel.cs" />
     <Compile Include="Factory\DeJabotFactoryViewModel.cs" />
     <Compile Include="Factory\EqualTailFactoryViewModel.cs" />
     <Compile Include="Factory\FilletFactoryViewModel.cs" />
@@ -123,11 +129,12 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenViewModel.cs" />
-    <Compile Include="Element\Primitive\TransformationViewModel.cs" />
-    <Compile Include="Container\TransformationViewModels.cs" />
+    <Compile Include="Geometry\ReflectionViewModel.cs" />
+    <Compile Include="Container\ReflectionViewModels.cs" />
     <Compile Include="WorkMode\CustomWorkModeViewModel.cs" />
     <Compile Include="WorkMode\EditorWorkModeViewModel.cs" />
     <Compile Include="WorkMode\ReportWorkModeViewModel.cs" />
+    <Compile Include="WorkspaceCaretaker.cs" />
     <Compile Include="WorkspaceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

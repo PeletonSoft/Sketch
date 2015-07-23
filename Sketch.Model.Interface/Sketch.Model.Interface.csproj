@@ -48,8 +48,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Element\IAlignableElement.cs" />
+    <Compile Include="Element\IClothable.cs" />
+    <Compile Include="Element\IClothe.cs" />
+    <Compile Include="Element\IClotheCalculateStrategy.cs" />
     <Compile Include="Element\IElement.cs" />
+    <Compile Include="Element\ISheet.cs" />
+    <Compile Include="Element\IVisibleElement.cs" />
+    <Compile Include="IWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
+      <Project>{8186A7AA-0320-4BF9-A9EE-6784C605DA01}</Project>
+      <Name>Tools.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

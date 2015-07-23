@@ -7,6 +7,7 @@
 
     <converter:ScaleConverter x:Key="ScaleConverter"/>
     <converter:PointCollectionConverter x:Key="PointCollectionConverter"/>
+    <converter:LineCollectionToPathGeometryConverter x:Key="LineCollectionToPathGeometryConverter"/>
     
     <DataTemplate DataType="{x:Type element:FilletVisualViewModel}">
         <view:ElementView
@@ -90,6 +91,11 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type element:LatticeVisualViewModel}">
+        <Path Stroke="Black" StrokeThickness="1" 
+              Data="{Binding Lines, Converter={StaticResource LineCollectionToPathGeometryConverter}}"/>
+    </DataTemplate>
+    
     <DataTemplate DataType="{x:Type custom:ElementVisualViewModel}"> 
         <view:ElementView/>
     </DataTemplate>

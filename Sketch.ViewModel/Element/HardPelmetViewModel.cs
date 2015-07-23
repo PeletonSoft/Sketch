@@ -1,81 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
-using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public class HardPelmetViewModel : AlignableElementViewModel
+    public sealed class HardPelmetViewModel : AlignableElementViewModel, IViewModel<HardPelmet>
     {
-        public DecorativeBorderViewModel DecorativeBorder { get; set; }
+        private void OnPropertyChanged<T>(Expression<Func<HardPelmetViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
+        public new HardPelmet Model
+        {
+            get { return (HardPelmet) base.Model; }
+        }
+        public DecorativeBorderViewModel DecorativeBorder { get; private set; }
+
         public IEnumerable<Point> Points
         {
-            get
-            {
-                Func<Point, Point> transformer =
-                    point =>
-                        new Point
-                        {
-                            X = point.X,
-                            Y = point.Y + Height - DecorativeBorder.Height
-                        };
-                var decorative = DecorativeBorder.Points.Select(transformer);
-
-                var points = new List<Point>
-                {
-                    new Point(0, 0),
-                    new Point(Width, 0)
-                };
-
-                return points.Concat(decorative.Reverse());
-            }
+            get { return Model.GetPoints(); }
         }
 
 
-        public HardPelmetViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit, new AlignableElement())
+        public HardPelmetViewModel(IWorkspaceBit workspaceBit, HardPelmet model)
+            : base(workspaceBit, model)
         {
-            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit);
+            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit, Model.DecorativeBorder);
 
-            PropertyChanged +=
-                (sender, args) =>
-                {
-                    switch (args.PropertyName)
+            this
+                .SetPropertyChanged(el => el.Width,
+                    () =>
                     {
-                        case "Width":
-                            OnPropertyChanged("Points");
-                            DecorativeBorder.Width = Width;
-                            break;
-                        case "Height":
-                            OnPropertyChanged("Points");
-                            break;
-                    }
-                };
+                        DecorativeBorder.Width = Width;
+                        OnPropertyChanged(el => el.Points);
+                    })
+                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(el => el.Points));
 
-            DecorativeBorder.PropertyChanged +=
-                (sender, args) =>
-                {
-                    switch (args.PropertyName)
-                    {
-                        case "Width":
-                            Width = DecorativeBorder.Width;
-                            break;
-                        case "Points":
-                            OnPropertyChanged("Points");
-                            break;
-                    }
-                };
+            DecorativeBorder
+                .SetPropertyChanged(el => el.Width, () => Width = DecorativeBorder.Width)
+                .SetPropertyChanged(el => el.Points, () => OnPropertyChanged(el => el.Points));
 
             Width = Screen.Width;
-            Height = 0.5 * Screen.Height;
+            Height = 0.5*Screen.Height;
 
             DecorativeBorder.Width = Width;
             DecorativeBorder.Height = 0;
             DecorativeBorder.ResetChains();
         }
+
+
     }
 }

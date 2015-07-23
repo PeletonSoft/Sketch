@@ -1,4 +1,5 @@
 ﻿using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 
@@ -9,6 +10,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         protected SheetViewModel(IWorkspaceBit workspaceBit, Sheet model)
             : base(workspaceBit, model)
         {
+        }
+
+        public new ISheet Model
+        {
+            get { return (ISheet) base.Model; }
         }
     }
 }

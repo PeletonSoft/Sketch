@@ -16,10 +16,10 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
         }
         #endregion
 

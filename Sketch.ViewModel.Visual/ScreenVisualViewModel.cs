@@ -1,28 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Linq.Expressions;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual
 {
-    public class ScreenVisualViewModel : IScreenVisualViewModel
+    public sealed class ScreenVisualViewModel : IScreenVisualViewModel
     {
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged<T>(Expression<Func<ScreenVisualViewModel, T>> expression)
         {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            expression.OnPropertyChanged(OnPropertyChanged);
         }
-
         #endregion
 
 
@@ -30,23 +28,12 @@ namespace PeletonSoft.Sketch.ViewModel.Visual
         {
             VisualOptions = visualOptions;
             Screen = screen;
-            Screen.PropertyChanged += ScreenOnPropertyChanged;
+            Screen
+                .SetPropertyChanged(el => el.Width, () => OnPropertyChanged(v => v.Width))
+                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(v => v.Height));
         }
 
         private VisualOptions VisualOptions { get; set; }
-
-        private void ScreenOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "Width":
-                    OnPropertyChanged("Width");
-                    break;
-                case "Height":
-                    OnPropertyChanged("Height");
-                    break;
-            }
-        }
 
         public double Width
         {

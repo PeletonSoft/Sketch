@@ -1,8 +1,10 @@
-﻿namespace PeletonSoft.Sketch.ViewModel.WorkMode
+﻿using PeletonSoft.Sketch.ViewModel.Interface;
+
+namespace PeletonSoft.Sketch.ViewModel.WorkMode
 {
     public class ReportWorkModeViewModel : CustomWorkModeViewModel
     {
-        public ReportWorkModeViewModel(WorkspaceViewModel workspace) : base(workspace)
+        public ReportWorkModeViewModel(IWorkspaceViewModel workspace) : base(workspace)
         {
         }
     }

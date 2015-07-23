@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.SuperimposeOptionDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:geometry="clr-namespace:PeletonSoft.Sketch.ViewModel.Geometry;assembly=Sketch.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance geometry:SuperimposeOptionViewModel}"
+             d:DesignHeight="100" d:DesignWidth="700">
+    <WrapPanel>
+        <GroupBox Header="Маркер">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Диаметр"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Непрозрачность"/>
+                <Slider Grid.Row="0" Grid.Column="1" 
+                        Width="150" Value="{Binding MarkerRadius, Mode=TwoWay}" 
+                        Maximum="50" Margin="3,1,0,1" HorizontalAlignment="Left"/>
+                <Slider Grid.Row="1" Grid.Column="1" 
+                        Width="150" Value="{Binding MarkerOpacity, Mode=TwoWay}" 
+                        Maximum="1" Margin="3,1,0,1" HorizontalAlignment="Left"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Слои">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Подложка"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Наложение"/>
+                <Slider Grid.Row="0" Grid.Column="1" 
+                        Width="150" Value="{Binding BackgroundOpacity, Mode=TwoWay}" 
+                        Maximum="1" Margin="3,1,0,1" HorizontalAlignment="Left"/>
+                <Slider Grid.Row="1" Grid.Column="1" 
+                        Width="150" Value="{Binding ForegroundOpacity, Mode=TwoWay}" 
+                        Maximum="1" Margin="3,1,0,1" HorizontalAlignment="Left"/>
+            </Grid>
+        </GroupBox>
+    </WrapPanel>
+</UserControl>

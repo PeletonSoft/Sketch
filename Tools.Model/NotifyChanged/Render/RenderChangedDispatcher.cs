@@ -36,11 +36,12 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.Render
         public void Unsubscribe(TS sender, TR responder)
         {
             var subscribes = GetSuscribeByResponder(responder);
-            if (!subscribes.ContainsKey(sender))
+            if (subscribes.ContainsKey(sender))
             {
                 subscribes.Remove(sender);
+                RaiseRenderChanged(responder);
             }
-            RaiseRenderChanged(responder);
+            
         }
 
 

@@ -2,7 +2,7 @@
 
 namespace PeletonSoft.Sketch.Model.Element.Custom
 {
-    public class Element : IElement
+    public abstract class Element : IVisibleElement
     {
         public string Description { get; set; }
         public double Opacity { get; set; }

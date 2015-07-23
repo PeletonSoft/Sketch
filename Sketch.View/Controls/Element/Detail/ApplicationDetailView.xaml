@@ -9,9 +9,10 @@
              xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:view="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.View"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance element:ApplicationViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="700">
     <Grid>
         <WrapPanel>
             <GroupBox Header="Макет">
@@ -35,147 +36,10 @@
                 </Grid>
             </GroupBox>
             <GroupBox Header="Форма">
-                <WrapPanel Orientation="Horizontal">
-                    <WrapPanel.Resources>
-                        <converter:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
-                    </WrapPanel.Resources>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Band.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Band}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Hexagon.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Hexagon}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/HRectangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.HRectangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/VRectangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.VRectangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Trapezium.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Trapezium}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Triangle.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Triangle}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Outline/Parallelogram.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Outline, Mode=TwoWay}"
-                                TargetState="{Binding Outlines.Parallelogram}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                </WrapPanel>
+                <detail:OutlineDetailView/>
             </GroupBox>
             <GroupBox Header="Ориентация">
-                <WrapPanel Orientation="Horizontal">
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/Same.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.Same}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/HFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.HFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/DFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.DFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                    <RadioButton 
-                            Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
-                            HorizontalAlignment="Left"
-                            Width="25" Height="25"
-                            VerticalContentAlignment="Center">
-                        <Image Source="/Images/Transformation/VFlip.png"></Image>
-                        <i:Interaction.Behaviors>
-                            <behavior:ToggleButtonStatePatternBehavior
-                                State="{Binding Transformation, Mode=TwoWay}"
-                                TargetState="{Binding Transformations.VFlip}"/>
-                        </i:Interaction.Behaviors>
-                    </RadioButton>
-                </WrapPanel>
+                <detail:ReflectionDetailView/>
             </GroupBox>
             <GroupBox Header="Ткань">
                 <detail:ClotheView />

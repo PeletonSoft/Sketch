@@ -4,52 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:primitive="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;assembly=Sketch.ViewModel.Visual"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance primitive:WavySurfaceVisualViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:EnumerableCompositeConverter x:Key="PointCollectionToPolylineGeometryConverter">
+            <converter:EnumerableCompositeConverter.ItemConverter>
+                <converter:PointCollectionToPathGeometryConverter IsClosed="False"/>
+            </converter:EnumerableCompositeConverter.ItemConverter>
+            <converter:EnumerableCompositeConverter.ListConverter>
+                <converter:GeometryCollectionToGeometryConverter/>
+            </converter:EnumerableCompositeConverter.ListConverter>
+        </converter:EnumerableCompositeConverter>
+        <converter:EnumerableCompositeConverter x:Key="PointCollectionToPolygonGeometryConverter">
+            <converter:EnumerableCompositeConverter.ItemConverter>
+                <converter:PointCollectionToPathGeometryConverter IsClosed="True"/>
+            </converter:EnumerableCompositeConverter.ItemConverter>
+            <converter:EnumerableCompositeConverter.ListConverter>
+                <converter:GeometryCollectionToGeometryConverter/>
+            </converter:EnumerableCompositeConverter.ListConverter>
+        </converter:EnumerableCompositeConverter>
+
+    </UserControl.Resources>
     <Grid>
-        <ListBox Background="{x:Null}"
-                     ItemsSource="{Binding Items}"
-                     Width="{Binding Width}" 
-                     Height="{Binding Height}">
+        <Path  Stroke="Black" Opacity="0.4" StrokeThickness="2">
+            <Path.Data>
+                <GeometryGroup Children="{Binding Peak, Converter={StaticResource PointCollectionToPolylineGeometryConverter}}"/>
+            </Path.Data>
+            <Path.Effect>
+                <BlurEffect Radius="7"/>
+            </Path.Effect>
+        </Path>
 
-            <ListBox.Template>
-                <ControlTemplate>
-                    <ScrollViewer Focusable="False" Padding="0">
-                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ListBox.Template>
+        <Path Fill="Teal" Opacity="0.8">
+            <Path.Data>
+                <GeometryGroup Children="{Binding Bottom, Converter={StaticResource PointCollectionToPolygonGeometryConverter}}"/>
+            </Path.Data>
+            <Path.Effect>
+                <BlurEffect Radius="10"/>
+            </Path.Effect>
+        </Path>
 
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+        <Path Fill="Gray" Opacity="0.4">
+            <Path.Data>
+                <GeometryGroup Children="{Binding InSide, Converter={StaticResource PointCollectionToPolygonGeometryConverter}}"/>
+            </Path.Data>
+            <Path.Effect>
+                <BlurEffect Radius="10"/>
+            </Path.Effect>
+        </Path>
 
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Padding" Value="0,0,0,0"/>
-                    <Setter Property="Focusable" Value="False"/>
-                    <Setter Property="VerticalContentAlignment" Value="Top" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="/Sketch.View;component/Skins/WavySurfaceItemSkin.xaml"/>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </Grid.Resources>
-                        <ContentPresenter Content="{Binding}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Path  Fill="DarkGreen" Opacity="0.3">
+            <Path.Data>
+                <GeometryGroup Children="{Binding OutSide, Converter={StaticResource PointCollectionToPolygonGeometryConverter}}"/>
+            </Path.Data>
+            <Path.Effect>
+                <BlurEffect Radius="10"/>
+            </Path.Effect>
+        </Path>
     </Grid>
 </UserControl>

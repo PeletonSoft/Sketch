@@ -30,16 +30,13 @@ namespace PeletonSoft.Tools.View.Behavior
                 return;
             }
 
-            var param = new DataTrasition()
-            {
-                Source = e.Data.GetData(DataFormat),
-                Destionation = AssociatedObject.DataContext
-            };
+            var param = new DataTransition(
+                e.Data.GetData(DataFormat), 
+                AssociatedObject.DataContext);
 
 
             if (Command != null)
             {
-                
                 Command.Execute(param);
             }
             

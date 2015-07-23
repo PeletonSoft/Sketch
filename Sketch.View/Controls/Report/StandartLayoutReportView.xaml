@@ -49,7 +49,7 @@
         <Grid Grid.Column="0" Grid.Row="1" Name="PresentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             
             <Image Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   Source="{Binding ImageData, Converter={StaticResource ImageSourceConverter}}">
+                   Source="{Binding ImageBox.Data, Converter={StaticResource ImageSourceConverter}}">
                 <Image.Width>
                     <MultiBinding Converter="{StaticResource FitInRectangleConverter}">
                         <Binding Path="Screen.Width"/>
@@ -89,7 +89,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ContentPresenter Content="{Binding}" Margin="0" AllowDrop="True"/>
+                    <ContentPresenter Content="{Binding Value}" Margin="0" AllowDrop="True"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 

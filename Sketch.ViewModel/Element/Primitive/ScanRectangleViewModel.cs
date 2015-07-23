@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.NotifyChanged;
@@ -10,80 +11,64 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
     public class ScanRectangleViewModel : RectangleViewModel
     {
-        private void Default(double width, double height)
+        private void OnPropertyChanged<T>(Expression<Func<ScanRectangleViewModel, T>> expression)
         {
-            TopLeft = new VertexViewModel(0, 0);
-            TopRight = new VertexViewModel(width, 0);
-            BottomLeft = new VertexViewModel(0, height);
-            BottomRight = new VertexViewModel(width, height);
+            expression.OnPropertyChanged(OnPropertyChanged);
         }
+
+        public void Default(double width, double height)
+        {
+            _lockFlag.LockAction(() =>
+            {
+                TopLeft.Point = new Point(0, 0);
+                BottomRight.Point = new Point(width, height);
+                TopRight.Point = new Point(width, 0);
+                BottomLeft.Point = new Point(0, height);    
+            });
+        }
+
+        private readonly LockFlag _lockFlag = new LockFlag();
 
         public ScanRectangleViewModel(double width, double height)
         {
+            this
+                .SetPropertyChanged(_lockFlag, r => r.TopLeft,
+                    () =>
+                    {
+                        TopRight.Point = TopRight.SaveOrthogonal(BottomRight, TopLeft);
+                        BottomLeft.Point = BottomLeft.SaveOrthogonal(BottomRight, TopLeft);
+                        OnPropertyChanged(el => el.Points);
+                    })
+                .SetPropertyChanged(_lockFlag, r => TopRight,
+                    () =>
+                    {
+                        BottomRight.Point = BottomRight.SaveDiagonal(TopLeft, TopRight);
+                        BottomLeft.Point = TopRight.FindSymmetry(TopLeft, BottomRight);
+                        OnPropertyChanged(el => el.Points);
+                    })
+                .SetPropertyChanged(_lockFlag, r => BottomLeft,
+                    () =>
+                    {
+                        TopLeft.Point = TopLeft.SaveDiagonal(BottomRight, BottomLeft);
+                        TopRight.Point = BottomLeft.FindSymmetry(BottomRight, TopLeft);
+                        OnPropertyChanged(el => el.Points);
+                    })
+                .SetPropertyChanged(_lockFlag, r => r.BottomRight,
+                    () =>
+                    {
+                        TopRight.Point = TopRight.SaveOrthogonal(TopLeft, BottomRight);
+                        BottomLeft.Point = BottomLeft.SaveOrthogonal(TopLeft, BottomRight);
+                        OnPropertyChanged(el => el.Points);
+                    });
 
             Default(width, height);
-
-            new Dictionary<INotifyPropertyChanged, string>
-            {
-                {TopLeft, "TopLeft"},
-                {TopRight, "TopRight"},
-                {BottomLeft, "BottomLeft"},
-                {BottomRight, "BottomRight"}
-            }.SetPropertyChanged(
-                new[] {"X", "Y"},
-                OnPropertyChanged);
-
-            this.SetPropertyChanged(
-                new[] {"TopLeft", "TopRight", "BottomLeft", "BottomRight"},
-                () => OnPropertyChanged("Vertex"));
-
-            PropertyChanged += VertexChanged;
-
         }
 
-        private bool _lock;
-        private void VertexChanged(object sender, PropertyChangedEventArgs args)
+        public IEnumerable<Point> Points
         {
-            if (_lock)
-            {
-                return;
-            }
-
-            _lock = true;
-            if (_lock)
-            {
-                try
-                {
-                    switch (args.PropertyName)
-                    {
-                        case "TopLeft":
-                            TopRight.Point = TopRight.SaveOrthogonal(BottomRight, TopLeft);
-                            BottomLeft.Point = BottomLeft.SaveOrthogonal(BottomRight, TopLeft);
-                            OnPropertyChanged("Points");
-                            break;
-                        case "TopRight":
-                            BottomRight.Point = BottomRight.SaveDiagonal(TopLeft, TopRight);
-                            BottomLeft.Point = TopRight.FindSymmetry(TopLeft, BottomRight);
-                            OnPropertyChanged("Points");
-                            break;
-                        case "BottomLeft":
-                            TopLeft.Point = TopLeft.SaveDiagonal(BottomRight, BottomLeft);
-                            TopRight.Point = BottomLeft.FindSymmetry(BottomRight, TopLeft);
-                            OnPropertyChanged("Points");
-                            break;
-                        case "BottomRight":
-                            TopRight.Point = TopRight.SaveOrthogonal(TopLeft, BottomRight);
-                            BottomLeft.Point = BottomLeft.SaveOrthogonal(TopLeft, BottomRight);
-                            OnPropertyChanged("Points");
-                            break;
-                    }
-                }
-                finally
-                {
-                    _lock = false;
-                }
-            }
+            get { return Vertices.Select(v => v.Point); }
         }
+
 
         public Point Center
         {

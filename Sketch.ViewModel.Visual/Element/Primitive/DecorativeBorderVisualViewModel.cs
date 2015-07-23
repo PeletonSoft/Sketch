@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -29,6 +30,11 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             Action notificator = () => OnPropertyChanged(propertyName);
             return notificator.SetField(ref field, value);
         }
+
+        private void OnPropertyChanged<T>(Expression<Func<DecorativeBorderVisualViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
         #endregion
 
         public DecorativeBorderVisualViewModel(VisualOptions visualOptions, DecorativeBorderViewModel decorativeBorder)
@@ -37,22 +43,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             DecorativeBorder = decorativeBorder;
             Chains = CalculateChains(DecorativeBorder.Points);
 
-            DecorativeBorder.PropertyChanged +=
-                (sender, args) =>
-                {
-                    switch (args.PropertyName)
-                    {
-                        case "Width":
-                            OnPropertyChanged("Width");
-                            break;
-                        case "Height":
-                            OnPropertyChanged("Height");
-                            break;
-                       case "Points":
-                            Chains = CalculateChains(DecorativeBorder.Points);
-                            break; 
-                    }
-                };
+            DecorativeBorder
+                .SetPropertyChanged(el => el.Width, () => OnPropertyChanged(v => v.Width))
+                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(v => v.Height))
+                .SetPropertyChanged(el => el.Points, () => Chains = CalculateChains(DecorativeBorder.Points));
 
             var commandFactory = VisualOptions.CommandFactory;
 

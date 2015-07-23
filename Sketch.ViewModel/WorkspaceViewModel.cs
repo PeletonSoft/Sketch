@@ -1,19 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using PeletonSoft.Sketch.Model;
+using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Interface;
-using PeletonSoft.Tools.Model;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
-    public class WorkspaceViewModel : IWorkspaceViewModel
+    public sealed class WorkspaceViewModel : IWorkspaceViewModel
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,44 +29,64 @@ namespace PeletonSoft.Sketch.ViewModel
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
+        }
+
+        private void OnPropertyChanged<T>(Expression<Func<WorkspaceViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            notificator.SetField(getValue, setValue, value);
+        }
+
+        #endregion
+
+        #region implement IOriginator
+        public void RestoreDefault()
+        {
+            ElementList.Clear();
         }
         #endregion
 
+        #region implement IViewModel
+        public IWorkspace Model { get; private set; }
+        #endregion
+
         public ISettingProvider SettingProvider { get; set; }
+        public ICaretaker<WorkspaceViewModel> Caretaker { get; set; }
+        public ICommandFactory CommandFactory { get; set; }
+        public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories { get; set; }
 
         public WorkspaceViewModel()
         {
+            Model = new Workspace();
+            WorkModes = new WorkModeViewModels(this);
+            Presents = new PresentViewModels(this);
 
-            var workModes = new WorkModeViewModels(this);
-            var presents = new PresentViewModels(this);
-            WorkModes = workModes;
-            Presents = presents;
-
-
-            WorkMode = workModes.Editor;
-            Present = presents.LayoutPresent;
+            WorkMode = WorkModes.Default;
+            Present = Presents.Default;
 
             _saveCommandLazy = new Lazy<ICommand>(() =>
                 CommandFactory.CreateCommand(Save,
                     () => !SettingProvider.GetSettingData().ReadOnly));
             _restoreCommandLazy = new Lazy<ICommand>(() =>
                 CommandFactory.CreateCommand(Restore));
-            _unselectCommandLazy = new Lazy<ICommand>(() =>
-                CommandFactory.CreateCommand(() => ElementList.SelectedIndex = -1));
 
             ElementList = new ElementListViewModel(new WorkspaceBit(this));
+            this.SetPropertyChanged(w => w.WorkMode, () => ElementList.Unselect());
         }
 
-        public FactoryCollection Factories { get; set; }
-
         public IElementListViewModel ElementList { get; private set; }
-
         public IScreenViewModel Screen { get; set; }
 
+        public IContainerOriginator<IPresentViewModel> Presents { get; private set; }
         private IPresentViewModel _present;
         public IPresentViewModel Present
         {
@@ -68,48 +94,31 @@ namespace PeletonSoft.Sketch.ViewModel
             set { SetField(ref _present, value); }
         }
 
-        private byte[] _imageData;
-        public byte[] ImageData
+        public ImageBox ImageBox
         {
-            get { return _imageData; }
-            set { SetField(ref _imageData, value); }
+            get { return Model.ImageBox; }
+            set { SetField(() => Model.ImageBox, v => Model.ImageBox = v, value); }
         }
 
         public IContainerOriginator<IWorkModeViewModel> WorkModes { get; private set; }
-
         private IWorkModeViewModel _workMode;
         public IWorkModeViewModel WorkMode
         {
-            get{return _workMode;}
-            set
-            {
-                if (SetField(ref _workMode, value))
-                {
-                    if (ElementList != null)
-                    {
-                        ElementList.SelectedIndex = -1;
-                    }
-                }
-            }
+            get { return _workMode; }
+            set { SetField(ref _workMode, value); }
         }
-        public IContainerOriginator<IPresentViewModel> Presents { get; private set; }
-        private readonly Lazy<ICommand> _saveCommandLazy;
 
+        
+        private readonly Lazy<ICommand> _saveCommandLazy;
         public ICommand SaveCommand
         {
             get { return _saveCommandLazy.Value; }
         }
 
         private readonly Lazy<ICommand> _restoreCommandLazy;
-
         public ICommand RestoreCommand
         {
             get { return _restoreCommandLazy.Value; }
-        }
-        private readonly Lazy<ICommand> _unselectCommandLazy;
-        public ICommand UnselectCommand
-        {
-            get { return _unselectCommandLazy.Value; }
         }
 
         public void Save()
@@ -135,7 +144,10 @@ namespace PeletonSoft.Sketch.ViewModel
             }
 
             Caretaker.Save(path);
-            ImageData.ExportToFile(Path.Combine(path, "content.png"));
+            if (ImageBox != null)
+            {
+                ImageBox.WriteToFile(Path.Combine(path, "content.png"));
+            }
         }
 
         public void Restore()
@@ -153,18 +165,7 @@ namespace PeletonSoft.Sketch.ViewModel
             Caretaker.SetState(this);
         }
 
-        public WorkspaceCaretaker Caretaker { get; set; }
-        public ICommandFactory CommandFactory { get; set; }
 
-        public void RestoreDefault()
-        {
-            ElementList.Clear();
-        }
-
+        
     }
-
-    public class WorkspaceCaretaker : Caretaker<WorkspaceViewModel>
-    {
-    }
-
 }

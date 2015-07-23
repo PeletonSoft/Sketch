@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
-using PeletonSoft.Sketch.ViewModel.Visual.Element.Layout;
+using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
@@ -25,31 +26,36 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
             return notificator.SetField(ref field, value);
         }
 
+        private void OnPropertyChanged<T>(Expression<Func<ElementVisualViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
         #endregion
 
 
         private ILayoutVisualViewModel _layout;
         public virtual ILayoutVisualViewModel Layout
         {
-            get
-            {
-                return _layout ?? (_layout = new LayoutVisualViewModel(VisualOptions, Element.Layout));
-            }
+            get { return _layout; }
+            set { SetField(ref _layout, value); }
         }
 
-        public ElementVisualViewModel(VisualOptions visualOptions, IElementViewModel element)
+        protected ElementVisualViewModel(VisualOptions visualOptions, IElementViewModel element)
         {
 
             VisualOptions = visualOptions;
             _element = element;
 
-            Element.SetPropertyChanged("Visibility", () => OnPropertyChanged("Visibility"));
-            Element.SetPropertyChanged("Opacity", () => OnPropertyChanged("Opacity"));
-            Element.SetPropertyChanged("Rect", () => OnPropertyChanged("Rect"));
-            Element.SetPropertyChanged("Layout", () => _layout = null);
+            Action setLayout = () => Layout = new LayoutVisualViewModel(VisualOptions, Element.Layout);
+            setLayout();
+
+            Element
+                .SetPropertyChanged(el => el.Visibility, () => OnPropertyChanged(v => v.Visibility))
+                .SetPropertyChanged(el => el.Opacity, () => OnPropertyChanged(v => v.Opacity))
+                .SetPropertyChanged(el => el.Layout, setLayout);
         }
 
-        protected VisualOptions VisualOptions { get; set; }
+        protected VisualOptions VisualOptions { get; private set; }
 
         public bool Visibility
         {

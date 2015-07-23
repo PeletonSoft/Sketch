@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using PeletonSoft.Sketch.Model.ClotheStrategy;
+using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.Model.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
+using PeletonSoft.Sketch.ViewModel.Element.Null;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model;
-using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.Draw.Wave;
-using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
-using PeletonSoft.Tools.Model.SketchMath;
 using PeletonSoft.Tools.Model.SketchMath.ConnectStrategy;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder;
@@ -23,7 +26,7 @@ using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder.ExtraStrategy;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class TieBackViewModel : IElementViewModel, IOriginator
+    public sealed class TieBackViewModel : IElementViewModel, INotifyViewModel<TieBack>, IClothableViewModel
     {
         #region implement INotifyPropertyChanged
 
@@ -40,6 +43,17 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             notificator.SetField(ref field, value);
         }
 
+        private bool SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            return notificator.SetField(getValue, setValue, value);
+        }
+
+        private void OnPropertyChanged<T>(Expression<Func<TieBackViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
         #endregion
 
         #region implement IOriginator
@@ -48,72 +62,71 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
         #endregion
 
-        public IClotheViewModel Clothe
-        {
-            get
-            {
-                return null;
-            }
-        }
-        public ICommand MoveToElementCommand { get; set; }
-        public IList<IElementViewModel> Below
-        {
-            get
-            {
-                return WorkspaceBit.GetBelowElements(this);
-            }
-        }
-
-        private string _description;
+        #region implement IElementViewModel
         public string Description
         {
-            get { return _description; }
-            set { SetField(ref _description, value); }
+            get { return Model.Description; }
+            set { SetField(() => Description, v => Model.Description = v, value); }
         }
-
-        private bool _visibility;
         public bool Visibility
         {
-            get { return _visibility; }
-            set { SetField(ref _visibility, value); }
+            get { return Model.Visibility; }
+            set { SetField(() => Visibility, v => Model.Visibility = v, value); }
         }
-
-        private double _opacity;
         public double Opacity
         {
-            get { return _opacity; }
-            set { SetField(ref _opacity, value); }
+            get { return Model.Opacity; }
+            set { SetField(() => Opacity, v => Model.Opacity = v, value); }
         }
 
-        public TieBackSideViewModel LeftSide { get; private set; }
-        public TieBackSideViewModel RightSide { get; private set; }
+        public ICommand MoveToElementCommand { get; set; }
+
+        public IList<IElementViewModel> Below
+        {
+            get { return WorkspaceBit.GetBelowElements(this); }
+        }
 
         public void AfterInsert()
         {
             ChangeSheet();
-            if (Sheet != null)
-            {
-                DenseWidth = Math.Min(
-                    0.6*Sheet.Height,
-                    0.6*Sheet.Width);
-                OffsetY = 0.6*Sheet.Height;
-            }
+
+            DenseWidth = Math.Min(
+                0.6*Sheet.Height,
+                0.6*Sheet.Width);
+            OffsetY = 0.6*Sheet.Height;
+
         }
 
         public void BeforeDelete()
         {
-            if (Sheet != null)
-            {
-                _sheet.PropertyChanged -= SheetOnPropertyChanged;
-            }
+            WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
+            Sheet = _nullSheet;
         }
+        #endregion
 
-        public TieBackViewModel(IWorkspaceBit workspaceBit, int pointCount)
+        #region implement IViewModel
+        public TieBack Model { get; private set; }
+        #endregion
+
+        #region IClothableViewModel
+        public IClotheViewModel Clothe { get; private set; }
+
+        #endregion
+
+        public TieBackViewModel(IWorkspaceBit workspaceBit, TieBack tieBack)
         {
             WorkspaceBit = workspaceBit;
-            PointCount = pointCount;
-            LeftSide = new TieBackSideViewModel {Weight = 0.1};
-            RightSide = new TieBackSideViewModel {Weight = 0.5};
+            Model = tieBack;
+
+            this.SetPropertyChanged(el => el.Sheet, () => Model.Sheet = Sheet.Model);
+            _nullSheet = new NullSheetViewModel();
+            Sheet = _nullSheet;
+            Clothe = new ClotheViewModel(WorkspaceBit, Model.Clothe);
+
+            LeftSide = new TieBackSideViewModel(Model.LeftSide) {Weight = 0.1};
+            RightSide = new TieBackSideViewModel(Model.RightSide) {Weight = 0.5};
+            Layout = new TieBackLayoutViewModel(this);
+
 
             Visibility = true;
             Opacity = 1;
@@ -121,65 +134,109 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Depth = 0.05;
             DropHeight = 0;
             WaveCount = 5;
-
-            Layout = new TieBackLayoutViewModel(this);
             Alignment = ElementAlignment.Left;
 
-            workspaceBit.ElementListChanged +=
-                (sender, args) => ChangeSheet();
-            this.SetPropertyChanged("Visibility", NotifyRenderChanged);
-            this.SetPropertyChanged(
-                new[] {"Alignment", "Length", "OffsetX", "OffsetY", "Depth", "DropHeight", "Protrusion"},
-                () => OnPropertyChanged("Lane"));
-            this.SetPropertyChanged(
-                new[] {"OffsetX", "OffsetY", "Alignment", "Protrusion"},
-                () => OnPropertyChanged("Rect"));
-            this.SetPropertyChanged(
-                new[]
+            workspaceBit.ElementListChanged += (sender, args) => ChangeSheet();
+
+            Action sheetChange =
+                () =>
                 {
-                    "Sheet", "Alignment", "DenseWidth", "WaveCount", "Protrusion",
-                    "Length", "OffsetX", "OffsetY", "Depth", "DropHeight"
-                },
-                () => OnPropertyChanged("WavySurface"));
-            new[] {LeftSide, RightSide}.SetPropertyChanged(
-                new[] {"Weight", "TailScatter"},
-                () => OnPropertyChanged("WavySurface"));
+                    OnPropertyChanged(el => el.Rect);
+                    OnPropertyChanged(el => el.WavySurface);
+                    NotifyRenderChanged();
+                };
+
+            this
+                .SetPropertyChanged(el => el.Visibility, NotifyRenderChanged)
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.OffsetX),
+                        this.GetPropertyName(el => el.OffsetY),
+                        this.GetPropertyName(el => el.Alignment),
+                        this.GetPropertyName(el => el.Protrusion),
+                        this.GetPropertyName(el => el.Sheet)
+                    },
+                    () =>
+                    {
+                        OnPropertyChanged(el => el.Rect);
+                        OnPropertyChanged(el => el.Lane);
+                        OnPropertyChanged(el => el.WavySurface);
+                    })
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.Length),
+                        this.GetPropertyName(el => el.Depth),
+                        this.GetPropertyName(el => el.DropHeight)
+                    },
+                    () =>
+                    {
+                        OnPropertyChanged(el => el.Lane);
+                        OnPropertyChanged(el => el.WavySurface);
+                    })
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.DenseWidth),
+                        this.GetPropertyName(el => el.WaveCount)
+                    },
+                    () => OnPropertyChanged(el => el.WavySurface))
+                .SetPropertyChanged(el => el.Sheet, sh => sh.Width, sheetChange)
+                .SetPropertyChanged(el => el.Sheet, sh => sh.Height, sheetChange)
+                .SetPropertyChanged(el => el.Sheet, sh => sh.OffsetX, sheetChange)
+                .SetPropertyChanged(el => el.Sheet, sh => sh.OffsetY, sheetChange)
+                .SetPropertyChanged(el => el.Sheet, sh => sh.Layout, sheetChange)
+                .PropertyIterate(
+                    new Expression<Func<TieBackViewModel, TieBackSideViewModel>>[]
+                    {el => el.LeftSide, el => el.RightSide},
+                    (side, propertyName) => side.SetPropertyChanged(
+                        new[]
+                        {
+                            side.GetPropertyName(s => s.Weight),
+                            side.GetPropertyName(s => s.TailScatter)
+                        },
+                        () => OnPropertyChanged(el => el.WavySurface)));
+
         }
 
-        public int PointCount { get; private set; }
+        public TieBackSideViewModel LeftSide { get; private set; }
+        public TieBackSideViewModel RightSide { get; private set; }
 
         public IWorkspaceBit WorkspaceBit { get; private set; }
 
-        void SheetOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "Width":
-                case "Height":
-                case "OffsetX":
-                case "OffsetY":
-                    OnPropertyChanged("Rect");
-                    OnPropertyChanged("WavySurface");
-                    NotifyRenderChanged();
-                    break;
+        private readonly ISheetElementViewModel _nullSheet;
 
-            }
+        private ISheetElementViewModel GetSheet()
+        {
+            var sheet = Below
+                .OfType<ISheetElementViewModel>()
+                .Reverse()
+                .FirstOrDefault();
+            return sheet ?? _nullSheet;
         }
 
         private ISheetElementViewModel _sheet;
         public ISheetElementViewModel Sheet
         {
-            get
+            get { return _sheet; }
+            private set { SetField(ref _sheet, value); }
+        }
+
+        private void ChangeSheet()
+        {
+            var newSheet = GetSheet();
+
+            if (Sheet != newSheet)
             {
-                return Below
-                    .OfType<ISheetElementViewModel>()
-                    .Reverse()
-                    .FirstOrDefault();
+                WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
+                Sheet = newSheet;
+                _notifyRenderChanged = WorkspaceBit.RenderChangedDispatcher
+                    .Subscribe(this, Sheet, () => Model.GetRenderArea());
             }
         }
 
         private Action _notifyRenderChanged;
-
         private void NotifyRenderChanged()
         {
             if (_notifyRenderChanged != null)
@@ -187,161 +244,63 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 _notifyRenderChanged();
             }
         }
-        private void ChangeSheet()
-        {
-            var newSheet = Sheet;
 
-            if (newSheet != _sheet)
-            {
-                if (_sheet != null)
-                {
-                    _sheet.PropertyChanged -= SheetOnPropertyChanged;
-                    WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this,_sheet);
-                    _notifyRenderChanged = null;
-                }
-
-                _sheet = newSheet;
-
-                if (_sheet != null)
-                {
-                    _sheet.PropertyChanged += SheetOnPropertyChanged;
-                    _notifyRenderChanged = WorkspaceBit.RenderChangedDispatcher
-                        .Subscribe(this, _sheet, () => RenderArea);
-                }
-
-                OnPropertyChanged("Sheet");
-                OnPropertyChanged("Rect");
-            }
-        }
-
-        public IEnumerable<Point> RenderArea
-        {
-            get
-            {
-                return Sheet != null && Visibility
-                    ? new[]
-                    {
-                        new Point(0, 0),
-                        new Point(Sheet.Width, 0),
-                        new Point(Sheet.Width, Sheet.Height),
-                        new Point(0, Sheet.Height)
-                    }
-                    : null;
-            }
-        }
-
-        private double _length;
         public double Length
         {
-            get { return _length; }
-            set { SetField(ref _length, value); }
+            get { return Model.Length; }
+            set { SetField(() => Model.Length, v => Model.Length = v, value); }
         }
-
-        private double _depth;
         public double Depth
         {
-            get { return _depth; }
-            set { SetField(ref _depth, value); }
+            get { return Model.Depth; }
+            set { SetField(() => Model.Depth, v => Model.Depth = v, value); }
         }
-
-        private double _dropHeight;
         public double DropHeight
         {
-            get { return _dropHeight; }
-            set { SetField(ref _dropHeight, value); }
+            get { return Model.DropHeight; }
+            set { SetField(() => Model.DropHeight, v => Model.DropHeight = v, value); }
         }
-
-        private ElementAlignment _alignment;
         public ElementAlignment Alignment
         {
-            get { return _alignment; }
-            set { SetField(ref _alignment, value); }
+            get { return Model.Alignment; }
+            set { SetField(() => Model.Alignment, v => Model.Alignment = v, value); }
         }
-
-        private double _denseWidth;
         public double DenseWidth
         {
-            get { return _denseWidth; }
-            set { SetField(ref _denseWidth, value); }
+            get { return Model.DenseWidth; }
+            set { SetField(() => Model.DenseWidth, v => Model.DenseWidth = v, value); }
         }
-
-        private int _waveCount;
         public int WaveCount
         {
-            get { return _waveCount; }
-            set { SetField(ref _waveCount, value); }
+            get { return Model.WaveCount; }
+            set { SetField(() => Model.WaveCount, v => Model.WaveCount = v, value); }
         }
-
-
-        private double _offsetY;
-        public double OffsetY
-        {
-            get { return _offsetY; }
-            set { SetField(ref _offsetY, value); }
-        }
-
-        private double _offsetX;
         public double OffsetX
         {
-            get { return _offsetX; }
-            set { SetField(ref _offsetX, value); }
+            get { return Model.OffsetX; }
+            set { SetField(() => Model.OffsetX, v => Model.OffsetX = v, value); }
         }
-
-        private double _protrusion;
+        public double OffsetY
+        {
+            get { return Model.OffsetY; }
+            set { SetField(() => Model.OffsetY, v => Model.OffsetY = v, value); }
+        }
         public double Protrusion
         {
-            get { return _protrusion; }
-            set { SetField(ref _protrusion, value); }
+            get { return Model.Protrusion; }
+            set { SetField(() => Model.Protrusion, v => Model.Protrusion = v, value); }
         }
 
         public ILayoutViewModel Layout { get; private set; }
 
         public Rect Rect
         {
-            get
-            {
-                return Sheet == null
-                    ? new Rect()
-                    : Alignment == ElementAlignment.Left
-                        ? new Rect(-Protrusion, 0, Sheet.Width + Protrusion, Sheet.Height)
-                        : new Rect(0, 0, Sheet.Width + Protrusion, Sheet.Height);
-            }
-        }
-
-        private Func<Point, Point> AlignmentTransform
-        {
-            get
-            {
-                return point =>
-                    Alignment == ElementAlignment.Left || Sheet == null
-                        ? new Point(point.X + Protrusion, point.Y)
-                        : new Point(Sheet.Width - point.X, point.Y);
-            }
-        }
-
-        private Point LaneUpF(double t)
-        {
-            var width = Math.Sqrt(Math.Pow(Length, 2) - Math.Pow(DropHeight, 2));
-            return new Point(
-                OffsetX + Depth/2*DropHeight/Length + t*width,
-                OffsetY - Depth/2*width/Length + t*DropHeight);
-        }
-
-        private Point LaneDownF(double t)
-        {
-            var width = Math.Sqrt(Math.Pow(Length, 2) - Math.Pow(DropHeight, 2));
-            return new Point(
-                OffsetX - Depth / 2 * DropHeight / Length + t * width,
-                OffsetY + Depth / 2 * width / Length + t * DropHeight);
+            get { return Model.GetRect(); }
         }
 
         public IEnumerable<Point> Lane
         {
-            get
-            {
-                var lane = new[] {LaneUpF(0), LaneUpF(1), LaneDownF(1), LaneDownF(0)};
-                return lane.Select(AlignmentTransform);
-            }
+            get { return Model.GetLane(); }
         }
 
         public IWavyBorder<IEnumerable<Point>> ParentWavySurface
@@ -358,42 +317,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
         public IWavyBorder<IEnumerable<Point>> WavySurface
         {
-            get
-            {
-                if (Sheet == null)
-                {
-                    return null;
-                }
-
-                var wavySurface = ParentWavySurface;
-                var upBorder = wavySurface.Start();
-                var border = upBorder.Normalize();
-
-                var laneUpBorder = border.Transform(LaneUpF);
-                var laneDownBorder = border.Transform(LaneDownF);
-                var lengths = wavySurface.Transform(points => points.Length());
-
-                var leftLength = LeftSide.GetLength(ParentWavySurface.Waves.First(), LaneUpF(0));
-                var rightLength = RightSide.GetLength(ParentWavySurface.Waves.Last(), LaneUpF(1));
-
-                var connectStrategy = border
-                    .Transform(t => (IConnectStrategy) new CatenaryLengthConnectStrategy
-                        (leftLength + t*(rightLength - leftLength), PointCount, true));
-                Func<double, double> angleF =
-                    t => ((LeftSide.TailScatter + RightSide.TailScatter)*t - LeftSide.TailScatter)/180*Math.PI;
-                var tailBorder = border
-                    .Zip(laneDownBorder, lengths,
-                        (t, p, l) => new Point(
-                            p.X + l*Math.Sin(angleF(t)),
-                            p.Y + l*Math.Cos(angleF(t))));
-
-                return upBorder
-                    .Connect(laneUpBorder, connectStrategy)
-                    .Connect(laneDownBorder, new LineConnectStrategy())
-                    .Connect(tailBorder, new LineConnectStrategy())
-                    .Cut(lengths)
-                    .Transform(points => points.Select(AlignmentTransform));
-            }
+            get { return Model.GetWavySurface(ParentWavySurface); }
         }
+
+
     }
 }

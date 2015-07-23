@@ -3,7 +3,7 @@
                     xmlns:custom1="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory.Custom;assembly=Sketch.ViewModel"
                     xmlns:controls="clr-namespace:PeletonSoft.Sketch.View.Controls">
 
-    <DataTemplate DataType="{x:Type custom1:CustomElementFactoryViewModel}">
+    <DataTemplate DataType="{x:Type custom1:ElementFactoryViewModel}">
         <controls:CustomFactoryView/>
     </DataTemplate>
     

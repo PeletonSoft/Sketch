@@ -5,13 +5,11 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
-using PeletonSoft.Sketch.ViewModel.Element.Clothe;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
-using PeletonSoft.Tools.Model;
-using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
@@ -25,16 +23,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
         }
 
-        protected bool SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        protected void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(getValue, setValue, value);
+            notificator.SetField(getValue, setValue, value);
         }
         #endregion
 
@@ -51,35 +49,28 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             get { return Model.Width; }
             set { SetField(() => Width, v => Model.Width = v, value); }
         }
-
         public double Height
         {
             get { return Model.Height; }
             set { SetField(() => Height, v => Model.Height = v, value); }
         }
-
         public double OffsetX
         {
             get { return Model.OffsetX; }
             set { SetField(() => OffsetX, v => Model.OffsetX = v, value); }
         }
-
         public double OffsetY
         {
             get { return Model.OffsetY; }
             set { SetField(() => OffsetY, v => Model.OffsetY = v, value); }
         }
-
-        #endregion
-
-        #region implement ILayoutable
         private ILayoutViewModel _layout;
         public ILayoutViewModel Layout
         {
             get { return _layout; }
             set { SetField(ref _layout, value); }
         }
-
+        public IContainerOriginator<ILayoutViewModel> Layouts { get; private set; }
         #endregion
 
         #region implement IElementViewModel
@@ -112,11 +103,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         {
         }
 
+        #endregion
+
+        #region implement IViewModel
+        public IAlignableElement Model { get; private set; }
+        #endregion
+
+        #region IClothableViewModel
         public IClotheViewModel Clothe { get; private set; }
 
         #endregion
-
-        protected IAlignableElement Model { get; private set; }
 
         protected AlignableElementViewModel(IWorkspaceBit workspaceBit, IAlignableElement model)
         {
@@ -132,16 +128,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             Model.Width = Screen.Width;
             Model.Height = Screen.Height;
 
-            var layouts = new LayoutViewModels(WorkspaceBit, this);
-            Layouts = layouts;
-            Layout = layouts.LeftLayout;
-            Clothe = new ClotheViewModel(WorkspaceBit, new ClotheCalculateStrategy(this));
+            Layouts = new LayoutViewModels(WorkspaceBit, this);
+
+            Layout = Layouts.Default;
+            Clothe = new ClotheViewModel(WorkspaceBit, Model.Clothe);
         }
 
-        public IContainerOriginator<ILayoutViewModel> Layouts { get; private set; }
-
-        public IWorkspaceBit WorkspaceBit { get; private set; }
-
+        protected IWorkspaceBit WorkspaceBit { get; private set; }
         protected IScreenViewModel Screen
         {
             get { return WorkspaceBit.Screen; }

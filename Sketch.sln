@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Visual", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.Model.Interface", "Sketch.Model.Interface\Sketch.Model.Interface.csproj", "{2F4BE5AB-9FF4-45B5-8B8B-CACA40914E14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Design", "Sketch.ViewModel.Design\Sketch.ViewModel.Design.csproj", "{E05CA886-941F-4A85-9DDA-FE32C4769AC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{2F4BE5AB-9FF4-45B5-8B8B-CACA40914E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F4BE5AB-9FF4-45B5-8B8B-CACA40914E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F4BE5AB-9FF4-45B5-8B8B-CACA40914E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05CA886-941F-4A85-9DDA-FE32C4769AC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05CA886-941F-4A85-9DDA-FE32C4769AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05CA886-941F-4A85-9DDA-FE32C4769AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05CA886-941F-4A85-9DDA-FE32C4769AC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

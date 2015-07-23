@@ -21,15 +21,14 @@
                         StrokeThickness="1" MouseUp="Line_MouseUp">
                     </Line>
                 </Grid>
-                <Grid ZIndex="0"
-                    Canvas.Left="{Binding ThumbX, ElementName=UserControl}"
-                    Canvas.Top="{Binding ThumbY, ElementName=UserControl}"
-                    Visibility="{Binding IsMouseOver, ElementName = line, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Thumb Width="4" Height="4" Cursor="Hand" Margin="-2" Focusable="False">
+                <Grid ZIndex="0" 
+                      Canvas.Left="{Binding ThumbX, ElementName=UserControl}" Canvas.Top="{Binding ThumbY, ElementName=UserControl}"
+                      Visibility="{Binding IsMouseOver, ElementName = line, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Thumb Width="6" Height="6" Margin="-3,-3,0,0" Focusable="False">
                         <Thumb.Template>
                             <ControlTemplate TargetType="Thumb">
                                 <Grid>
-                                    <Ellipse Stroke="Green" StrokeThickness="1"/>
+                                    <Ellipse Stroke="Green" StrokeThickness="1" Fill="Transparent"/>
                                 </Grid>
                             </ControlTemplate>
                         </Thumb.Template>

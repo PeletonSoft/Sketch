@@ -3,13 +3,13 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
                     xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
-                    xmlns:decorativeBorder1="clr-namespace:PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;assembly=Sketch.ViewModel">
-    <DataTemplate DataType="{x:Type decorativeBorder1:PointViewModel}">
-        <Thumb Width="4" Height="4" Cursor="Hand" Margin="-2" Focusable="False">
+                    xmlns:db="clr-namespace:PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;assembly=Sketch.ViewModel">
+    <DataTemplate DataType="{x:Type db:PointViewModel}">
+        <Thumb Width="4" Height="4" Cursor="Hand" Margin="-2,-2,0,0" Focusable="False">
             <Thumb.Template>
                 <ControlTemplate TargetType="Thumb">
                     <Grid>
-                        <Ellipse Stroke="Red" StrokeThickness="1"/>
+                        <Ellipse Stroke="Red" StrokeThickness="1" Cursor="Hand" Fill="Transparent"/>
                     </Grid>
                 </ControlTemplate>
             </Thumb.Template>
@@ -19,7 +19,7 @@
             </i:Interaction.Behaviors>
         </Thumb>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type decorativeBorder1:LineViewModel}">
+    <DataTemplate DataType="{x:Type db:LineViewModel}">
         <controls:LineView OffsetX="{Binding Offset.X}" OffsetY="{Binding Offset.Y}" Focusable="False">
             <controls:LineView.Style>
                 <Style TargetType="{x:Type controls:LineView}">

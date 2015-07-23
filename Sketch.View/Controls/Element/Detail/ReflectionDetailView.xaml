@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.ReflectionDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:bh="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:design="clr-namespace:PeletonSoft.Sketch.ViewModel.Design;assembly=Sketch.ViewModel.Design"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance design:ReflectableViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Sketch.View;component/Style/DetailStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:ContainerItemConverter x:Key="ContainerItemConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <WrapPanel>
+        <RadioButton Style="{StaticResource IconRadioButtonStyle}">
+            <Image Source="/Images/Transformation/Reflection/Same.png"/>
+            <i:Interaction.Behaviors>
+                <bh:ToggleButtonStatePatternBehavior 
+                    State="{Binding Reflection, Mode=TwoWay}">
+                    <bh:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Reflections" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="Same" />
+                    </bh:ToggleButtonStatePatternBehavior.TargetState>
+                </bh:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource IconRadioButtonStyle}">
+            <Image Source="/Images/Transformation/Reflection/HFlip.png"></Image>
+            <i:Interaction.Behaviors>
+                <bh:ToggleButtonStatePatternBehavior 
+                    State="{Binding Reflection, Mode=TwoWay}">
+                    <bh:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Reflections" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="HFlip" />
+                    </bh:ToggleButtonStatePatternBehavior.TargetState>
+                </bh:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource IconRadioButtonStyle}">
+            <Image Source="/Images/Transformation/Reflection/DFlip.png"/>
+            <i:Interaction.Behaviors>
+                <bh:ToggleButtonStatePatternBehavior 
+                    State="{Binding Reflection, Mode=TwoWay}">
+                    <bh:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Reflections" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="DFlip" />
+                    </bh:ToggleButtonStatePatternBehavior.TargetState>
+                </bh:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource IconRadioButtonStyle}">
+            <Image Source="/Images/Transformation/Reflection/VFlip.png"/>
+            <i:Interaction.Behaviors>
+                <bh:ToggleButtonStatePatternBehavior 
+                    State="{Binding Reflection, Mode=TwoWay}">
+                    <bh:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Reflections" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="VFlip" />
+                    </bh:ToggleButtonStatePatternBehavior.TargetState>
+                </bh:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+    </WrapPanel>
+</UserControl>

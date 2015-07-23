@@ -14,15 +14,18 @@ namespace PeletonSoft.Sketch.View
         {
             Startup += Application_Startup;
         }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
             var settings = new Dictionary<string, object>
             {
                 {"Args", e.Args},
-                {"Preferences", Settings.Default}
+                {"Preferences", Settings.Default},
+                {"Assembly", new {Name = assembly.Name, Version = assembly.Version.ToString()}}
             };
 
-            var register = (ISettingRegister)Resources["SettingRegister"];
+            var register = (ISettingRegister) Resources["SettingRegister"];
 
             register.Register(settings);
         }

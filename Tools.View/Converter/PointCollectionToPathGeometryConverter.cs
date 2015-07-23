@@ -1,38 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
+using PeletonSoft.Tools.View.Drawing;
 
 namespace PeletonSoft.Tools.View.Converter
 {
     public class PointCollectionToPathGeometryConverter : IValueConverter
     {
+        public bool IsClosed { get; set; }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is IEnumerable<Point>))
+            if (value is IEnumerable<Point>)
             {
-                return null;
+                return (value as IEnumerable<Point>).ToPathGeometry(IsClosed); 
             }
 
-            var points = (value as IEnumerable<Point>).ToArray();
-            var start = points[0];
-            var segments = new List<LineSegment>();
-            for (var i = 1; i < points.Length; i++)
-            {
-                segments.Add(new LineSegment(points[i], true));
-            }
-            var figure = new PathFigure(start, segments, true); //true if closed
-            var geometry = new PathGeometry();
-            geometry.Figures.Add(figure);
-            return geometry;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        public PointCollectionToPathGeometryConverter()
+        {
+            IsClosed = true;
         }
     }
 }

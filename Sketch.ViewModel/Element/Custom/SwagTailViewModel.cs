@@ -1,24 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
-using PeletonSoft.Tools.Model.Draw;
-using PeletonSoft.Tools.Model.Draw.Wave;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
-using PeletonSoft.Tools.Model.SketchMath;
-using PeletonSoft.Tools.Model.SketchMath.ConnectStrategy;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
-using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder;
-using PeletonSoft.Tools.Model.SketchMath.Wave.WavyBorderBuilder.ExtraStrategy;
+using Expression = System.Linq.Expressions.Expression;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
-    public abstract class SwagTailViewModel : AlignableElementViewModel
+    public abstract class SwagTailViewModel : AlignableElementViewModel, INotifyViewModel<SwagTail>
     {
-        public SwagTailViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit, new AlignableElement())
+        private void OnPropertyChanged<T>(Expression<Func<SwagTailViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
+        public new SwagTail Model
+        {
+            get { return (SwagTail) base.Model; }
+        }
+
+        protected ShoulderViewModel LeftShoulder { get; private set; }
+        protected ShoulderViewModel RightShoulder { get; private set; }
+
+        public SwagTailViewModel(IWorkspaceBit workspaceBit, SwagTail model)
+            : base(workspaceBit, model)
+
         {
             Height = 0.5*Screen.Height;
             Width = 0.5*Screen.Width;
@@ -26,92 +37,64 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             IndentDepth = 0.3*Layout.Height;
             WaveCount = 3;
 
-            PointCount = 100;
+            LeftShoulder = new ShoulderViewModel(Model.LeftShoulder);
+            RightShoulder = new ShoulderViewModel(Model.RightShoulder);
 
-            LeftShoulder = new ShoulderViewModel();
-            RightShoulder = new ShoulderViewModel();
-
-            this.SetPropertyChanged(
-                new[] {"Width", "Height", "IndentDepth", "WaveCount"},
-                VisualChanged);
-
-            new[] {LeftShoulder, RightShoulder}
-                .SetPropertyChanged(
-                    new[] {"Length", "WaveHeight", "OffsetY", "Slope"},
-                    VisualChanged);
-
-        }
-
-        private void VisualChanged()
-        {
-            if (Width > 5e-4 && Height > 5e-4 && WaveCount > 0
-                && LeftShoulder.Length > 5e-4 && RightShoulder.Length > 5e-4)
+            Action visualChanged = () =>
             {
-                OnPropertyChanged("Circuit");
-                OnPropertyChanged("WavySurface");
-            }
+                if (Width > 5e-4 && Height > 5e-4 && WaveCount > 0
+                    && LeftShoulder.Length > 5e-4 && RightShoulder.Length > 5e-4)
+                {
+                    OnPropertyChanged(el => el.Circuit);
+                    OnPropertyChanged(el => el.WavySurface);
+                }
+            };
+
+            this
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.Width),
+                        this.GetPropertyName(el => el.Height),
+                        this.GetPropertyName(el => el.IndentDepth),
+                        this.GetPropertyName(el => el.WaveCount)
+                    },
+                    visualChanged)
+                .PropertyIterate(
+                    new Expression<Func<SwagTailViewModel, ShoulderViewModel>>[]
+                    {el => el.LeftShoulder, el => el.RightShoulder},
+                    (shoulder, propertyName) => shoulder.SetPropertyChanged(
+                        new[]
+                        {
+                            shoulder.GetPropertyName(sh => sh.Length),
+                            shoulder.GetPropertyName(sh => sh.WaveHeight),
+                            shoulder.GetPropertyName(sh => sh.OffsetY),
+                            shoulder.GetPropertyName(sh => sh.Slope)
+                        },
+                        visualChanged));
         }
 
-        private double _indentDepth;
         public double IndentDepth
         {
-            get { return _indentDepth; }
-            set { SetField(ref _indentDepth, value); }
+            get { return Model.IndentDepth; }
+            set { SetField(() => Model.IndentDepth, v => Model.IndentDepth = v, value); }
         }
 
-        private int _waveCount;
         public int WaveCount
         {
-            get { return _waveCount; }
-            set { SetField(ref _waveCount, value); }
+            get { return Model.WaveCount; }
+            set { SetField(() => Model.WaveCount, v => Model.WaveCount = v, value); }
         }
 
-        public int PointCount { get; set; }
-
-        public abstract IEnumerable<Point> Circuit{get; }
+        public IEnumerable<Point> Circuit
+        {
+            get { return Model.GetCircuit(); }
+        }
 
         public IWavyBorder<IEnumerable<Point>> WavySurface
         {
-            get
-            {
-                var connectStrategy = VerticalWavyBorder
-                    .Transform(y0 => (IConnectStrategy) new CatenaryY0ConnectStrategy(y0, PointCount, true));
-                var builder = new WavySurfaceBuilder(LeftWawyBorder, RightWavyBorder, connectStrategy);
-                var surface = builder.WavySurface;
-                //var waves = surface.Waves.ToArray();
-                return surface;
-            }
+            get { return Model.GetWavySurface(); }
         }
 
-        private IWavyBorder<double> VerticalWavyBorder
-        {
-            get
-            {
-                Func<Position, double> transformer = pos => Height - pos.X;
-                var parameters = new WavyBorderParameters(Height - IndentDepth, 1, WaveCount);
-                var builder = new UprightWavyBorderBuilder(parameters, new HalfStepExtraStartStrategy());
-                return builder.WavyBorder.Transform(transformer);
-            }
-        }
-
-        private IWavyBorder<Point> GetWawyBorder(ShoulderViewModel shoulder, 
-            Func<double, ShoulderViewModel, Point> transformer)
-        {
-            var wavyBorder = shoulder.GetWavyBorder((p, es) => new FoldingWavyBorderBuilder(p, es), WaveCount);
-            return wavyBorder.Transform(x => transformer(x, shoulder));
-        }
-
-        private IWavyBorder<Point> LeftWawyBorder
-        {
-            get { return GetWawyBorder(LeftShoulder, (z, sh) => sh.Transformer(z).Transform(x => x, y => y)); }
-        }
-
-        private IWavyBorder<Point> RightWavyBorder
-        {
-            get { return GetWawyBorder(RightShoulder,(z, sh) => sh.Transformer(z).Transform(x => Width - x, y => y)); }
-        }
-
-        protected ShoulderViewModel LeftShoulder { get; private set; }
-        protected ShoulderViewModel RightShoulder { get; private set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
@@ -15,18 +16,23 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
             return notificator.SetField(ref field, value);
         }
 
+        private void OnPropertyChanged<T>(Expression<Func<TieBackLayoutViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
         #endregion
+
         public void RestoreDefault()
         {
         }
@@ -43,33 +49,23 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 
         public double Left
         {
-            get { return Transform(Rect).X; }
+            get { return Transform(Element.Rect).X; }
         }
 
         public double Top
         {
-            get { return Transform(Rect).Y; }
+            get { return Transform(Element.Rect).Y; }
         }
 
         public Rect Transform(Rect rect)
         {
-            if (Element.Sheet == null)
-            {
-                return new Rect();
-            }
-
-            var layout = (Element.Sheet as ILayoutable).Layout;
+            var layout = Element.Sheet.Layout;
             return layout.Transform(rect);
         }
 
         public Point LocalTransform(Point point)
         {
-            if (Element.Sheet == null)
-            {
-                return new Point();
-            }
-
-            var layout = (Element.Sheet as ILayoutable).Layout;
+            var layout = Element.Sheet.Layout;
             return layout.LocalTransform(point);
         }
 
@@ -82,13 +78,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 
         public Rect Rect
         {
-            get { return Element.Rect; } 
+            get { return new Rect(new Point(0, 0), Element.Rect.Size); }
         }
 
         public TieBackLayoutViewModel(TieBackViewModel element)
+
         {
             Element = element;
-            element.WorkspaceBit.RenderChangedDispatcher.RenderChanged +=
+
+            var dispatcher = Element.WorkspaceBit.RenderChangedDispatcher;
+            dispatcher.RenderChanged +=
                 (sender, args) =>
                 {
                     if (sender == Element)
@@ -97,26 +96,24 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
                     }
                 };
 
-            element.PropertyChanged += ElementOnPropertyChanged;
+            Element
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        Element.GetPropertyName(el => el.Sheet),
+                        Element.GetPropertyName(el => el.Rect)
+                    }, () =>
+                    {
+                        OnPropertyChanged(l => l.Rect);
+                        OnPropertyChanged(l => l.Width);
+                        OnPropertyChanged(l => l.Height);
+                        OnPropertyChanged(l => l.Top);
+                        OnPropertyChanged(l => l.Left);
+                    });
+
         }
 
-        private void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "Sheet":
-                case "Rect":
-                    OnPropertyChanged("Rect");
-                    OnPropertyChanged("Top");
-                    OnPropertyChanged("Width");
-                    OnPropertyChanged("Height");
-                    OnPropertyChanged("Left");
-                    break;
-
-            }
-        }
-
-        public TieBackViewModel Element { get; private set; }
+        private TieBackViewModel Element { get; set; }
 
         IElementViewModel ILayoutViewModel.Element
         {

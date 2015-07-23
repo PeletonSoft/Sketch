@@ -6,7 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 
 namespace PeletonSoft.Sketch.ViewModel.Factory
 {
-    public sealed class TulleFactoryViewModel : CustomElementFactoryViewModel,
+    public sealed class TulleFactoryViewModel : ElementFactoryViewModel,
         IElementFactoryViewModel<TulleViewModel>
     {
         protected override IElementViewModel CreateRawElement(IWorkspaceBit workspaceBit)

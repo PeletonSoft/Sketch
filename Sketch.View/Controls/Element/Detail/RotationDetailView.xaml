@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="PeletonSoft.Sketch.View.Controls.Element.Detail.RotationDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
+             xmlns:design="clr-namespace:PeletonSoft.Sketch.ViewModel.Design;assembly=Sketch.ViewModel.Design"
+             d:DataContext="{d:DesignInstance design:RotableViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Sketch.View;component/Style/DetailStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:ContainerItemConverter x:Key="ContainerItemConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <WrapPanel>
+        <RadioButton Style="{StaticResource TextRadioButtonStyle}" Content="0°">
+            <i:Interaction.Behaviors>
+                <behavior:ToggleButtonStatePatternBehavior 
+                    State="{Binding Rotation, Mode=TwoWay}">
+                    <behavior:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Rotations" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="By0" />
+                    </behavior:ToggleButtonStatePatternBehavior.TargetState>
+                </behavior:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource TextRadioButtonStyle}" Content="90°">
+            <i:Interaction.Behaviors>
+                <behavior:ToggleButtonStatePatternBehavior 
+                    State="{Binding Rotation, Mode=TwoWay}">
+                    <behavior:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Rotations" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="By90" />
+                    </behavior:ToggleButtonStatePatternBehavior.TargetState>
+                </behavior:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource TextRadioButtonStyle}" Content="180°">
+            <i:Interaction.Behaviors>
+                <behavior:ToggleButtonStatePatternBehavior 
+                    State="{Binding Rotation, Mode=TwoWay}">
+                    <behavior:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Rotations" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="By180" />
+                    </behavior:ToggleButtonStatePatternBehavior.TargetState>
+                </behavior:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+        <RadioButton Style="{StaticResource TextRadioButtonStyle}" Content="270°">
+            <i:Interaction.Behaviors>
+                <behavior:ToggleButtonStatePatternBehavior 
+                    State="{Binding Rotation, Mode=TwoWay}">
+                    <behavior:ToggleButtonStatePatternBehavior.TargetState>
+                        <Binding Path="Rotations" 
+                            Converter="{StaticResource ContainerItemConverter}"
+                            ConverterParameter="By270" />
+                    </behavior:ToggleButtonStatePatternBehavior.TargetState>
+                </behavior:ToggleButtonStatePatternBehavior>
+            </i:Interaction.Behaviors>
+        </RadioButton>
+    </WrapPanel>
+</UserControl>

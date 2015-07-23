@@ -33,6 +33,11 @@ namespace PeletonSoft.Tools.Model
             return points != null ? points.Select(Transform) : null;
         }
 
+        public IEnumerable<Rect> Transform(IEnumerable<Rect> rects)
+        {
+            return rects != null ? rects.Select(Transform) : null;
+        }
+
         public IEnumerable<IEnumerable<Point>> Transform(IEnumerable<IEnumerable<Point>> pointss)
         {
             return pointss != null ? pointss.Select(Transform) : null;

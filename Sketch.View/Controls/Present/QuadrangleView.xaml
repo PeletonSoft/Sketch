@@ -4,77 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
-             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
-             xmlns:primitive1="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Primitive;assembly=Sketch.ViewModel"
-             xmlns:detail1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
+             xmlns:bh="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:primitive="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Primitive;assembly=Sketch.ViewModel"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance primitive1:PresentQuadrangleViewModel}"
+             d:DataContext="{d:DesignInstance primitive:PresentQuadrangleViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" >
-        <Canvas.Resources>
-            <converter1:TranslationConverter x:Key="TranslationConverter"/>
-        </Canvas.Resources>
 
-        <detail1:SelectPointMarker
-            DataContext="{Binding TopLeft}">
-            <Canvas.Top>
-                <Binding Path="Y" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Top>
-            <Canvas.Left>
-                <Binding Path="X" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Left>
+        <controls:SelectPointMarker
+                MarkerRadius="{Binding SuperimposeOption.MarkerRadius}"
+                MarkerOpacity="{Binding SuperimposeOption.MarkerOpacity}"
+                Canvas.Top="{Binding Path=TopLeft.Y, Mode=TwoWay}"
+                Canvas.Left="{Binding Path=TopLeft.X, Mode=TwoWay}">
             <i:Interaction.Behaviors>
-                <behavior1:DragInCanvasBehavior/>
+                <bh:DragInCanvasBehavior/>
             </i:Interaction.Behaviors>
-        </detail1:SelectPointMarker>
+        </controls:SelectPointMarker>
 
-        <detail1:SelectPointMarker
-            DataContext="{Binding BottomLeft}">
-            <Canvas.Top>
-                <Binding Path="Y" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Top>
-            <Canvas.Left>
-                <Binding Path="X" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Left>
+        <controls:SelectPointMarker
+                MarkerRadius="{Binding SuperimposeOption.MarkerRadius}"
+                MarkerOpacity="{Binding SuperimposeOption.MarkerOpacity}"
+                Canvas.Top="{Binding Path=TopRight.Y, Mode=TwoWay}"
+                Canvas.Left="{Binding Path=TopRight.X, Mode=TwoWay}">
             <i:Interaction.Behaviors>
-                <behavior1:DragInCanvasBehavior/>
+                <bh:DragInCanvasBehavior/>
             </i:Interaction.Behaviors>
-        </detail1:SelectPointMarker>
+        </controls:SelectPointMarker>
 
-        <detail1:SelectPointMarker
-            DataContext="{Binding TopRight}">
-            <Canvas.Top>
-                <Binding Path="Y" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Top>
-            <Canvas.Left>
-                <Binding Path="X" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Left>
+        <controls:SelectPointMarker
+                MarkerRadius="{Binding SuperimposeOption.MarkerRadius}"
+                MarkerOpacity="{Binding SuperimposeOption.MarkerOpacity}"
+                Canvas.Top="{Binding Path=BottomRight.Y, Mode=TwoWay}"
+                Canvas.Left="{Binding Path=BottomRight.X, Mode=TwoWay}">
             <i:Interaction.Behaviors>
-                <behavior1:DragInCanvasBehavior/>
+                <bh:DragInCanvasBehavior/>
             </i:Interaction.Behaviors>
-        </detail1:SelectPointMarker>
+        </controls:SelectPointMarker>
 
-        <detail1:SelectPointMarker
-            DataContext="{Binding BottomRight}">
-            <Canvas.Top>
-                <Binding Path="Y" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Top>
-            <Canvas.Left>
-                <Binding Path="X" Mode="TwoWay" Converter="{StaticResource TranslationConverter}"
-                         ConverterParameter="{StaticResource MarkerRadius}" />
-            </Canvas.Left>
+        <controls:SelectPointMarker
+                MarkerRadius="{Binding SuperimposeOption.MarkerRadius}"
+                MarkerOpacity="{Binding SuperimposeOption.MarkerOpacity}"
+                Canvas.Top="{Binding Path=BottomLeft.Y, Mode=TwoWay}"
+                Canvas.Left="{Binding Path=BottomLeft.X, Mode=TwoWay}">
             <i:Interaction.Behaviors>
-                <behavior1:DragInCanvasBehavior/>
+                <bh:DragInCanvasBehavior/>
             </i:Interaction.Behaviors>
-        </detail1:SelectPointMarker>
+        </controls:SelectPointMarker>
+
     </Canvas>
 
 </UserControl>

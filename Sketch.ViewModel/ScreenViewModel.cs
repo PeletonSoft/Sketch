@@ -1,27 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
-    public sealed class ScreenViewModel : IScreenViewModel
+    public sealed class ScreenViewModel : IScreenViewModel, IViewModel<Screen>
     {
-        private double _width;
-        public double Width
-        {
-            get { return _width; }
-            set { SetField(ref _width, value); }
-        }
-
-        private double _height;
-        public double Height
-        {
-            get { return _height; }
-            set { SetField(ref _height, value); }
-        }
-
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,12 +17,18 @@ namespace PeletonSoft.Sketch.ViewModel
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
         }
+
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        {
+            Action notificator = () => OnPropertyChanged(propertyName);
+            notificator.SetField(getValue, setValue, value);
+        }
+
         #endregion
 
         #region implement IOriginator
@@ -43,5 +37,23 @@ namespace PeletonSoft.Sketch.ViewModel
         }
         #endregion
 
+        public Screen Model { get; private set; }
+
+        public double Width
+        {
+            get { return Model.Width; }
+            set { SetField(() => Model.Width, v => Model.Width = v, value); }
+        }
+
+        public double Height
+        {
+            get { return Model.Height; }
+            set { SetField(() => Model.Height, v => Model.Height = v, value); }
+        }
+
+        public ScreenViewModel()
+        {
+            Model = new Screen();
+        }
     }
 }

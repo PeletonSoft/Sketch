@@ -18,19 +18,19 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             foreach (var element in originator.Items)
             {
                 var factoryRecord = ElementMementoFactoryService.Items
-                    .FirstOrDefault(x => x.ElementType == element.GetType());
+                    .FirstOrDefault(x => x.ElementType == element.Type);
                 if (factoryRecord == null)
                 {
                     continue;
                 }
 
                 var elementMemento = factoryRecord.ElementMementoFactoryMethod();
-                elementMemento.GetState(element);
+                elementMemento.GetState(element.Value);
 
                 var record = new ElementMementoRecord()
                 {
                     Element = elementMemento,
-                    ElementType = element.GetType().Name
+                    ElementType = element.Type.Name
                 };
 
                 List.Add(record);

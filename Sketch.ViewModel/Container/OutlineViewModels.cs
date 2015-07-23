@@ -2,73 +2,56 @@
 using System.Collections.Generic;
 using PeletonSoft.Sketch.Model.Element.Outline;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
-using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.Collection;
+using PeletonSoft.Tools.Model.Memento.Container;
 
-namespace PeletonSoft.Sketch.ViewModel.Container 
+namespace PeletonSoft.Sketch.ViewModel.Container
 {
     public class OutlineViewModels : IContainer<OutlineViewModel>
     {
-
-        private readonly Lazy<OutlineViewModel> _lazyBand = 
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new BandOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyHexagon =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new HexagonOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyHRectangle =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new HRectangleOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyVRectangle =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new VRectangleOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyTrapezium =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new TrapeziumOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyTriangle =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new TriangleOutline()));
-        private readonly Lazy<OutlineViewModel> _lazyParallelogram =
-            new Lazy<OutlineViewModel>(() => new OutlineViewModel(new ParallelogramOutline()));
-
-        public OutlineViewModel Band
+        private enum Types
         {
-            get { return _lazyBand.Value; }
+            Band,
+            Parallelogram,
+            Trapezium,
+            Triangle,
+            VRectangle,
+            HRectangle,
+            Hexagon
+        };
+
+        private readonly Lazy<IEnumerable<IContainerRecord<OutlineViewModel>>> _lazyItems;
+
+        public IEnumerable<IContainerRecord<OutlineViewModel>> Items
+        {
+            get { return _lazyItems.Value; }
         }
 
-        public OutlineViewModel Hexagon
+        public OutlineViewModel Default
         {
-            get { return _lazyHexagon.Value; }
+            get { return this.GetValueByKey(Types.HRectangle); }
         }
 
-        public OutlineViewModel HRectangle
+        public OutlineViewModels()
         {
-            get { return _lazyHRectangle.Value; }
-        }
-
-        public OutlineViewModel VRectangle
-        {
-            get { return _lazyVRectangle.Value; }
-        }
-
-        public OutlineViewModel Trapezium
-        {
-            get { return _lazyTrapezium.Value; }
-        }
-
-        public OutlineViewModel Triangle
-        {
-            get { return _lazyTriangle.Value; }
-        }
-
-        public OutlineViewModel Parallelogram
-        {
-            get { return _lazyParallelogram.Value; }
-        }
-
-        public IEnumerable<OutlineViewModel> Items
-        {
-            get
-            {
-                return new[]
+            _lazyItems = new Lazy<IEnumerable<IContainerRecord<OutlineViewModel>>>(
+                () => new[]
                 {
-                    Band, Parallelogram, Trapezium,
-                    Triangle, VRectangle, HRectangle, Hexagon
-                };
-            }
+                    new ContainerRecord<OutlineViewModel>(Types.Band,
+                        typeof (OutlineViewModel), new OutlineViewModel(new BandOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Parallelogram,
+                        typeof (OutlineViewModel), new OutlineViewModel(new ParallelogramOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Trapezium,
+                        typeof (OutlineViewModel), new OutlineViewModel(new TrapeziumOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Triangle,
+                        typeof (OutlineViewModel), new OutlineViewModel(new TriangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.VRectangle,
+                        typeof (OutlineViewModel), new OutlineViewModel(new VRectangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.HRectangle,
+                        typeof (OutlineViewModel), new OutlineViewModel(new HRectangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Hexagon,
+                        typeof (OutlineViewModel), new OutlineViewModel(new HexagonOutline()))
+                });
         }
     }
 }

@@ -5,17 +5,14 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
     public class PanelVisualViewModel : ElementVisualViewModel
     {
-        public PanelVisualViewModel(VisualOptions visualOptions, PanelViewModel element) 
+        public PanelVisualViewModel(VisualOptions visualOptions, PanelViewModel element)
             : base(visualOptions, element)
         {
         }
 
         private new PanelViewModel Element
         {
-            get
-            {
-                return (PanelViewModel)base.Element;
-            }
+            get { return (PanelViewModel) base.Element; }
         }
     }
 }

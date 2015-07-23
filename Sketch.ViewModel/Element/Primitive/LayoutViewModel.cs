@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -21,10 +22,15 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
+        }
+
+        private void OnPropertyChanged<T>(Expression<Func<LayoutViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
         }
 
         #endregion
@@ -70,8 +76,24 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             WorkspaceBit = workspaceBit;
             Element = element;
 
-            element.PropertyChanged += ElementOnPropertyChanged;
-            WorkspaceBit.RenderChangedDispatcher.RenderChanged +=
+            element
+                .SetPropertyChanged(el => el.Width,
+                    () =>
+                    {
+                        OnPropertyChanged(el => el.Width);
+                        OnPropertyChanged(el => el.Rect);
+                    })
+                .SetPropertyChanged(el => el.Height,
+                    () =>
+                    {
+                        OnPropertyChanged(el => el.Height);
+                        OnPropertyChanged(el => el.Rect);
+                    })
+                .SetPropertyChanged(el => el.OffsetX, () => OnPropertyChanged(el => el.Left))
+                .SetPropertyChanged(el => el.OffsetY, () => OnPropertyChanged(el => el.Top));
+
+            WorkspaceBit
+                .RenderChangedDispatcher.RenderChanged +=
                 (sender, args) =>
                 {
                     if (sender == Element)
@@ -81,27 +103,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
                 };
         }
 
-        protected virtual void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            switch (args.PropertyName)
-            {
-                case "Width":
-                    OnPropertyChanged("Width");
-                    OnPropertyChanged("Rect");
-                    break;
-                case "Height":
-                    OnPropertyChanged("Height");
-                    OnPropertyChanged("Rect");
-                    break;
-                case "OffsetX":
-                    OnPropertyChanged("Left");
-                    break;
-                case "OffsetY":
-                    OnPropertyChanged("Top");
-                    break;
-
-            }
-        }
 
         protected IWorkspaceBit WorkspaceBit { get; private set; }
 
@@ -120,7 +121,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         public IEnumerable<IEnumerable<Point>> OpacityMask
         {
             get { return _opacityMask; }
-            set { SetField(ref _opacityMask, value); }
+            private set { SetField(ref _opacityMask, value); }
         }
 
         public Rect Rect

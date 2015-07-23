@@ -19,7 +19,7 @@
             <report:ElementReportView/>
         </StackPanel>
     </DataTemplate>
-
+    
     <DataTemplate DataType="{x:Type custom:AlignableElementViewModel}">
         <StackPanel Orientation="Vertical">
             <report:ElementReportView/>

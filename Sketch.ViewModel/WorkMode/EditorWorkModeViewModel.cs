@@ -1,8 +1,10 @@
-﻿namespace PeletonSoft.Sketch.ViewModel.WorkMode
+﻿using PeletonSoft.Sketch.ViewModel.Interface;
+
+namespace PeletonSoft.Sketch.ViewModel.WorkMode
 {
     public class EditorWorkModeViewModel : CustomWorkModeViewModel
     {
-        public EditorWorkModeViewModel(WorkspaceViewModel workspace) : base(workspace)
+        public EditorWorkModeViewModel(IWorkspaceViewModel workspace) : base(workspace)
         {
         }
     }

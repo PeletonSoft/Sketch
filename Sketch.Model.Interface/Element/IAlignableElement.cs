@@ -1,6 +1,6 @@
 ﻿namespace PeletonSoft.Sketch.Model.Interface.Element
 {
-    public interface IAlignableElement : IElement
+    public interface IAlignableElement : IVisibleElement, IClothable
     {
         double Width { get; set; }
         double Height { get; set; }

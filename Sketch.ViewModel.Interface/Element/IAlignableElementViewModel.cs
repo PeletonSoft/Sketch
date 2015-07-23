@@ -1,9 +1,6 @@
-﻿using PeletonSoft.Sketch.Model.Interface.Element;
-using PeletonSoft.Tools.Model;
-
-namespace PeletonSoft.Sketch.ViewModel.Interface.Element
-{ 
-    public interface IAlignableElementViewModel : ILayoutableElementViewModel, IAlignable
+﻿namespace PeletonSoft.Sketch.ViewModel.Interface.Element
+{
+    public interface IAlignableElementViewModel : IElementViewModel, IAlignable, IClothableViewModel
     {
     }
 }

@@ -32,8 +32,8 @@ namespace PeletonSoft.Tools.View.Converter
             //                  (1, 1) --> (x2 + x1 + x0, y2 + y1 + y0)
             var A = new Matrix3D
             {
-                M11 = points[2].X - points[0].X,
-                M12 = points[2].Y - points[0].Y,
+                M11 = points[3].X - points[0].X,
+                M12 = points[3].Y - points[0].Y,
                 M21 = points[1].X - points[0].X,
                 M22 = points[1].Y - points[0].Y,
                 OffsetX = points[0].X,
@@ -42,10 +42,10 @@ namespace PeletonSoft.Tools.View.Converter
 
             // Calculate point (a, b) that get mapped by the affine transform to (x3, y3)
             var det = A.M11 * A.M22 - A.M12 * A.M21;
-            var a = (A.M22 * points[3].X - A.M21 * points[3].Y +
+            var a = (A.M22 * points[2].X - A.M21 * points[2].Y +
                         A.M21 * A.OffsetY - A.M22 * A.OffsetX) / det;
 
-            var b = (A.M11 * points[3].Y - A.M12 * points[3].X +
+            var b = (A.M11 * points[2].Y - A.M12 * points[2].X +
                         A.M12 * A.OffsetX - A.M11 * A.OffsetY) / det;
 
             // Non-affine transform

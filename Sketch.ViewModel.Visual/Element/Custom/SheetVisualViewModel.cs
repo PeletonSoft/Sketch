@@ -2,9 +2,9 @@
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 {
-    public class SheetVisualViewModel : ElementVisualViewModel
+    public abstract class SheetVisualViewModel : ElementVisualViewModel
     {
-        public SheetVisualViewModel(VisualOptions visualOptions, SheetViewModel element) 
+        protected SheetVisualViewModel(VisualOptions visualOptions, SheetViewModel element) 
             : base(visualOptions, element)
         {
         }

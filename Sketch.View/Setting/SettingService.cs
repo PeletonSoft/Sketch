@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PeletonSoft.Tools.Model.Register;
 using PeletonSoft.Tools.Model.Setting;
 
-// ReSharper disable once CheckNamespace
 namespace PeletonSoft.Sketch.View.Setting
 {
     internal class SettingService : ISettingService
@@ -30,6 +29,7 @@ namespace PeletonSoft.Sketch.View.Setting
             var service = new SettingService();
 
             dynamic preferences = settings["Preferences"];
+            dynamic assembly =  settings["Assembly"];
             var args = (string[])settings["Args"];
 
             bool readOnly;
@@ -47,7 +47,9 @@ namespace PeletonSoft.Sketch.View.Setting
                 ConnectionString = preferences.ConnectionString,
                 SavePath = preferences.SavePath,
                 OrderId = Convert.ToInt32(args[0]),
-                ReadOnly = readOnly
+                ReadOnly = readOnly,
+                Version =  assembly.Version,
+                ProgramName =  assembly.Name
             };
 
             service.SettingData = settingData;

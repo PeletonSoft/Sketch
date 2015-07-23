@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using PeletonSoft.Tools.Model;
+using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.NotifyChanged;
@@ -26,6 +27,10 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
             return notificator.SetField(ref field, value);
         }
 
+        private void OnPropertyChanged<T>(Expression<Func<LineViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
         #endregion
 
         #region implement IOriginator
@@ -41,61 +46,66 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
 
         public IPointViewModel Start
         {
-            get
-            {
-                return _start;
-            }
+            get { return _start; }
             set
             {
                 if (value != _start)
                 {
                     _start = value;
-                    OnPropertyChanged("Start");
-                    OnPropertyChanged("Offset");
-                    OnPropertyChanged("X");
-                    OnPropertyChanged("Y");
-                    _start.PropertyChanged +=
-                        (sender, args) =>
+                    OnPropertyChanged(l => l.Start);
+                    OnPropertyChanged(l => l.Offset);
+                    OnPropertyChanged(l => l.X);
+                    OnPropertyChanged(l => l.Y);
+                    _start.SetPropertyChanged(
+                        new[]
                         {
-                            OnPropertyChanged("X");
-                            OnPropertyChanged("Y");
-                            OnPropertyChanged("Offset");
-                        };
+                            _start.GetPropertyName(p => p.X),
+                            _start.GetPropertyName(p => p.Y),
+                        },
+                        () =>
+                        {
+                            OnPropertyChanged(l => l.X);
+                            OnPropertyChanged(l => l.Y);
+                            OnPropertyChanged(l => l.Offset);
+                        });
                 }
             }
         }
 
         private IPointViewModel _finish;
+
         public IPointViewModel Finish
         {
-            get
-            {
-                return _finish;
-            }
+            get { return _finish; }
             set
             {
                 if (value != _finish)
                 {
                     _finish = value;
-                    OnPropertyChanged("Finish");
-                    OnPropertyChanged("Offset");
-                    _finish.PropertyChanged +=
-                        (sender, args) =>
+                    OnPropertyChanged(l => l.Finish);
+                    OnPropertyChanged(l => l.Offset);
+                    _finish.SetPropertyChanged(
+                        new[]
                         {
-                            OnPropertyChanged("Offset");
-                            OnPropertyChanged("X");
-                            OnPropertyChanged("Y");
-                        };
+                            _finish.GetPropertyName(p => p.X),
+                            _finish.GetPropertyName(p => p.Y),
+                        },
+                        () =>
+                        {
+                            OnPropertyChanged(l => l.X);
+                            OnPropertyChanged(l => l.Y);
+                            OnPropertyChanged(l => l.Offset);
+                        });
                 }
             }
         }
 
-        public LineViewModel(IPointViewModel start, IPointViewModel finish, 
+        public LineViewModel(IPointViewModel start, IPointViewModel finish,
             Action<InsertPointTransit> insertAction, ICommandFactory commandFactory)
         {
             Start = start;
             Finish = finish;
-            InsertCommand = commandFactory.CreateCommand(o=>insertAction((InsertPointTransit)o));
+            InsertCommand = commandFactory.CreateCommand(o => insertAction((InsertPointTransit) o));
         }
 
 

@@ -1,186 +1,100 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
-using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
-using PeletonSoft.Tools.Model.Draw.Wave;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
-using PeletonSoft.Tools.Model.SketchMath.ConnectStrategy;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public class RomanBlindViewModel : AlignableElementViewModel
+    public class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>
     {
-        public RomanBlindViewModel(IWorkspaceBit workspaceBit)
-            : base(workspaceBit, new AlignableElement())
+        private void OnPropertyChanged<T>(Expression<Func<RomanBlindViewModel, T>> expression)
+        {
+            expression.OnPropertyChanged(OnPropertyChanged);
+        }
+
+        public new RomanBlind Model
+        {
+            get { return (RomanBlind) base.Model; }
+        }
+
+        public RomanBlindViewModel(IWorkspaceBit workspaceBit, RomanBlind model)
+            : base(workspaceBit, model)
         {
             Height = workspaceBit.Screen.Height;
             Width = workspaceBit.Screen.Width/2;
             WaveCount = 5;
             CoulisseThickness = 0.1;
             DenseHeight = 0.8*Height;
-            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit) {Width = Width, Height = 0};
+            DecorativeBorder = new DecorativeBorderViewModel(workspaceBit, Model.DecorativeBorder) {Width = Width, Height = 0};
 
-            this.SetPropertyChanged(
-                new[] {"Width", "Height", "CoulisseThickness", "DenseHeight", "WaveCount"},
-                () =>
-                {
-                    OnPropertyChanged("WavySurface");
-                    OnPropertyChanged("Points");
-                    OnPropertyChanged("Circuit");
-                });
+            this
+                .SetPropertyChanged(
+                    new[]
+                    {
+                        this.GetPropertyName(el => el.Width),
+                        this.GetPropertyName(el => el.Height),
+                        this.GetPropertyName(el => el.CoulisseThickness),
+                        this.GetPropertyName(el => el.DenseHeight),
+                        this.GetPropertyName(el => el.WaveCount)
+                    },
+                    () =>
+                    {
+                        OnPropertyChanged(el => el.WavySurface);
+                        OnPropertyChanged(el => el.Points);
+                        OnPropertyChanged(el => el.Circuit);
+                    })
+                .SetPropertyChanged(el => el.Width, () => { DecorativeBorder.Width = Width; });
 
-            this.SetPropertyChanged("Width",
-                () =>
-                {
-                    DecorativeBorder.Width = Width;
-                });
+            DecorativeBorder
+                .SetPropertyChanged(db => db.Height,
+                    () =>
+                    {
+                        DenseHeight = DenseHeight;
+                        OnPropertyChanged(el => el.WavySurface);
+                        OnPropertyChanged(el => el.Circuit);
+                    })
+                .SetPropertyChanged(db => db.Points, () => OnPropertyChanged(el => el.Points));
 
-            DecorativeBorder.SetPropertyChanged("Height",
-                () =>
-                {
-                    OnPropertyChanged("WavySurface");
-                    OnPropertyChanged("Circuit");
-                });
-            DecorativeBorder.SetPropertyChanged("Points",
-                () => OnPropertyChanged("Points"));
             DecorativeBorder.ResetChains();
         }
 
-        private double _coulisseThickness;
         public double CoulisseThickness
         {
-            get { return _coulisseThickness; }
-            set { SetField(ref _coulisseThickness, value); }
+            get { return Model.CoulisseThickness; }
+            set { SetField(() => Model.CoulisseThickness, v => Model.CoulisseThickness = v, value); }
         }
-
-        private double _denseHeight;
         public double DenseHeight
         {
-            get { return _denseHeight; }
-            set
-            {
-                var v = value;
-                if (DecorativeBorder != null && v < DecorativeBorder.Height + WaveCount * CoulisseThickness)
-                {
-                    v = DecorativeBorder.Height + WaveCount*CoulisseThickness;
-                }
-                if (v > Height)
-                {
-                    v = Height;
-                }
-                SetField(ref _denseHeight, v);
-            }
+            get { return Model.DenseHeight; }
+            set { SetField(() => DenseHeight, v => Model.DenseHeight = v, Model.CheckedDenseHeight(value)); }
         }
-
-        private int _waveCount;
-
         public int WaveCount
         {
-            get { return _waveCount; }
-            set { SetField(ref _waveCount, value); }
+            get { return Model.WaveCount; }
+            set { SetField(() => Model.WaveCount, v => Model.WaveCount = v, value); }
         }
-
-        public double WaveLength
-        {
-            get { return (Height - DecorativeBorder.Height)/WaveCount - CoulisseThickness; }
-        }
-
-        public double StrainedWaveCount
-        {
-            get
-            {
-                return (int) Math.Floor(
-                    (DenseHeight - DecorativeBorder.Height - WaveCount*CoulisseThickness)
-                    /
-                    (Height - DecorativeBorder.Height - WaveCount * CoulisseThickness)
-                    *
-                    WaveCount);
-            }
-        }
-
-        public DecorativeBorderViewModel DecorativeBorder { get; set; }
-
-        public double FirstFoldedWaveLength
-        {
-            get { return WaveLength - DenseHeight + DecorativeBorder.Height + WaveCount * CoulisseThickness + StrainedWaveCount * WaveLength; }
-        }
+        public DecorativeBorderViewModel DecorativeBorder { get; private set; }
 
         public IWavyBorder<IEnumerable<Point>> WavySurface
         {
-            get
-            {
-                var h = 0.0;
-                var bottoms = new List<IBottom<double>> {new Bottom<double>(0, 0)};
-                var waves = new List<IWave<double>>();
-
-                for(var i = 0; i < StrainedWaveCount && i < WaveCount; i++)
-                {
-                    
-                    h += CoulisseThickness + WaveLength;
-                    waves.Add(new Wave<double>(h - CoulisseThickness, h - CoulisseThickness - WaveLength, h - CoulisseThickness));
-                    bottoms.Add(new Bottom<double>(h - CoulisseThickness, h));
-                    
-                }
-
-                if (StrainedWaveCount < WaveCount)
-                {
-                    h += CoulisseThickness + (WaveLength - FirstFoldedWaveLength);
-                    bottoms.Add(new Bottom<double>(h - CoulisseThickness, h));
-                    waves.Add(new Wave<double>(h - CoulisseThickness + FirstFoldedWaveLength - WaveLength/2,
-                        h - CoulisseThickness - (WaveLength - FirstFoldedWaveLength), h - CoulisseThickness));
-                }
-
-                for (var i = 0; i < WaveCount - StrainedWaveCount - 1; i++)
-                {
-                    h += CoulisseThickness;
-                    waves.Add(new Wave<double>(h - CoulisseThickness + WaveLength / 2, h - CoulisseThickness, h - CoulisseThickness));
-                    bottoms.Add(new Bottom<double>(h - CoulisseThickness, h));
-                }
-
-                var border = new WavyBorder<double>(waves, bottoms);
-                var left = border.Transform(y => new Point(0, y));
-                var right = border.Transform(y => new Point(Width, y));
-                return left.Connect(right, new LineConnectStrategy());
-            }
+            get { return Model.GetWavySurface(); }
         }
 
         public IEnumerable<Point> Points
         {
-            get
-            {
-                Func<Point, Point> transformer =
-                    point => new Point(point.X, point.Y + DenseHeight - DecorativeBorder.Height);
-
-                var decorative = DecorativeBorder.Points.Select(transformer);
-
-                var points = new List<Point>
-                {
-                    new Point(0, DenseHeight - DecorativeBorder.Height),
-                    new Point(Width, DenseHeight - DecorativeBorder.Height)
-                };
-
-                return points.Concat(decorative.Reverse());
-
-            }
+            get { return Model.GetPoints(); }
         }
 
         public IEnumerable<Point> Circuit
         {
-            get
-            {
-                return new[]
-                {
-                    new Point(0, 0),
-                    new Point(Width, 0),
-                    new Point(Width, DenseHeight - DecorativeBorder.Height),
-                    new Point(0, DenseHeight - DecorativeBorder.Height)
-                };
-            }
+            get { return Model.GetCircuit(); }
         }
     }
 }

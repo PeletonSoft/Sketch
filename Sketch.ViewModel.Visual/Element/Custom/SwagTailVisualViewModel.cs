@@ -1,30 +1,26 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
+using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 {
     public class SwagTailVisualViewModel : ElementVisualViewModel
     {
-        public SwagTailVisualViewModel(VisualOptions visualOptions, SwagTailViewModel element) 
-            : base(visualOptions, element)
+        private void OnPropertyChanged<T>(Expression<Func<SwagTailVisualViewModel, T>> expression)
         {
-            Element.PropertyChanged += ElementOnPropertyChanged;
+            expression.OnPropertyChanged(OnPropertyChanged);
         }
 
-        private void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        public SwagTailVisualViewModel(VisualOptions visualOptions, SwagTailViewModel element)
+            : base(visualOptions, element)
         {
-            switch (args.PropertyName)
-            {
-                case "WavySurface":
-                    OnPropertyChanged("WavySurface");
-                    break;
-                case "Circuit":
-                    OnPropertyChanged("Circuit");
-                    break;
-            }
+            Element
+                .SetPropertyChanged(el => el.WavySurface, () => OnPropertyChanged(v => v.WavySurface))
+                .SetPropertyChanged(el => el.Circuit, () => OnPropertyChanged(v => v.Circuit));
         }
 
         private new SwagTailViewModel Element
@@ -50,8 +46,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
                     return null;
                 }
                 
-                var size = new Size(Element.Width, Element.Height);
-                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface, size);
+                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface);
             }
         }
 

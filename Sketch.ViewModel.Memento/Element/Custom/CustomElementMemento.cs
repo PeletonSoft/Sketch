@@ -4,8 +4,10 @@ using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 {
@@ -65,7 +67,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
             Visibility = originator.Visibility;
             Opacity = originator.Opacity;
 
-            Layout = originator.Layout.GetTypeName();
+            Layout = originator.Layouts.GetKeyByValue(originator.Layout);
 
             Width = originator.Width;
             Height = originator.Height;
@@ -83,7 +85,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
             originator.Visibility = Visibility;
             originator.Opacity = Opacity;
 
-            originator.Layout = Layout.SetByTypeName<ILayoutViewModel>(originator.Layouts);
+            originator.Layout = originator.Layouts.GetValueByKeyOrDefault(Layout);
             
             originator.Width = Width;
             originator.Height = Height;
