@@ -4,7 +4,7 @@ namespace PeletonSoft.Tools.View.PushBinding
 {
     public class PushBindingManager
     {
-        public static DependencyProperty PushBindingsProperty =
+        public static readonly DependencyProperty PushBindingsProperty =
             DependencyProperty.RegisterAttached("PushBindingsInternal",
                                                 typeof(PushBindingCollection),
                                                 typeof(PushBindingManager),
@@ -24,7 +24,7 @@ namespace PeletonSoft.Tools.View.PushBinding
         }
 
 
-        public static DependencyProperty StylePushBindingsProperty =
+        public static readonly DependencyProperty StylePushBindingsProperty =
             DependencyProperty.RegisterAttached("StylePushBindings",
                                                 typeof(PushBindingCollection),
                                                 typeof(PushBindingManager),
@@ -43,12 +43,15 @@ namespace PeletonSoft.Tools.View.PushBinding
         {
             if (target != null)
             {
-                PushBindingCollection stylePushBindings = e.NewValue as PushBindingCollection;
-                PushBindingCollection pushBindingCollection = GetPushBindings(target);
-                foreach (PushBinding pushBinding in stylePushBindings)
+                var stylePushBindings = e.NewValue as PushBindingCollection;
+                var pushBindingCollection = GetPushBindings(target);
+                foreach (var pushBinding in stylePushBindings)
                 {
-                    PushBinding pushBindingClone = pushBinding.Clone() as PushBinding;
-                    pushBindingCollection.Add(pushBindingClone);
+                    var pushBindingClone = pushBinding.Clone() as PushBinding;
+                    if (pushBindingClone != null)
+                    {
+                        pushBindingCollection.Add(pushBindingClone);
+                    }
                 }
             }
         }

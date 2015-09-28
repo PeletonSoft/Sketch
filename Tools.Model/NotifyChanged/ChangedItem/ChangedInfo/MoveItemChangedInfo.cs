@@ -1,13 +1,11 @@
-﻿using PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo.Primitive;
-
-namespace PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo
+﻿namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo
 {
-    public class MoveElementListChangedInfo : ElementListChangedInfo
+    public sealed class MoveItemChangedInfo : ItemChangedInfo
     {
         public int SourceIndex { get; private set; }
         public int DestionationIndex { get; private set; }
 
-        public MoveElementListChangedInfo(int sourceIndex, int destionationIndex)
+        public MoveItemChangedInfo(int sourceIndex, int destionationIndex)
         {
             SourceIndex = sourceIndex;
             DestionationIndex = destionationIndex;
@@ -29,6 +27,11 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo
             result -= result > SourceIndex ? 1 : 0;
             result += result >= DestionationIndex ? 1 : 0;
             return result;
+        }
+
+        public override bool IsEmptyChanged(int count)
+        {
+            return false;
         }
     }
 }

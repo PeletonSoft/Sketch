@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq.Expressions;
 using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class DeJabotVisualViewModel : ElementVisualViewModel
+    public sealed class DeJabotVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<DeJabotViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<DeJabotVisualViewModel, T>> expression)
         {
@@ -19,7 +20,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
             Element.SetPropertyChanged(el => el.WavySurface, () => OnPropertyChanged(v => v.WavySurface));
         }
 
-        private new DeJabotViewModel Element
+        public new DeJabotViewModel Element
         {
             get { return (DeJabotViewModel) base.Element; }
         }

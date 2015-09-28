@@ -46,7 +46,7 @@
                             <behavior:ImageCaptureOnButtonClickBehavior 
                             CurrentControl="{StaticResource CurrentCanvas}"
                             ImageBox="{Binding ImageBox, Mode=TwoWay}"
-                            BeforeCommand="{Binding UnselectCommand}"/>
+                            BeforeCommand="{Binding ElementList.UnselectElementCommand}"/>
                         </i:Interaction.Behaviors>
                     </Button>
                     <Button  Width="110"

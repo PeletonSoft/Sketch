@@ -1,16 +1,17 @@
 ﻿using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class FilletVisualViewModel : ElementVisualViewModel
+    public sealed class FilletVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<FilletViewModel>
     {
         public FilletVisualViewModel(VisualOptions visualOptions, FilletViewModel element) 
             : base(visualOptions, element)
         {
         }
 
-        private new FilletViewModel Element
+        public new FilletViewModel Element
         {
             get
             {

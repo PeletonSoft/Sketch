@@ -29,41 +29,41 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 
         public double Width
         {
-            get { return PixelPerUnit.Transform(Layout.Width); }
+            get { return PixelPerUnit.Transform(Element.Width); }
         }
 
         public double Height
         {
-            get { return PixelPerUnit.Transform(Layout.Height); }
+            get { return PixelPerUnit.Transform(Element.Height); }
         }
 
         public double Top
         {
-            get { return PixelPerUnit.Transform(Layout.Top); }
+            get { return PixelPerUnit.Transform(Element.Top); }
         }
 
         public double Left
         {
-            get { return PixelPerUnit.Transform(Layout.Left); }
+            get { return PixelPerUnit.Transform(Element.Left); }
         }
 
         public IEnumerable<IEnumerable<Point>> OpacityMask
         {
-            get { return PixelPerUnit.Transform(Layout.OpacityMask); }
+            get { return PixelPerUnit.Transform(Element.OpacityMask); }
         }
 
         public Rect Rect
         {
-            get { return PixelPerUnit.Transform(Layout.Rect); }
+            get { return PixelPerUnit.Transform(Element.Rect); }
         }
 
-        public LayoutVisualViewModel(VisualOptions visualOptions, ILayoutViewModel layout)
+        public LayoutVisualViewModel(VisualOptions visualOptions, ILayoutViewModel element)
         {
             VisualOptions = visualOptions;
             PixelPerUnit = VisualOptions.PixelPerUnit;
-            Layout = layout;
+            Element = element;
 
-            Layout
+            Element
                 .SetPropertyChanged(l => l.Width,
                     () =>
                     {
@@ -94,9 +94,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 
         private VisualOptions VisualOptions { get; set; }
 
-        private ILayoutViewModel Layout { get; set; }
+        public ILayoutViewModel Element { get; set; }
 
         private PixelPerUnit PixelPerUnit { get; set; }
+
 
     }
 }

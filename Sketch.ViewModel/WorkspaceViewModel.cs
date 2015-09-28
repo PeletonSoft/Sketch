@@ -164,8 +164,6 @@ namespace PeletonSoft.Sketch.ViewModel
             Caretaker.Load(path);
             Caretaker.SetState(this);
         }
-
-
         
     }
 }

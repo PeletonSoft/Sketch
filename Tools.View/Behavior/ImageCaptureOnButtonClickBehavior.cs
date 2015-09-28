@@ -16,16 +16,18 @@ namespace PeletonSoft.Tools.View.Behavior
 
         private void AssociatedObjectOnClick(object sender, RoutedEventArgs routedEventArgs)
         {
+            if (BeforeCommand != null)
+            {
+                if (BeforeCommand.CanExecute(null))
+                {
+                    BeforeCommand.Execute(null);
+                }
+            }
+
             var element = CurrentControl.Current;
             if (element != null)
             {
-                if (BeforeCommand != null)
-                {
-                    if (BeforeCommand.CanExecute(null))
-                    {
-                        BeforeCommand.Execute(null);
-                    }
-                }
+                
                 ImageBox = new PngImageBox(
                     element.ExportToPng(),
                     (int) element.ActualWidth,

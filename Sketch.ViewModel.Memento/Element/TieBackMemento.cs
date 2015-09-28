@@ -3,30 +3,20 @@ using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Factory;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Sketch.ViewModel.Memento.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 {
-    class TieBackMemento : IMemento<TieBackViewModel>, IMemento<IElementViewModel>
+    class TieBackMemento : PleatableMemento, IMemento<TieBackViewModel>
     {
-        public string Description { get; set; }
-        public bool Visibility { get; set; }
-        public double Opacity { get; set; }
-        public string Layout { get; set; }
-
         public double Length { get; set; }
         public double Depth { get; set; }
         public double DropHeight { get; set; }
-        public ElementAlignment Alignment { get; set; }
-
-        public double DenseWidth { get; set; }
         public double Protrusion { get; set; }
-        public int WaveCount { get; set; }
-
         public double OffsetX { get; set; }
         public double OffsetY { get; set; }
 
@@ -34,25 +24,29 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
         public TieBackSideMemento RightSide { get; set; }
 
 
+        protected override void GetState(IElementViewModel originator)
+        {
+            GetState((TieBackViewModel)originator);
+        }
+
+        protected override void SetState(IElementViewModel originator)
+        {
+            SetState((TieBackViewModel)originator);
+        }
+
         public void GetState(TieBackViewModel originator)
         {
+            base.GetState(originator);
+
             LeftSide = new TieBackSideMemento();
             RightSide = new TieBackSideMemento();
-
-            Description = originator.Description;
-
-            Visibility = originator.Visibility;
-            Opacity = originator.Opacity;
 
             DropHeight = originator.DropHeight;
             Length = originator.Length;
             OffsetY = originator.OffsetY;
             OffsetX = originator.OffsetX;
             Depth = originator.Depth;
-            DenseWidth =  originator.DenseWidth;
-            WaveCount = originator.WaveCount;
             Protrusion = originator.Protrusion;
-            Alignment = originator.Alignment;
 
             LeftSide.GetState(originator.LeftSide);
             RightSide.GetState(originator.RightSide);
@@ -60,85 +54,49 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 
         public void SetState(TieBackViewModel originator)
         {
-            originator.RestoreDefault();
-
-            originator.Description = Description;
-            originator.Visibility = Visibility;
-            originator.Opacity = Opacity;
+            base.SetState(originator);
 
             originator.DropHeight = DropHeight;
             originator.Length = Length;
             originator.OffsetY = OffsetY;
             originator.OffsetX = OffsetX;
             originator.Depth = Depth;
-            originator.DenseWidth = DenseWidth;
             originator.Protrusion = Protrusion;
-            originator.WaveCount = WaveCount;
-            originator.Alignment = Alignment;
 
             LeftSide.SetState(originator.LeftSide);
             RightSide.SetState(originator.RightSide);
         }
 
-        public void GetState(IElementViewModel originator)
+        public override XElement GetXml(Dictionary<string, IFileBox> files)
         {
-            GetState((TieBackViewModel)originator);
-        }
-
-        public void SetState(IElementViewModel originator)
-        {
-            SetState((TieBackViewModel)originator);
-        }
-
-        public IEnumerable<IFileBox> GetFiles()
-        {
-            return null;
-        }
-
-        public XElement GetXml(Dictionary<string, IFileBox> files)
-        {
-            return new XElement("root",
-                new XElement("Description", Description),
-                new XElement("Layout", Layout),
-                new XElement("Opacity", Opacity),
-                new XElement("Visibility", Visibility),
+            var xml = base.GetXml(files);
+            xml.Add(
                 new XElement("DropHeight", DropHeight),
                 new XElement("Length", Length),
                 new XElement("OffsetY", OffsetY),
                 new XElement("OffsetX", OffsetX),
                 new XElement("Depth", Depth),
-                new XElement("DenseWidth", DenseWidth),
                 new XElement("Protrusion", Protrusion),
-                new XElement("WaveCount", WaveCount),
-                new XElement("Alignment", Alignment.ToString()),
                 new XElement("LeftSide", LeftSide.GetXml(files).Elements()),
                 new XElement("RightSide", RightSide.GetXml(files).Elements()));
+            return xml;
         }
 
-        public void SetXml(XElement xml, string path)
+        public override void SetXml(XElement xml, string path)
         {
+            base.SetXml(xml, path);
             LeftSide = new TieBackSideMemento();
             RightSide = new TieBackSideMemento();
-
-            Layout = (string)xml.Element("Layout");
-            Description = (string)xml.Element("Description");
-
-            Visibility = (bool)xml.Element("Visibility");
-            Opacity = (double)xml.Element("Opacity");
 
             DropHeight = (double)xml.Element("DropHeight");
             Length = (double)xml.Element("Length");
             OffsetY = (double)xml.Element("OffsetY");
             OffsetX = (double)xml.Element("OffsetX");
             Depth = (double)xml.Element("Depth");
-            DenseWidth = (double)xml.Element("DenseWidth");
             Protrusion = (double)xml.Element("Protrusion");
-            WaveCount = (int)xml.Element("WaveCount");
-            Alignment = ((string) xml.Element("Alignment")).ToElementAlignment();
 
             LeftSide.SetXml(xml.Element("LeftSide"), path);
             RightSide.SetXml(xml.Element("RightSide"), path);
-
         }
     }
 

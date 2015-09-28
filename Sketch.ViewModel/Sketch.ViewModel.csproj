@@ -57,14 +57,18 @@
     <Compile Include="Container\PresentViewModels.cs" />
     <Compile Include="Container\RotationViewModels.cs" />
     <Compile Include="Container\WorkModeViewModels.cs" />
+    <Compile Include="Element\Custom\PleatableViewModel.cs" />
+    <Compile Include="Element\Layout\PleatableLayoutViewModel.cs" />
     <Compile Include="Element\Null\NullElementViewModel.cs" />
     <Compile Include="Element\Null\NullSheetViewModel.cs" />
     <Compile Include="Element\LatticeViewModel.cs" />
     <Compile Include="Element\Layout\NullLayoutViewModel.cs" />
+    <Compile Include="Element\PleatViewModel.cs" />
     <Compile Include="Element\Primitive\AlignableHelper.cs" />
     <Compile Include="Element\Primitive\NullClotheViewModel.cs" />
     <Compile Include="FactoryCollection.cs" />
     <Compile Include="Factory\LatticeFactoryViewModel.cs" />
+    <Compile Include="Factory\PleatFactoryViewModel.cs" />
     <Compile Include="Geometry\RotationViewModel.cs" />
     <Compile Include="Element\Primitive\TieBackSideViewModel.cs" />
     <Compile Include="Element\RomanBlindViewModel.cs" />
@@ -73,7 +77,6 @@
     <Compile Include="Geometry\SuperimposeOptionViewModel.cs" />
     <Compile Include="Geometry\TransformationViewModel.cs" />
     <Compile Include="Geometry\VertexViewModelHelper.cs" />
-    <Compile Include="Element\Layout\TieBackLayoutViewModel.cs" />
     <Compile Include="Element\Primitive\DecorativeBorderViewModel.cs" />
     <Compile Include="Element\Primitive\ShoulderViewModel.cs" />
     <Compile Include="Element\TieBackViewModel.cs" />
@@ -86,7 +89,7 @@
     <Compile Include="Geometry\DecorativeBorder\LineViewModel.cs" />
     <Compile Include="Geometry\DecorativeBorder\PointViewModel.cs" />
     <Compile Include="Factory\ApplicationFactoryViewModel.cs" />
-    <Compile Include="Factory\Custom\SwagTailFactoryViewModel.cs" />
+    <Compile Include="Factory\Custom\WavySurfaceFactoryViewModel.cs" />
     <Compile Include="Factory\Custom\ElementFactoryViewModel.cs" />
     <Compile Include="Factory\DeJabotFactoryViewModel.cs" />
     <Compile Include="Factory\EqualTailFactoryViewModel.cs" />

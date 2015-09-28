@@ -1,21 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Input;
+using PeletonSoft.Tools.Model.Collection;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Element
 {
-    public interface IElementViewModel : INotifyPropertyChanged, IOriginator, ILayoutable
+    public interface IElementViewModel : INotifyViewModel, IOriginator, ILayoutable, ICollectionItem
     {
         string Description { get; set; }
-
         bool Visibility { get; set; }
         double Opacity { get; set; }
 
-        void AfterInsert();
-        void BeforeDelete();
-
-        IList<IElementViewModel> Below { get; }
+        IReadOnlyList<IElementViewModel> Below { get; }
         ICommand MoveToElementCommand { get; set; }
     }
 }

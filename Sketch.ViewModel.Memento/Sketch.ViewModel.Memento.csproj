@@ -57,6 +57,7 @@
     <Compile Include="Draw\PointMemento.cs" />
     <Compile Include="ElementListMemento.cs" />
     <Compile Include="Element\ApplicationMemento.cs" />
+    <Compile Include="Element\Custom\PleatableMemento.cs" />
     <Compile Include="Element\Custom\ScaleneSwagTailMemento.cs" />
     <Compile Include="Element\Custom\EqualSwagTailMemento.cs" />
     <Compile Include="Element\Custom\SwagTailMemento.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Element\Custom\CustomElementMemento.cs" />
     <Compile Include="Element\LatticeMemento.cs" />
     <Compile Include="Element\OverlayMemento.cs" />
+    <Compile Include="Element\PleatMemento.cs" />
     <Compile Include="Element\Primitive\DecorativeBorderMemento.cs" />
     <Compile Include="Element\Primitive\ShoulderMemento.cs" />
     <Compile Include="Element\Primitive\TieBackSideMemento.cs" />

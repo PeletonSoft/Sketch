@@ -1,21 +1,20 @@
 ﻿using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
+using PeletonSoft.Tools.Model.Logic;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class PortiereVisualViewModel : SheetVisualViewModel
+    public sealed class PortiereVisualViewModel : SheetVisualViewModel, IElementVisualViewModel<PortiereViewModel>
     {
-        public PortiereVisualViewModel(VisualOptions visualOptions, PortiereViewModel element) 
+        public PortiereVisualViewModel(VisualOptions visualOptions, PortiereViewModel element)
             : base(visualOptions, element)
         {
         }
 
-        private new PortiereViewModel Element
+        public new PortiereViewModel Element
         {
-            get
-            {
-                return (PortiereViewModel)base.Element;
-            }
+            get { return (PortiereViewModel) base.Element; }
         }
     }
 }

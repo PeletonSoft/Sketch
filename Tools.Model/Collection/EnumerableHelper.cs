@@ -55,20 +55,20 @@ namespace PeletonSoft.Tools.Model.Collection
             return list.Reverse().Tail().Reverse();
         }
 
-        public static void ForEach<TK, TV>(this IEnumerable<KeyValuePair<TK, TV>> list, Action<TK,TV> action)
+        public static bool IsValidIndex<T>(this IReadOnlyCollection<T> list, int index)
         {
-            foreach (var pair in list)
-            {
-                action(pair.Key, pair.Value);
-            }
+            return index >= 0 && index < list.Count;
         }
 
-        public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
+        public static bool IsValidIndex<T>(this ICollection<T> list, int index)
         {
-            foreach (var item in list)
-            {
-                action(item);
-            }
+            return index >= 0 && index < list.Count;
+        }
+
+        public static IEnumerable<T> GetBelow<T>(this IEnumerable<T> source, T element)
+        {
+            var comparer = EqualityComparer<T>.Default;
+            return source.TakeWhile(el => !comparer.Equals(element, el));
         }
     }
 }

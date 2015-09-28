@@ -1,12 +1,10 @@
-﻿using PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo.Primitive;
-
-namespace PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo
+﻿namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo
 {
-    public class RemoveElementListChangedInfo : ElementListChangedInfo
+    public sealed class RemoveItemChangedInfo : ItemChangedInfo
     {
         public int Index { get; private set; }
 
-        public RemoveElementListChangedInfo(int index)
+        public RemoveItemChangedInfo(int index)
         {
             Index = index;
         }
@@ -19,6 +17,11 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo
             }
 
             return index - (index < Index ? 0 : 1);
+        }
+
+        public override bool IsEmptyChanged(int count)
+        {
+            return count == 0;
         }
     }
 }

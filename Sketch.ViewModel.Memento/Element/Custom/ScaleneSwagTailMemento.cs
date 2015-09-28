@@ -7,7 +7,7 @@ using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 {
-    public class ScaleneSwagTailMemento : SwagTailMemento
+    public abstract class ScaleneSwagTailMemento : SwagTailMemento
     {
         public ShoulderMemento LeftShoulder { get; set; }
         public ShoulderMemento RightShoulder { get; set; }

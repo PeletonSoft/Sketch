@@ -6,8 +6,9 @@
              xmlns:converter1="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
              xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;assembly=Sketch.ViewModel.Visual"
              xmlns:view1="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.View"
+             xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual.Element;assembly=Sketch.ViewModel.Visual"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance custom:SwagTailVisualViewModel}"
+             d:DataContext="{d:DesignInstance element:SwagTailVisualViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Canvas HorizontalAlignment="Left" VerticalAlignment="Top">
         <Canvas.Resources>

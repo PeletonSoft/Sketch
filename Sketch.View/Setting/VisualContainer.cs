@@ -3,9 +3,7 @@ using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element;
-using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Dependency;
 
 namespace PeletonSoft.Sketch.View.Setting
@@ -34,7 +32,8 @@ namespace PeletonSoft.Sketch.View.Setting
                 .Register<TieBackViewModel>(el => new TieBackVisualViewModel(Options, el))
                 .Register<TulleViewModel>(el => new TulleVisualViewModel(Options, el))
                 .Register<RomanBlindViewModel>(el => new RomanBlindVisualViewModel(Options, el))
-                .Register<LatticeViewModel>(el => new LatticeVisualViewModel(Options, el));
+                .Register<LatticeViewModel>(el => new LatticeVisualViewModel(Options, el))
+                .Register<PleatViewModel>(el => new PleatVisualViewModel(Options, el));
         }
     }
 }

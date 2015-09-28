@@ -49,12 +49,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection\ICollectionItem.cs" />
     <Compile Include="Collection\NotifyChangedCollection.cs" />
     <Compile Include="Collection\INotifyChangedReadOnlyCollection.cs" />
+    <Compile Include="Logic\IVisualViewModel.cs" />
     <Compile Include="Logic\ISynchronizeViewModel.cs" />
     <Compile Include="Logic\ISynchViewModel.cs" />
     <Compile Include="Logic\INotifyViewModel.cs" />
     <Compile Include="Collection\ContainerHelper.cs" />
+    <Compile Include="Logic\INotifyVisualViewModel.cs" />
     <Compile Include="Memento\Container\ContainerOriginator.cs" />
     <Compile Include="Collection\ContainerRecord.cs" />
     <Compile Include="Draw\PointCollectionHelper.cs" />
@@ -73,12 +76,16 @@
     <Compile Include="Logic\IViewModel.cs" />
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
-    <Compile Include="NotifyChanged\ElementList\ChangedInfo\MoveElementListChangedInfo.cs" />
-    <Compile Include="NotifyChanged\ElementList\ChangedInfo\Primitive\ElementListChangedInfo.cs" />
-    <Compile Include="NotifyChanged\ElementList\ChangedInfo\RemoveElementListChangedInfo.cs" />
-    <Compile Include="NotifyChanged\ElementList\ElementListChangedEventArgs.cs" />
-    <Compile Include="NotifyChanged\ElementList\INotifyElementListChanged.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ChangeableCollectionHelper.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ChangedInfo\MoveItemChangedInfo.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ChangedInfo\ItemChangedInfo.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ChangedInfo\RemoveItemChangedInfo.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\IChangeableCollection.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\ItemChangedEventArgs.cs" />
+    <Compile Include="NotifyChanged\ChangedItem\INotifyItemChanged.cs" />
     <Compile Include="NotifyChanged\ISelectableList.cs" />
+    <Compile Include="NotifyChanged\SelectableListHelper.cs" />
     <Compile Include="NotifyChanged\LockFlag.cs" />
     <Compile Include="NotifyChanged\LockNotify.cs" />
     <Compile Include="NotifyChanged\NotifyPropertyChangedHelper.cs" />

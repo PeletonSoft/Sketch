@@ -7,7 +7,7 @@ using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Element.Custom
 {
-    public class EqualSwagTailMemento : SwagTailMemento
+    public abstract class EqualSwagTailMemento : SwagTailMemento
     {
         public ShoulderMemento Shoulder { get; set; }
         protected override void GetState(IElementViewModel originator)

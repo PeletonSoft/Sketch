@@ -2,13 +2,14 @@
 using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class ScanVisualViewModel : ElementVisualViewModel
+    public sealed class ScanVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<ScanViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<ScanVisualViewModel, T>> expression)
         {
@@ -44,7 +45,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
                     });
         }
 
-        private new ScanViewModel Element
+        public new ScanViewModel Element
         {
             get { return (ScanViewModel) base.Element; }
         }

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
-    public interface IScreenViewModel : IOriginator, INotifyPropertyChanged
+    public interface IScreenViewModel : INotifyViewModel, IOriginator
     {
         double Width { get; set; }
         double Height { get; set; }

@@ -33,7 +33,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
         }
 
         public IClotheViewModel Clothe { get; private set; }
-        public IList<IElementViewModel> Below { get; private set; }
+        public IReadOnlyList<IElementViewModel> Below { get; private set; }
         public ICommand MoveToElementCommand { get; set; }
 
         public bool Visibility

@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Element\IAlignableElement.cs" />
-    <Compile Include="Element\IClothable.cs" />
+    <Compile Include="Element\IClotheable.cs" />
     <Compile Include="Element\IClothe.cs" />
     <Compile Include="Element\IClotheCalculateStrategy.cs" />
     <Compile Include="Element\IElement.cs" />

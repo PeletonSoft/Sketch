@@ -1,6 +1,6 @@
 ﻿namespace PeletonSoft.Sketch.Model.Interface.Element
 {
-    public interface IClothable
+    public interface IClotheable
     {
         IClothe Clothe { get; }
     }

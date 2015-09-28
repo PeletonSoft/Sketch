@@ -58,7 +58,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
                     continue;
                 }
 
-                var element = originator.AddElement(factory);
+                var element = originator.AppendElement(factory);
                 record.Element.SetState(element);
             }
         }

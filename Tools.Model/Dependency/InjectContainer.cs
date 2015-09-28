@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using PeletonSoft.Tools.Model.Logic;
 
 namespace PeletonSoft.Tools.Model.Dependency
 {
     public class InjectContainer
     {
-        readonly IDictionary<Type, Func<object, object>> _container;
+        readonly IDictionary<Type, Func<IViewModel, IVisualViewModel>> _container;
 
         public InjectContainer()
         {
-            _container = new Dictionary<Type, Func<object, object>>();
+            _container = new Dictionary<Type, Func<IViewModel, IVisualViewModel>>();
         }
 
-        public InjectContainer Register<T>(Func<T, object> factory)
+        public InjectContainer Register<T>(Func<T, IVisualViewModel> factory)
         {
             _container[typeof(T)] = o => factory((T)o);
             return this;
         }
 
-        public object Resolve<T>(T param)
+        public object Resolve<T>(IViewModel param)
         {
             return _container[typeof(T)](param);
         }
 
-        public object Resolve(Type type, object param)
+        public object Resolve(Type type, IViewModel param)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace PeletonSoft.Tools.Model.Dependency
             
         }
 
-        public object Resolve(object param)
+        public object Resolve(IViewModel param)
         {
             return _container[param.GetType()](param);
         }

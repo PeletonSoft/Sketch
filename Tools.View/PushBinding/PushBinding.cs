@@ -8,11 +8,11 @@ namespace PeletonSoft.Tools.View.PushBinding
     {
         #region Dependency Properties
 
-        public static DependencyProperty TargetPropertyMirrorProperty =
+        public static readonly DependencyProperty TargetPropertyMirrorProperty =
             DependencyProperty.Register("TargetPropertyMirror",
                                         typeof(object),
                                         typeof(PushBinding));
-        public static DependencyProperty TargetPropertyListenerProperty =
+        public static readonly DependencyProperty TargetPropertyListenerProperty =
             DependencyProperty.Register("TargetPropertyListener",
                                         typeof(object),
                                         typeof(PushBinding),
@@ -20,8 +20,11 @@ namespace PeletonSoft.Tools.View.PushBinding
 
         private static void OnTargetPropertyListenerChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            PushBinding pushBinding = sender as PushBinding;
-            pushBinding.TargetPropertyValueChanged();
+            var pushBinding = sender as PushBinding;
+            if (pushBinding != null)
+            {
+                pushBinding.TargetPropertyValueChanged();
+            }
         }
 
         #endregion // Dependency Properties
@@ -127,7 +130,7 @@ namespace PeletonSoft.Tools.View.PushBinding
 
         protected override void CloneCore(Freezable sourceFreezable)
         {
-            PushBinding pushBinding = sourceFreezable as PushBinding;
+            var pushBinding = sourceFreezable as PushBinding;
             TargetProperty = pushBinding.TargetProperty;
             TargetDependencyProperty = pushBinding.TargetDependencyProperty;
             base.CloneCore(sourceFreezable);

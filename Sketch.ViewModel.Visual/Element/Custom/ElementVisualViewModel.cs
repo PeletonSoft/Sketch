@@ -9,7 +9,7 @@ using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 {
-    public abstract class ElementVisualViewModel : IElementVisualViewModel
+    public abstract class ElementVisualViewModel : IElementVisualViewModel<IElementViewModel>
     {
         #region implement INotifyPropertyChanged
 
@@ -20,10 +20,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
         }
 
         private void OnPropertyChanged<T>(Expression<Func<ElementVisualViewModel, T>> expression)
@@ -44,7 +44,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
         {
 
             VisualOptions = visualOptions;
-            _element = element;
+            Element = element;
 
             Action setLayout = () => Layout = new LayoutVisualViewModel(VisualOptions, Element.Layout);
             setLayout();
@@ -66,12 +66,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
         {
             get { return Element.Opacity; }
         }
-        
-
-        private readonly IElementViewModel _element;
-        protected IElementViewModel Element
-        {
-            get { return _element; }
-        }
+        public IElementViewModel Element { get; private set; }
     }
 }

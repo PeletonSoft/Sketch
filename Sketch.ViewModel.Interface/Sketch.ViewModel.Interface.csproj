@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Element\IAlignable.cs" />
     <Compile Include="Element\IAlignableElementViewModel.cs" />
-    <Compile Include="Element\IClothableViewModel.cs" />
+    <Compile Include="Element\IClotheableViewModel.cs" />
     <Compile Include="Element\ISheetElementViewModel.cs" />
     <Compile Include="Element\IClotheViewModel.cs" />
     <Compile Include="Element\ILayoutable.cs" />

@@ -12,6 +12,7 @@ using PeletonSoft.Sketch.ViewModel.Element.Null;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
@@ -55,24 +56,29 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         #endregion
 
         #region implement ISelectableList
-        public bool IsValidIndex(int index)
-        {
-            return index >= 0 && index < Below.Count();
-        }
         private int _selectedIndex = -1;
         public int SelectedIndex
         {
             get { return _selectedIndex; }
-            set { SetField(ref _selectedIndex, IsValidIndex(value) ? value : -1); }
+            set { SetField(ref _selectedIndex, Below.IsValidIndex(value) ? value : -1); }
         }
 
         private readonly IElementViewModel _nullSelectedItem;
 
         public IElementViewModel SelectedItem
         {
-            get { return IsValidIndex(SelectedIndex) ? Below[SelectedIndex] : _nullSelectedItem; }
+            get { return Below.IsValidIndex(SelectedIndex) ? Below[SelectedIndex] : _nullSelectedItem; }
+        }
+        #endregion
+
+        #region implment ICollectionItem
+        public void AfterInsert()
+        {
         }
 
+        public void BeforeDelete()
+        {
+        }
         #endregion
 
         #region implement IElementViewModel
@@ -97,15 +103,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             get { return SelectedItem != null ? SelectedItem.Layout : _nullLayoutViewModel; }
         }
         public ICommand MoveToElementCommand { get; set; }
-        public IList<IElementViewModel> Below
+        public IReadOnlyList<IElementViewModel> Below
         {
             get { return WorkspaceBit.GetBelowElements(this); }
-        }
-        public void AfterInsert()
-        {
-        }
-        public void BeforeDelete()
-        {
         }
         #endregion
 
@@ -122,7 +122,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             _nullLayoutViewModel = new NullLayoutViewModel();
             _nullSelectedItem = new NullElementViewModel();
 
-            workspaceBit.ElementListChanged +=
+            workspaceBit.ItemChanged +=
                 (sender, args) =>
                 {
                     var changeInfo = args.ChangedInfo;

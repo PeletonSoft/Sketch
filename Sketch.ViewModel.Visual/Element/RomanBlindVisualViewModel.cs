@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class RomanBlindVisualViewModel : ElementVisualViewModel
+    public sealed class RomanBlindVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<RomanBlindViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<RomanBlindVisualViewModel, T>> expression)
         {
@@ -24,23 +25,16 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
                 .SetPropertyChanged(el => el.Circuit, () => OnPropertyChanged(v => v.Circuit));
         }
 
-        private new RomanBlindViewModel Element
+        public new RomanBlindViewModel Element
         {
             get { return (RomanBlindViewModel)base.Element; }
         }
 
         public WavySurfaceVisualViewModel WavySurface
         {
-            get
-            {
-                if (Element.WavySurface == null)
-                {
-                    return null;
-                }
-
-                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface);
-            }
+            get { return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface); }
         }
+
         public IEnumerable<Point> Points
         {
             get

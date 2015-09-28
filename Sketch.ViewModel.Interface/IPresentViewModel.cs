@@ -6,7 +6,6 @@ namespace PeletonSoft.Sketch.ViewModel.Interface
     public interface IPresentViewModel : IOriginator, INotifyPropertyChanged
     {
         IWorkspaceViewModel Workspace { get; }
-
         double Zoom { get; set; }
     }
 }

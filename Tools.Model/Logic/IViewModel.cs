@@ -1,7 +1,12 @@
 ﻿namespace PeletonSoft.Tools.Model.Logic
 {
-    public interface IViewModel<out T>
+    public interface IViewModel
+    {
+    }
+
+    public interface IViewModel<out T> : IViewModel
     {
         T Model { get; }
     }
+
 }

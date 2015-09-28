@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 {
-    public class WavySurfaceVisualViewModel
+    public class WavySurfaceVisualViewModel : IVisualViewModel
     {
-        public WavySurfaceVisualViewModel(VisualOptions visualOptions, IWavyBorder<IEnumerable<Point>> wavySurface)
+        public WavySurfaceVisualViewModel(VisualOptions visualOptions, IWavyBorder<IEnumerable<Point>> element)
         {
             var pixelPerUnit = visualOptions.PixelPerUnit;
-            var vavySurfaceTransform = wavySurface.Transform(pixelPerUnit.Transform);
+            var vavySurfaceTransform = element.Transform(pixelPerUnit.Transform);
 
             Func<IBottom<IEnumerable<Point>>, IEnumerable<Point>> transform = b => b.Start.Concat(b.Finish.Reverse()); 
 

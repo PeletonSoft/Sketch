@@ -3,42 +3,42 @@ using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Dependency;
-using PeletonSoft.Tools.Model.NotifyChanged.ElementList;
-using PeletonSoft.Tools.Model.NotifyChanged.ElementList.ChangedInfo.Primitive;
+using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem;
+using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo;
 using PeletonSoft.Tools.Model.NotifyChanged.Render;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
     public sealed class WorkspaceBit : IWorkspaceBit
     {
-        #region INotifyElementListChanged implement
+        #region INotifyItemChanged implement
 
         private bool _elementListChangedInited;
-        private ElementListChangedEventHandler _elementListChanged;
-        public event ElementListChangedEventHandler ElementListChanged
+        private ItemChangedEventHandler _itemChanged;
+        public event ItemChangedEventHandler ItemChanged
         {
             add
             {
                 if (!_elementListChangedInited)
                 {
-                    Workspace.ElementList.ElementListChanged +=
+                    Workspace.ElementList.ItemChanged +=
                         (sender, args) => OnElementListChanged(args.ChangedInfo);
                     _elementListChangedInited = true;
                 }
-                _elementListChanged += value;
+                _itemChanged += value;
             }
             remove
             {
-                _elementListChanged += value;
+                _itemChanged += value;
             }
         }
 
-        private void OnElementListChanged(ElementListChangedInfo changedInfo)
+        private void OnElementListChanged(ItemChangedInfo changedInfo)
         {
-            var handler = _elementListChanged;
+            var handler = _itemChanged;
             if (handler != null)
             {
-                handler(this, new ElementListChangedEventArgs(changedInfo));
+                handler(this, new ItemChangedEventArgs(changedInfo));
             }
         }
         #endregion
@@ -71,9 +71,9 @@ namespace PeletonSoft.Sketch.ViewModel
             get { return Workspace.Factories; }
         }
 
-        public IList<IElementViewModel> GetBelowElements(IElementViewModel element)
+        public IReadOnlyList<IElementViewModel> GetBelowElements(IElementViewModel element)
         {
-            return Workspace.ElementList.GetBelowElements(element);
+            return Workspace.ElementList.GetBelow(element);
         }
 
     }

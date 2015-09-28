@@ -4,13 +4,15 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using PeletonSoft.Sketch.ViewModel.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 {
-    public sealed class TieBackLayoutViewModel : ILayoutViewModel
+    public sealed class PleatableLayoutViewModel : ILayoutViewModel
     {
         #region implement INotifyPropertyChanged
 
@@ -21,13 +23,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
+            notificator.SetField(ref field, value);
         }
 
-        private void OnPropertyChanged<T>(Expression<Func<TieBackLayoutViewModel, T>> expression)
+        private void OnPropertyChanged<T>(Expression<Func<PleatableLayoutViewModel, T>> expression)
         {
             expression.OnPropertyChanged(OnPropertyChanged);
         }
@@ -81,12 +83,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
             get { return new Rect(new Point(0, 0), Element.Rect.Size); }
         }
 
-        public TieBackLayoutViewModel(TieBackViewModel element)
+        public PleatableLayoutViewModel(IWorkspaceBit workspaceBit, PleatableViewModel element)
 
         {
             Element = element;
-
-            var dispatcher = Element.WorkspaceBit.RenderChangedDispatcher;
+            WorkspaceBit = workspaceBit;
+            var dispatcher = WorkspaceBit.RenderChangedDispatcher;
             dispatcher.RenderChanged +=
                 (sender, args) =>
                 {
@@ -113,7 +115,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
 
         }
 
-        private TieBackViewModel Element { get; set; }
+        public IWorkspaceBit WorkspaceBit { get; set; }
+
+        private PleatableViewModel Element { get; set; }
 
         IElementViewModel ILayoutViewModel.Element
         {

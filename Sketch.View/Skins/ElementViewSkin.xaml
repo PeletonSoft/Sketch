@@ -54,7 +54,7 @@
         <view:OverlayView/>        
     </DataTemplate>
     
-    <DataTemplate DataType="{x:Type custom:SwagTailVisualViewModel}">
+    <DataTemplate DataType="{x:Type element:SwagTailVisualViewModel}">
         <view:SwagTailView/>
     </DataTemplate>
 
@@ -95,7 +95,11 @@
         <Path Stroke="Black" StrokeThickness="1" 
               Data="{Binding Lines, Converter={StaticResource LineCollectionToPathGeometryConverter}}"/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type element:PleatVisualViewModel}">
+        <view:WavySurfaceView DataContext="{Binding WavySurface}"/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type custom:ElementVisualViewModel}"> 
         <view:ElementView/>
     </DataTemplate>

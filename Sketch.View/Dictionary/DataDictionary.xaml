@@ -21,6 +21,7 @@
         <s:String x:Key="{x:Type factory:OverlayFactoryViewModel}">Перекрытие</s:String>
         <s:String x:Key="{x:Type factory:LatticeFactoryViewModel}">Сетка</s:String>
         <s:String x:Key="{x:Type factory:TieBackFactoryViewModel}">Подхват</s:String>
+        <s:String x:Key="{x:Type factory:PleatFactoryViewModel}">Сборка</s:String>
     </spec:ListDictionary>
     <spec:ListDictionary x:Key="FactoryImages">
         <s:String x:Key="{x:Type factory:ScanFactoryViewModel}">/Images/Factory/Scan.png</s:String>
@@ -39,6 +40,7 @@
         <s:String x:Key="{x:Type factory:OverlayFactoryViewModel}">/Images/Factory/Overlay.png</s:String>
         <s:String x:Key="{x:Type factory:LatticeFactoryViewModel}">/Images/Factory/lattice.png</s:String>
         <s:String x:Key="{x:Type factory:TieBackFactoryViewModel}">/Images/Factory/TieBack.png</s:String>
+        <s:String x:Key="{x:Type factory:PleatFactoryViewModel}">/Images/Factory/Pleat.png</s:String>
     </spec:ListDictionary>
     <spec:ListDictionary x:Key="ElementNames">
         <s:String x:Key="{x:Type element:ScanViewModel}">Чертеж</s:String>
@@ -57,5 +59,6 @@
         <s:String x:Key="{x:Type element:OverlayViewModel}">Перекрытие</s:String>
         <s:String x:Key="{x:Type element:LatticeViewModel}">Сетка</s:String>
         <s:String x:Key="{x:Type element:TieBackViewModel}">Подхват</s:String>
+        <s:String x:Key="{x:Type element:PleatViewModel}">Сборка</s:String>
     </spec:ListDictionary>    
 </ResourceDictionary>

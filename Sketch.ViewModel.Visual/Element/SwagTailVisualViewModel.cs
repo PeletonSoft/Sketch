@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
+using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
-namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
+namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class SwagTailVisualViewModel : ElementVisualViewModel
+    public sealed class SwagTailVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<SwagTailViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<SwagTailVisualViewModel, T>> expression)
         {
@@ -23,7 +25,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
                 .SetPropertyChanged(el => el.Circuit, () => OnPropertyChanged(v => v.Circuit));
         }
 
-        private new SwagTailViewModel Element
+        public new SwagTailViewModel Element
         {
             get { return (SwagTailViewModel) base.Element; }
         }
@@ -39,15 +41,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 
         public WavySurfaceVisualViewModel WavySurface
         {
-            get
-            {
-                if (Element.WavySurface == null)
-                {
-                    return null;
-                }
-                
-                return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface);
-            }
+            get { return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface); }
         }
 
     }

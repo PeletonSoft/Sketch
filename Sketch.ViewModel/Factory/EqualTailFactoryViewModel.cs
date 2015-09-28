@@ -6,7 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 
 namespace PeletonSoft.Sketch.ViewModel.Factory
 {
-    public sealed class EqualTailFactoryViewModel : SwagTailFactoryViewModel, 
+    public sealed class EqualTailFactoryViewModel : WavySurfaceFactoryViewModel, 
         IElementFactoryViewModel<EqualTailViewModel>
     {
         protected override IElementViewModel CreateRawElement(IWorkspaceBit workspaceBit)

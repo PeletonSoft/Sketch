@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
-using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class TieBackVisualViewModel : ElementVisualViewModel
+    public sealed class TieBackVisualViewModel : PleatableVisualViewModel, IElementVisualViewModel<TieBackViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<TieBackVisualViewModel, T>> expression)
         {
@@ -20,11 +20,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
             : base(visualOptions, element)
         {
             Element
-                .SetPropertyChanged(el => el.Lane, () => OnPropertyChanged(v => v.Lane))
-                .SetPropertyChanged(el => el.WavySurface, () => OnPropertyChanged(v => v.WavySurface));
+                .SetPropertyChanged(el => el.Lane, () => OnPropertyChanged(v => v.Lane));
         }
 
-        private new TieBackViewModel Element
+        public new TieBackViewModel Element
         {
             get { return (TieBackViewModel) base.Element; }
         }
@@ -34,10 +33,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
             get { return VisualOptions.PixelPerUnit.Transform(Element.Lane); }
         }
 
-        public WavySurfaceVisualViewModel WavySurface
-        {
-            get { return new WavySurfaceVisualViewModel(VisualOptions, Element.WavySurface); }
-        }
 
     }
 }

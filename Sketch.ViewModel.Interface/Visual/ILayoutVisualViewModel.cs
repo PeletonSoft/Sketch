@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
+using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using PeletonSoft.Tools.Model.Logic;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Visual
 {
-    public interface ILayoutVisualViewModel : INotifyPropertyChanged
+    public interface ILayoutVisualViewModel : INotifyVisualViewModel<ILayoutViewModel>
     {
         double Width { get; }
         double Height { get; }

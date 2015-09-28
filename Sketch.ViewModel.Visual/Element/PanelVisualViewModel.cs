@@ -1,16 +1,17 @@
 ﻿using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class PanelVisualViewModel : ElementVisualViewModel
+    public sealed class PanelVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<PanelViewModel>
     {
         public PanelVisualViewModel(VisualOptions visualOptions, PanelViewModel element)
             : base(visualOptions, element)
         {
         }
 
-        private new PanelViewModel Element
+        public new PanelViewModel Element
         {
             get { return (PanelViewModel) base.Element; }
         }

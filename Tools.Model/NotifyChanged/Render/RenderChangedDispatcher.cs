@@ -44,7 +44,6 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.Render
             
         }
 
-
         public event RenderChangedEventHandler<IEnumerable<TD>> RenderChanged;
 
         private void RaiseRenderChanged(TR responder)

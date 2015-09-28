@@ -71,7 +71,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             return point;
         }
 
-        public LayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
+        protected LayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
         {
             WorkspaceBit = workspaceBit;
             Element = element;

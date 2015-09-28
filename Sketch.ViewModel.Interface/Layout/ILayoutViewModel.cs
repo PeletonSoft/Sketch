@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Layout
 {
-    public interface ILayoutViewModel : INotifyPropertyChanged, IOriginator
+    public interface ILayoutViewModel : INotifyViewModel, IOriginator
     {
         IElementViewModel Element { get; }
         double Width { get; }

@@ -22,6 +22,7 @@
         <factory:ApplicationFactoryViewModel/>
         <factory:OverlayFactoryViewModel/>
         <factory:LatticeFactoryViewModel/>
+        <factory:PleatFactoryViewModel/>        
         <factory:TieBackFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:EqualSwagFactoryViewModel PointCount="{StaticResource PointCount}"/>
         <factory:EqualTailFactoryViewModel PointCount="{StaticResource PointCount}"/>

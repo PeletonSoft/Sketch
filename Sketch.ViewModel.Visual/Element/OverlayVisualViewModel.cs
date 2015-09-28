@@ -2,15 +2,15 @@
 using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
-    public class OverlayVisualViewModel : ElementVisualViewModel
+    public sealed class OverlayVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<OverlayViewModel>
     {
         private void OnPropertyChanged<T>(Expression<Func<OverlayVisualViewModel, T>> expression)
         {
@@ -34,17 +34,18 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         }
 
         private InjectContainer VisualContainer { get; set; }
-        private new OverlayViewModel Element
+
+        public new OverlayViewModel Element
         {
             get { return (OverlayViewModel) base.Element; }
         }
 
-        public IElementVisualViewModel OverlayElement
+        public IElementVisualViewModel<IElementViewModel> OverlayElement
         {
             get
             {
                 var element = Element.SelectedItem;
-                return (IElementVisualViewModel) VisualContainer.Resolve(element.GetType(), element);
+                return (IElementVisualViewModel<IElementViewModel>)VisualContainer.Resolve(element.GetType(), element);
             }
         }
 

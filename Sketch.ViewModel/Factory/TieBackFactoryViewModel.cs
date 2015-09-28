@@ -6,10 +6,9 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 
 namespace PeletonSoft.Sketch.ViewModel.Factory
 {
-    public sealed class TieBackFactoryViewModel : ElementFactoryViewModel,
+    public sealed class TieBackFactoryViewModel : WavySurfaceFactoryViewModel,
         IElementFactoryViewModel<TieBackViewModel>
     {
-        public int PointCount { get; set; }
         protected override IElementViewModel CreateRawElement(IWorkspaceBit workspaceBit)
         {
             return new TieBackViewModel(workspaceBit, new TieBack(PointCount)); 

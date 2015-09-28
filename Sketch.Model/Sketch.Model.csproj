@@ -50,6 +50,7 @@
     <Compile Include="ClotheStrategy\ClotheCalculateStrategy.cs" />
     <Compile Include="ClotheStrategy\TieBackClotheCalculateStrategy.cs" />
     <Compile Include="Element\Application.cs" />
+    <Compile Include="Element\Custom\Pleatable.cs" />
     <Compile Include="Element\Custom\AlignableElement.cs" />
     <Compile Include="Element\Custom\Element.cs" />
     <Compile Include="Element\Custom\SwagTail.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Element\Outline\VRectangleOutline.cs" />
     <Compile Include="Element\Overlay.cs" />
     <Compile Include="Element\Panel.cs" />
+    <Compile Include="Element\Pleat.cs" />
     <Compile Include="Element\Portiere.cs" />
     <Compile Include="Element\Custom\Sheet.cs" />
     <Compile Include="Element\Primitive\Clothe.cs" />

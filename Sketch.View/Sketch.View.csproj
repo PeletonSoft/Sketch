@@ -94,6 +94,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Element\Detail\PleatableDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Element\Detail\RectangleCropImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Element\Detail\TieBackDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Element\Detail\TieBackSideDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -332,6 +340,9 @@
     <Compile Include="Controls\Element\Detail\OverlayDetailView.xaml.cs">
       <DependentUpon>OverlayDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Element\Detail\PleatableDetailView.xaml.cs">
+      <DependentUpon>PleatableDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Element\Detail\RectangleCropImageView.xaml.cs">
       <DependentUpon>RectangleCropImageView.xaml</DependentUpon>
     </Compile>
@@ -358,6 +369,9 @@
     </Compile>
     <Compile Include="Controls\Element\Detail\TieBackDetailView.xaml.cs">
       <DependentUpon>TieBackDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Element\Detail\TieBackSideDetailView.xaml.cs">
+      <DependentUpon>TieBackSideDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Element\Detail\TransformationDetailView.xaml.cs">
       <DependentUpon>TransformationDetailView.xaml</DependentUpon>
@@ -616,6 +630,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Factory\Lattice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Factory\Pleat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

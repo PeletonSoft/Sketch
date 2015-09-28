@@ -90,7 +90,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             set { SetField(() => Opacity, v => Model.Opacity = v, value); }
         }
 
-        public IList<IElementViewModel> Below
+        public IReadOnlyList<IElementViewModel> Below
         {
             get { return WorkspaceBit.GetBelowElements(this); }
         }
@@ -109,7 +109,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public IAlignableElement Model { get; private set; }
         #endregion
 
-        #region IClothableViewModel
+        #region IClotheableViewModel
         public IClotheViewModel Clothe { get; private set; }
 
         #endregion

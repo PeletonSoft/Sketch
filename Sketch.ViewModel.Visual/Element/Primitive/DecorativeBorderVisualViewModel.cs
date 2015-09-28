@@ -11,11 +11,12 @@ using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
+using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 {
-    public class DecorativeBorderVisualViewModel : INotifyPropertyChanged
+    public sealed class DecorativeBorderVisualViewModel : INotifyVisualViewModel<DecorativeBorderViewModel>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,33 +38,33 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
         }
         #endregion
 
-        public DecorativeBorderVisualViewModel(VisualOptions visualOptions, DecorativeBorderViewModel decorativeBorder)
+        public DecorativeBorderVisualViewModel(VisualOptions visualOptions, DecorativeBorderViewModel element)
         {
             VisualOptions = visualOptions;
-            DecorativeBorder = decorativeBorder;
-            Chains = CalculateChains(DecorativeBorder.Points);
+            Element = element;
+            Chains = CalculateChains(Element.Points);
 
-            DecorativeBorder
+            Element
                 .SetPropertyChanged(el => el.Width, () => OnPropertyChanged(v => v.Width))
                 .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(v => v.Height))
-                .SetPropertyChanged(el => el.Points, () => Chains = CalculateChains(DecorativeBorder.Points));
+                .SetPropertyChanged(el => el.Points, () => Chains = CalculateChains(Element.Points));
 
             var commandFactory = VisualOptions.CommandFactory;
 
             SaveCommand =
                 commandFactory.CreateCommand(() =>
                 {
-                    DecorativeBorder.Points = CalculatePoints(Chains);
+                    Element.Points = CalculatePoints(Chains);
                 });
 
             CancelCommand =
                 commandFactory.CreateCommand(() =>
                 {
-                    Chains = CalculateChains(DecorativeBorder.Points);
+                    Chains = CalculateChains(Element.Points);
                 });
 
             ResetCommand =
-                commandFactory.CreateCommand(() => DecorativeBorder.ResetChains());
+                commandFactory.CreateCommand(() => Element.ResetChains());
 
         }
         
@@ -73,7 +74,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             get
             {
                 var pixelPerUnit = VisualOptions.PixelPerUnit;
-                return pixelPerUnit.Transform(DecorativeBorder.Width);
+                return pixelPerUnit.Transform(Element.Width);
             }
         }
         public double Height
@@ -81,12 +82,12 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             get
             {
                 var pixelPerUnit = VisualOptions.PixelPerUnit;
-                return pixelPerUnit.Transform(DecorativeBorder.Height);
+                return pixelPerUnit.Transform(Element.Height);
             }
         }
 
-        private DecorativeBorderViewModel DecorativeBorder { get; set; }
-        public VisualOptions VisualOptions { get; set; }
+        public DecorativeBorderViewModel Element { get; private set; }
+        private VisualOptions VisualOptions { get; set; }
 
         private IList<IDrawViewModel> _chains;
         public IList<IDrawViewModel> Chains

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Dependency;
+using PeletonSoft.Tools.Model.Logic;
 
 namespace PeletonSoft.Tools.View.Converter
 {
@@ -13,7 +13,7 @@ namespace PeletonSoft.Tools.View.Converter
         {
             try
             {
-                return InjectContainer.Resolve(value.GetType(), value);
+                return InjectContainer.Resolve(value.GetType(), (IViewModel)value);
             }
             catch (Exception)
             {
