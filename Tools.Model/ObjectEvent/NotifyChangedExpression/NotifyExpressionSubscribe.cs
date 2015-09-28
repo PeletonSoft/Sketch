@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.ObjectEventExpression;
 
 namespace PeletonSoft.Tools.Model.ObjectEvent.NotifyChangedExpression
 {
@@ -39,7 +40,7 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.NotifyChangedExpression
         {
             var rightMapper = new PropertyMapper<TM>();
             var rightPropertyName = rightMapper.PropertyName(rightExpression);
-            return sender.SetPropertyChanged(new Getter<T, TM>(leftExpression), rightPropertyName, handler);
+            return sender.SetPropertyChanged(sender.ExtractGetter(leftExpression), rightPropertyName, handler);
         }
 
         public static T PropertyIterate<T, TU>(this T sender,

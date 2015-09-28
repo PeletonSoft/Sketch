@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace PeletonSoft.Tools.Model.ObjectEvent
+namespace PeletonSoft.Tools.Model.ObjectEvent.ObjectEventExpression
 {
     public sealed class PropertyMapper<T>
     {

@@ -8,10 +8,6 @@ namespace PeletonSoft.Sketch.Model.Element
 {
     public sealed class Pleat : Pleatable
     {
-        public Pleat()
-        {
-        }
-
         public override IWavyBorder<IEnumerable<Point>> GetWavySurface()
         {
             return base.GetWavySurface()

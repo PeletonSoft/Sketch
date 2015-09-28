@@ -16,6 +16,7 @@ using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
@@ -24,10 +25,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
+        protected void OnPropertyChanged(string propertyName) => 
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
         private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
@@ -48,9 +47,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #endregion
 
         #region implement IOriginator
-        public void RestoreDefault()
-        {
-        }
+        public void RestoreDefault() => DoNothing();
         #endregion
 
         #region implment ICollectionItem

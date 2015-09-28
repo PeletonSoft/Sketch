@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using PeletonSoft.Tools.Model.ObjectEvent.ObjectEventExpression;
 
 namespace PeletonSoft.Tools.Model.ObjectEvent.NotifyChangedExpression
 {

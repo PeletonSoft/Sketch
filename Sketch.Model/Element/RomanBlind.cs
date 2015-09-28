@@ -15,7 +15,7 @@ namespace PeletonSoft.Sketch.Model.Element
         public double CoulisseThickness { get; set; }
         public double DenseHeight { get; set; }
         public int WaveCount { get; set; }
-        public DecorativeBorder DecorativeBorder { get; private set; }
+        public DecorativeBorder DecorativeBorder { get; }
         public RomanBlind()
         {
             DecorativeBorder = new DecorativeBorder();

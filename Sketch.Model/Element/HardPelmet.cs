@@ -9,7 +9,7 @@ namespace PeletonSoft.Sketch.Model.Element
 {
     public sealed class HardPelmet : AlignableElement
     {
-        public DecorativeBorder DecorativeBorder { get; private set; }
+        public DecorativeBorder DecorativeBorder { get; }
 
         public HardPelmet()
         {

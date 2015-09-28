@@ -95,8 +95,9 @@
     <Compile Include="ObjectEvent\NotifyChanged\LockNotify.cs" />
     <Compile Include="ObjectEvent\NotifyChanged\NotifyPropertyChangedHelper.cs" />
     <Compile Include="ObjectEvent\NotifyChanged\NotifySubscribe.cs" />
-    <Compile Include="ObjectEvent\PropertyExpressionHelper.cs" />
-    <Compile Include="ObjectEvent\PropertyMapper.cs" />
+    <Compile Include="ObjectEvent\ObjectEventExpression\GetterExpressionHelper.cs" />
+    <Compile Include="ObjectEvent\ObjectEventExpression\PropertyExpressionHelper.cs" />
+    <Compile Include="ObjectEvent\ObjectEventExpression\PropertyMapper.cs" />
     <Compile Include="ObjectEvent\Render\INotifyRenderChanged.cs" />
     <Compile Include="ObjectEvent\Render\RenderChangedDispatcher.cs" />
     <Compile Include="ObjectEvent\Render\RenderChangedEventHandler.cs" />

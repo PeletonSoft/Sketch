@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace PeletonSoft.Tools.Model.ObjectEvent
+namespace PeletonSoft.Tools.Model.ObjectEvent.ObjectEventExpression
 {
     public static class PropertyExpressionHelper
     {

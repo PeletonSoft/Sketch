@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using PeletonSoft.Tools.Model.ObjectEvent.ObjectEventExpression;
 
 namespace PeletonSoft.Tools.Model.ObjectEvent
 {
@@ -13,12 +14,5 @@ namespace PeletonSoft.Tools.Model.ObjectEvent
             PropertyName = propertyName;
             GetterValue = getterValue;
         }
-
-        public Getter(Expression<Func<TS, TP>> expression)
-            : this(expression.GetPropertyName(), expression.Compile())
-        {
-        }
-
-
     }
 }

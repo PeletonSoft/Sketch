@@ -14,9 +14,6 @@ namespace PeletonSoft.Sketch.Model.Element
         public double OverOffsetX { get; set; }
         public double OverOffsetY { get; set; }
 
-        public Rect GetOverRect()
-        {
-            return new Rect(OverOffsetX, OverOffsetY, OverWidth, OverHeight);
-        }
+        public Rect GetOverRect() => new Rect(OverOffsetX, OverOffsetY, OverWidth, OverHeight);
     }
 }
