@@ -37,38 +37,25 @@ namespace PeletonSoft.Tools.View.Behavior
 
         public object State
         {
-            get
-            {
-                return GetValue(StateProperty);
-            }
-            set
-            {
-                SetValue(StateProperty, value);
-            }
+            get { return GetValue(StateProperty); }
+            set { SetValue(StateProperty, value); }
         }
 
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register(
-          "State", typeof(object), typeof(ToggleButtonStatePatternBehavior), new PropertyMetadata(null));
+          nameof(State), typeof(object), typeof(ToggleButtonStatePatternBehavior), new PropertyMetadata(null));
 
         public object TargetState
         {
-            get
-            {
-                return GetValue(TargetStateProperty);
-            }
-            set
-            {
-                SetValue(TargetStateProperty, value);
-            }
+            get { return GetValue(TargetStateProperty); }
+            set { SetValue(TargetStateProperty, value); }
         }
 
         public static readonly DependencyProperty TargetStateProperty = DependencyProperty.Register(
-          "TargetState", typeof(object), typeof(ToggleButtonStatePatternBehavior), new PropertyMetadata(null));
+          nameof(TargetState), typeof(object), typeof(ToggleButtonStatePatternBehavior), new PropertyMetadata(null));
         
         protected override void OnDetaching()
         {
             base.OnDetaching();
-
             AssociatedObject.Click += AssociatedObjectOnChecked;
         }
     }

@@ -16,19 +16,13 @@ namespace PeletonSoft.Tools.View.Controls
 
         public int Value
         {
-            get
-            {
-                return (int)GetValue(ValueProperty);
-            }
-            set
-            {
-                SetValue(ValueProperty, value);
-            }
+            get { return (int) GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-          "Value", typeof(int), typeof(NumericIntBox), new PropertyMetadata(0));
+          nameof(Value), typeof(int), typeof(NumericIntBox), new PropertyMetadata(0));
 
     }
 }

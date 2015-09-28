@@ -30,7 +30,6 @@ namespace PeletonSoft.Tools.View.Behavior
 
                 var thread = new Thread(start);
                 thread.Start();
-
             }
         }
 
@@ -39,7 +38,6 @@ namespace PeletonSoft.Tools.View.Behavior
             base.OnDetaching();
             AssociatedObject.PreviewKeyDown -= AssociatedObjectOnPreviewKeyDown;
         }
-
     }
 
 }

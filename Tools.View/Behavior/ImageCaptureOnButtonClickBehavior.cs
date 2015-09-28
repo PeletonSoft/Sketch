@@ -27,7 +27,7 @@ namespace PeletonSoft.Tools.View.Behavior
             var element = CurrentControl.Current;
             if (element != null)
             {
-                
+
                 ImageBox = new PngImageBox(
                     element.ExportToPng(),
                     (int) element.ActualWidth,
@@ -40,51 +40,37 @@ namespace PeletonSoft.Tools.View.Behavior
             base.OnDetaching();
             AssociatedObject.Click -= AssociatedObjectOnClick;
         }
+
         public CurrentControl CurrentControl
         {
-            get
-            {
-                return (CurrentControl)GetValue(CurrentControlProperty);
-            }
-            set
-            {
-                SetValue(CurrentControlProperty, value);
-            }
+            get { return (CurrentControl) GetValue(CurrentControlProperty); }
+            set { SetValue(CurrentControlProperty, value); }
         }
 
         public static readonly DependencyProperty CurrentControlProperty = DependencyProperty.Register(
-          "CurrentControl", typeof(CurrentControl), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
+            nameof(CurrentControl), typeof (CurrentControl), typeof (ImageCaptureOnButtonClickBehavior),
+            new PropertyMetadata(null));
 
 
         public ImageBox ImageBox
         {
-            get
-            {
-                return (ImageBox)GetValue(ImageBoxProperty);
-            }
-            set
-            {
-                SetValue(ImageBoxProperty, value);
-            }
+            get { return (ImageBox) GetValue(ImageBoxProperty); }
+            set { SetValue(ImageBoxProperty, value); }
         }
 
         public static readonly DependencyProperty ImageBoxProperty = DependencyProperty.Register(
-          "ImageBox", typeof(ImageBox), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
+            nameof(ImageBox), typeof (ImageBox), typeof (ImageCaptureOnButtonClickBehavior),
+            new PropertyMetadata(null));
 
         public ICommand BeforeCommand
         {
-            get
-            {
-                return (ICommand)GetValue(BeforeCommandProperty);
-            }
-            set
-            {
-                SetValue(BeforeCommandProperty, value);
-            }
+            get { return (ICommand) GetValue(BeforeCommandProperty); }
+            set { SetValue(BeforeCommandProperty, value); }
         }
 
         public static readonly DependencyProperty BeforeCommandProperty = DependencyProperty.Register(
-          "BeforeCommand", typeof(ICommand), typeof(ImageCaptureOnButtonClickBehavior), new PropertyMetadata(null));
+            nameof(BeforeCommand), typeof (ICommand), typeof (ImageCaptureOnButtonClickBehavior),
+            new PropertyMetadata(null));
 
     }
 }

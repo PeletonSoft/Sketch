@@ -13,7 +13,7 @@ namespace PeletonSoft.Tools.View.Behavior
             base.OnAttached();
             var document = new FixedDocument();
 
-            if (FormatPageContent == null || FormatPageContent.Pages == null)
+            if (FormatPageContent?.Pages == null)
             {
                 return;
             }
@@ -34,17 +34,11 @@ namespace PeletonSoft.Tools.View.Behavior
 
         public FormatPageContent FormatPageContent
         {
-            get
-            {
-                return (FormatPageContent)GetValue(FormatPageContentProperty);
-            }
-            set
-            {
-                SetValue(FormatPageContentProperty, value);
-            }
+            get { return (FormatPageContent) GetValue(FormatPageContentProperty); }
+            set { SetValue(FormatPageContentProperty, value); }
         }
 
         public static readonly DependencyProperty FormatPageContentProperty = DependencyProperty.Register(
-          "FormatPageContent", typeof(FormatPageContent), typeof(AddPageContentBehavior), new PropertyMetadata(null));
+          nameof(FormatPageContent), typeof(FormatPageContent), typeof(AddPageContentBehavior), new PropertyMetadata(null));
     }
 }

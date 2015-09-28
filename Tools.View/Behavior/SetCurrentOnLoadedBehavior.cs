@@ -25,17 +25,11 @@ namespace PeletonSoft.Tools.View.Behavior
 
         public CurrentControl CurrentControl
         {
-            get
-            {
-                return (CurrentControl)GetValue(CurrentControlProperty);
-            }
-            set
-            {
-                SetValue(CurrentControlProperty, value);
-            }
+            get { return (CurrentControl) GetValue(CurrentControlProperty); }
+            set { SetValue(CurrentControlProperty, value); }
         }
 
         public static readonly DependencyProperty CurrentControlProperty = DependencyProperty.Register(
-          "CurrentControl", typeof(CurrentControl), typeof(SetCurrentOnLoadedBehavior), new PropertyMetadata(null));
+          nameof(CurrentControl), typeof(CurrentControl), typeof(SetCurrentOnLoadedBehavior), new PropertyMetadata(null));
     }
 }

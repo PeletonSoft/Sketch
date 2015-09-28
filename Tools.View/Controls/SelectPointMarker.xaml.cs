@@ -19,7 +19,7 @@ namespace PeletonSoft.Tools.View.Controls
         }
 
         public static readonly DependencyProperty MarkerRadiusProperty = DependencyProperty.Register(
-          "MarkerRadius", typeof(double), typeof(SelectPointMarker), new PropertyMetadata(0.0));
+          nameof(MarkerRadius), typeof(double), typeof(SelectPointMarker), new PropertyMetadata(0.0));
 
         public double MarkerOpacity
         {
@@ -28,6 +28,6 @@ namespace PeletonSoft.Tools.View.Controls
         }
 
         public static readonly DependencyProperty MarkerOpacityProperty = DependencyProperty.Register(
-          "MarkerOpacity", typeof(double), typeof(SelectPointMarker), new PropertyMetadata(0.0));
+          nameof(MarkerOpacity), typeof(double), typeof(SelectPointMarker), new PropertyMetadata(0.0));
     }
 }

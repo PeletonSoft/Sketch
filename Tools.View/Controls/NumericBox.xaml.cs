@@ -6,7 +6,7 @@ namespace PeletonSoft.Tools.View.Controls
     /// <summary>
     /// Логика взаимодействия для NumericBox.xaml
     /// </summary>
-    public partial class NumericBox : UserControl
+    public partial class NumericBox
     {
         public NumericBox()
         {
@@ -20,7 +20,7 @@ namespace PeletonSoft.Tools.View.Controls
         }
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-          "Value", typeof(double), typeof(NumericBox), new PropertyMetadata(0.0));
+          nameof(Value), typeof(double), typeof(NumericBox), new PropertyMetadata(0.0));
 
         public string StringFormat
         {
@@ -30,6 +30,6 @@ namespace PeletonSoft.Tools.View.Controls
 
 
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register(
-          "StringFormat", typeof(string), typeof(NumericBox), new PropertyMetadata("{0:N3}"));
+          nameof(StringFormat), typeof(string), typeof(NumericBox), new PropertyMetadata("{0:N3}"));
     }
 }

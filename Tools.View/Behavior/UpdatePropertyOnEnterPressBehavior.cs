@@ -20,17 +20,9 @@ namespace PeletonSoft.Tools.View.Behavior
                 if (Element != null && Property != null)
                 {
                     var bindingExpression = BindingOperations.GetBindingExpression(Element, Property);
-                    if (bindingExpression != null)
-                    {
-                        bindingExpression.UpdateSource();
-                    }
-
+                    bindingExpression?.UpdateSource();
                     var multiBindingExpression = BindingOperations.GetMultiBindingExpression(Element, Property);
-                    if(multiBindingExpression != null)
-                    {
-                        multiBindingExpression.UpdateSource();
-                    }
-
+                    multiBindingExpression?.UpdateSource();
                 }
             }
         }
@@ -43,33 +35,21 @@ namespace PeletonSoft.Tools.View.Behavior
 
         public DependencyObject Element
         {
-            get
-            {
-                return (DependencyObject)this.GetValue(ElementProperty);
-            }
-            set
-            {
-                this.SetValue(ElementProperty, value);
-            }
+            get { return (DependencyObject) GetValue(ElementProperty); }
+            set { SetValue(ElementProperty, value); }
         }
 
         public static readonly DependencyProperty ElementProperty = DependencyProperty.Register(
-          "Element", typeof(DependencyObject), typeof(UpdatePropertyOnEnterPressBehavior), new PropertyMetadata(null));
+          nameof(Element), typeof(DependencyObject), typeof(UpdatePropertyOnEnterPressBehavior), new PropertyMetadata(null));
 
         public DependencyProperty Property
         {
-            get
-            {
-                return (DependencyProperty)this.GetValue(PropertyProperty);
-            }
-            set
-            {
-                this.SetValue(PropertyProperty, value);
-            }
+            get { return (DependencyProperty) GetValue(PropertyProperty); }
+            set { SetValue(PropertyProperty, value); }
         }
 
         public static readonly DependencyProperty PropertyProperty = DependencyProperty.Register(
-          "Property", typeof(DependencyProperty), typeof(UpdatePropertyOnEnterPressBehavior), new PropertyMetadata(null));
+          nameof(Property), typeof(DependencyProperty), typeof(UpdatePropertyOnEnterPressBehavior), new PropertyMetadata(null));
     }
 
 }

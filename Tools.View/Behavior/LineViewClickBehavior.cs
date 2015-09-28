@@ -9,17 +9,16 @@ namespace PeletonSoft.Tools.View.Behavior
     public class LineViewClickBehavior : Behavior<UserControl>
     {
         private ILineView LineView { get; set; }
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(
-                "Command", typeof(ICommand),
-                typeof(LineViewClickBehavior),
-                new PropertyMetadata(default(ICommand)));
 
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
+
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+            nameof(Command), typeof (ICommand), typeof (LineViewClickBehavior), new PropertyMetadata(default(ICommand)));
+
 
         protected override void OnAttached()
         {
@@ -37,7 +36,7 @@ namespace PeletonSoft.Tools.View.Behavior
             {
                 var point = new Point(LineView.ThumbX, LineView.ThumbY);
                 var line = LineView.GetDataContext();
-                var param = new InsertPointTransit { Line = line, Point = point };
+                var param = new InsertPointTransit {Line = line, Point = point};
                 Command.Execute(param);
             }
         }

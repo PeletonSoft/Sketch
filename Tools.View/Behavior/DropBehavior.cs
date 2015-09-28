@@ -35,42 +35,26 @@ namespace PeletonSoft.Tools.View.Behavior
                 AssociatedObject.DataContext);
 
 
-            if (Command != null)
-            {
-                Command.Execute(param);
-            }
-            
+            Command?.Execute(param);
         }
 
         public Type DataFormat
         {
-            get
-            {
-                return (Type)this.GetValue(DataFormatProperty);
-            }
-            set
-            {
-                this.SetValue(DataFormatProperty, value);
-            }
+            get { return (Type) this.GetValue(DataFormatProperty); }
+            set { SetValue(DataFormatProperty, value); }
         }
 
         public static readonly DependencyProperty DataFormatProperty = DependencyProperty.Register(
-          "DataFormat", typeof(Type), typeof(DropBehavior), new PropertyMetadata(typeof(object)));
+          nameof(DataFormat), typeof(Type), typeof(DropBehavior), new PropertyMetadata(typeof(object)));
 
         public ICommand Command
         {
-            get
-            {
-                return (ICommand)this.GetValue(CommandProperty);
-            }
-            set
-            {
-                this.SetValue(CommandProperty, value);
-            }
+            get { return (ICommand) this.GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-          "Command", typeof(ICommand), typeof(DropBehavior), new PropertyMetadata(null));        
+          nameof(Command), typeof(ICommand), typeof(DropBehavior), new PropertyMetadata(null));        
         protected override void OnDetaching()
         {
             base.OnDetaching();

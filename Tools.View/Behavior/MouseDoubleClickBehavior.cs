@@ -7,13 +7,13 @@ namespace PeletonSoft.Tools.View.Behavior
 {
     public class MouseDoubleClickBehavior : Behavior<Control>
     {
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand),
-            typeof(MouseDoubleClickBehavior), new PropertyMetadata(default(ICommand)));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+            nameof(Command), typeof (ICommand), typeof (MouseDoubleClickBehavior),
+            new PropertyMetadata(default(ICommand)));
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
+            get { return (ICommand) GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -29,12 +29,9 @@ namespace PeletonSoft.Tools.View.Behavior
             base.OnDetaching();
         }
 
-        void OnMouseDoubleClick(object sender, RoutedEventArgs e)
+        private void OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            if (Command != null)
-            {
-                Command.Execute(null);
-            }
+            Command?.Execute(null);
         }
     }
 

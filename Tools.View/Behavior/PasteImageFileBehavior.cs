@@ -34,25 +34,17 @@ namespace PeletonSoft.Tools.View.Behavior
 
         public ICommand Command
         {
-            get
-            {
-                return (ICommand)GetValue(CommandProperty);
-            }
-            set
-            {
-                SetValue(CommandProperty, value);
-            }
+            get { return (ICommand) GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-          "Command", typeof(ICommand), typeof(PasteImageFileBehavior), new PropertyMetadata(null));
+          nameof(Command), typeof(ICommand), typeof(PasteImageFileBehavior), new PropertyMetadata(null));
 
 
         protected override void OnDetaching()
         {
             AssociatedObject.Click -= AssociatedObjectOnClick;
-
-
         }
     }
 }

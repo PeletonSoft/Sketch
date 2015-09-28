@@ -16,85 +16,56 @@ namespace PeletonSoft.Tools.View.Controls
         {
             InitializeComponent();
         }
+
         public double OffsetX
         {
-            get
-            {
-                return (double)GetValue(OffsetXProperty);
-            }
-            set
-            {
-                SetValue(OffsetXProperty, value);
-            }
+            get { return (double) GetValue(OffsetXProperty); }
+            set { SetValue(OffsetXProperty, value); }
         }
 
 
         public static readonly DependencyProperty OffsetXProperty = DependencyProperty.Register(
-          "OffsetX", typeof(double), typeof(LineView), new PropertyMetadata(0.0));
+          nameof(OffsetX), typeof(double), typeof(LineView), new PropertyMetadata(0.0));
 
 
         public double OffsetY
         {
-            get
-            {
-                return (double)GetValue(OffsetYProperty);
-            }
-            set
-            {
-                SetValue(OffsetYProperty, value);
-            }
+            get { return (double) GetValue(OffsetYProperty); }
+            set { SetValue(OffsetYProperty, value); }
         }
 
 
         public static readonly DependencyProperty OffsetYProperty = DependencyProperty.Register(
-          "OffsetY", typeof(double), typeof(LineView), new PropertyMetadata(0.0));
+          nameof(OffsetY), typeof(double), typeof(LineView), new PropertyMetadata(0.0));
 
         public double ThumbX
         {
-            get
-            {
-                return (double)GetValue(ThumbXProperty);
-            }
-            set
-            {
-                SetValue(ThumbXProperty, value);
-            }
+            get { return (double) GetValue(ThumbXProperty); }
+            set { SetValue(ThumbXProperty, value); }
         }
 
 
         public static readonly DependencyProperty ThumbXProperty = DependencyProperty.Register(
-          "ThumbX", typeof(double), typeof(LineView), new PropertyMetadata(0.0));
+          nameof(ThumbX), typeof(double), typeof(LineView), new PropertyMetadata(0.0));
 
         public double ThumbY
         {
-            get
-            {
-                return (double)GetValue(ThumbYProperty);
-            }
-            set
-            {
-                SetValue(ThumbYProperty, value);
-            }
+            get { return (double) GetValue(ThumbYProperty); }
+            set { SetValue(ThumbYProperty, value); }
         }
 
         public static readonly DependencyProperty ThumbYProperty = DependencyProperty.Register(
-          "ThumbY", typeof(double), typeof(LineView), new PropertyMetadata(0.0));
+          nameof(ThumbY), typeof(double), typeof(LineView), new PropertyMetadata(0.0));
 
         public Brush LineColor
         {
-            get
-            {
-                return (Brush)GetValue(LineColorProperty);
-            }
-            set
-            {
-                SetValue(LineColorProperty, value);
-            }
+            get { return (Brush) GetValue(LineColorProperty); }
+            set { SetValue(LineColorProperty, value); }
         }
 
 
         public static readonly DependencyProperty LineColorProperty = DependencyProperty.Register(
-          "LineColor", typeof(Brush), typeof(LineView), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
+          nameof(LineColor), typeof(Brush), typeof(LineView), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
 
         private void UserControl_MouseMove(object sender, MouseEventArgs e)
         {
@@ -132,20 +103,19 @@ namespace PeletonSoft.Tools.View.Controls
         }
 
         public static readonly RoutedEvent ThumbClickEvent = EventManager.RegisterRoutedEvent(
-            "ThumbClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LineView));
+            nameof(ThumbClick), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LineView));
 
         // Provide CLR accessors for the event 
         public ILineViewModel GetDataContext()
         {
             try
             {
-                return (ILineViewModel)DataContext;
+                return (ILineViewModel) DataContext;
             }
             catch (Exception)
             {
                 return null;
             }
-            
         }
 
         public event RoutedEventHandler ThumbClick
