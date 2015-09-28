@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel
 {

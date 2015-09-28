@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Geometry;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {

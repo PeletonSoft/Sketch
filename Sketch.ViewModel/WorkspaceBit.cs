@@ -3,9 +3,9 @@ using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Dependency;
-using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem;
-using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo;
-using PeletonSoft.Tools.Model.NotifyChanged.Render;
+using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
+using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
+using PeletonSoft.Tools.Model.ObjectEvent.Render;
 
 namespace PeletonSoft.Sketch.ViewModel
 {

@@ -6,28 +6,17 @@ using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.File;
-using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Present
 {
     public class PreviewPresentViewModel : CustomPresentViewModel
     {
-        private void OnPropertyChanged<T>(Expression<Func<PreviewPresentViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
 
         private readonly Lazy<ICommand> _lazyOpenFileCommand;
-        public ICommand OpenFileCommand
-        {
-            get { return _lazyOpenFileCommand.Value; }
-        }
+        public ICommand OpenFileCommand => _lazyOpenFileCommand.Value;
 
         private readonly Lazy<ICommand> _lazyCancelQuadrangleCommand;
-        public ICommand CancelQuadrangleCommand
-        {
-            get { return _lazyCancelQuadrangleCommand.Value; }
-        }
+        public ICommand CancelQuadrangleCommand => _lazyCancelQuadrangleCommand.Value;
 
         public PreviewPresentViewModel(IWorkspaceViewModel workspace)
             : base(workspace)
@@ -51,9 +40,9 @@ namespace PeletonSoft.Sketch.ViewModel.Present
         private void CancelQuadrangle()
         {
             _quadrangle = null;
-            OnPropertyChanged(p => p.Quadrangle);
-            OnPropertyChanged(p => p.ScreenScale);
-            OnPropertyChanged(p => p.Ratio);
+            OnPropertyChanged(nameof(Quadrangle));
+            OnPropertyChanged(nameof(ScreenScale));
+            OnPropertyChanged(nameof(Ratio));
         }
 
         private ImageBox _imageBox;

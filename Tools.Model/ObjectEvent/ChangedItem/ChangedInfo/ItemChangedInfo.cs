@@ -1,4 +1,4 @@
-﻿namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo
+﻿namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo
 {
     public abstract class ItemChangedInfo
     {

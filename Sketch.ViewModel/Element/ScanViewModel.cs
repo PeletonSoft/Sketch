@@ -6,7 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {

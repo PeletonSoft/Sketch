@@ -1,18 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 {
     public abstract class ElementVisualViewModel : IElementVisualViewModel<IElementViewModel>
     {
         #region implement INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -24,11 +22,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
         {
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(ref field, value);
-        }
-
-        private void OnPropertyChanged<T>(Expression<Func<ElementVisualViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
         }
         #endregion
 
@@ -50,22 +43,14 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
             setLayout();
 
             Element
-                .SetPropertyChanged(el => el.Visibility, () => OnPropertyChanged(v => v.Visibility))
-                .SetPropertyChanged(el => el.Opacity, () => OnPropertyChanged(v => v.Opacity))
-                .SetPropertyChanged(el => el.Layout, setLayout);
+                .SetPropertyChanged(nameof(Element.Visibility), () => OnPropertyChanged(nameof(Visibility)))
+                .SetPropertyChanged(nameof(Element.Opacity), () => OnPropertyChanged(nameof(Opacity)))
+                .SetPropertyChanged(nameof(Element.Layout), setLayout);
         }
 
-        protected VisualOptions VisualOptions { get; private set; }
-
-        public bool Visibility
-        {
-            get { return Element.Visibility; }
-        }
-
-        public double Opacity
-        {
-            get { return Element.Opacity; }
-        }
-        public IElementViewModel Element { get; private set; }
+        protected VisualOptions VisualOptions { get; }
+        public bool Visibility => Element.Visibility;
+        public double Opacity => Element.Opacity;
+        public IElementViewModel Element { get; }
     }
 }

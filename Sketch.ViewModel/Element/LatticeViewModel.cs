@@ -3,7 +3,7 @@ using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {

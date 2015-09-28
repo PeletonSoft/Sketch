@@ -1,49 +1,30 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
 {
     public class LineViewModel : ILineViewModel
     {
         #region implement INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
-
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
-        }
-
-        private void OnPropertyChanged<T>(Expression<Func<LineViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
         #endregion
 
         #region implement IOriginator
-
-        public void RestoreDefault()
-        {
-
-        }
-
+        public void RestoreDefault() => DoNothing();
         #endregion
 
         private IPointViewModel _start;
-
         public IPointViewModel Start
         {
             get { return _start; }
@@ -52,28 +33,23 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
                 if (value != _start)
                 {
                     _start = value;
-                    OnPropertyChanged(l => l.Start);
-                    OnPropertyChanged(l => l.Offset);
-                    OnPropertyChanged(l => l.X);
-                    OnPropertyChanged(l => l.Y);
+                    OnPropertyChanged(nameof(Start));
+                    OnPropertyChanged(nameof(Offset));
+                    OnPropertyChanged(nameof(X));
+                    OnPropertyChanged(nameof(Y));
                     _start.SetPropertyChanged(
-                        new[]
-                        {
-                            _start.GetPropertyName(p => p.X),
-                            _start.GetPropertyName(p => p.Y),
-                        },
+                        new[] {nameof(_start.X), nameof(_start.Y)},
                         () =>
                         {
-                            OnPropertyChanged(l => l.X);
-                            OnPropertyChanged(l => l.Y);
-                            OnPropertyChanged(l => l.Offset);
+                            OnPropertyChanged(nameof(X));
+                            OnPropertyChanged(nameof(Y));
+                            OnPropertyChanged(nameof(Offset));
                         });
                 }
             }
         }
 
         private IPointViewModel _finish;
-
         public IPointViewModel Finish
         {
             get { return _finish; }
@@ -82,19 +58,15 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
                 if (value != _finish)
                 {
                     _finish = value;
-                    OnPropertyChanged(l => l.Finish);
-                    OnPropertyChanged(l => l.Offset);
+                    OnPropertyChanged(nameof(Finish));
+                    OnPropertyChanged(nameof(Offset));
                     _finish.SetPropertyChanged(
-                        new[]
-                        {
-                            _finish.GetPropertyName(p => p.X),
-                            _finish.GetPropertyName(p => p.Y),
-                        },
+                        new[] {nameof(_finish.X), nameof(_finish.Y)},
                         () =>
                         {
-                            OnPropertyChanged(l => l.X);
-                            OnPropertyChanged(l => l.Y);
-                            OnPropertyChanged(l => l.Offset);
+                            OnPropertyChanged(nameof(X));
+                            OnPropertyChanged(nameof(Y));
+                            OnPropertyChanged(nameof(Offset));
                         });
                 }
             }
@@ -121,10 +93,7 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
             set { }
         }
 
-        public VertexViewModel Offset
-        {
-            get { return new VertexViewModel(Finish.X - Start.X, Finish.Y - Start.Y); }
-        }
+        public VertexViewModel Offset => new VertexViewModel(Finish.X - Start.X, Finish.Y - Start.Y);
 
         public ICommand InsertCommand { get; private set; }
 

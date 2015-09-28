@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model;
@@ -10,11 +9,12 @@ using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Container;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 
 namespace PeletonSoft.Sketch.ViewModel
@@ -33,11 +33,6 @@ namespace PeletonSoft.Sketch.ViewModel
         {
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(ref field, value);
-        }
-
-        private void OnPropertyChanged<T>(Expression<Func<WorkspaceViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
         }
 
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
@@ -80,7 +75,7 @@ namespace PeletonSoft.Sketch.ViewModel
                 CommandFactory.CreateCommand(Restore));
 
             ElementList = new ElementListViewModel(new WorkspaceBit(this));
-            this.SetPropertyChanged(w => w.WorkMode, () => ElementList.Unselect());
+            this.SetPropertyChanged(nameof(WorkMode), () => ElementList.Unselect());
         }
 
         public IElementListViewModel ElementList { get; private set; }

@@ -1,4 +1,4 @@
-﻿namespace PeletonSoft.Tools.Model.NotifyChanged
+﻿namespace PeletonSoft.Tools.Model.ObjectEvent
 {
     public class LockFlag
     {

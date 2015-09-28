@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -12,7 +11,7 @@ using PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 {
@@ -26,15 +25,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
-        }
-
-        private void OnPropertyChanged<T>(Expression<Func<DecorativeBorderVisualViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
+            notificator.SetField(ref field, value);
         }
         #endregion
 
@@ -45,9 +39,9 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             Chains = CalculateChains(Element.Points);
 
             Element
-                .SetPropertyChanged(el => el.Width, () => OnPropertyChanged(v => v.Width))
-                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(v => v.Height))
-                .SetPropertyChanged(el => el.Points, () => Chains = CalculateChains(Element.Points));
+                .SetPropertyChanged(nameof(Element.Width), () => OnPropertyChanged(nameof(Width)))
+                .SetPropertyChanged(nameof(Element.Height), () => OnPropertyChanged(nameof(Height)))
+                .SetPropertyChanged(nameof(Element.Points), () => Chains = CalculateChains(Element.Points));
 
             var commandFactory = VisualOptions.CommandFactory;
 

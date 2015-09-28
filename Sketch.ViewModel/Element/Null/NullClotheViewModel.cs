@@ -16,27 +16,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void RestoreDefault()
         {
-            
         }
 
-        public double? Height
-        {
-            get { return 0; } 
-            set { }
-        }
+        public double? Height { get; set; } = 0;
 
-        public double? Width
-        {
-            get { return 0; }
-            set { }
-        }
-        public double? Area
-        {
-            get { return 0; }
-            set { }
-        }
+        public double? Width { get; set; } = 0;
+        public double? Area { get; set; } = 0;
+
         public ICommand CalculateCommand { get; }
     }
 }

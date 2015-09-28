@@ -7,7 +7,8 @@ using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
@@ -84,10 +85,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                         this.ExtractGetter(nameof(RightSide), el => el.RightSide)
                     },
                     (side, propertyName) => side.SetPropertyChanged(
-                        new[]
-                        {
-                            nameof(side.Weight), nameof(side.TailScatter)
-                        },
+                        new[] {nameof(side.Weight), nameof(side.TailScatter)},
                         () => OnPropertyChanged(nameof(WavySurface))));
         }
 

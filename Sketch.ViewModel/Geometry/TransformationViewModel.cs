@@ -6,7 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Container;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {

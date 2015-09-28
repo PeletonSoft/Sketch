@@ -1,4 +1,4 @@
-namespace PeletonSoft.Tools.Model.NotifyChanged.Render
+namespace PeletonSoft.Tools.Model.ObjectEvent.Render
 {
     public interface INotifyRenderChanged<TR, TS, TD>
     {

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.Model.Element.Primitive;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
@@ -16,12 +16,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         private void OnPropertyChanged(string propertyName)
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
-
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
         }
 
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
@@ -38,15 +32,15 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         #endregion
 
         #region implement ViewModel
-        public Shoulder Model { get; private set; }
+        public Shoulder Model { get; }
 
         public void Synchronize(ShoulderViewModel destination)
         {
             this
-                .SetPropertyChanged(el => el.Length, () => destination.Length = Length)
-                .SetPropertyChanged(el => el.WaveHeight, () => destination.WaveHeight = WaveHeight)
-                .SetPropertyChanged(el => el.OffsetY, () => destination.OffsetY = OffsetY)
-                .SetPropertyChanged(el => el.Slope, () => destination.Slope = Slope);
+                .SetPropertyChanged(nameof(Length), () => destination.Length = Length)
+                .SetPropertyChanged(nameof(WaveHeight), () => destination.WaveHeight = WaveHeight)
+                .SetPropertyChanged(nameof(OffsetY), () => destination.OffsetY = OffsetY)
+                .SetPropertyChanged(nameof(Slope), () => destination.Slope = Slope);
         }
 
         #endregion

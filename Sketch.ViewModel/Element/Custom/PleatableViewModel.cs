@@ -13,7 +13,8 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
@@ -150,7 +151,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             WorkspaceBit = workspaceBit;
             Model = model;
 
-            this.SetPropertyChanged(el => el.Sheet, () => Model.Sheet = Sheet.Model);
+            this.SetPropertyChanged(nameof(Sheet), () => Model.Sheet = Sheet.Model);
             Sheet = NullSheet;
             Layout = new PleatableLayoutViewModel(WorkspaceBit, this);
 

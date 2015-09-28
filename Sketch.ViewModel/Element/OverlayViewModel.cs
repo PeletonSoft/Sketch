@@ -12,7 +12,9 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
@@ -41,10 +43,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         #endregion
 
         #region implement IOriginator
-        public void RestoreDefault()
-        {
-
-        }
+        public void RestoreDefault() => DoNothing();
         #endregion
 
         #region implement ISelectableList

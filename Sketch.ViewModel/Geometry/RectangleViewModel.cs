@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
@@ -12,40 +13,30 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
     {
 
         #region implement INotifyPropertyChanged
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
-        {
+        protected void OnPropertyChanged(string propertyName) => 
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
             return notificator.SetField(ref field, value);
         }
-
         #endregion
 
         #region implement IOriginator
-
-        public virtual void RestoreDefault()
-        {
-        }
+        public virtual void RestoreDefault() => DoNothing();
 
         #endregion
 
-        public VertexViewModel TopLeft { get; private set; }
-        public VertexViewModel TopRight { get; private set; }
-        public VertexViewModel BottomLeft { get; private set; }
-        public VertexViewModel BottomRight { get; private set; }
+        public VertexViewModel TopLeft { get; }
+        public VertexViewModel TopRight { get; }
+        public VertexViewModel BottomLeft { get; }
+        public VertexViewModel BottomRight { get; }
 
 
-        public IEnumerable<VertexViewModel> Vertices
-        {
-            get { return new[] {TopLeft, TopRight, BottomRight, BottomLeft}; }
-        }
+        public IEnumerable<VertexViewModel> Vertices => new[] {TopLeft, TopRight, BottomRight, BottomLeft};
 
         protected RectangleViewModel()
         {
@@ -55,14 +46,16 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             BottomLeft = new VertexViewModel(0, 0);
 
             this.PropertyIterate(
-                new Expression<Func<RectangleViewModel, VertexViewModel>>[]
+                new[]
                 {
-                    el => el.TopLeft, el => el.TopRight,
-                    el => el.BottomLeft, el => el.BottomRight
+                    this.ExtractGetter(nameof(TopLeft), el => el.TopLeft),
+                    this.ExtractGetter(nameof(TopRight), el => el.TopRight),
+                    this.ExtractGetter(nameof(BottomLeft), el => el.BottomLeft),
+                    this.ExtractGetter(nameof(BottomRight), el => el.BottomRight)
                 },
                 (vertex, propertyName) =>
                     vertex.SetPropertyChanged(
-                        new Expression<Func<VertexViewModel, double>>[] {v => v.X, v => v.Y},
+                        new[] {nameof(vertex.X), nameof(vertex.Y)},
                         () => OnPropertyChanged(propertyName)));
         }
     }

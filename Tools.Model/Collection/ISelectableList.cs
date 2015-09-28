@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged
+namespace PeletonSoft.Tools.Model.Collection
 {
 
     public interface ISelectableList<out T> : INotifyPropertyChanged

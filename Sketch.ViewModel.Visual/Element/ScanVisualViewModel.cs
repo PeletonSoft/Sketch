@@ -1,59 +1,44 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Custom;
 using PeletonSoft.Tools.Model.File;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element
 {
     public sealed class ScanVisualViewModel : ElementVisualViewModel, IElementVisualViewModel<ScanViewModel>
     {
-        private void OnPropertyChanged<T>(Expression<Func<ScanVisualViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
         public ScanVisualViewModel(VisualOptions visualOptions, ScanViewModel element)
             : base(visualOptions, element)
         {
             Element
-                .SetPropertyChanged(el => el.Transformation,
+                .SetPropertyChanged(nameof(Element.Transformation),
                     () =>
                     {
-                        OnPropertyChanged(v => v.RotationAngle);
-                        OnPropertyChanged(v => v.RotationScale);
+                        OnPropertyChanged(nameof(RotationAngle));
+                        OnPropertyChanged(nameof(RotationScale));
                     })
-                .SetPropertyChanged(el => el.ImageBox, () => OnPropertyChanged(v => ImageBox))
+                .SetPropertyChanged(nameof(Element.ImageBox), () => OnPropertyChanged(nameof(ImageBox)))
                 .SetPropertyChanged(
                     new[]
                     {
-                        element.GetPropertyName(el => el.Width),
-                        element.GetPropertyName(el => el.Height),
-                        element.GetPropertyName(el => el.Rectangle)
+                        nameof(Element.Width), nameof(Element.Height), nameof(Element.Rectangle)
                     },
                     () =>
                     {
-                        OnPropertyChanged(v => v.Clip);
-                        OnPropertyChanged(v => v.Scale);
-                        OnPropertyChanged(v => v.Angle);
-                        OnPropertyChanged(v => v.Center);
-                        OnPropertyChanged(v => v.Shift);
-                        OnPropertyChanged(v => v.RotationScale);
+                        OnPropertyChanged(nameof(Clip));
+                        OnPropertyChanged(nameof(Scale));
+                        OnPropertyChanged(nameof(Angle));
+                        OnPropertyChanged(nameof(Center));
+                        OnPropertyChanged(nameof(Shift));
+                        OnPropertyChanged(nameof(RotationScale));
                     });
         }
 
-        public new ScanViewModel Element
-        {
-            get { return (ScanViewModel) base.Element; }
-        }
-
-        public Rect Clip
-        {
-            get { return new Rect(new Point(0, 0), Element.Rectangle.Size); }
-        }
+        public new ScanViewModel Element => (ScanViewModel) base.Element;
+        public Rect Clip => new Rect(new Point(0, 0), Element.Rectangle.Size);
 
         public Point Scale
         {
@@ -66,30 +51,11 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
             }
         }
 
-        public double Angle
-        {
-            get { return -Element.Rectangle.Angle*180/Math.PI; }
-        }
-
-        public Point Center
-        {
-            get { return Element.Rectangle.Center; }
-        }
-
-        public Point Shift
-        {
-            get { return new Point(-Center.X, -Center.Y); }
-        }
-
-        public ImageBox ImageBox
-        {
-            get { return Element.ImageBox; }
-        }
-
-        public double RotationAngle
-        {
-            get { return -Element.Transformation.Rotation.Angle*180/Math.PI; }
-        }
+        public double Angle => -Element.Rectangle.Angle*180/Math.PI;
+        public Point Center => Element.Rectangle.Center;
+        public Point Shift => new Point(-Center.X, -Center.Y);
+        public ImageBox ImageBox => Element.ImageBox;
+        public double RotationAngle => -Element.Transformation.Rotation.Angle*180/Math.PI;
 
         public Point RotationScale
         {

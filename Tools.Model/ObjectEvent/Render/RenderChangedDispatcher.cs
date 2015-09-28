@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged.Render
+namespace PeletonSoft.Tools.Model.ObjectEvent.Render
 {
     public class RenderChangedDispatcher<TR, TS,  TD>
     {
@@ -52,10 +52,7 @@ namespace PeletonSoft.Tools.Model.NotifyChanged.Render
                 .Select(value => value());
             var args = new RenderChangedEventHandlerArgs<IEnumerable<TD>>(renderData);
             var handler = RenderChanged;
-            if (handler != null)
-            {
-                handler(responder, args);
-            }
+            handler?.Invoke(responder, args);
         }
 
     }

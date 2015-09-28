@@ -1,6 +1,6 @@
 ﻿using System.Security.Permissions;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem
+namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem
 {
     [HostProtection(SecurityAction.LinkDemand, SharedState = true)]
     public delegate void ItemChangedEventHandler(

@@ -1,4 +1,4 @@
-﻿namespace PeletonSoft.Tools.Model.NotifyChanged
+﻿namespace PeletonSoft.Tools.Model.Collection
 {
     public static class SelectableListHelper
     {

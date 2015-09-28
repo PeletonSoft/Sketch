@@ -1,10 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged
+namespace PeletonSoft.Tools.Model.ObjectEvent
 {
-    public class Getter<TS,TP> where TS : class, INotifyPropertyChanged
+    public class Getter<TS,TP> where TS : class
     {
         public Func<TS,TP> GetterValue { get; }
         public string PropertyName { get; }

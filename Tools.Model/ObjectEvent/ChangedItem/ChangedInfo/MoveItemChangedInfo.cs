@@ -1,9 +1,9 @@
-﻿namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo
+﻿namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo
 {
     public sealed class MoveItemChangedInfo : ItemChangedInfo
     {
-        public int SourceIndex { get; private set; }
-        public int DestionationIndex { get; private set; }
+        public int SourceIndex { get; }
+        public int DestionationIndex { get; }
 
         public MoveItemChangedInfo(int sourceIndex, int destionationIndex)
         {
@@ -29,9 +29,6 @@
             return result;
         }
 
-        public override bool IsEmptyChanged(int count)
-        {
-            return false;
-        }
+        public override bool IsEmptyChanged(int count) => false;
     }
 }

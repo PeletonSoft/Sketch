@@ -7,7 +7,7 @@ using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
@@ -42,14 +42,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 .SetPropertyChanged(nameof(Width), () => { DecorativeBorder.Width = Width; });
 
             DecorativeBorder
-                .SetPropertyChanged(nameof(DecorativeBorderViewModel.Height),
+                .SetPropertyChanged(nameof(DecorativeBorder.Height),
                     () =>
                     {
                         DenseHeight = DenseHeight;
                         OnPropertyChanged(nameof(WavySurface));
                         OnPropertyChanged(nameof(Circuit));
                     })
-                .SetPropertyChanged(db => db.Points, () => OnPropertyChanged(nameof(Points)));
+                .SetPropertyChanged(nameof(DecorativeBorder.Points), () => OnPropertyChanged(nameof(Points)));
 
             DecorativeBorder.ResetChains();
         }

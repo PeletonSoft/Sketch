@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
+﻿using System.ComponentModel;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
-using PeletonSoft.Tools.Model.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual
 {
@@ -17,11 +15,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
-
-        private void OnPropertyChanged<T>(Expression<Func<ScreenVisualViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
         #endregion
 
 
@@ -30,28 +23,13 @@ namespace PeletonSoft.Sketch.ViewModel.Visual
             VisualOptions = visualOptions;
             Element = element;
             Element
-                .SetPropertyChanged(el => el.Width, () => OnPropertyChanged(v => v.Width))
-                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(v => v.Height));
+                .SetPropertyChanged(nameof(Element.Width), () => OnPropertyChanged(nameof(Width)))
+                .SetPropertyChanged(nameof(Element.Height), () => OnPropertyChanged(nameof(Height)));
         }
 
-        private VisualOptions VisualOptions { get; set; }
-
-        public double Width
-        {
-            get
-            {
-                return VisualOptions.PixelPerUnit.Transform(Element.Width);
-            }
-        }
-
-        public double Height
-        {
-            get
-            {
-                return VisualOptions.PixelPerUnit.Transform(Element.Height);
-            }
-        }
-
+        private VisualOptions VisualOptions { get; }
+        public double Width => VisualOptions.PixelPerUnit.Transform(Element.Width);
+        public double Height => VisualOptions.PixelPerUnit.Transform(Element.Height);
         public IScreenViewModel Element { get; set; }
 
     }

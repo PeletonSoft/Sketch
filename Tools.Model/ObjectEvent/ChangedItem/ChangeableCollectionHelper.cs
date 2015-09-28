@@ -1,35 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using PeletonSoft.Tools.Model.Collection;
-using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo;
+using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem
+namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem
 {
     public static class ChangeableCollectionHelper
     {
-        public static int Count<T>(this IChangeableCollection<T> collection)
-        {
-            return collection.Collection.Count;
-        }
-        public static bool AllowMoveUp<T>(this IChangeableCollection<T> collection)
-        {
-            return collection.SelectedIndex >= 1 && collection.SelectedIndex < collection.Count();
-        }
+        public static int Count<T>(this IChangeableCollection<T> collection) => 
+            collection.Collection.Count;
 
-        public static bool AllowMoveDown<T>(this IChangeableCollection<T> collection)
-        {
-            return collection.SelectedIndex >= 0 && collection.SelectedIndex < collection.Count() - 1;
-        }
+        public static bool AllowMoveUp<T>(this IChangeableCollection<T> collection) => 
+            collection.SelectedIndex >= 1 && collection.SelectedIndex < collection.Count();
 
-        public static bool AllowRemove<T>(this IChangeableCollection<T> collection)
-        {
-            return collection.SelectedIndex >= 0 && collection.SelectedIndex < collection.Count();
-        }
+        public static bool AllowMoveDown<T>(this IChangeableCollection<T> collection) => 
+            collection.SelectedIndex >= 0 && collection.SelectedIndex < collection.Count() - 1;
 
-        public static bool IsEmpty<T>(this IChangeableCollection<T> collection)
-        {
-            return collection.Count() == 0;
-        }
+        public static bool AllowRemove<T>(this IChangeableCollection<T> collection) => 
+            collection.SelectedIndex >= 0 && collection.SelectedIndex < collection.Count();
+
+        public static bool IsEmpty<T>(this IChangeableCollection<T> collection) => 
+            collection.Count() == 0;
+
         public static void DoMoveTo<T>(
             this IChangeableCollection<T> collection, IList<T> list, 
             Action<ItemChangedInfo> onItemChanged, int sourceIndex, int destinationIndex)

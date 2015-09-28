@@ -1,6 +1,6 @@
 ﻿using PeletonSoft.Tools.Model.Collection;
 
-namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem
+namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem
 {
     public interface IChangeableCollection<T> : INotifyItemChanged, ISelectableList<T>
     {

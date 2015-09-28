@@ -1,8 +1,8 @@
-﻿namespace PeletonSoft.Tools.Model.NotifyChanged.ChangedItem.ChangedInfo
+﻿namespace PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo
 {
     public sealed class RemoveItemChangedInfo : ItemChangedInfo
     {
-        public int Index { get; private set; }
+        public int Index { get; }
 
         public RemoveItemChangedInfo(int index)
         {
@@ -19,9 +19,6 @@
             return index - (index < Index ? 0 : 1);
         }
 
-        public override bool IsEmptyChanged(int count)
-        {
-            return count == 0;
-        }
+        public override bool IsEmptyChanged(int count) => count == 0;
     }
 }

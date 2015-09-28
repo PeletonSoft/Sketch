@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Tools;
 using PeletonSoft.Tools.Model.Dependency;
-using PeletonSoft.Tools.Model.NotifyChanged.ChangedItem;
+using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
