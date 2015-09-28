@@ -16,16 +16,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         }
 
         private readonly Lazy<IEnumerable<IContainerRecord<ILayoutViewModel>>> _lazyItems;
-
-        public IEnumerable<IContainerRecord<ILayoutViewModel>> Items
-        {
-            get { return _lazyItems.Value; }
-        }
-
-        public ILayoutViewModel Default
-        {
-            get { return LeftLayout; }
-        }
+        public IEnumerable<IContainerRecord<ILayoutViewModel>> Items => _lazyItems.Value;
+        public ILayoutViewModel Default => LeftLayout;
 
         public LayoutViewModels(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
         {
@@ -42,9 +34,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
                 });
         }
 
-        public ILayoutViewModel RightLayout { get; private set; }
-
-        public ILayoutViewModel LeftLayout { get; private set; }
+        public ILayoutViewModel RightLayout { get; }
+        public ILayoutViewModel LeftLayout { get; }
 
         protected WorkspaceBit WorkspaceBit { get; set; }
         protected IAlignableElementViewModel Element { get; set; }

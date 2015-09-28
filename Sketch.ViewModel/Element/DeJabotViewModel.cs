@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
@@ -14,15 +12,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class DeJabotViewModel : AlignableElementViewModel, INotifyViewModel<DeJabot>
     {
-        private void OnPropertyChanged<T>(Expression<Func<DeJabotViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
-        public new DeJabot Model
-        {
-            get { return (DeJabot) base.Model; }
-        }
+        public new DeJabot Model => (DeJabot) base.Model;
 
         public DeJabotViewModel(IWorkspaceBit workspaceBit, DeJabot model)
             : base(workspaceBit, model)
@@ -38,19 +28,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             this.SetPropertyChanged(
                 new[]
                 {
-                    this.GetPropertyName(el => el.Width),
-                    this.GetPropertyName(el => el.Height),
-                    this.GetPropertyName(el => el.SmallHeight),
-                    this.GetPropertyName(el => el.Alignment),
-                    this.GetPropertyName(el => el.WaveCount),
-                    this.GetPropertyName(el => el.WaveHeight),
-                    this.GetPropertyName(el => el.WaveAlignment)
+                    nameof(Width), nameof(Height),
+                    nameof(SmallHeight), nameof(Alignment),
+                    nameof(WaveCount), nameof(WaveHeight),
+                    nameof(WaveAlignment)
                 },
                 () =>
                 {
                     if (Width > 0.001 && Height > 0.005 && WaveCount > 0)
                     {
-                        OnPropertyChanged(el => el.WavySurface);
+                        OnPropertyChanged(nameof(WavySurface));
                     }
                 });
         }
@@ -85,10 +72,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(() => Model.WaveAlignment, v => Model.WaveAlignment = v, value); }
         }
 
-        public IWavyBorder<IEnumerable<Point>> WavySurface
-        {
-            get { return Model.GetWavySurface(); }
-        }
-
+        public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
     }
 }

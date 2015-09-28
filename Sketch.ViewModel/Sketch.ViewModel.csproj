@@ -65,7 +65,7 @@
     <Compile Include="Element\Layout\NullLayoutViewModel.cs" />
     <Compile Include="Element\PleatViewModel.cs" />
     <Compile Include="Element\Primitive\AlignableHelper.cs" />
-    <Compile Include="Element\Primitive\NullClotheViewModel.cs" />
+    <Compile Include="Element\Null\NullClotheViewModel.cs" />
     <Compile Include="FactoryCollection.cs" />
     <Compile Include="Factory\LatticeFactoryViewModel.cs" />
     <Compile Include="Factory\PleatFactoryViewModel.cs" />

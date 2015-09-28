@@ -20,11 +20,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
         {
         }
 
-        private readonly ILayoutViewModel _layout;
-        public ILayoutViewModel Layout
-        {
-            get { return _layout; }
-        }
+        public ILayoutViewModel Layout { get; }
 
         public string Description
         {
@@ -32,8 +28,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             set { }
         }
 
-        public IClotheViewModel Clothe { get; private set; }
-        public IReadOnlyList<IElementViewModel> Below { get; private set; }
+        public IClotheViewModel Clothe { get; }
+        public IReadOnlyList<IElementViewModel> Below { get; }
         public ICommand MoveToElementCommand { get; set; }
 
         public bool Visibility
@@ -58,7 +54,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
 
         public NullElementViewModel()
         {
-            _layout = new NullLayoutViewModel();
+            Layout = new NullLayoutViewModel();
             Below = new List<IElementViewModel>();
             Clothe = new NullClotheViewModel();
         }

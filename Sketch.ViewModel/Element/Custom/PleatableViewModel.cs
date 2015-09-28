@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -40,16 +39,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(getValue, setValue, value);
         }
-
-        private void OnPropertyChanged<T>(Expression<Func<PleatableViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
+        
         #endregion
 
         #region implement IViewModel
-        public Pleatable Model { get; private set; }
+        public Pleatable Model { get; }
         #endregion
 
         #region implement IOriginator
@@ -68,7 +62,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public virtual void BeforeDelete()
         {
             WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
-            Sheet = _nullSheet;
+            Sheet = NullSheet;
         }
         #endregion
 
@@ -91,22 +85,19 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         public ICommand MoveToElementCommand { get; set; }
 
-        public IReadOnlyList<IElementViewModel> Below
-        {
-            get { return WorkspaceBit.GetBelowElements(this); }
-        }
+        public IReadOnlyList<IElementViewModel> Below => WorkspaceBit.GetBelowElements(this);
         #endregion
 
-        protected IWorkspaceBit WorkspaceBit { get; private set; }
+        protected IWorkspaceBit WorkspaceBit { get; }
 
-        private readonly ISheetElementViewModel _nullSheet;
+        private ISheetElementViewModel NullSheet { get; } = new NullSheetViewModel();
         private ISheetElementViewModel GetSheet()
         {
             var sheet = Below
                 .OfType<ISheetElementViewModel>()
                 .Reverse()
                 .FirstOrDefault();
-            return sheet ?? _nullSheet;
+            return sheet ?? NullSheet;
         }
 
         private ISheetElementViewModel _sheet;
@@ -124,24 +115,18 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             {
                 WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
                 Sheet = newSheet;
-                _notifyRenderChanged = WorkspaceBit.RenderChangedDispatcher
+                NotifyRenderChangedAction = WorkspaceBit.RenderChangedDispatcher
                     .Subscribe(this, Sheet, () => Model.GetRenderArea());
             }
         }
 
-        private Action _notifyRenderChanged;
+        private Action NotifyRenderChangedAction { get; set; }
         private void NotifyRenderChanged()
         {
-            if (_notifyRenderChanged != null)
-            {
-                _notifyRenderChanged();
-            }
+            NotifyRenderChangedAction?.Invoke();
         }
 
-        public IWavyBorder<IEnumerable<Point>> WavySurface
-        {
-            get { return Model.GetWavySurface(); }
-        }
+        public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
 
         public ElementAlignment Alignment
         {
@@ -160,14 +145,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             set { SetField(() => Model.WaveCount, v => Model.WaveCount = v, value); }
         }
 
-        public PleatableViewModel(IWorkspaceBit workspaceBit, Pleatable model)
+        protected PleatableViewModel(IWorkspaceBit workspaceBit, Pleatable model)
         {
             WorkspaceBit = workspaceBit;
             Model = model;
 
             this.SetPropertyChanged(el => el.Sheet, () => Model.Sheet = Sheet.Model);
-            _nullSheet = new NullSheetViewModel();
-            Sheet = _nullSheet;
+            Sheet = NullSheet;
             Layout = new PleatableLayoutViewModel(WorkspaceBit, this);
 
             Visibility = true;
@@ -180,35 +164,31 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             Action sheetChange =
                 () =>
                 {
-                    OnPropertyChanged(el => el.WavySurface);
-                    OnPropertyChanged(el => el.Rect);
+                    OnPropertyChanged(nameof(WavySurface));
+                    OnPropertyChanged(nameof(Rect));
                     NotifyRenderChanged();
                 };
 
             this
-                .SetPropertyChanged(el => el.Visibility, NotifyRenderChanged)
+                .SetPropertyChanged(nameof(Visibility), NotifyRenderChanged)
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.Sheet),
-                        this.GetPropertyName(el => el.Alignment),
-                        this.GetPropertyName(el => el.DenseWidth),
-                        this.GetPropertyName(el => el.WaveCount)
+                        nameof(Sheet), nameof(Alignment),
+                        nameof(DenseWidth), nameof(WaveCount)
                     },
-                    () => OnPropertyChanged(el => el.WavySurface))
-                .SetPropertyChanged(el => el.Sheet, sh => sh.Width, sheetChange)
-                .SetPropertyChanged(el => el.Sheet, sh => sh.Height, sheetChange)
-                .SetPropertyChanged(el => el.Sheet, sh => sh.OffsetX, sheetChange)
-                .SetPropertyChanged(el => el.Sheet, sh => sh.OffsetY, sheetChange)
-                .SetPropertyChanged(el => el.Sheet, sh => sh.Layout, sheetChange);
+                    () => OnPropertyChanged(nameof(WavySurface)))
+                .SetPropertyChanged(
+                    this.ExtractGetter(nameof(Sheet), el => el.Sheet),
+                    new[]
+                    {
+                        nameof(Sheet.Layout), nameof(Sheet.Width),
+                        nameof(Sheet.OffsetX), nameof(Sheet.OffsetY)
+                    },
+                    sheetChange);
         }
 
-        public ILayoutViewModel Layout { get; private set; }
-
-        public Rect Rect
-        {
-            get { return Model.GetRect(); }
-        }
-
+        public ILayoutViewModel Layout { get; }
+        public Rect Rect => Model.GetRect();
     }
 }

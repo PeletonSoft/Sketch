@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.NotifyChanged;
@@ -10,16 +8,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
     public class PresentQuadrangleViewModel : RectangleViewModel
     {
-        private void OnPropertyChanged<T>(Expression<Func<PresentQuadrangleViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
         #region implement IOriginator
-        public override void RestoreDefault()
-        {
-            Default();
-        }
+
+        public override void RestoreDefault() => Default();
+
         #endregion
 
         private void Default()
@@ -30,7 +22,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             TopRight.Point = new Point(0, Size);
         }
 
-        public double Size { get; private set; }
+        public double Size { get; }
 
         public PresentQuadrangleViewModel(double size, SuperimposeOptionViewModel superimposeOption)
         {
@@ -39,12 +31,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             Default();
 
             this.SetPropertyChanged(
-                new Expression<Func<PresentQuadrangleViewModel,VertexViewModel>>[]
+                new[]
                 {
-                    q => q.TopLeft,q => q.TopRight, 
-                    q => q.BottomLeft, q => q.BottomRight
+                    nameof(TopLeft), nameof(TopRight),
+                    nameof(BottomLeft), nameof(BottomRight)
                 },
-                () => OnPropertyChanged(q => q.Points));
+                () => OnPropertyChanged(nameof(Points)));
         }
 
         public IEnumerable<Point> Points

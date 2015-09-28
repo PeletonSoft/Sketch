@@ -15,18 +15,9 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             Layout
         };
         private readonly Lazy<IEnumerable<IContainerRecord<IPresentViewModel>>> _lazyItems;
-        public IEnumerable<IContainerRecord<IPresentViewModel>> Items
-        {
-            get
-            {
-                return _lazyItems.Value;
-            }
-        }
+        public IEnumerable<IContainerRecord<IPresentViewModel>> Items => _lazyItems.Value;
 
-        public IPresentViewModel Default
-        {
-            get { return this.GetValueByKey(Types.Layout); }
-        }
+        public IPresentViewModel Default => this.GetValueByKey(Types.Layout);
 
         public PresentViewModels(WorkspaceViewModel workspace)
         {
@@ -43,9 +34,9 @@ namespace PeletonSoft.Sketch.ViewModel.Container
                 });
         }
 
-        public IPresentViewModel PreviewPresent { get; private set; }
+        public IPresentViewModel PreviewPresent { get; }
 
-        public IPresentViewModel LayoutPresent { get; private set; }
+        public IPresentViewModel LayoutPresent { get; }
 
         public void RestoreDefault()
         {

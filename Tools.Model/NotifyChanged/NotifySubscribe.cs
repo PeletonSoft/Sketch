@@ -8,13 +8,13 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
 {
     public static class NotifySubscribe
     {
-        private static void SetPropertyChanged<T>(this T sender,
+        public static T SetPropertyChanged<T>(this T sender,
             string propertyName, Action handler) 
             where T : class, INotifyPropertyChanged
         {
             if (sender == null)
             {
-                return;
+                return null;
             }
 
             sender.PropertyChanged +=
@@ -25,6 +25,7 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
                         handler();
                     }
                 };
+            return sender;
         }
 
         private static T SetPropertyChanged<T>(this T sender,
@@ -76,9 +77,9 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
         }
 
 
-        public static T SetPropertyChanged<T, TM, TU>(this T sender,
-            Expression<Func<T, TM>> leftExpression,
-            Expression<Func<TM, TU>> rightExpression,
+        public static T SetPropertyChanged<T, TM>(this T sender,
+            Getter<T, TM> leftGetter,
+            string rightPropertyName,
             Action handler)
             where T : class, INotifyPropertyChanged
             where TM : class, INotifyPropertyChanged
@@ -87,12 +88,6 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
             {
                 return null;
             }
-
-            var leftMapper = new PropertyMapper<T>();
-            var leftPropertyName = leftMapper.PropertyName(leftExpression);
-
-            var rightMapper = new PropertyMapper<TM>();
-            var rightPropertyName = rightMapper.PropertyName(rightExpression);
 
             PropertyChangedEventHandler rightPropertyChangedAction =
                 (o, args) =>
@@ -103,8 +98,7 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
                     }
                 };
 
-            var leftValueFunc = leftExpression.Compile();
-            var lastLeftValue = leftValueFunc(sender);
+            var lastLeftValue = leftGetter.GetterValue(sender);
 
             if (lastLeftValue != null)
             {
@@ -114,23 +108,101 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
             sender.PropertyChanged +=
                 (o, args) =>
                 {
-                    if (args.PropertyName == leftPropertyName)
+                    if (args.PropertyName == leftGetter.PropertyName)
                     {
                         if (lastLeftValue != null)
                         {
                             lastLeftValue.PropertyChanged -= rightPropertyChangedAction;
                         }
-                        lastLeftValue = leftValueFunc(sender);
+
+                        lastLeftValue = leftGetter.GetterValue(sender);
 
                         if (lastLeftValue != null)
                         {
                             lastLeftValue.PropertyChanged += rightPropertyChangedAction;
                         }
+
                         handler();
                     }
                 };
             return sender;
         }
+
+
+        public static T SetPropertyChanged<T, TM, TU>(this T sender,
+            Expression<Func<T, TM>> leftExpression,
+            Expression<Func<TM, TU>> rightExpression,
+            Action handler)
+            where T : class, INotifyPropertyChanged
+            where TM : class, INotifyPropertyChanged
+        {
+            var rightMapper = new PropertyMapper<TM>();
+            var rightPropertyName = rightMapper.PropertyName(rightExpression);
+            return sender.SetPropertyChanged(new Getter<T,TM>(leftExpression), rightPropertyName, handler);
+        }
+
+        public static T SetPropertyChanged<T, TM>(this T sender,
+            Getter<T, TM> leftGetter,
+            string[] rightPropertyNames,
+            Action handler)
+            where T : class, INotifyPropertyChanged
+            where TM : class, INotifyPropertyChanged
+        {
+            if (sender == null)
+            {
+                return null;
+            }
+
+
+            PropertyChangedEventHandler rightPropertyChangedAction =
+                (o, args) =>
+                {
+                    if (rightPropertyNames.Contains(args.PropertyName))
+                    {
+                        handler();
+                    }
+                };
+
+            var lastLeftValue = leftGetter.GetterValue(sender);
+
+            if (lastLeftValue != null)
+            {
+                lastLeftValue.PropertyChanged += rightPropertyChangedAction;
+            }
+
+            sender.PropertyChanged +=
+                (o, args) =>
+                {
+                    if (args.PropertyName == leftGetter.PropertyName)
+                    {
+                        if (lastLeftValue != null)
+                        {
+                            lastLeftValue.PropertyChanged -= rightPropertyChangedAction;
+                        }
+
+                        lastLeftValue = leftGetter.GetterValue(sender);
+
+                        if (lastLeftValue != null)
+                        {
+                            lastLeftValue.PropertyChanged += rightPropertyChangedAction;
+                        }
+
+                        handler();
+                    }
+                };
+            return sender;
+        }
+
+        public static T PropertyIterate<T, TU>(this T sender,
+            IEnumerable<Getter<T,TU>> getters,
+            Action<TU, string> handler)
+            where T : class, INotifyPropertyChanged
+        {
+            getters.ToList()
+                .ForEach(getter => handler(getter.GetterValue(sender), getter.PropertyName));
+            return sender;
+        }
+
 
         public static T PropertyIterate<T, TU>(this T sender,
             IEnumerable<Expression<Func<T, TU>>> properties,
@@ -144,7 +216,6 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
                 handler(value, propertyName);
             }
             return sender;
-
         }
     }
 }

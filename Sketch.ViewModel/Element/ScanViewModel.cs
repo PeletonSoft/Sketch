@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
@@ -14,48 +12,40 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public class ScanViewModel : AlignableElementViewModel, INotifyViewModel<Scan>
     {
-        private void OnPropertyChanged<T>(Expression<Func<ScanViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
 
-        public new Scan Model
-        {
-            get { return (Scan) base.Model; }
-        }
+        public new Scan Model => (Scan) base.Model;
 
         public ScanViewModel(IWorkspaceBit workspaceBit, Scan model)
             : base(workspaceBit, model)
         {
             CropVisible = false;
-            Transformation = new TransformationViewModel();
-            Rectangle = new ScanRectangleViewModel(0, 0);
 
             var commandFactory = WorkspaceBit.CommandFactory;
             OpenFileCommand = commandFactory.CreateCommand(parameter => OpenFile((ImageBox) parameter));
             CancelRectangeCommand = commandFactory.CreateCommand(CancelRectange);
-            SuperimposeOption = new SuperimposeOptionViewModel();
 
             this
-                .SetPropertyChanged(el => el.ImageBox, CancelRectange);
+                .SetPropertyChanged(nameof(ImageBox), CancelRectange);
 
             Transformation
                 .SetPropertyChanged(
                     new[]
                     {
-                        Transformation.GetPropertyName(t => t.Rotation),
-                        Transformation.GetPropertyName(t => t.Reflection)
+                        nameof(Transformation.Rotation),
+                        nameof(Transformation.Reflection)
                     },
-                    () => OnPropertyChanged(el => el.Transformation));
+                    () => OnPropertyChanged(nameof(Transformation)));
 
             Rectangle
                 .SetPropertyChanged(
-                    new Expression<Func<RectangleViewModel, VertexViewModel>>[]
+                    new []
                     {
-                        el => el.TopLeft, el => el.TopRight,
-                        el => el.BottomLeft, el => el.BottomRight
+                        nameof(Rectangle.TopLeft),
+                        nameof(Rectangle.TopRight),
+                        nameof(Rectangle.BottomLeft),
+                        nameof(Rectangle.BottomRight)
                     },
-                    () => OnPropertyChanged(el => el.Rectangle));
+                    () => OnPropertyChanged(nameof(Rectangle)));
         }
         
         public ImageBox ImageBox
@@ -71,9 +61,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(ref _cropVisible, value && ImageBox != null); }
         }
 
-        public TransformationViewModel Transformation { get; private set; }
-        public ScanRectangleViewModel Rectangle { get; private set; }
-        public SuperimposeOptionViewModel SuperimposeOption { get; private set; }
+        public TransformationViewModel Transformation { get; } = new TransformationViewModel();
+        public ScanRectangleViewModel Rectangle { get; } = new ScanRectangleViewModel(0, 0);
+        public SuperimposeOptionViewModel SuperimposeOption { get; } = new SuperimposeOptionViewModel();
 
         public ICommand OpenFileCommand { get; private set; }
         public ICommand CancelRectangeCommand { get; private set; }
@@ -89,7 +79,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             if (ImageBox != null)
             {
                 Rectangle.Default(ImageBox.Width, ImageBox.Height);
-                OnPropertyChanged(el => el.Rectangle);
+                OnPropertyChanged(nameof(Rectangle));
             }
         }
     }

@@ -12,9 +12,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         {
         }
 
-        public new ISheet Model
-        {
-            get { return (ISheet) base.Model; }
-        }
+        public new ISheet Model => (ISheet) base.Model;
     }
 }

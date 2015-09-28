@@ -18,16 +18,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         }
 
         private readonly Lazy<IEnumerable<IContainerRecord<RotationViewModel>>> _lazyItems;
-
-        public IEnumerable<IContainerRecord<RotationViewModel>> Items
-        {
-            get { return _lazyItems.Value; }
-        }
-
-        public RotationViewModel Default
-        {
-            get { return this.GetValueByKey(Types.By0); }
-        }
+        public IEnumerable<IContainerRecord<RotationViewModel>> Items => _lazyItems.Value;
+        public RotationViewModel Default => this.GetValueByKey(Types.By0);
 
         public RotationViewModels()
         {

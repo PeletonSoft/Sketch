@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
@@ -28,36 +27,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(ref field, value);
         }
-
-        private void OnPropertyChanged<T>(Expression<Func<PleatableLayoutViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
         #endregion
 
         public void RestoreDefault()
         {
         }
 
-        public double Width
-        {
-            get { return Rect.Width; }
-        }
-
-        public double Height
-        {
-            get { return Rect.Height; }
-        }
-
-        public double Left
-        {
-            get { return Transform(Element.Rect).X; }
-        }
-
-        public double Top
-        {
-            get { return Transform(Element.Rect).Y; }
-        }
+        public double Width => Rect.Width;
+        public double Height => Rect.Height;
+        public double Left => Transform(Element.Rect).X;
+        public double Top => Transform(Element.Rect).Y;
 
         public Rect Transform(Rect rect)
         {
@@ -78,10 +57,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
             set { SetField(ref _opacityMask, value); }
         }
 
-        public Rect Rect
-        {
-            get { return new Rect(new Point(0, 0), Element.Rect.Size); }
-        }
+        public Rect Rect => new Rect(new Point(0, 0), Element.Rect.Size);
 
         public PleatableLayoutViewModel(IWorkspaceBit workspaceBit, PleatableViewModel element)
 
@@ -102,26 +78,23 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
                 .SetPropertyChanged(
                     new[]
                     {
-                        Element.GetPropertyName(el => el.Sheet),
-                        Element.GetPropertyName(el => el.Rect)
+                        nameof(Element.Sheet),
+                        nameof(Element.Rect)
                     }, () =>
                     {
-                        OnPropertyChanged(l => l.Rect);
-                        OnPropertyChanged(l => l.Width);
-                        OnPropertyChanged(l => l.Height);
-                        OnPropertyChanged(l => l.Top);
-                        OnPropertyChanged(l => l.Left);
+                        OnPropertyChanged(nameof(Rect));
+                        OnPropertyChanged(nameof(Width));
+                        OnPropertyChanged(nameof(Height));
+                        OnPropertyChanged(nameof(Top));
+                        OnPropertyChanged(nameof(Left));
                     });
 
         }
 
         public IWorkspaceBit WorkspaceBit { get; set; }
 
-        private PleatableViewModel Element { get; set; }
+        private PleatableViewModel Element { get; }
 
-        IElementViewModel ILayoutViewModel.Element
-        {
-            get { return Element; }
-        }
+        IElementViewModel ILayoutViewModel.Element => Element;
     }
 }

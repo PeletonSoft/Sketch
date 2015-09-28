@@ -12,24 +12,16 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         {
         }
 
-        public IEnumerable<IContainerRecord<IWorkModeViewModel>> Items
-        {
-            get
+        public IEnumerable<IContainerRecord<IWorkModeViewModel>> Items =>
+            new[]
             {
-                return new[]
-                {
-                    new ContainerRecord<IWorkModeViewModel>("Editor",
-                        typeof (EditorWorkModeViewModel), Editor),
-                    new ContainerRecord<IWorkModeViewModel>("Report",
-                        typeof (ReportWorkModeViewModel), Report)
-                };
-            }
-        }
+                new ContainerRecord<IWorkModeViewModel>("Editor",
+                    typeof (EditorWorkModeViewModel), Editor),
+                new ContainerRecord<IWorkModeViewModel>("Report",
+                    typeof (ReportWorkModeViewModel), Report)
+            };
 
-        public IWorkModeViewModel Default
-        {
-            get { return Editor; }
-        }
+        public IWorkModeViewModel Default => Editor;
 
         public WorkModeViewModels(WorkspaceViewModel workspace)
         {
@@ -37,7 +29,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             Report = new ReportWorkModeViewModel(workspace);
         }
 
-        public IWorkModeViewModel Editor { get; private set; }
-        public IWorkModeViewModel Report { get; private set; }
+        public IWorkModeViewModel Editor { get; }
+        public IWorkModeViewModel Report { get; }
     }
 }

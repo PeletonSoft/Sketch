@@ -13,9 +13,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         {
         }
 
-        public new Panel Model
-        {
-            get { return (Panel) base.Model; }
-        }
+        public new Panel Model => (Panel) base.Model;
     }
 }

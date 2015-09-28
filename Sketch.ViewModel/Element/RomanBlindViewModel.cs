@@ -14,15 +14,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>
     {
-        private void OnPropertyChanged<T>(Expression<Func<RomanBlindViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
-        public new RomanBlind Model
-        {
-            get { return (RomanBlind) base.Model; }
-        }
+        public new RomanBlind Model => (RomanBlind) base.Model;
 
         public RomanBlindViewModel(IWorkspaceBit workspaceBit, RomanBlind model)
             : base(workspaceBit, model)
@@ -38,29 +30,26 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.Width),
-                        this.GetPropertyName(el => el.Height),
-                        this.GetPropertyName(el => el.CoulisseThickness),
-                        this.GetPropertyName(el => el.DenseHeight),
-                        this.GetPropertyName(el => el.WaveCount)
+                        nameof(Width),nameof(Height),nameof(CoulisseThickness),
+                        nameof(DenseHeight),nameof(WaveCount)
                     },
                     () =>
                     {
-                        OnPropertyChanged(el => el.WavySurface);
-                        OnPropertyChanged(el => el.Points);
-                        OnPropertyChanged(el => el.Circuit);
+                        OnPropertyChanged(nameof(WavySurface));
+                        OnPropertyChanged(nameof(Points));
+                        OnPropertyChanged(nameof(Circuit));
                     })
-                .SetPropertyChanged(el => el.Width, () => { DecorativeBorder.Width = Width; });
+                .SetPropertyChanged(nameof(Width), () => { DecorativeBorder.Width = Width; });
 
             DecorativeBorder
-                .SetPropertyChanged(db => db.Height,
+                .SetPropertyChanged(nameof(DecorativeBorderViewModel.Height),
                     () =>
                     {
                         DenseHeight = DenseHeight;
-                        OnPropertyChanged(el => el.WavySurface);
-                        OnPropertyChanged(el => el.Circuit);
+                        OnPropertyChanged(nameof(WavySurface));
+                        OnPropertyChanged(nameof(Circuit));
                     })
-                .SetPropertyChanged(db => db.Points, () => OnPropertyChanged(el => el.Points));
+                .SetPropertyChanged(db => db.Points, () => OnPropertyChanged(nameof(Points)));
 
             DecorativeBorder.ResetChains();
         }
@@ -80,21 +69,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             get { return Model.WaveCount; }
             set { SetField(() => Model.WaveCount, v => Model.WaveCount = v, value); }
         }
-        public DecorativeBorderViewModel DecorativeBorder { get; private set; }
+        public DecorativeBorderViewModel DecorativeBorder { get; }
 
-        public IWavyBorder<IEnumerable<Point>> WavySurface
-        {
-            get { return Model.GetWavySurface(); }
-        }
-
-        public IEnumerable<Point> Points
-        {
-            get { return Model.GetPoints(); }
-        }
-
-        public IEnumerable<Point> Circuit
-        {
-            get { return Model.GetCircuit(); }
-        }
+        public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
+        public IEnumerable<Point> Points => Model.GetPoints();
+        public IEnumerable<Point> Circuit => Model.GetCircuit();
     }
 }

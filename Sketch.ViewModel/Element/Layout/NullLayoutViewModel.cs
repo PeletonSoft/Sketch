@@ -9,53 +9,21 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
     public class NullLayoutViewModel : ILayoutViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void RestoreDefault()
         {
         }
 
-        public IElementViewModel Element
-        {
-            get { return null; }
-        }
+        public IElementViewModel Element { get; } = null;
 
-        public double Width
-        {
-            get { return 0; }
-        }
+        public double Width { get; } = 0;
+        public double Height { get; } = 0;
+        public double Left { get; } = 0;
+        public double Top { get; } = 0;
 
-        public double Height
-        {
-            get { return 0; }
-        }
-
-        public double Left
-        {
-            get { return 0; }
-        }
-
-        public double Top
-        {
-            get { return 0; }
-        }
-
-        public Rect Transform(Rect rect)
-        {
-            return rect;
-        }
-
-        public Point LocalTransform(Point point)
-        {
-            return point;
-        }
-
-        public IEnumerable<IEnumerable<Point>> OpacityMask
-        {
-            get { return null; }
-        }
-
-        public Rect Rect
-        {
-            get { return new Rect(); }
-        }
+        public Rect Transform(Rect rect) => rect;
+        public Point LocalTransform(Point point) => point;
+        public IEnumerable<IEnumerable<Point>> OpacityMask { get; } = null;
+        public Rect Rect { get; } = new Rect();
     }
 }

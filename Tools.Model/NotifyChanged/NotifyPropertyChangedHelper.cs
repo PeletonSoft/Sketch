@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace PeletonSoft.Tools.Model.NotifyChanged
@@ -11,13 +10,10 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
         public static void OnPropertyChanged<T>(this T sender,
             PropertyChangedEventHandler handler, string propertyName) where T : class, INotifyPropertyChanged
         {
-            if (handler != null)
-            {
-                handler(sender, new PropertyChangedEventArgs(propertyName));
-            }
+            handler?.Invoke(sender, new PropertyChangedEventArgs(propertyName));
         }
 
-        private static string GetPropertyName<T, TU>(this Expression<Func<T, TU>> expression)
+        public static string GetPropertyName<T, TU>(this Expression<Func<T, TU>> expression)
             where T : class, INotifyPropertyChanged
         {
             var mapper = new PropertyMapper<T>();
@@ -65,6 +61,13 @@ namespace PeletonSoft.Tools.Model.NotifyChanged
             }
 
             return changed;
+        }
+
+        public static Getter<TS, TP> ExtractGetter<TS, TP>(
+            this TS sender, string propertyName, 
+            Func<TS, TP> getterValue) where TS : class, INotifyPropertyChanged
+        {
+            return new Getter<TS, TP>(propertyName, getterValue);
         }
 
 

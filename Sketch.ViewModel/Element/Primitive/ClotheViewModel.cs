@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
@@ -15,6 +14,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
     {
 
         #region implement INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
@@ -22,19 +22,17 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
 
-        private void OnPropertyChanged<T>(Expression<Func<ClotheViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
-        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value,
+            [CallerMemberName] string propertyName = null)
         {
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(getValue, setValue, value);
         }
+
         #endregion
 
         #region implement IOriginator
+
         public void RestoreDefault()
         {
         }
@@ -42,7 +40,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         #endregion
 
         #region implement IViewModel
-        public IClothe Model { get; private set; }
+
+        public IClothe Model { get; }
+
         #endregion
 
         public double? Width
@@ -50,24 +50,23 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             get { return Model.Width; }
             set { SetField(() => Model.Width, v => Model.Width = v, value); }
         }
+
         public double? Height
         {
             get { return Model.Height; }
             set { SetField(() => Model.Height, v => Model.Height = v, value); }
         }
 
-        public double? Area
-        {
-            get { return Model.Area; }
-        }
+        public double? Area => Model.Area;
 
         public void Calculate()
         {
             Model.Calculate();
-            OnPropertyChanged(cl => cl.Width);
-            OnPropertyChanged(cl => cl.Height);
+            OnPropertyChanged(nameof(Width));
+            OnPropertyChanged(nameof(Height));
         }
-        public ICommand CalculateCommand { get; private set; }
+
+        public ICommand CalculateCommand { get; }
 
         public ClotheViewModel(IWorkspaceBit workspaceBit, IClothe model)
         {
@@ -75,14 +74,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             this.SetPropertyChanged(
                 new[]
                 {
-                    this.GetPropertyName(el => el.Width),
-                    this.GetPropertyName(el => el.Height)
+                    nameof(Width), nameof(Height)
                 },
-                () => OnPropertyChanged(cl => cl.Area));
+                () => OnPropertyChanged(nameof(Area)));
             var commandFactory = workspaceBit.CommandFactory;
             CalculateCommand = commandFactory.CreateCommand(Calculate);
         }
 
-        
     }
 }

@@ -43,23 +43,17 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         private void OnItemChanged(ItemChangedInfo changedInfo)
         {
-            var handler = ItemChanged;
-            if (handler != null)
-            {
-                handler(this, new ItemChangedEventArgs(changedInfo));
-            }
+            ItemChanged?.Invoke(this, new ItemChangedEventArgs(changedInfo));
         }
         #endregion
 
         #region implement IOriginator
         public void RestoreDefault()
         {
-
         }
         #endregion
 
-        #region implement IContainer<IElementViewModel>
-
+        #region implement IContainer
         public IEnumerable<IContainerRecord<IElementViewModel>> Items
         {
             get
@@ -68,16 +62,11 @@ namespace PeletonSoft.Sketch.ViewModel.Container
                         el.GetType().ToString(), el.GetType(), el));
             }
         }
-
-        public IElementViewModel Default
-        {
-            get { return null; }
-        }
-
+        public IElementViewModel Default => null;
         #endregion
 
         #region implement INotifyOpacityMaskRenderChanged
-        public RenderChangedDispatcher<IElementViewModel, IElementViewModel, IEnumerable<Point>> RenderChangedDispatcher { get; private set; }
+        public RenderChangedDispatcher<IElementViewModel, IElementViewModel, IEnumerable<Point>> RenderChangedDispatcher { get; }
         #endregion
 
         #region implement ISelectableList
@@ -88,10 +77,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             set { SetField(ref _selectedIndex, List.IsValidIndex(value) ? value : -1); }
         }
 
-        public IElementViewModel SelectedItem
-        {
-            get { return List.IsValidIndex(SelectedIndex) ? List[SelectedIndex] : null; }
-        }
+        public IElementViewModel SelectedItem => List.IsValidIndex(SelectedIndex) ? List[SelectedIndex] : null;
         #endregion
 
         #region implement IChangeableCollection
@@ -100,26 +86,14 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         {
             this.DoMoveTo(List, OnItemChanged, sourceIndex, destinationIndex);
         }
-        public bool IsEmpty
-        {
-            get { return this.IsEmpty(); }
-        }
-        public void Remove()
-        {
-            this.DoRemove(List, OnItemChanged);
-        }
-        public void MoveDown()
-        {
-            this.DoMoveDown(List, OnItemChanged);
-        }
-        public void MoveUp()
-        {
-            this.DoMoveUp(List, OnItemChanged);
-        }
-        public void Clear()
-        {
-            this.DoClear(List, OnItemChanged);
-        }
+        public bool IsEmpty => this.IsEmpty();
+        public void Remove() => this.DoRemove(List, OnItemChanged);
+        public void MoveDown() => this.DoMoveDown(List, OnItemChanged);
+
+        public void MoveUp() => this.DoMoveUp(List, OnItemChanged);
+
+        public void Clear() => this.DoClear(List, OnItemChanged);
+
         public void Append(IElementViewModel element)
         {
             element.MoveToElementCommand = MoveToElementCommand;
@@ -129,15 +103,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #endregion
 
         private readonly NotifyChangedCollection<IElementViewModel> _list;
-        public INotifyChangedReadOnlyCollection<IElementViewModel> Collection
-        {
-            get { return _list; } 
-        }
-
-        private IList<IElementViewModel> List
-        {
-            get { return _list; }
-        }
+        public INotifyChangedReadOnlyCollection<IElementViewModel> Collection => _list;
+        private IList<IElementViewModel> List => _list;
 
         private void MoveTo(DataTransition<IElementViewModel, IElementViewModel> dt)
         {
@@ -162,40 +129,22 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         }
 
         private readonly Lazy<ICommand> _lazyCreateElementCommand;
-        public ICommand CreateElementCommand
-        {
-            get { return _lazyCreateElementCommand.Value; }
-        }
+        public ICommand CreateElementCommand => _lazyCreateElementCommand.Value;
 
         private readonly Lazy<ICommand> _lazyMoveUpElementCommand;
-        public ICommand MoveUpElementCommand
-        {
-            get { return _lazyMoveUpElementCommand.Value; }
-        }
+        public ICommand MoveUpElementCommand => _lazyMoveUpElementCommand.Value;
 
         private readonly Lazy<ICommand> _lazyMoveDownElementCommand;
-        public ICommand MoveDownElementCommand
-        {
-            get { return _lazyMoveDownElementCommand.Value; }
-        }
+        public ICommand MoveDownElementCommand => _lazyMoveDownElementCommand.Value;
 
         private readonly Lazy<ICommand> _lazyMoveToElementCommand;
-        public ICommand MoveToElementCommand
-        {
-            get { return _lazyMoveToElementCommand.Value; }
-        }
+        public ICommand MoveToElementCommand => _lazyMoveToElementCommand.Value;
 
         private readonly Lazy<ICommand> _lazyRemoveElementCommand;
-        public ICommand RemoveElementCommand
-        {
-            get { return _lazyRemoveElementCommand.Value; }
-        }
+        public ICommand RemoveElementCommand => _lazyRemoveElementCommand.Value;
 
         private readonly Lazy<ICommand> _lazyUnselectElementCommand;
-        public ICommand UnselectElementCommand
-        {
-            get { return _lazyUnselectElementCommand.Value; }
-        }
+        public ICommand UnselectElementCommand => _lazyUnselectElementCommand.Value;
 
         public ElementListViewModel(WorkspaceBit workspaceBit)
         {
@@ -233,17 +182,9 @@ namespace PeletonSoft.Sketch.ViewModel.Container
                 .SetPropertyChanged(el => el.SelectedIndex, () => OnPropertyChanged(el => el.SelectedItem));
         }
 
-        private WorkspaceBit WorkspaceBit { get; set; }
+        private WorkspaceBit WorkspaceBit { get; }
 
-        public IScreenViewModel Screen
-        {
-            get { return WorkspaceBit.Screen; }
-        }
-
-        public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories
-        {
-            get { return WorkspaceBit.Factories; }
-        }
-        
+        public IScreenViewModel Screen => WorkspaceBit.Screen;
+        public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories => WorkspaceBit.Factories;
     }
 }

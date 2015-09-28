@@ -7,7 +7,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
     public abstract class EqualSwagTailViewModel : SwagTailViewModel
     {
-        public ShoulderViewModel Shoulder { get; private set; }
+        public ShoulderViewModel Shoulder { get; }
         protected EqualSwagTailViewModel(IWorkspaceBit workspaceBit, SwagTail model)
             : base(workspaceBit, model)
         {

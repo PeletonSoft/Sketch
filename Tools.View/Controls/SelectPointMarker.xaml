@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="PeletonSoft.Tools.View.Controls.SelectPointMarker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter"
+             Name="UserControl">
+    <UserControl.Resources>
+        <system:Double x:Key="Two">2</system:Double>
+        <converter:ScaleConverter x:Key="ScaleConverter"/>
+        <converter:ShiftMarginConverter x:Key="ShiftMarginConverter"/>
+    </UserControl.Resources>
+        <Ellipse Opacity="{Binding MarkerOpacity, ElementName=UserControl}" 
+                 Fill="DarkBlue" Cursor="Hand">
+            <Ellipse.Margin>
+                <Binding Path="MarkerRadius" ElementName="UserControl" 
+                         Converter="{StaticResource ShiftMarginConverter}" />
+            </Ellipse.Margin>
+            <Ellipse.Width>
+                <Binding Path="MarkerRadius" ElementName="UserControl" 
+                         Converter="{StaticResource ScaleConverter}"
+                         ConverterParameter="{StaticResource Two}" />
+            </Ellipse.Width>
+            <Ellipse.Height>
+                <Binding Path="MarkerRadius" ElementName="UserControl" 
+                         Converter="{StaticResource ScaleConverter}"
+                         ConverterParameter="{StaticResource Two}" />
+        </Ellipse.Height>
+    </Ellipse>
+</UserControl>

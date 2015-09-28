@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -40,12 +38,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Action notificator = () => OnPropertyChanged(propertyName);
             notificator.SetField(getValue, setValue, value);
         }
-
-        private void OnPropertyChanged<T>(Expression<Func<OverlayViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
         #endregion
 
         #region implement IOriginator
@@ -63,12 +55,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(ref _selectedIndex, Below.IsValidIndex(value) ? value : -1); }
         }
 
-        private readonly IElementViewModel _nullSelectedItem;
-
-        public IElementViewModel SelectedItem
-        {
-            get { return Below.IsValidIndex(SelectedIndex) ? Below[SelectedIndex] : _nullSelectedItem; }
-        }
+        private IElementViewModel NullSelectedItem { get; } = new NullElementViewModel();
+        public IElementViewModel SelectedItem => Below.IsValidIndex(SelectedIndex) ? Below[SelectedIndex] : NullSelectedItem;
         #endregion
 
         #region implment ICollectionItem
@@ -97,20 +85,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             get { return SelectedItem.Opacity; }
             set { SelectedItem.Opacity = value; }
         }
-        private readonly ILayoutViewModel _nullLayoutViewModel;
-        public ILayoutViewModel Layout
-        {
-            get { return SelectedItem != null ? SelectedItem.Layout : _nullLayoutViewModel; }
-        }
+
+        private ILayoutViewModel NullLayoutViewModel { get; } = new NullLayoutViewModel();
+        public ILayoutViewModel Layout => SelectedItem != null ? SelectedItem.Layout : NullLayoutViewModel;
         public ICommand MoveToElementCommand { get; set; }
-        public IReadOnlyList<IElementViewModel> Below
-        {
-            get { return WorkspaceBit.GetBelowElements(this); }
-        }
+        public IReadOnlyList<IElementViewModel> Below => WorkspaceBit.GetBelowElements(this);
+
         #endregion
 
         #region implement IViewModel
-        public Overlay Model { get; private set; }
+        public Overlay Model { get; }
         #endregion
 
         public OverlayViewModel(IWorkspaceBit workspaceBit, Overlay model)
@@ -119,41 +103,39 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Model = model;
             OverHeight = workspaceBit.Screen.Height;
             OverWidth = workspaceBit.Screen.Width;
-            _nullLayoutViewModel = new NullLayoutViewModel();
-            _nullSelectedItem = new NullElementViewModel();
 
             workspaceBit.ItemChanged +=
                 (sender, args) =>
                 {
                     var changeInfo = args.ChangedInfo;
-                    OnPropertyChanged(el => Below);
+                    OnPropertyChanged(nameof(Below));
                     SelectedIndex = changeInfo.RecalculateIndex(SelectedIndex);
                 };
 
             this
-                .SetPropertyChanged(el => el.SelectedIndex, () => OnPropertyChanged(el => el.SelectedItem))
+                .SetPropertyChanged(nameof(SelectedIndex), () => OnPropertyChanged(nameof(SelectedItem)))
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.SelectedItem),
-                        this.GetPropertyName(el => el.OverWidth),
-                        this.GetPropertyName(el => el.OverHeight),
-                        this.GetPropertyName(el => el.OverOffsetX),
-                        this.GetPropertyName(el => el.OverOffsetY)
+                        nameof(SelectedItem), nameof(OverWidth), nameof(OverHeight),
+                        nameof(OverOffsetX), nameof(OverOffsetY)
                     },
-                    () => OnPropertyChanged(el => el.OverRect))
+                    () => OnPropertyChanged(nameof(OverRect)))
                 .SetPropertyChanged(
-                    el => el.SelectedItem, si => si.Visibility,
-                    () => OnPropertyChanged(el => el.Visibility))
+                    this.ExtractGetter(nameof(SelectedItem), el => el.SelectedItem),
+                    nameof(SelectedItem.Visibility),
+                    () => OnPropertyChanged(nameof(Visibility)))
                 .SetPropertyChanged(
-                    el => el.SelectedItem, si => si.Opacity,
-                    () => OnPropertyChanged(el => el.Opacity))
+                    this.ExtractGetter(nameof(SelectedItem), el => el.SelectedItem),
+                    nameof(SelectedItem.Opacity),
+                    () => OnPropertyChanged(nameof(Opacity)))
                 .SetPropertyChanged(
-                    el => el.SelectedItem, si => si.Layout,
-                    () => OnPropertyChanged(el => el.Layout));
+                    this.ExtractGetter(nameof(SelectedItem), el => el.SelectedItem),
+                    nameof(SelectedItem.Layout),
+                    () => OnPropertyChanged(nameof(Layout)));
         }
 
-        private IWorkspaceBit WorkspaceBit { get; set; }
+        private IWorkspaceBit WorkspaceBit { get; }
 
         public double OverWidth
         {
@@ -166,6 +148,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(() => Model.OverHeight, v => Model.OverHeight = v, value); }
         }
         public double OverOffsetX
+
         {
             get { return Model.OverOffsetX; }
             set { SetField(() => Model.OverOffsetX, v => Model.OverOffsetX = v, value); }
@@ -176,11 +159,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(() => Model.OverOffsetY, v => Model.OverOffsetY = v, value); }
         }
 
-        public Rect OverRect
-        {
-            get { return Model.GetOverRect(); }
-        }
-
-        
+        public Rect OverRect => Model.GetOverRect();
     }
 }

@@ -37,7 +37,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             set { }
         }
 
-        public IContainerOriginator<ILayoutViewModel> Layouts { get; private set; }
+        public IContainerOriginator<ILayoutViewModel> Layouts { get; }
 
         public NullSheetViewModel()
         {
@@ -50,7 +50,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
                 });
         }
 
-        public ISheet Model { get; private set; }
+        public ISheet Model { get; }
 
     }
 }

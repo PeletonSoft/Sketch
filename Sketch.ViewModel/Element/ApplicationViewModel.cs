@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
@@ -10,21 +9,13 @@ using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class ApplicationViewModel : AlignableElementViewModel, IReflectableViewModel, IViewModel<Application>
     {
-        private void OnPropertyChanged<T>(Expression<Func<ApplicationViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-        public new Application Model
-        {
-            get { return (Application)base.Model; }
-        }
+        public new Application Model => (Application)base.Model;
 
         public ApplicationViewModel(IWorkspaceBit workspaceBit, Application model)
             : base(workspaceBit, model)
@@ -40,13 +31,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.Thickness),
-                        this.GetPropertyName(el => el.Outline),
-                        this.GetPropertyName(el => el.Reflection),
-                        this.GetPropertyName(el => el.Width),
-                        this.GetPropertyName(el => el.Height)
+                        nameof(Thickness), nameof(Thickness),
+                        nameof(Outline), nameof(Reflection),
+                        nameof(Width), nameof(Height)
                     },
-                    () => OnPropertyChanged(el => el.Points));
+                    () => OnPropertyChanged(nameof(Points)));
         }
 
         public double Thickness
@@ -73,19 +62,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
         private readonly Lazy<IContainer<OutlineViewModel>> _lazyOutlines =
             new Lazy<IContainer<OutlineViewModel>>(() => new OutlineViewModels());
-
-        public IContainer<OutlineViewModel> Outlines
-        {
-            get { return _lazyOutlines.Value; }
-        }
+        public IContainer<OutlineViewModel> Outlines => _lazyOutlines.Value;
 
         private readonly Lazy<IContainer<IReflectionViewModel>> _lazyTransformations =
             new Lazy<IContainer<IReflectionViewModel>>(() => new ReflectionViewModels());
-
-        public IContainer<IReflectionViewModel> Reflections
-        {
-            get { return _lazyTransformations.Value; }
-        }
+        public IContainer<IReflectionViewModel> Reflections => _lazyTransformations.Value;
 
         public IEnumerable<Point> Points
         {

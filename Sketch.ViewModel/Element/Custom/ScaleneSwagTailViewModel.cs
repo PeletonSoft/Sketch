@@ -6,7 +6,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
     public abstract class ScaleneSwagTailViewModel : SwagTailViewModel
     {
-        public ScaleneSwagTailViewModel(IWorkspaceBit workspaceBit, SwagTail model)
+        protected ScaleneSwagTailViewModel(IWorkspaceBit workspaceBit, SwagTail model)
             : base(workspaceBit, model)
         {
             LeftShoulder.Length = 0.25 * Layout.Width;
@@ -15,14 +15,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             RightShoulder.WaveHeight = RightShoulder.Length / WaveCount * 1.3;
         }
 
-        public new ShoulderViewModel LeftShoulder
-        {
-            get { return base.LeftShoulder; }
-        }
-
-        public new ShoulderViewModel RightShoulder
-        {
-            get { return base.RightShoulder; }
-        }
+        public new ShoulderViewModel LeftShoulder => base.LeftShoulder;
+        public new ShoulderViewModel RightShoulder => base.RightShoulder;
     }
 }

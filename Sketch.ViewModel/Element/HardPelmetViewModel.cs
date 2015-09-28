@@ -13,21 +13,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class HardPelmetViewModel : AlignableElementViewModel, IViewModel<HardPelmet>
     {
-        private void OnPropertyChanged<T>(Expression<Func<HardPelmetViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
-        public new HardPelmet Model
-        {
-            get { return (HardPelmet) base.Model; }
-        }
-        public DecorativeBorderViewModel DecorativeBorder { get; private set; }
-
-        public IEnumerable<Point> Points
-        {
-            get { return Model.GetPoints(); }
-        }
+        public new HardPelmet Model => (HardPelmet) base.Model;
+        public DecorativeBorderViewModel DecorativeBorder { get; }
+        public IEnumerable<Point> Points => Model.GetPoints();
 
 
         public HardPelmetViewModel(IWorkspaceBit workspaceBit, HardPelmet model)
@@ -36,17 +24,17 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             DecorativeBorder = new DecorativeBorderViewModel(workspaceBit, Model.DecorativeBorder);
 
             this
-                .SetPropertyChanged(el => el.Width,
+                .SetPropertyChanged(nameof(Width),
                     () =>
                     {
                         DecorativeBorder.Width = Width;
-                        OnPropertyChanged(el => el.Points);
+                        OnPropertyChanged(nameof(Points));
                     })
-                .SetPropertyChanged(el => el.Height, () => OnPropertyChanged(el => el.Points));
+                .SetPropertyChanged(nameof(Height), () => OnPropertyChanged(nameof(Points)));
 
             DecorativeBorder
-                .SetPropertyChanged(el => el.Width, () => Width = DecorativeBorder.Width)
-                .SetPropertyChanged(el => el.Points, () => OnPropertyChanged(el => el.Points));
+                .SetPropertyChanged(nameof(Width), () => Width = DecorativeBorder.Width)
+                .SetPropertyChanged(nameof(Points), () => OnPropertyChanged(nameof(Points)));
 
             Width = Screen.Width;
             Height = 0.5*Screen.Height;

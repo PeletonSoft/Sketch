@@ -90,10 +90,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             set { SetField(() => Opacity, v => Model.Opacity = v, value); }
         }
 
-        public IReadOnlyList<IElementViewModel> Below
-        {
-            get { return WorkspaceBit.GetBelowElements(this); }
-        }
+        public IReadOnlyList<IElementViewModel> Below => WorkspaceBit.GetBelowElements(this);
         public ICommand MoveToElementCommand { get; set; }
         public void AfterInsert()
         {
@@ -106,11 +103,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #endregion
 
         #region implement IViewModel
-        public IAlignableElement Model { get; private set; }
+        public IAlignableElement Model { get; }
         #endregion
 
         #region IClotheableViewModel
-        public IClotheViewModel Clothe { get; private set; }
+        public IClotheViewModel Clothe { get; }
 
         #endregion
 
@@ -134,11 +131,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             Clothe = new ClotheViewModel(WorkspaceBit, Model.Clothe);
         }
 
-        protected IWorkspaceBit WorkspaceBit { get; private set; }
-        protected IScreenViewModel Screen
-        {
-            get { return WorkspaceBit.Screen; }
-        }
-
+        protected IWorkspaceBit WorkspaceBit { get; }
+        protected IScreenViewModel Screen => WorkspaceBit.Screen;
     }
 }

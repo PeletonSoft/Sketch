@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
@@ -14,14 +13,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class TieBackViewModel : PleatableViewModel, INotifyViewModel<TieBack>, IClotheableViewModel
     {
-        #region implement INotifyPropertyChanged
-
-        private void OnPropertyChanged<T>(Expression<Func<TieBackViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
-        #endregion
 
         #region implment ICollectionItem
 
@@ -36,16 +27,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
         #region implement IViewModel
 
-        public new TieBack Model
-        {
-            get { return (TieBack) base.Model; }
-        }
+        public new TieBack Model => (TieBack) base.Model;
 
         #endregion
 
         #region implement IClotheableViewModel
 
-        public IClotheViewModel Clothe { get; private set; }
+        public IClotheViewModel Clothe { get; }
 
         #endregion
 
@@ -65,52 +53,46 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.OffsetX),
-                        this.GetPropertyName(el => el.OffsetY),
-                        this.GetPropertyName(el => el.Protrusion),
+                        nameof(OffsetX), nameof(OffsetY), nameof(Protrusion),
                     },
-                    () => OnPropertyChanged(el => el.WavySurface))
+                    () => OnPropertyChanged(nameof(WavySurface)))
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.OffsetX),
-                        this.GetPropertyName(el => el.OffsetY),
-                        this.GetPropertyName(el => el.Alignment),
-                        this.GetPropertyName(el => el.Protrusion),
-                        this.GetPropertyName(el => el.Sheet)
+                        nameof(OffsetX), nameof(OffsetY), nameof(Alignment),
+                        nameof(Protrusion), nameof(Sheet)
                     },
                     () =>
                     {
-                        OnPropertyChanged(el => el.Rect);
-                        OnPropertyChanged(el => el.Lane);
+                        OnPropertyChanged(nameof(Rect));
+                        OnPropertyChanged(nameof(Lane));
                     })
                 .SetPropertyChanged(
                     new[]
                     {
-                        this.GetPropertyName(el => el.Length),
-                        this.GetPropertyName(el => el.Depth),
-                        this.GetPropertyName(el => el.DropHeight)
+                        nameof(Length), nameof(Depth), nameof(DropHeight)
                     },
                     () =>
                     {
-                        OnPropertyChanged(el => el.Lane);
-                        OnPropertyChanged(el => el.WavySurface);
+                        OnPropertyChanged(nameof(Lane));
+                        OnPropertyChanged(nameof(WavySurface));
                     })
                 .PropertyIterate(
-                    new Expression<Func<TieBackViewModel, TieBackSideViewModel>>[]
-                    {el => el.LeftSide, el => el.RightSide},
+                    new[]
+                    {
+                        this.ExtractGetter(nameof(LeftSide), el => el.LeftSide),
+                        this.ExtractGetter(nameof(RightSide), el => el.RightSide)
+                    },
                     (side, propertyName) => side.SetPropertyChanged(
                         new[]
                         {
-                            side.GetPropertyName(s => s.Weight),
-                            side.GetPropertyName(s => s.TailScatter)
+                            nameof(side.Weight), nameof(side.TailScatter)
                         },
-                        () => OnPropertyChanged(el => el.WavySurface)));
-
+                        () => OnPropertyChanged(nameof(WavySurface))));
         }
 
-        public TieBackSideViewModel LeftSide { get; private set; }
-        public TieBackSideViewModel RightSide { get; private set; }
+        public TieBackSideViewModel LeftSide { get; }
+        public TieBackSideViewModel RightSide { get; }
 
         public double Length
         {
@@ -148,9 +130,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             set { SetField(() => Model.Protrusion, v => Model.Protrusion = v, value); }
         }
 
-        public IEnumerable<Point> Lane
-        {
-            get { return Model.GetLane(); }
-        }
+        public IEnumerable<Point> Lane => Model.GetLane();
     }
 }

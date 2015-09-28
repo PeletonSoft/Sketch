@@ -11,7 +11,7 @@ namespace PeletonSoft.Sketch.ViewModel.WorkMode
 
         #endregion
 
-        public IWorkspaceViewModel Workspace { get; private set; }
+        public IWorkspaceViewModel Workspace { get; }
 
         public CustomWorkModeViewModel(IWorkspaceViewModel workspace)
         {

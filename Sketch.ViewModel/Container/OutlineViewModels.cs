@@ -21,16 +21,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         };
 
         private readonly Lazy<IEnumerable<IContainerRecord<OutlineViewModel>>> _lazyItems;
-
-        public IEnumerable<IContainerRecord<OutlineViewModel>> Items
-        {
-            get { return _lazyItems.Value; }
-        }
-
-        public OutlineViewModel Default
-        {
-            get { return this.GetValueByKey(Types.HRectangle); }
-        }
+        public IEnumerable<IContainerRecord<OutlineViewModel>> Items => _lazyItems.Value;
+        public OutlineViewModel Default => this.GetValueByKey(Types.HRectangle);
 
         public OutlineViewModels()
         {

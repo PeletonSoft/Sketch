@@ -39,7 +39,7 @@ namespace PeletonSoft.Sketch.Model.Element.Custom
             };
         }
 
-        protected Func<Point, Point> GetAlignmentTransform()
+        protected virtual Func<Point, Point> GetAlignmentTransform()
         {
             return point =>
                 Alignment == ElementAlignment.Left

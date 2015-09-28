@@ -4,7 +4,6 @@ using PeletonSoft.Sketch.Model.Element.Transformation.Reflection;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
-using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
@@ -19,16 +18,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         };
 
         private readonly Lazy<IEnumerable<IContainerRecord<IReflectionViewModel>>> _lazyItems;
-
-        public IEnumerable<IContainerRecord<IReflectionViewModel>> Items
-        {
-            get { return _lazyItems.Value; }
-        }
-
-        public IReflectionViewModel Default
-        {
-            get { return this.GetValueByKey(Types.Same); }
-        }
+        public IEnumerable<IContainerRecord<IReflectionViewModel>> Items => _lazyItems.Value;
+        public IReflectionViewModel Default => this.GetValueByKey(Types.Same);
 
         public ReflectionViewModels()
         {

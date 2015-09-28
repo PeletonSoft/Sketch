@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -28,32 +27,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             notificator.SetField(ref field, value);
         }
 
-        private void OnPropertyChanged<T>(Expression<Func<LayoutViewModel, T>> expression)
-        {
-            expression.OnPropertyChanged(OnPropertyChanged);
-        }
-
         #endregion
 
-        public double Width
-        {
-            get { return Element.Width; }
-        }
-
-        public double Height
-        {
-            get { return Element.Height; }
-        }
-
-        public double Left
-        {
-            get { return Transform(Rect).X; }
-        }
-
-        public double Top
-        {
-            get { return Transform(Rect).Y; }
-        }
+        public double Width => Element.Width;
+        public double Height => Element.Height;
+        public double Left => Transform(Rect).X;
+        public double Top => Transform(Rect).Y;
 
         public virtual Rect Transform(Rect rect)
         {
@@ -66,31 +45,28 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             };
         }
 
-        public virtual Point LocalTransform(Point point)
-        {
-            return point;
-        }
+        public virtual Point LocalTransform(Point point) => point;
 
         protected LayoutViewModel(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
         {
             WorkspaceBit = workspaceBit;
             Element = element;
 
-            element
-                .SetPropertyChanged(el => el.Width,
+            Element
+                .SetPropertyChanged(nameof(Element.Width),
                     () =>
                     {
-                        OnPropertyChanged(el => el.Width);
-                        OnPropertyChanged(el => el.Rect);
+                        OnPropertyChanged(nameof(Width));
+                        OnPropertyChanged(nameof(Rect));
                     })
-                .SetPropertyChanged(el => el.Height,
+                .SetPropertyChanged(nameof(Element.Height),
                     () =>
                     {
-                        OnPropertyChanged(el => el.Height);
-                        OnPropertyChanged(el => el.Rect);
+                        OnPropertyChanged(nameof(Height));
+                        OnPropertyChanged(nameof(Rect));
                     })
-                .SetPropertyChanged(el => el.OffsetX, () => OnPropertyChanged(el => el.Left))
-                .SetPropertyChanged(el => el.OffsetY, () => OnPropertyChanged(el => el.Top));
+                .SetPropertyChanged(nameof(Element.OffsetX), () => OnPropertyChanged(nameof(Left)))
+                .SetPropertyChanged(nameof(Element.OffsetY), () => OnPropertyChanged(nameof(Top)));
 
             WorkspaceBit
                 .RenderChangedDispatcher.RenderChanged +=
@@ -104,14 +80,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         }
 
 
-        protected IWorkspaceBit WorkspaceBit { get; private set; }
+        protected IWorkspaceBit WorkspaceBit { get; }
 
-        IElementViewModel ILayoutViewModel.Element
-        {
-            get { return Element; }
-        }
+        IElementViewModel ILayoutViewModel.Element => Element;
 
-        protected IAlignableElementViewModel Element { get; private set; }
+        protected IAlignableElementViewModel Element { get; }
 
         public void RestoreDefault()
         {
@@ -124,9 +97,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             private set { SetField(ref _opacityMask, value); }
         }
 
-        public Rect Rect
-        {
-            get { return Element.GetRect(); } 
-        }
+        public Rect Rect => Element.GetRect();
     }
 }

@@ -84,6 +84,7 @@
     <Compile Include="NotifyChanged\ChangedItem\IChangeableCollection.cs" />
     <Compile Include="NotifyChanged\ChangedItem\ItemChangedEventArgs.cs" />
     <Compile Include="NotifyChanged\ChangedItem\INotifyItemChanged.cs" />
+    <Compile Include="NotifyChanged\Getter.cs" />
     <Compile Include="NotifyChanged\ISelectableList.cs" />
     <Compile Include="NotifyChanged\SelectableListHelper.cs" />
     <Compile Include="NotifyChanged\LockFlag.cs" />

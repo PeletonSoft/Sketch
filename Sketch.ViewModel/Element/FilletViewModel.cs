@@ -1,5 +1,4 @@
 ﻿using PeletonSoft.Sketch.Model.Element;
-using PeletonSoft.Sketch.Model.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
@@ -15,9 +14,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Height = 0.05;
         }
 
-        public new Fillet Model
-        {
-            get { return (Fillet) base.Model; }
-        }
+        public new Fillet Model => (Fillet) base.Model;
     }
 }
