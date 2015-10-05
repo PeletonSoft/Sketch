@@ -77,7 +77,7 @@
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangeableCollectionHelper.cs" />
-    <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
+    <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\Append.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\MoveItemChangedInfo.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\ItemChangedInfo.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\RemoveItemChangedInfo.cs" />
