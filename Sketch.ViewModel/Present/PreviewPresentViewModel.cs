@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
@@ -86,7 +85,7 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             }
         }
 
-        public SuperimposeOptionViewModel SuperimposeOption { get; private set; }
+        public SuperimposeOptionViewModel SuperimposeOption { get; }
 
 
     }

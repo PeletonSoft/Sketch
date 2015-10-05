@@ -5,6 +5,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
 {
@@ -13,16 +14,11 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Custom
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
-        {
+        protected void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
         #endregion
 
 

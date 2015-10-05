@@ -12,6 +12,7 @@ using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
 {
@@ -20,16 +21,11 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
         #endregion
 
         public DecorativeBorderVisualViewModel(VisualOptions visualOptions, DecorativeBorderViewModel element)

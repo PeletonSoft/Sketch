@@ -17,6 +17,8 @@ using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
+
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
@@ -25,21 +27,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName) => 
+
+        protected void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        protected void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(getValue, setValue, value);
-        }
-        
+        protected void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
+
         #endregion
 
         #region implement IViewModel

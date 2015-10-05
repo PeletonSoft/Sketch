@@ -16,6 +16,7 @@ using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
@@ -24,23 +25,14 @@ namespace PeletonSoft.Sketch.ViewModel
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(getValue, setValue, value);
-        }
-
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
         #endregion
 
         #region implement IOriginator
@@ -51,7 +43,7 @@ namespace PeletonSoft.Sketch.ViewModel
         #endregion
 
         #region implement IViewModel
-        public IWorkspace Model { get; private set; }
+        public IWorkspace Model { get; }
         #endregion
 
         public ISettingProvider SettingProvider { get; set; }
@@ -78,10 +70,10 @@ namespace PeletonSoft.Sketch.ViewModel
             this.SetPropertyChanged(nameof(WorkMode), () => ElementList.Unselect());
         }
 
-        public IElementListViewModel ElementList { get; private set; }
+        public IElementListViewModel ElementList { get; }
         public IScreenViewModel Screen { get; set; }
 
-        public IContainerOriginator<IPresentViewModel> Presents { get; private set; }
+        public IContainerOriginator<IPresentViewModel> Presents { get; }
         private IPresentViewModel _present;
         public IPresentViewModel Present
         {
@@ -95,7 +87,7 @@ namespace PeletonSoft.Sketch.ViewModel
             set { SetField(() => Model.ImageBox, v => Model.ImageBox = v, value); }
         }
 
-        public IContainerOriginator<IWorkModeViewModel> WorkModes { get; private set; }
+        public IContainerOriginator<IWorkModeViewModel> WorkModes { get; }
         private IWorkModeViewModel _workMode;
         public IWorkModeViewModel WorkMode
         {
@@ -105,16 +97,10 @@ namespace PeletonSoft.Sketch.ViewModel
 
         
         private readonly Lazy<ICommand> _saveCommandLazy;
-        public ICommand SaveCommand
-        {
-            get { return _saveCommandLazy.Value; }
-        }
+        public ICommand SaveCommand => _saveCommandLazy.Value;
 
         private readonly Lazy<ICommand> _restoreCommandLazy;
-        public ICommand RestoreCommand
-        {
-            get { return _restoreCommandLazy.Value; }
-        }
+        public ICommand RestoreCommand => _restoreCommandLazy.Value;
 
         public void Save()
         {
@@ -139,10 +125,7 @@ namespace PeletonSoft.Sketch.ViewModel
             }
 
             Caretaker.Save(path);
-            if (ImageBox != null)
-            {
-                ImageBox.WriteToFile(Path.Combine(path, "content.png"));
-            }
+            ImageBox?.WriteToFile(Path.Combine(path, "content.png"));
         }
 
         public void Restore()

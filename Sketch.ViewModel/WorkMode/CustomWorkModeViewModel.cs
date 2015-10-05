@@ -18,8 +18,6 @@ namespace PeletonSoft.Sketch.ViewModel.WorkMode
             Workspace = workspace;
         }
 
-
-
         public virtual void RestoreDefault()
         {
         }

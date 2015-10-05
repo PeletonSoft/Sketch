@@ -11,6 +11,9 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
+
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
@@ -18,29 +21,20 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
+        protected void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        protected void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(getValue, setValue, value);
-        }
+        protected void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
+
         #endregion
 
         #region implement IOriginator
-        public virtual void RestoreDefault()
-        {
 
-        }
+        public virtual void RestoreDefault() => DoNothing();
         #endregion
 
         #region implement IAlignable

@@ -7,6 +7,8 @@ using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
+
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
@@ -16,16 +18,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
+        protected void OnPropertyChanged(string propertyName) =>
+                    this.OnPropertyChanged(PropertyChanged, propertyName);
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
         #endregion
 

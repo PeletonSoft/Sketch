@@ -6,6 +6,7 @@ using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
@@ -15,14 +16,11 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName) => 
+        protected void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
-        }
+        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
         #endregion
 
         #region implement IOriginator

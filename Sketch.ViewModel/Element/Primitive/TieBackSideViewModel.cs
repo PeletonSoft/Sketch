@@ -6,35 +6,28 @@ using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class TieBackSideViewModel : INotifyPropertyChanged, IOriginator, IViewModel<TieBackSide>
+    public sealed class TieBackSideViewModel : INotifyViewModel<TieBackSide>, IOriginator
     {
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) => 
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        public void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) => 
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(getValue, setValue, value);
-        }
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) => 
+            SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
+
         #endregion
 
         #region implement IOriginator
-
         public void RestoreDefault() => DoNothing();
         #endregion
 

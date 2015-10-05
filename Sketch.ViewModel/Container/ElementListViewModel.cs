@@ -13,6 +13,8 @@ using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.ObjectEvent.Render;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
@@ -21,24 +23,16 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
-
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
         #endregion
 
         #region implement INotifyItemChanged
 
         public event ItemChangedEventHandler ItemChanged;
-
         private void OnItemChanged(ItemChangedInfo changedInfo)
         {
             ItemChanged?.Invoke(this, new ItemChangedEventArgs(changedInfo));
@@ -47,11 +41,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #endregion
 
         #region implement IOriginator
-
-        public void RestoreDefault()
-        {
-        }
-
+        public void RestoreDefault() => DoNothing();
         #endregion
 
         #region implement IContainer

@@ -39,5 +39,16 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged
 
             return changed;
         }
+
+        public static bool SetFieldValue<T>(Action notificator, ref T field, T value)
+        {
+            return notificator.SetField(ref field, value);
+        }
+        public static bool SetFieldValue<T>(Action notificator, Func<T> getValue, Action<T> setValue, T value)
+        {
+            return notificator.SetField(getValue, setValue, value);
+        }
+
+
     }
 }

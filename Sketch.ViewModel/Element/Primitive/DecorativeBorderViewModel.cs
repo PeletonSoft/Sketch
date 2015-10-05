@@ -8,6 +8,8 @@ using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
+
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
@@ -16,22 +18,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            notificator.SetField(getValue, setValue, value);
-        }
+        private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
         #endregion
 
         #region implement IOriginator
@@ -42,7 +36,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         #endregion
 
         #region implement IViewModel
-        public DecorativeBorder Model { get; private set; }
+        public DecorativeBorder Model { get; }
         #endregion
 
         public DecorativeBorderViewModel(IWorkspaceBit workspaceBit, DecorativeBorder model)

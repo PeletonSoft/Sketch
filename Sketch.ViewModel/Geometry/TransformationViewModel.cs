@@ -5,8 +5,9 @@ using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
+using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
@@ -16,24 +17,17 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-        }
 
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            Action notificator = () => OnPropertyChanged(propertyName);
-            return notificator.SetField(ref field, value);
-        }
+        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
+            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
         #endregion
 
         #region implement IOriginator
-        public void RestoreDefault()
-        {
 
-        }
+        public void RestoreDefault() => DoNothing();
         #endregion
 
         private IRotationViewModel _rotation;
@@ -44,7 +38,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
         }
 
         private IReflectionViewModel _reflection;
-
         public IReflectionViewModel Reflection
         {
             get { return _reflection; }
@@ -57,15 +50,9 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
         private readonly Lazy<ReflectionViewModels> _lazyReflections =
             new Lazy<ReflectionViewModels>(() => new ReflectionViewModels());
 
-        public IContainer<IRotationViewModel> Rotations
-        {
-            get { return _lazyRotations.Value; }
-        }
+        public IContainer<IRotationViewModel> Rotations => _lazyRotations.Value;
 
-        public IContainer<IReflectionViewModel> Reflections
-        {
-            get { return _lazyReflections.Value; }
-        }
+        public IContainer<IReflectionViewModel> Reflections => _lazyReflections.Value;
 
         public TransformationViewModel()
         {
