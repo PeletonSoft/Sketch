@@ -60,14 +60,14 @@ namespace PeletonSoft.Tools.View.Controls
         public static readonly DependencyProperty LineColorProperty = DependencyProperty.Register(
           nameof(LineColor), typeof(Brush), typeof(LineView), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
 
-        public ICommand SplitCommand
+        public ICommand Command
         {
-            get { return (ICommand)GetValue(SplitCommandProperty); }
-            set { SetValue(SplitCommandProperty, value); }
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly DependencyProperty SplitCommandProperty = DependencyProperty.Register(
-          nameof(SplitCommand), typeof(ICommand), typeof(LineView), new PropertyMetadata(null));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+          nameof(Command), typeof(ICommand), typeof(LineView), new PropertyMetadata(null));
 
     }
 

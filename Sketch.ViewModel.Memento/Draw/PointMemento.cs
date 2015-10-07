@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using PeletonSoft.Sketch.ViewModel.Interface.Draw;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;

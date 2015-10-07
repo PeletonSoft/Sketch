@@ -64,7 +64,7 @@
     <Compile Include="Behavior\DragInCanvasBehavior.cs" />
     <Compile Include="Behavior\DropBehavior.cs" />
     <Compile Include="Behavior\ImageCaptureOnButtonClickBehavior.cs" />
-    <Compile Include="Behavior\InsertPointOnMouseUpBehavior.cs" />
+    <Compile Include="Behavior\PointOnMouseUpBehavior.cs" />
     <Compile Include="Behavior\MouseDoubleClickBehavior.cs" />
     <Compile Include="Behavior\MoveInCanvasBehavor.cs" />
     <Compile Include="Behavior\OnLoadBehavior.cs" />

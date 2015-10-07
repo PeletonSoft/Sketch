@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;
+using PeletonSoft.Sketch.ViewModel.Interface.Draw;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.Logic;
@@ -156,10 +157,10 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             return points;
         }
 
-        public void Insert(InsertPointTransit insertPointTransit)
+        public void Insert(PointTransit<ILineViewModel> pointTransit)
         {
-            var line = insertPointTransit.Line;
-            var point = insertPointTransit.Point;
+            var line = pointTransit.Area;
+            var point = pointTransit.Point;
 
             var current = new PointViewModel(point.X + line.X, point.Y + line.Y, Delete, VisualOptions.CommandFactory);
             var start = new LineViewModel(line.Start, current, Insert, VisualOptions.CommandFactory);

@@ -2,8 +2,8 @@
 {
     public class DataTransition<TS, TD>
     {
-        public TS Source { get; private set; }
-        public TD Destination { get; private set; }
+        public TS Source { get; }
+        public TD Destination { get; }
 
         public DataTransition(TS source, TD destination)
         {

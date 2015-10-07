@@ -21,7 +21,7 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type db:LineViewModel}">
         <c:LineView OffsetX="{Binding Offset.X}" OffsetY="{Binding Offset.Y}" 
-                    Focusable="False" SplitCommand="{Binding InsertCommand}">
+                    Focusable="False" Command="{Binding InsertCommand}">
             <c:LineView.Style>
                 <Style TargetType="{x:Type c:LineView}">
                     <Style.Triggers>

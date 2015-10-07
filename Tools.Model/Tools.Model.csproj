@@ -119,13 +119,10 @@
     <Compile Include="SketchMath\Catenary.cs" />
     <Compile Include="Dragable\DataTransition.cs" />
     <Compile Include="ElementAlignment.cs" />
-    <Compile Include="Draw\IDrawViewModel.cs" />
-    <Compile Include="Draw\ILineViewModel.cs" />
     <Compile Include="Memento\IMemento.cs" />
     <Compile Include="Memento\IMementoRegister.cs" />
-    <Compile Include="Dragable\InsertPointTransit.cs" />
+    <Compile Include="Dragable\PointTransit.cs" />
     <Compile Include="Memento\IOriginator.cs" />
-    <Compile Include="Draw\IPointViewModel.cs" />
     <Compile Include="Collection\ContainerExtention.cs" />
     <Compile Include="PixelPerUnit.cs" />
     <Compile Include="SketchMath\ConnectStrategy\CatenaryLengthConnectStrategy.cs" />

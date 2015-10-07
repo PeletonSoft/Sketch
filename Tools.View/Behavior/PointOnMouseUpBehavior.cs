@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using PeletonSoft.Tools.Model.Dragable;
-using PeletonSoft.Tools.Model.Draw;
 
 namespace PeletonSoft.Tools.View.Behavior
 {
@@ -22,7 +21,7 @@ namespace PeletonSoft.Tools.View.Behavior
 
         private void MouseUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            InsertCommand?.Execute(new InsertPointTransit(new Point(X, Y), Line));
+            InsertCommand?.Execute(new PointTransit(new Point(X, Y), Area));
         }
 
         public double X
@@ -44,14 +43,14 @@ namespace PeletonSoft.Tools.View.Behavior
           nameof(Y), typeof(double), typeof(PointOnMouseUpBehavior), new PropertyMetadata(0.0));
 
 
-        public ILineViewModel Line
+        public object Area
         {
-            get { return (ILineViewModel)GetValue(LineProperty); }
-            set { SetValue(LineProperty, value); }
+            get { return GetValue(AreaProperty); }
+            set { SetValue(AreaProperty, value); }
         }
 
-        public static readonly DependencyProperty LineProperty = DependencyProperty.Register(
-          nameof(Line), typeof(ILineViewModel), typeof(PointOnMouseUpBehavior), new PropertyMetadata(null));
+        public static readonly DependencyProperty AreaProperty = DependencyProperty.Register(
+          nameof(Area), typeof(object), typeof(PointOnMouseUpBehavior), new PropertyMetadata(null));
 
         public ICommand InsertCommand
         {

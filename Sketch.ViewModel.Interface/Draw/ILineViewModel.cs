@@ -1,6 +1,6 @@
 using PeletonSoft.Tools.Model.Memento;
 
-namespace PeletonSoft.Tools.Model.Draw
+namespace PeletonSoft.Sketch.ViewModel.Interface.Draw
 {
     public interface ILineViewModel : IDrawViewModel, IOriginator
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PeletonSoft.Tools.Model.Draw
+namespace PeletonSoft.Sketch.ViewModel.Interface.Draw
 {
     public interface IDrawViewModel : INotifyPropertyChanged
     {

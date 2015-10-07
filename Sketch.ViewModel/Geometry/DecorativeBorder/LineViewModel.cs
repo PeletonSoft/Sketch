@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using PeletonSoft.Sketch.ViewModel.Interface.Draw;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Draw;
@@ -73,11 +74,11 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
         }
 
         public LineViewModel(IPointViewModel start, IPointViewModel finish,
-            Action<InsertPointTransit> insertAction, ICommandFactory commandFactory)
+            Action<PointTransit<ILineViewModel>> insertAction, ICommandFactory commandFactory)
         {
             Start = start;
             Finish = finish;
-            InsertCommand = commandFactory.CreateCommand(o => insertAction((InsertPointTransit) o));
+            InsertCommand = commandFactory.CreateCommand(o => insertAction(((PointTransit) o).Cast<ILineViewModel>()));
         }
 
 

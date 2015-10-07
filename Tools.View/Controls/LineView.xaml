@@ -20,10 +20,10 @@
                         Stroke="{Binding LineColor, ElementName=UserControl}"
                         StrokeThickness="1">
                         <i:Interaction.Behaviors>
-                            <behavior:InsertPointOnMouseUpBehavior Line="{Binding}"
+                            <behavior:PointOnMouseUpBehavior Area="{Binding}"
                                 X ="{Binding ThumbX, ElementName=UserControl}"
                                 Y ="{Binding ThumbY, ElementName=UserControl}"
-                                InsertCommand ="{Binding SplitCommand, ElementName=UserControl}"/>
+                                InsertCommand ="{Binding Command, ElementName=UserControl}"/>
                         </i:Interaction.Behaviors>
                     </Line>
                 </Grid>
