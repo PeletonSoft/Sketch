@@ -6,7 +6,7 @@ using PeletonSoft.Tools.Model.Draw;
 
 namespace PeletonSoft.Tools.View.Behavior
 {
-    public class InsertPointOnMouseUpBehavior : Behavior<UIElement>
+    public class PointOnMouseUpBehavior : Behavior<UIElement>
     {
         protected override void OnAttached()
         {
@@ -32,7 +32,7 @@ namespace PeletonSoft.Tools.View.Behavior
         }
 
         public static readonly DependencyProperty XProperty = DependencyProperty.Register(
-          nameof(X), typeof(double), typeof(InsertPointOnMouseUpBehavior), new PropertyMetadata(0.0));
+          nameof(X), typeof(double), typeof(PointOnMouseUpBehavior), new PropertyMetadata(0.0));
 
         public double Y
         {
@@ -41,7 +41,7 @@ namespace PeletonSoft.Tools.View.Behavior
         }
 
         public static readonly DependencyProperty YProperty = DependencyProperty.Register(
-          nameof(Y), typeof(double), typeof(InsertPointOnMouseUpBehavior), new PropertyMetadata(0.0));
+          nameof(Y), typeof(double), typeof(PointOnMouseUpBehavior), new PropertyMetadata(0.0));
 
 
         public ILineViewModel Line
@@ -51,7 +51,7 @@ namespace PeletonSoft.Tools.View.Behavior
         }
 
         public static readonly DependencyProperty LineProperty = DependencyProperty.Register(
-          nameof(Line), typeof(ILineViewModel), typeof(InsertPointOnMouseUpBehavior), new PropertyMetadata(null));
+          nameof(Line), typeof(ILineViewModel), typeof(PointOnMouseUpBehavior), new PropertyMetadata(null));
 
         public ICommand InsertCommand
         {
@@ -60,6 +60,6 @@ namespace PeletonSoft.Tools.View.Behavior
         }
 
         public static readonly DependencyProperty InsertCommandProperty = DependencyProperty.Register(
-          nameof(InsertCommand), typeof(ICommand), typeof(InsertPointOnMouseUpBehavior), new PropertyMetadata(null));
+          nameof(InsertCommand), typeof(ICommand), typeof(PointOnMouseUpBehavior), new PropertyMetadata(null));
     }
 }
