@@ -64,8 +64,9 @@
     <Compile Include="Behavior\DragInCanvasBehavior.cs" />
     <Compile Include="Behavior\DropBehavior.cs" />
     <Compile Include="Behavior\ImageCaptureOnButtonClickBehavior.cs" />
-    <Compile Include="Behavior\LineViewClickBehavior.cs" />
+    <Compile Include="Behavior\InsertPointOnMouseUpBehavior.cs" />
     <Compile Include="Behavior\MouseDoubleClickBehavior.cs" />
+    <Compile Include="Behavior\MoveInCanvasBehavor.cs" />
     <Compile Include="Behavior\OnLoadBehavior.cs" />
     <Compile Include="Behavior\OpenImageFileBehavior.cs" />
     <Compile Include="Behavior\PasteImageFileBehavior.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="Drawing\PointCollectionHelper.cs" />
     <Compile Include="ImageCaptureHelper.cs" />
     <Compile Include="ICurrent.cs" />
-    <Compile Include="ILineView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushBinding\FreezableBinding.cs" />
     <Compile Include="PushBinding\PushBinding.cs" />

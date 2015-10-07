@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+                    xmlns:c="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
                     xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
                     xmlns:db="clr-namespace:PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder;assembly=Sketch.ViewModel">
     <DataTemplate DataType="{x:Type db:PointViewModel}">
@@ -20,9 +20,10 @@
         </Thumb>
     </DataTemplate>
     <DataTemplate DataType="{x:Type db:LineViewModel}">
-        <controls:LineView OffsetX="{Binding Offset.X}" OffsetY="{Binding Offset.Y}" Focusable="False">
-            <controls:LineView.Style>
-                <Style TargetType="{x:Type controls:LineView}">
+        <c:LineView OffsetX="{Binding Offset.X}" OffsetY="{Binding Offset.Y}" 
+                    Focusable="False" SplitCommand="{Binding InsertCommand}">
+            <c:LineView.Style>
+                <Style TargetType="{x:Type c:LineView}">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter Property="LineColor" Value="Brown"></Setter>
@@ -32,11 +33,8 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </controls:LineView.Style>
-            <i:Interaction.Behaviors>
-                <behavior:LineViewClickBehavior Command="{Binding InsertCommand}"/>
-            </i:Interaction.Behaviors>
-        </controls:LineView>
+            </c:LineView.Style>
+        </c:LineView>
     </DataTemplate>
 
 </ResourceDictionary>
