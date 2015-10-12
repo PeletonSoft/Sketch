@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using PeletonSoft.Sketch.Runner.Properties;
+using PeletonSoft.Tools.Model.Register;
 
 namespace PeletonSoft.Sketch.Runner
 {
@@ -9,7 +12,6 @@ namespace PeletonSoft.Sketch.Runner
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            /*
             var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
             var settings = new Dictionary<string, object>
             {
@@ -21,7 +23,6 @@ namespace PeletonSoft.Sketch.Runner
             var register = (ISettingRegister)Resources["SettingRegister"];
 
             register.Register(settings);
-            */
         }
 
     }

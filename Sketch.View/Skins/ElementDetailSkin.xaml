@@ -3,8 +3,7 @@
                     xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Element;assembly=Sketch.ViewModel"
                     xmlns:custom="clr-namespace:PeletonSoft.Sketch.ViewModel.Element.Custom;assembly=Sketch.ViewModel"
                     xmlns:detail="clr-namespace:PeletonSoft.Sketch.View.Controls.Element.Detail"
-                    xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
-                    xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View">
+                    xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View">
 
     <DataTemplate DataType="{x:Type element:HardPelmetViewModel}">
         <detail:HardPelmetDetailView/>

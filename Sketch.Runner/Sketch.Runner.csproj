@@ -62,6 +62,14 @@
     <Compile Include="Setting\SettingProvider.cs" />
     <Compile Include="Setting\SettingService.cs" />
     <Compile Include="Setting\VisualContainer.cs" />
+    <Page Include="Dictionary\SettingDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionary\ViewModelDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +121,10 @@
     <ProjectReference Include="..\Sketch.Model\Sketch.Model.csproj">
       <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
       <Name>Sketch.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Design\Sketch.ViewModel.Design.csproj">
+      <Project>{e05ca886-941f-4a85-9dda-fe32c4769ac3}</Project>
+      <Name>Sketch.ViewModel.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
       <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>

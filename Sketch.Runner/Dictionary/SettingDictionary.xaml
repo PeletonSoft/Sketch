@@ -4,13 +4,13 @@
                     xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
                     xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
                     xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Element;assembly=Sketch.ViewModel.Memento"
-                    xmlns:setting="clr-namespace:PeletonSoft.Sketch.View.Setting"
                     xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Present;assembly=Sketch.ViewModel.Memento"
                     xmlns:workMode="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.WorkMode;assembly=Sketch.ViewModel.Memento"
                     xmlns:register="clr-namespace:PeletonSoft.Tools.Model.Register;assembly=Tools.Model"
                     xmlns:visual="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual;assembly=Sketch.ViewModel.Visual"
                     xmlns:model="clr-namespace:PeletonSoft.Tools.Model;assembly=Tools.Model"
-                    xmlns:view="clr-namespace:PeletonSoft.Tools.View;assembly=Tools.View">
+                    xmlns:view="clr-namespace:PeletonSoft.Tools.View;assembly=Tools.View"
+                    xmlns:setting="clr-namespace:PeletonSoft.Sketch.Runner.Setting">
     
     <s:Int32 x:Key="PixelPerUnit">200</s:Int32>
     <s:Int32 x:Key="PointCount">20</s:Int32>

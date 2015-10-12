@@ -5,11 +5,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2E3884A0-7585-4DDF-9C6C-A063209E66EC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PeletonSoft.Sketch.View</RootNamespace>
     <AssemblyName>Sketch.View</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -45,7 +45,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Sketch.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,10 +70,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Page Include="Controls\CustomFactoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,14 +262,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dictionary\SettingDictionary.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dictionary\WorkspaceViewModel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Skins\DrawViewSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -322,14 +314,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controls\CustomFactoryView.xaml.cs">
       <DependentUpon>CustomFactoryView.xaml</DependentUpon>
     </Compile>
@@ -468,38 +452,11 @@
     <Compile Include="Controls\Work\WorkAreaView.xaml.cs">
       <DependentUpon>WorkAreaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Setting\SettingData.cs" />
-    <Compile Include="Setting\SettingProvider.cs" />
-    <Compile Include="Setting\SettingService.cs" />
-    <Compile Include="Setting\VisualContainer.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -609,10 +566,6 @@
       <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
       <Name>Sketch.ViewModel.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sketch.ViewModel.Memento\Sketch.ViewModel.Memento.csproj">
-      <Project>{39f3103a-9d28-44a6-ad61-cc3e20d9dda2}</Project>
-      <Name>Sketch.ViewModel.Memento</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Visual\Sketch.ViewModel.Visual.csproj">
       <Project>{4c5a48fc-a803-4195-9068-5564f7619d83}</Project>
       <Name>Sketch.ViewModel.Visual</Name>
@@ -635,9 +588,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Element\RomanTexture.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Sketch.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Factory\Lattice.png" />
