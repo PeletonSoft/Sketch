@@ -46,14 +46,14 @@
                             HorizontalAlignment="Left"
                             VerticalContentAlignment="Center"
                             IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                        <Image Source="/Images/Icon/LeftAlign.png"></Image>
+                        <Image Source="/Sketch.View;component/Images/Icon/LeftAlign.png"></Image>
                     </RadioButton>
                     <RadioButton 
                             Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
                             HorizontalAlignment="Left"
                             VerticalContentAlignment="Center"
                             IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                        <Image Source="/Images/Icon/RightAlign.png"></Image>
+                        <Image Source="/Sketch.View;component/Images/Icon/RightAlign.png"></Image>
                     </RadioButton>
                 </StackPanel>
                 <Label
@@ -81,14 +81,14 @@
                             HorizontalAlignment="Left"
                             VerticalContentAlignment="Center"
                             IsChecked="{Binding WaveAlignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                        <Image Source="/Images/Icon/LeftAlign.png"></Image>
+                        <Image Source="/Sketch.View;component/Images/Icon/LeftAlign.png"></Image>
                     </RadioButton>
                     <RadioButton 
                             Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
                             HorizontalAlignment="Left"
                             VerticalContentAlignment="Center"
                             IsChecked="{Binding WaveAlignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                        <Image Source="/Images/Icon/RightAlign.png"></Image>
+                        <Image Source="/Sketch.View;component/Images/Icon/RightAlign.png"></Image>
                     </RadioButton>
                 </StackPanel>
             </Grid>

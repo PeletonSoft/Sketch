@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <WrapPanel>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Transformation/Reflection/Same.png"/>
+            <Image Source="/Sketch.View;component/Images/Transformation/Reflection/Same.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Reflection, Mode=TwoWay}">
@@ -33,7 +33,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Transformation/Reflection/HFlip.png"></Image>
+            <Image Source="/Sketch.View;component/Images/Transformation/Reflection/HFlip.png"></Image>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Reflection, Mode=TwoWay}">
@@ -46,7 +46,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Transformation/Reflection/DFlip.png"/>
+            <Image Source="/Sketch.View;component/Images/Transformation/Reflection/DFlip.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Reflection, Mode=TwoWay}">
@@ -59,7 +59,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Transformation/Reflection/VFlip.png"/>
+            <Image Source="/Sketch.View;component/Images/Transformation/Reflection/VFlip.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Reflection, Mode=TwoWay}">

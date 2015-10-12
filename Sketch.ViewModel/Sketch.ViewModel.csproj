@@ -129,7 +129,6 @@
     <Compile Include="Present\CustomPresentViewModel.cs" />
     <Compile Include="Present\PreviewPresentViewModel.cs" />
     <Compile Include="Present\LayoutPresentViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenViewModel.cs" />
     <Compile Include="Geometry\ReflectionViewModel.cs" />

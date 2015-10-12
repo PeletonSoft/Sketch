@@ -7,7 +7,7 @@
     <ProjectGuid>{F30509C2-3DFE-44EA-88EE-2CA9B20FF82C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sketch.Runner</RootNamespace>
+    <RootNamespace>PeletonSoft.Sketch.Runner</RootNamespace>
     <AssemblyName>Sketch.Runner</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

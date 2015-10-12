@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PeletonSoft.Tools.Model.Register;
 using PeletonSoft.Tools.Model.Setting;
 
-namespace Sketch.Runner.Setting
+namespace PeletonSoft.Sketch.Runner.Setting
 {
     internal class SettingService : ISettingService
     {

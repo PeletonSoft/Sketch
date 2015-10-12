@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <WrapPanel>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/HRectangle.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/HRectangle.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -33,7 +33,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/VRectangle.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/VRectangle.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -46,7 +46,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/Band.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/Band.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -59,7 +59,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/Hexagon.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/Hexagon.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -72,7 +72,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/Triangle.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/Triangle.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -85,7 +85,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/Parallelogram.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/Parallelogram.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">
@@ -98,7 +98,7 @@
             </i:Interaction.Behaviors>
         </RadioButton>
         <RadioButton Style="{StaticResource IconRadioButtonStyle}">
-            <Image Source="/Images/Outline/Trapezium.png"/>
+            <Image Source="/Sketch.View;component/Images/Outline/Trapezium.png"/>
             <i:Interaction.Behaviors>
                 <bh:ToggleButtonStatePatternBehavior 
                     State="{Binding Outline, Mode=TwoWay}">

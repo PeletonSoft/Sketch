@@ -3,11 +3,11 @@
 namespace PeletonSoft.Sketch.View
 {
     /// <summary>
-    /// Логика взаимодействия для WorkspaceView.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class WorkspaceView : Window
+    public partial class MainWindow
     {
-        public WorkspaceView()
+        public MainWindow()
         {
             InitializeComponent();
         }

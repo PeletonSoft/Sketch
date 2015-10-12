@@ -6,7 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Visual.Element;
 using PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive;
 using PeletonSoft.Tools.Model.Dependency;
 
-namespace Sketch.Runner.Setting
+namespace PeletonSoft.Sketch.Runner.Setting
 {
     public class VisualContainer : InjectContainer
     {

@@ -1,6 +1,6 @@
 ﻿using PeletonSoft.Tools.Model.Setting;
 
-namespace Sketch.Runner.Setting
+namespace PeletonSoft.Sketch.Runner.Setting
 {
     public class SettingProvider : ISettingProvider
     {

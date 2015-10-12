@@ -34,12 +34,12 @@
             <RadioButton Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
                 HorizontalAlignment="Left" VerticalContentAlignment="Center"
                 IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Left}">
-                <Image Source="/Images/Icon/LeftAlign.png"/>
+                <Image Source="/Sketch.View;component/Images/Icon/LeftAlign.png"/>
             </RadioButton>
             <RadioButton Style="{StaticResource {x:Static ToolBar.RadioButtonStyleKey}}"
                 HorizontalAlignment="Left" VerticalContentAlignment="Center"
                 IsChecked="{Binding Alignment, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Right}">
-                <Image Source="/Images/Icon/RightAlign.png"/>
+                <Image Source="/Sketch.View;component/Images/Icon/RightAlign.png"/>
             </RadioButton>
         </StackPanel>
 
