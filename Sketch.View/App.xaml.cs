@@ -10,22 +10,17 @@ namespace PeletonSoft.Sketch.View
     /// </summary>
     public partial class App
     {
-        public App()
-        {
-            Startup += Application_Startup;
-        }
-
-        private void Application_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
             var settings = new Dictionary<string, object>
             {
                 {"Args", e.Args},
                 {"Preferences", Settings.Default},
-                {"Assembly", new {Name = assembly.Name, Version = assembly.Version.ToString()}}
+                {"Assembly", new {assembly.Name, Version = assembly.Version.ToString()}}
             };
 
-            var register = (ISettingRegister) Resources["SettingRegister"];
+            var register = (ISettingRegister)Resources["SettingRegister"];
 
             register.Register(settings);
         }

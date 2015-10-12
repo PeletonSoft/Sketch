@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Sketch.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,6 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Setting\SettingData.cs" />
+    <Compile Include="Setting\SettingProvider.cs" />
+    <Compile Include="Setting\SettingService.cs" />
+    <Compile Include="Setting\VisualContainer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +104,44 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Sketch.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sketch.Model.Interface\Sketch.Model.Interface.csproj">
+      <Project>{2f4be5ab-9ff4-45b5-8b8b-caca40914e14}</Project>
+      <Name>Sketch.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.Model\Sketch.Model.csproj">
+      <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
+      <Name>Sketch.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
+      <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
+      <Name>Sketch.ViewModel.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Memento\Sketch.ViewModel.Memento.csproj">
+      <Project>{39f3103a-9d28-44a6-ad61-cc3e20d9dda2}</Project>
+      <Name>Sketch.ViewModel.Memento</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.Visual\Sketch.ViewModel.Visual.csproj">
+      <Project>{4c5a48fc-a803-4195-9068-5564f7619d83}</Project>
+      <Name>Sketch.ViewModel.Visual</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel\Sketch.ViewModel.csproj">
+      <Project>{81f5e6ae-d3e0-44bf-bdec-4be4a222a09f}</Project>
+      <Name>Sketch.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.View\Sketch.View.csproj">
+      <Project>{2e3884a0-7585-4ddf-9c6c-a063209e66ec}</Project>
+      <Name>Sketch.View</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
+      <Project>{8186a7aa-0320-4bf9-a9ee-6784c605da01}</Project>
+      <Name>Tools.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.View\Tools.View.csproj">
+      <Project>{42867c6c-713e-4407-9d47-2226c601fb4a}</Project>
+      <Name>Tools.View</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
