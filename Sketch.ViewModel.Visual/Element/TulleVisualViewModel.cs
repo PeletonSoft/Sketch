@@ -11,9 +11,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         {
         }
 
-        public new TulleViewModel Element
-        {
-            get { return (TulleViewModel) base.Element; }
-        }
+        public new TulleViewModel Element => (TulleViewModel) base.Element;
     }
 }
