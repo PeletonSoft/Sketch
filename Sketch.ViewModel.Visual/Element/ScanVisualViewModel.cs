@@ -56,7 +56,6 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element
         public Point Shift => new Point(-Center.X, -Center.Y);
         public ImageBox ImageBox => Element.ImageBox;
         public double RotationAngle => -Element.Transformation.Rotation.Angle*180/Math.PI;
-
         public Point RotationScale
         {
             get
