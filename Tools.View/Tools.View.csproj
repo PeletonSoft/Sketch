@@ -76,7 +76,7 @@
     <Compile Include="Behavior\SetCurrentOnLoadedBehavior.cs" />
     <Compile Include="Behavior\UpdatePropertyOnClickButtonBehavior.cs" />
     <Compile Include="Behavior\UpdatePropertyOnEnterPressBehavior.cs" />
-    <Compile Include="Command\CommandFactory.cs" />
+    <Compile Include="XamlExtention\Command\CommandFactory.cs" />
     <Compile Include="Controls\FixedDocumentViewer.cs" />
     <Compile Include="Controls\ImageSourceTitleUserControl.cs" />
     <Compile Include="Controls\ImageSourceUserControl.cs" />
@@ -124,13 +124,14 @@
     <Compile Include="ImageCaptureHelper.cs" />
     <Compile Include="ICurrent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PushBinding\FreezableBinding.cs" />
-    <Compile Include="PushBinding\PushBinding.cs" />
-    <Compile Include="PushBinding\PushBindingCollection.cs" />
-    <Compile Include="PushBinding\PushBindingManager.cs" />
-    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="XamlExtention\PushBinding\FreezableBinding.cs" />
+    <Compile Include="XamlExtention\PushBinding\PushBinding.cs" />
+    <Compile Include="XamlExtention\PushBinding\PushBindingCollection.cs" />
+    <Compile Include="XamlExtention\PushBinding\PushBindingManager.cs" />
+    <Compile Include="XamlExtention\Command\RelayCommand.cs" />
     <Compile Include="Report\FormatPageContent.cs" />
     <Compile Include="Report\A4LandscapeFormatPageContent.cs" />
+    <Compile Include="XamlExtention\InterfaceTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\LineView.xaml">

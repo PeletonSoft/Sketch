@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace PeletonSoft.Tools.View.PushBinding
+namespace PeletonSoft.Tools.View.XamlExtention.PushBinding
 {
     public class FreezableBinding : Freezable
     {

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using PeletonSoft.Tools.Model.Dependency;
 
-namespace PeletonSoft.Tools.View.Command
+namespace PeletonSoft.Tools.View.XamlExtention.Command
 {
     public class CommandFactory : ICommandFactory
     {

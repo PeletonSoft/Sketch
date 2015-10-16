@@ -130,6 +130,7 @@ namespace PeletonSoft.Sketch.ViewModel
 
         public void Restore()
         {
+            /*
             var settingData = SettingProvider.GetSettingData();
             var path = settingData.GetOrderSavePath();
 
@@ -141,6 +142,7 @@ namespace PeletonSoft.Sketch.ViewModel
 
             Caretaker.Load(path);
             Caretaker.SetState(this);
+            */
         }
         
     }

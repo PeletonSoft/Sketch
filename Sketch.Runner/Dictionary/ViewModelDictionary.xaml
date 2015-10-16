@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
                     xmlns:memento="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento;assembly=Sketch.ViewModel.Memento"
                     xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
-                    xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel">
+                    xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel"
+                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.XamlExtention.Command;assembly=Tools.View">
 
     <viewModel:ScreenViewModel x:Key="ScreenViewModel"
         Width="{StaticResource CanvasWidth}"

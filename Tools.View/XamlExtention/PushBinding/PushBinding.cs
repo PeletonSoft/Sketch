@@ -2,29 +2,24 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace PeletonSoft.Tools.View.PushBinding
+namespace PeletonSoft.Tools.View.XamlExtention.PushBinding
 {
     public class PushBinding : FreezableBinding
     {
         #region Dependency Properties
 
         public static readonly DependencyProperty TargetPropertyMirrorProperty =
-            DependencyProperty.Register("TargetPropertyMirror",
-                                        typeof(object),
-                                        typeof(PushBinding));
+            DependencyProperty.Register(
+                nameof(TargetPropertyMirror),typeof(object),typeof(PushBinding));
         public static readonly DependencyProperty TargetPropertyListenerProperty =
-            DependencyProperty.Register("TargetPropertyListener",
-                                        typeof(object),
-                                        typeof(PushBinding),
-                                        new UIPropertyMetadata(null, OnTargetPropertyListenerChanged));
+            DependencyProperty.Register(
+                nameof(TargetPropertyListener),typeof(object),typeof(PushBinding),
+                new UIPropertyMetadata(null, OnTargetPropertyListenerChanged));
 
         private static void OnTargetPropertyListenerChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var pushBinding = sender as PushBinding;
-            if (pushBinding != null)
-            {
-                pushBinding.TargetPropertyValueChanged();
-            }
+            pushBinding?.TargetPropertyValueChanged();
         }
 
         #endregion // Dependency Properties
@@ -52,18 +47,10 @@ namespace PeletonSoft.Tools.View.PushBinding
         }
 
         [DefaultValue(null)]
-        public string TargetProperty
-        {
-            get;
-            set;
-        }
+        public string TargetProperty { get; set; }
 
         [DefaultValue(null)]
-        public DependencyProperty TargetDependencyProperty
-        {
-            get;
-            set;
-        }
+        public DependencyProperty TargetDependencyProperty { get; set; }
 
         #endregion // Properties
 
@@ -120,8 +107,8 @@ namespace PeletonSoft.Tools.View.PushBinding
 
         private void TargetPropertyValueChanged()
         {
-            object targetPropertyValue = GetValue(TargetPropertyListenerProperty);
-            this.SetValue(TargetPropertyMirrorProperty, targetPropertyValue);
+            var targetPropertyValue = GetValue(TargetPropertyListenerProperty);
+            SetValue(TargetPropertyMirrorProperty, targetPropertyValue);
         }
 
         #endregion // Private Methods
@@ -136,10 +123,7 @@ namespace PeletonSoft.Tools.View.PushBinding
             base.CloneCore(sourceFreezable);
         }
 
-        protected override Freezable CreateInstanceCore()
-        {
-            return new PushBinding();
-        }
+        protected override Freezable CreateInstanceCore() => new PushBinding();
 
         #endregion // Freezable overrides
     }

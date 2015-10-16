@@ -1,14 +1,13 @@
 ﻿using System.Windows;
 
-namespace PeletonSoft.Tools.View.PushBinding
+namespace PeletonSoft.Tools.View.XamlExtention.PushBinding
 {
     public class PushBindingManager
     {
         public static readonly DependencyProperty PushBindingsProperty =
-            DependencyProperty.RegisterAttached("PushBindingsInternal",
-                                                typeof(PushBindingCollection),
-                                                typeof(PushBindingManager),
-                                                new UIPropertyMetadata(null));
+            DependencyProperty.RegisterAttached(
+                "PushBindingsInternal", typeof (PushBindingCollection),
+                typeof (PushBindingManager), new UIPropertyMetadata(null));
 
         public static PushBindingCollection GetPushBindings(DependencyObject obj)
         {
@@ -16,8 +15,9 @@ namespace PeletonSoft.Tools.View.PushBinding
             {
                 obj.SetValue(PushBindingsProperty, new PushBindingCollection(obj));
             }
-            return (PushBindingCollection)obj.GetValue(PushBindingsProperty);
+            return (PushBindingCollection) obj.GetValue(PushBindingsProperty);
         }
+
         public static void SetPushBindings(DependencyObject obj, PushBindingCollection value)
         {
             obj.SetValue(PushBindingsProperty, value);
@@ -25,15 +25,15 @@ namespace PeletonSoft.Tools.View.PushBinding
 
 
         public static readonly DependencyProperty StylePushBindingsProperty =
-            DependencyProperty.RegisterAttached("StylePushBindings",
-                                                typeof(PushBindingCollection),
-                                                typeof(PushBindingManager),
-                                                new UIPropertyMetadata(null, StylePushBindingsChanged));
+            DependencyProperty.RegisterAttached(
+                "StylePushBindings", typeof (PushBindingCollection),
+                typeof (PushBindingManager), new UIPropertyMetadata(null, StylePushBindingsChanged));
 
         public static PushBindingCollection GetStylePushBindings(DependencyObject obj)
         {
-            return (PushBindingCollection)obj.GetValue(StylePushBindingsProperty);
+            return (PushBindingCollection) obj.GetValue(StylePushBindingsProperty);
         }
+
         public static void SetStylePushBindings(DependencyObject obj, PushBindingCollection value)
         {
             obj.SetValue(StylePushBindingsProperty, value);
@@ -47,7 +47,7 @@ namespace PeletonSoft.Tools.View.PushBinding
                 var pushBindingCollection = GetPushBindings(target);
                 foreach (var pushBinding in stylePushBindings)
                 {
-                    var pushBindingClone = pushBinding.Clone() as PushBinding;
+                    var pushBindingClone = pushBinding.Clone() as View.XamlExtention.PushBinding.PushBinding;
                     if (pushBindingClone != null)
                     {
                         pushBindingCollection.Add(pushBindingClone);

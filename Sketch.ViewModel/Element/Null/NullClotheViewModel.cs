@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Null
 {
@@ -17,9 +18,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void RestoreDefault()
-        {
-        }
+        public void RestoreDefault() => DoNothing();
 
         public double? Height { get; set; } = 0;
 

@@ -13,18 +13,12 @@ namespace PeletonSoft.Tools.Model.Memento
 
         public void GetState(T originator)
         {
-            if (Memento != null)
-            {
-                Memento.GetState(originator);
-            }
+            Memento?.GetState(originator);
         }
 
         public void SetState(T originator)
         {
-            if (Memento != null)
-            {
-                Memento.SetState(originator);
-            }
+            Memento?.SetState(originator);
         }
 
         public void Save(string path)

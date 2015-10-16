@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib"
                     xmlns:converter="clr-namespace:PeletonSoft.Tools.View.Converter;assembly=Tools.View"
-                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.Command;assembly=Tools.View"
                     xmlns:element="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Element;assembly=Sketch.ViewModel.Memento"
                     xmlns:present="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.Present;assembly=Sketch.ViewModel.Memento"
                     xmlns:workMode="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento.WorkMode;assembly=Sketch.ViewModel.Memento"
@@ -10,7 +9,8 @@
                     xmlns:visual="clr-namespace:PeletonSoft.Sketch.ViewModel.Visual;assembly=Sketch.ViewModel.Visual"
                     xmlns:model="clr-namespace:PeletonSoft.Tools.Model;assembly=Tools.Model"
                     xmlns:view="clr-namespace:PeletonSoft.Tools.View;assembly=Tools.View"
-                    xmlns:setting="clr-namespace:PeletonSoft.Sketch.Runner.Setting">
+                    xmlns:setting="clr-namespace:PeletonSoft.Sketch.Runner.Setting"
+                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.XamlExtention.Command;assembly=Tools.View">
     
     <s:Int32 x:Key="PixelPerUnit">200</s:Int32>
     <s:Int32 x:Key="PointCount">20</s:Int32>

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace PeletonSoft.Tools.View.Command
+namespace PeletonSoft.Tools.View.XamlExtention.Command
 {
     /// <summary>
     /// From http://msdn.microsoft.com/en-us/magazine/dd419663.aspx
