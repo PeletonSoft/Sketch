@@ -76,6 +76,7 @@
     <Compile Include="Logic\IViewModel.cs" />
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
+    <Compile Include="Memento\IDataTransfer.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangeableCollectionHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\MoveItemChangedInfo.cs" />

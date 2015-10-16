@@ -7,6 +7,7 @@ using System.Windows.Input;
 using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
+using PeletonSoft.Sketch.ViewModel.DataTransfer;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
@@ -20,7 +21,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel
 {
-    public sealed class WorkspaceViewModel : IWorkspaceViewModel
+    public sealed class WorkspaceViewModel : IWorkspaceViewModel, IOriginator<WorkspaceDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -128,6 +129,7 @@ namespace PeletonSoft.Sketch.ViewModel
             ImageBox?.WriteToFile(Path.Combine(path, "content.png"));
         }
 
+
         public void Restore()
         {
             /*
@@ -144,6 +146,26 @@ namespace PeletonSoft.Sketch.ViewModel
             Caretaker.SetState(this);
             */
         }
-        
+
+        void IOriginator<WorkspaceDataTransfer>.Restore(WorkspaceDataTransfer state)
+        {
+            Present = Presents.GetValueByKeyOrDefault(state.Present);
+            WorkMode = WorkModes.GetValueByKeyOrDefault(state.WorkMode);
+        }
+
+        WorkspaceDataTransfer IOriginator<WorkspaceDataTransfer>.Save()
+        {
+            var settingData = SettingProvider.GetSettingData();
+
+            var state = new WorkspaceDataTransfer
+            {
+                Present = Presents.GetKeyByValue(Present),
+                WorkMode = WorkModes.GetKeyByValue(WorkMode),
+                ProgramName = settingData.ProgramName,
+                Version = settingData.Version
+            };
+
+            return state;
+        }
     }
 }

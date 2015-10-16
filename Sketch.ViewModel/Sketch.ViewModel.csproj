@@ -148,6 +148,10 @@
       <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
       <Name>Sketch.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.DataTransfer\Sketch.ViewModel.DataTransfer.csproj">
+      <Project>{531a805e-1773-4cb1-b829-260fe97e3d3b}</Project>
+      <Name>Sketch.ViewModel.DataTransfer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj">
       <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
       <Name>Sketch.ViewModel.Interface</Name>

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PeletonSoft.Sketch.View</RootNamespace>
     <AssemblyName>Sketch.View</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -557,6 +557,10 @@
     <ProjectReference Include="..\Sketch.Model\Sketch.Model.csproj">
       <Project>{6149c48f-86de-4691-a8ab-07f6a66e81a4}</Project>
       <Name>Sketch.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.DataTransfer\Sketch.ViewModel.DataTransfer.csproj">
+      <Project>{531a805e-1773-4cb1-b829-260fe97e3d3b}</Project>
+      <Name>Sketch.ViewModel.DataTransfer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Design\Sketch.ViewModel.Design.csproj">
       <Project>{e05ca886-941f-4a85-9dda-fe32c4769ac3}</Project>

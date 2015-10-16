@@ -4,4 +4,12 @@
     {
         void RestoreDefault();
     }
+
+    public interface IOriginator<T> where T : IDataTransfer
+    {
+        T Save();
+        void Restore(T state);
+
+        //void RestoreDefault();
+    }
 }
