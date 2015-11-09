@@ -7,7 +7,8 @@
 
     public interface IOriginator<T> where T : IDataTransfer
     {
-        T Save();
+        T CreateState();
+        void Save(T state);
         void Restore(T state);
 
         //void RestoreDefault();

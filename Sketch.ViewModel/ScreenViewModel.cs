@@ -51,13 +51,15 @@ namespace PeletonSoft.Sketch.ViewModel
             Model = new Screen();
         }
 
-        public ScreenDataTransfer Save()
+        public ScreenDataTransfer CreateState()
         {
-            return new ScreenDataTransfer()
-            {
-                Width = Width,
-                Height = Height
-            };
+            return new ScreenDataTransfer();
+        }
+
+        public void Save(ScreenDataTransfer state)
+        {
+            state.Width = Width;
+            state.Height = Height;
         }
 
         public void Restore(ScreenDataTransfer state)
@@ -66,9 +68,14 @@ namespace PeletonSoft.Sketch.ViewModel
             Height = state.Height;
         }
 
-        IScreenDataTransfer IOriginator<IScreenDataTransfer>.Save()
+        IScreenDataTransfer IOriginator<IScreenDataTransfer>.CreateState()
         {
-            return Save();
+            return CreateState();
+        }
+
+        void IOriginator<IScreenDataTransfer>.Save(IScreenDataTransfer state)
+        {
+            Save((ScreenDataTransfer)state);
         }
 
         void IOriginator<IScreenDataTransfer>.Restore(IScreenDataTransfer state)

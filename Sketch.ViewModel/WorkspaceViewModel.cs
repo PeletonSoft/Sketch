@@ -155,21 +155,21 @@ namespace PeletonSoft.Sketch.ViewModel
             ElementList.Restore(state.ElementList);
         }
 
-        WorkspaceDataTransfer IOriginator<WorkspaceDataTransfer>.Save()
+        public WorkspaceDataTransfer CreateState()
+        {
+            return new WorkspaceDataTransfer();
+        }
+
+        void IOriginator<WorkspaceDataTransfer>.Save(WorkspaceDataTransfer state)
         {
             var settingData = SettingProvider.GetSettingData();
 
-            var state = new WorkspaceDataTransfer
-            {
-                Present = Presents.GetKeyByValue(Present),
-                WorkMode = WorkModes.GetKeyByValue(WorkMode),
-                ProgramName = settingData.ProgramName,
-                Version = settingData.Version,
-                Screen = Screen.Save(),
-                ElementList = ElementList.Save()
-            };
-
-            return state;
+            state.Present = Presents.GetKeyByValue(Present);
+            state.WorkMode = WorkModes.GetKeyByValue(WorkMode);
+            state.ProgramName = settingData.ProgramName;
+            state.Version = settingData.Version;
+            state.Screen = Screen.Save();
+            state.ElementList = ElementList.Save();
         }
     }
 }

@@ -186,7 +186,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         public ILayoutViewModel Layout { get; }
         public Rect Rect => Model.GetRect();
-        public IElementDataTransfer Save()
+
+        public IElementDataTransfer CreateState()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(IElementDataTransfer state)
         {
             throw new NotImplementedException();
         }

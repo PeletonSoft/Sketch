@@ -155,7 +155,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         public Rect OverRect => Model.GetOverRect();
-        public IElementDataTransfer Save()
+        public IElementDataTransfer CreateState()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(IElementDataTransfer state)
         {
             throw new NotImplementedException();
         }

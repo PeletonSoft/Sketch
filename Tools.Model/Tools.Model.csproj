@@ -77,6 +77,7 @@
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
     <Compile Include="Memento\IDataTransfer.cs" />
+    <Compile Include="Memento\OriginatorHelper.cs" />
     <Compile Include="Memento\TypeContentDataTransfer.cs" />
     <Compile Include="Memento\TypeContentDataTransferHelper.cs" />
     <Compile Include="MetaData\TypeHelper.cs" />

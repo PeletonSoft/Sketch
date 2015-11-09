@@ -12,6 +12,7 @@ using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dragable;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.MetaData;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -184,28 +185,60 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         public IScreenViewModel Screen => WorkspaceBit.Screen;
         public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories => WorkspaceBit.Factories;
 
-        public ElementListDataTransfer Save()
+        ElementListDataTransfer IOriginator<ElementListDataTransfer>.CreateState()
         {
-            var state = new ElementListDataTransfer();
-            foreach (var item in Items)
+            return new ElementListDataTransfer();
+        }
+
+        public void Save(ElementListDataTransfer state)
+        {
+            foreach (var item in List)
             {
-                //state.List.Add();
+                state.List.Add(item.GetDataTransfer());
             }
-            return state;
         }
         public void Restore(ElementListDataTransfer state)
         {
+            foreach (var item in state.List)
+            {
+                foreach (var factory in Factories)
+                {
+                    var types = factory.GetType().GetGenericArgs(typeof (IElementFactoryViewModel<>))
+                        .SelectMany(type => type.GetGenericArgs(typeof (IOriginator<>)))
+                        .Where(type => type.IsSealed)
+                        .Select(type => type.Name);
+
+                    if (types.Contains(item.Type))
+                    {
+                        try
+                        {
+                            var element = AppendElement(factory);
+                            element.Restore(item.Content);
+                            break;
+                        }
+                        catch (Exception)
+                        {
+                            // ignored
+                        }
+                    }
+                }
+            }
         }
 
-        IElementListDataTransfer IOriginator<IElementListDataTransfer>.Save()
+        IElementListDataTransfer IOriginator<IElementListDataTransfer>.CreateState()
         {
-            return Save();
+            return (this as IOriginator<ElementListDataTransfer>).CreateState();
+        }
+
+        void IOriginator<IElementListDataTransfer>.Save(IElementListDataTransfer state)
+        {
+            (this as IOriginator<ElementListDataTransfer>).Save((ElementListDataTransfer)state);
         }
 
 
         void IOriginator<IElementListDataTransfer>.Restore(IElementListDataTransfer state)
         {
-            Restore((ElementListDataTransfer)state);
+            (this as IOriginator<ElementListDataTransfer>).Restore((ElementListDataTransfer)state);
         }
 
     }

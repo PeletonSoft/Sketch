@@ -6,10 +6,13 @@ using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using PeletonSoft.Tools.Model.Collection;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
@@ -18,7 +21,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
-    public abstract class AlignableElementViewModel : IAlignableElementViewModel
+    public abstract class AlignableElementViewModel : IAlignableElementViewModel, IOriginator<AlignableElementDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -128,13 +131,52 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         protected IWorkspaceBit WorkspaceBit { get; }
         protected IScreenViewModel Screen => WorkspaceBit.Screen;
-        public virtual IElementDataTransfer Save()
+
+
+        public virtual IElementDataTransfer CreateState()
         {
-            return null;
+            return (this as IOriginator<AlignableElementDataTransfer>).CreateState();
+        }
+
+        public virtual void Save(IElementDataTransfer state)
+        {
+            (this as IOriginator<AlignableElementDataTransfer>).Save((AlignableElementDataTransfer)state);
         }
 
         public virtual void Restore(IElementDataTransfer state)
         {
+            (this as IOriginator<AlignableElementDataTransfer>).Restore((AlignableElementDataTransfer)state);
         }
+
+        AlignableElementDataTransfer IOriginator<AlignableElementDataTransfer>.CreateState()
+        {
+            return new AlignableElementDataTransfer();
+        }
+
+        void IOriginator<AlignableElementDataTransfer>.Save(AlignableElementDataTransfer state)
+        {
+            state.Width = Width;
+            state.Height = Height;
+            state.OffsetX = OffsetX;
+            state.OffsetY = OffsetY;
+            state.Visibility = Visibility;
+            state.Opacity = Opacity;
+            state.Description = Description;
+            state.Layout = Layouts.GetKeyByValue(Layout);
+        }
+
+        void IOriginator<AlignableElementDataTransfer>.Restore(AlignableElementDataTransfer state)
+        {
+            Width = state.Width;
+            Height = state.Height;
+            OffsetX = state.OffsetX;
+            OffsetY = state.OffsetY;
+            Visibility = state.Visibility;
+            Opacity = state.Opacity;
+            Description = state.Description;
+            Layout = Layouts.GetValueByKeyOrDefault(state.Layout);
+        }
+
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace PeletonSoft.Tools.Model.Memento
 {
-    public class TypeContentDataTransferHelper
+    public static class TypeContentDataTransferHelper
     {
-        public TypeContentDataTransfer<T> GetDataTransfer<T>(IOriginator<T> item) 
+        public static TypeContentDataTransfer<T> GetDataTransfer<T>(this IOriginator<T> item) 
             where T : IDataTransfer
         {
             return new TypeContentDataTransfer<T>
