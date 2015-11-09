@@ -2,15 +2,19 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.Model;
+using PeletonSoft.Sketch.ViewModel.DataTransfer;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
-    public sealed class ScreenViewModel : IScreenViewModel, IViewModel<Screen>
+    public sealed class ScreenViewModel : IScreenViewModel, IViewModel<Screen>, 
+        IOriginator<ScreenDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,5 +50,31 @@ namespace PeletonSoft.Sketch.ViewModel
         {
             Model = new Screen();
         }
+
+        public ScreenDataTransfer Save()
+        {
+            return new ScreenDataTransfer()
+            {
+                Width = Width,
+                Height = Height
+            };
+        }
+
+        public void Restore(ScreenDataTransfer state)
+        {
+            Width = state.Width;
+            Height = state.Height;
+        }
+
+        IScreenDataTransfer IOriginator<IScreenDataTransfer>.Save()
+        {
+            return Save();
+        }
+
+        void IOriginator<IScreenDataTransfer>.Restore(IScreenDataTransfer state)
+        {
+            Restore((ScreenDataTransfer)state);
+        }
+
     }
 }

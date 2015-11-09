@@ -8,6 +8,7 @@ using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.DataTransfer;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
@@ -132,7 +133,7 @@ namespace PeletonSoft.Sketch.ViewModel
 
         public void Restore()
         {
-            /*
+            
             var settingData = SettingProvider.GetSettingData();
             var path = settingData.GetOrderSavePath();
 
@@ -144,13 +145,14 @@ namespace PeletonSoft.Sketch.ViewModel
 
             Caretaker.Load(path);
             Caretaker.SetState(this);
-            */
+           
         }
 
         void IOriginator<WorkspaceDataTransfer>.Restore(WorkspaceDataTransfer state)
         {
             Present = Presents.GetValueByKeyOrDefault(state.Present);
             WorkMode = WorkModes.GetValueByKeyOrDefault(state.WorkMode);
+            Screen.Restore(state.Screen);
         }
 
         WorkspaceDataTransfer IOriginator<WorkspaceDataTransfer>.Save()
@@ -162,7 +164,8 @@ namespace PeletonSoft.Sketch.ViewModel
                 Present = Presents.GetKeyByValue(Present),
                 WorkMode = WorkModes.GetKeyByValue(WorkMode),
                 ProgramName = settingData.ProgramName,
-                Version = settingData.Version
+                Version = settingData.Version,
+                Screen = Screen.Save(),
             };
 
             return state;
