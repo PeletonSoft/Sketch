@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IElementDataTransfer.cs" />
+    <Compile Include="IElementListDataTransfer.cs" />
     <Compile Include="IScreenDataTransfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

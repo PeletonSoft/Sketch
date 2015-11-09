@@ -77,6 +77,9 @@
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
     <Compile Include="Memento\IDataTransfer.cs" />
+    <Compile Include="Memento\TypeContentDataTransfer.cs" />
+    <Compile Include="Memento\TypeContentDataTransferHelper.cs" />
+    <Compile Include="MetaData\TypeHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangeableCollectionHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\MoveItemChangedInfo.cs" />

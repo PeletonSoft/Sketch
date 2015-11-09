@@ -5,10 +5,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using PeletonSoft.Sketch.ViewModel.DataTransfer;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dragable;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -18,7 +21,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
-    public sealed class ElementListViewModel : IElementListViewModel
+    public sealed class ElementListViewModel : IElementListViewModel, IOriginator<ElementListDataTransfer>
     {
         #region implement INotifyPropertyChanged
 
@@ -180,5 +183,30 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         public IScreenViewModel Screen => WorkspaceBit.Screen;
         public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories => WorkspaceBit.Factories;
+
+        public ElementListDataTransfer Save()
+        {
+            var state = new ElementListDataTransfer();
+            foreach (var item in Items)
+            {
+                //state.List.Add();
+            }
+            return state;
+        }
+        public void Restore(ElementListDataTransfer state)
+        {
+        }
+
+        IElementListDataTransfer IOriginator<IElementListDataTransfer>.Save()
+        {
+            return Save();
+        }
+
+
+        void IOriginator<IElementListDataTransfer>.Restore(IElementListDataTransfer state)
+        {
+            Restore((ElementListDataTransfer)state);
+        }
+
     }
 }

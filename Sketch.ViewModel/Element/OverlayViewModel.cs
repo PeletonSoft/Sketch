@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Element.Null;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -154,5 +155,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         public Rect OverRect => Model.GetOverRect();
+        public IElementDataTransfer Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Restore(IElementDataTransfer state)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

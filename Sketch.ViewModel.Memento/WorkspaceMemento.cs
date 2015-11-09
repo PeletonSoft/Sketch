@@ -5,7 +5,6 @@ using PeletonSoft.Sketch.ViewModel.Memento.Container;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento
 {

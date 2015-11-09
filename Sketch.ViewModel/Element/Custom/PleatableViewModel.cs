@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Element.Null;
 using PeletonSoft.Sketch.ViewModel.Interface;
@@ -185,5 +186,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         public ILayoutViewModel Layout { get; }
         public Rect Rect => Model.GetRect();
+        public IElementDataTransfer Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Restore(IElementDataTransfer state)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

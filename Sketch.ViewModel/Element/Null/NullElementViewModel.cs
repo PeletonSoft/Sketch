@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
@@ -59,5 +60,14 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             Clothe = new NullClotheViewModel();
         }
 
+        public IElementDataTransfer Save()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Restore(IElementDataTransfer state)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

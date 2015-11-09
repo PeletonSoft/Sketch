@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementListDataTransfer.cs" />
+    <Compile Include="Element\Custom\AlignableElementDataTransfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenDataTransfer.cs" />
     <Compile Include="WorkspaceDataTransfer.cs" />

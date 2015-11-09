@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
@@ -127,5 +128,13 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         protected IWorkspaceBit WorkspaceBit { get; }
         protected IScreenViewModel Screen => WorkspaceBit.Screen;
+        public virtual IElementDataTransfer Save()
+        {
+            return null;
+        }
+
+        public virtual void Restore(IElementDataTransfer state)
+        {
+        }
     }
 }

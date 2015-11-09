@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Tools;
 using PeletonSoft.Tools.Model.Collection;
@@ -9,7 +10,9 @@ using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
     public interface IElementListViewModel : IOriginator, IContainer<IElementViewModel>,
-        IChangeableCollection<IElementViewModel>, INotifyOpacityMaskRenderChanged
+        IChangeableCollection<IElementViewModel>, INotifyOpacityMaskRenderChanged,
+        IOriginator<IElementListDataTransfer>
+
     {
         IReadOnlyList<IElementViewModel> GetBelow(IElementViewModel element);
         IScreenViewModel Screen { get; }

@@ -8,7 +8,6 @@ using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.DataTransfer;
-using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
@@ -153,6 +152,7 @@ namespace PeletonSoft.Sketch.ViewModel
             Present = Presents.GetValueByKeyOrDefault(state.Present);
             WorkMode = WorkModes.GetValueByKeyOrDefault(state.WorkMode);
             Screen.Restore(state.Screen);
+            ElementList.Restore(state.ElementList);
         }
 
         WorkspaceDataTransfer IOriginator<WorkspaceDataTransfer>.Save()
@@ -166,6 +166,7 @@ namespace PeletonSoft.Sketch.ViewModel
                 ProgramName = settingData.ProgramName,
                 Version = settingData.Version,
                 Screen = Screen.Save(),
+                ElementList = ElementList.Save()
             };
 
             return state;
