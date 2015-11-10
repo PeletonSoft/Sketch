@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -10,7 +11,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public abstract class RectangleViewModel : INotifyPropertyChanged, IOriginator
+    public abstract class RectangleViewModel : INotifyPropertyChanged, IOriginator, IOriginator<RectangleDataTransfer>
     {
 
         #region implement INotifyPropertyChanged
@@ -55,6 +56,25 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
                     vertex.SetPropertyChanged(
                         new[] {nameof(vertex.X), nameof(vertex.Y)},
                         () => OnPropertyChanged(propertyName)));
+        }
+
+
+        public RectangleDataTransfer CreateState() => new RectangleDataTransfer();
+
+        public void Save(RectangleDataTransfer state)
+        {
+            state.TopLeft = TopLeft.Save();
+            state.TopRight = TopRight.Save();
+            state.BottomLeft = BottomLeft.Save();
+            state.BottomRight = BottomRight.Save();
+        }
+
+        public void Restore(RectangleDataTransfer state)
+        {
+            TopLeft.Restore(state.TopLeft);
+            BottomRight.Restore(state.BottomRight);
+            TopRight.Restore(state.TopRight);
+            BottomLeft.Restore(state.BottomLeft);
         }
     }
 }

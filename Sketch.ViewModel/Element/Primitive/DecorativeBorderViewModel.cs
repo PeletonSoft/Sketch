@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element.Primitive;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
@@ -13,7 +14,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class DecorativeBorderViewModel : IOriginator, INotifyViewModel<DecorativeBorder>
+    public sealed class DecorativeBorderViewModel : IOriginator, INotifyViewModel<DecorativeBorder>, IOriginator<DecorativeBorderDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -39,13 +40,30 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         public DecorativeBorder Model { get; }
         #endregion
 
+        #region implement IOriginator
+        public DecorativeBorderDataTransfer CreateState() => new DecorativeBorderDataTransfer();
+        public void Save(DecorativeBorderDataTransfer state)
+        {
+            state.Width = Width;
+            state.Height = Height;
+            state.Points.Clear();
+            state.Points.AddRange(Points);
+        }
+
+        public void Restore(DecorativeBorderDataTransfer state)
+        {
+            Width = state.Width;
+            Height = state.Height;
+            Points = new List<Point>(state.Points);
+        }
+        #endregion
         public DecorativeBorderViewModel(IWorkspaceBit workspaceBit, DecorativeBorder model)
         {
             WorkspaceBit = workspaceBit;
             Model = model;
             IsEdited = false;
         }
-
+         
         private IWorkspaceBit WorkspaceBit { get; set; }
 
         public double Width

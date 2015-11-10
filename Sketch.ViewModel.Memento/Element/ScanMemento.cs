@@ -15,7 +15,6 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
 {
     public sealed class ScanMemento : CustomElementMemento, IMemento<ScanViewModel>
     {
-        
         public RectangleMemento Rectangle { get; set; }
         public ImageBox ImageBox { get; set; }
         public TransformationMemento Transformation;

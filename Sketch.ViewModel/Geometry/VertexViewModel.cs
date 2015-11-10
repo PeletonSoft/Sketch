@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath;
@@ -11,7 +12,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public class VertexViewModel : INotifyPropertyChanged, IOriginator, IPoint
+    public class VertexViewModel : INotifyPropertyChanged, IOriginator, IPoint, IOriginator<VertexDataTransfer>
     {
         #region implement INotifyPropertyChanged
 
@@ -62,6 +63,19 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             }
         }
 
+        public VertexDataTransfer CreateState() => new VertexDataTransfer();
+
+        public void Save(VertexDataTransfer state)
+        {
+            state.X = X;
+            state.Y = Y;
+        }
+
+        public void Restore(VertexDataTransfer state)
+        {
+            X = state.X;
+            Y = state.Y;
+        }
     }
 
 }

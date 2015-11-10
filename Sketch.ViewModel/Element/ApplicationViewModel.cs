@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class ApplicationViewModel : AlignableElementViewModel, IReflectableViewModel, IViewModel<Application>
+    public sealed class ApplicationViewModel : AlignableElementViewModel, IReflectableViewModel, 
+        IViewModel<Application>, IOriginator<ApplicationDataTransfer>
     {
         public new Application Model => (Application)base.Model;
 
@@ -76,5 +80,31 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 return Reflection.GetPoints(points, Layout);
             }
         }
+
+        ApplicationDataTransfer IOriginator<ApplicationDataTransfer>.CreateState() => new ApplicationDataTransfer();
+
+        void IOriginator<ApplicationDataTransfer>.Save(ApplicationDataTransfer state)
+        {
+            base.Save(state);
+            state.Thickness = Thickness;
+            state.Reflection = Reflections.GetKeyByValue(Reflection);
+            state.Outline = Outlines.GetKeyByValue(Outline);
+        }
+
+        void IOriginator<ApplicationDataTransfer>.Restore(ApplicationDataTransfer state)
+        {
+            base.Restore(state);
+            Thickness = state.Thickness;
+            Outline = Outlines.GetValueByKeyOrDefault(state.Outline);
+            Reflection = Reflections.GetValueByKeyOrDefault(state.Reflection);
+        }
+
+        public override IElementDataTransfer CreateState() => 
+            (this as IOriginator<ApplicationDataTransfer>).CreateState();
+
+        public override void Save(IElementDataTransfer state) => 
+            (this as IOriginator<ApplicationDataTransfer>).Save((ApplicationDataTransfer) state);
+        public override void Restore(IElementDataTransfer state) =>
+            (this as IOriginator<ApplicationDataTransfer>).Restore((ApplicationDataTransfer)state);
     }
 }

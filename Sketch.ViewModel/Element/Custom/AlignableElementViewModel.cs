@@ -5,8 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Container;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
-using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
@@ -68,7 +68,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             get { return _layout; }
             set { SetField(ref _layout, value); }
         }
-        public IContainerOriginator<ILayoutViewModel> Layouts { get; private set; }
+        public IContainerOriginator<ILayoutViewModel> Layouts { get; }
         #endregion
 
         #region implement IElementViewModel
@@ -90,13 +90,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         public IReadOnlyList<IElementViewModel> Below => WorkspaceBit.GetBelowElements(this);
         public ICommand MoveToElementCommand { get; set; }
-        public void AfterInsert()
-        {
-        }
-
-        public void BeforeDelete()
-        {
-        }
+        public void AfterInsert() => DoNothing();
+        public void BeforeDelete() => DoNothing();
 
         #endregion
 
@@ -133,10 +128,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         protected IScreenViewModel Screen => WorkspaceBit.Screen;
 
 
-        public virtual IElementDataTransfer CreateState()
-        {
-            return (this as IOriginator<AlignableElementDataTransfer>).CreateState();
-        }
+        public abstract IElementDataTransfer CreateState();
 
         public virtual void Save(IElementDataTransfer state)
         {
@@ -150,7 +142,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         AlignableElementDataTransfer IOriginator<AlignableElementDataTransfer>.CreateState()
         {
-            return new AlignableElementDataTransfer();
+            return (AlignableElementDataTransfer)CreateState();
         }
 
         void IOriginator<AlignableElementDataTransfer>.Save(AlignableElementDataTransfer state)

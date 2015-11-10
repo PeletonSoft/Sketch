@@ -8,7 +8,7 @@ namespace PeletonSoft.Sketch.ViewModel.DataTransfer
     [Serializable]
     public sealed class ElementListDataTransfer : IElementListDataTransfer
     {
-        public IList<TypeContentDataTransfer<IElementDataTransfer>> List = 
+        public IList<TypeContentDataTransfer<IElementDataTransfer>> List { get; }  =
             new List<TypeContentDataTransfer<IElementDataTransfer>>();
     }
 }

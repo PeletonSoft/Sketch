@@ -1,4 +1,4 @@
-﻿using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface.Element.Custom;
+﻿using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom;
 
 namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Element
 {

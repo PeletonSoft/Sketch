@@ -1,9 +1,8 @@
-﻿using System;
+﻿using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 
-namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Interface.Element.Custom
+namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom
 {
-    [Serializable]
-    public class AlignableElementDataTransfer : IElementDataTransfer
+    public abstract class AlignableElementDataTransfer : IElementDataTransfer
     {
         public string Description { get; set; }
         //public ClotheMemento Clothe { get; set; }

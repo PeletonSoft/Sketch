@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.ViewModel.Container;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Memento;
@@ -11,7 +12,8 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public class TransformationViewModel : INotifyPropertyChanged, IOriginator, IReflectableViewModel, IRotableViewModel
+    public class TransformationViewModel : INotifyPropertyChanged, IOriginator, IReflectableViewModel, IRotableViewModel, 
+        IOriginator<TransformationDataTransfer>
     {
         #region implement INotifyPropertyChanged
 
@@ -58,6 +60,20 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
         {
             Rotation = Rotations.Default;
             Reflection = Reflections.Default;
+        }
+
+        public TransformationDataTransfer CreateState() => new TransformationDataTransfer();
+
+        public void Save(TransformationDataTransfer state)
+        {
+            state.Reflection = Reflections.GetKeyByValue(Reflection);
+            state.Rotation = Rotations.GetKeyByValue(Rotation);
+        }
+
+        public void Restore(TransformationDataTransfer state)
+        {
+            Reflection = Reflections.GetValueByKeyOrDefault(state.Reflection);
+            Rotation = Rotations.GetValueByKeyOrDefault(state.Rotation);
         }
     }
 }

@@ -12,6 +12,30 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class LatticeViewModel : AlignableElementViewModel, IOriginator<LatticeDataTransfer>
     {
+        #region implement IOriginator
+
+        LatticeDataTransfer IOriginator<LatticeDataTransfer>.CreateState() => new LatticeDataTransfer();
+        void IOriginator<LatticeDataTransfer>.Save(LatticeDataTransfer state)
+        {
+            base.Save(state);
+            state.CellWidth = CellWidth;
+            state.CellHeight = CellHeight;
+        }
+        void IOriginator<LatticeDataTransfer>.Restore(LatticeDataTransfer state)
+        {
+            base.Restore(state);
+            CellWidth = state.CellWidth;
+            CellHeight = state.CellHeight;
+        }
+
+        public override IElementDataTransfer CreateState() =>
+            (this as IOriginator<LatticeDataTransfer>).CreateState();
+        public override void Save(IElementDataTransfer state) =>
+            (this as IOriginator<LatticeDataTransfer>).Save((LatticeDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) =>
+            (this as IOriginator<LatticeDataTransfer>).Restore((LatticeDataTransfer)state);
+        #endregion
+
         private new Lattice Model => (Lattice) base.Model;
 
         public double CellWidth
@@ -42,27 +66,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
                 () => OnPropertyChanged(nameof(Lines)));
         }
 
-        LatticeDataTransfer IOriginator<LatticeDataTransfer>.CreateState() => new LatticeDataTransfer();
-
-        void IOriginator<LatticeDataTransfer>.Save(LatticeDataTransfer state)
-        {
-            base.Save(state);
-            state.CellWidth = CellWidth;
-            state.CellHeight = CellHeight;
-        }
-
-        void IOriginator<LatticeDataTransfer>.Restore(LatticeDataTransfer state)
-        {
-            base.Restore(state);
-            CellWidth = state.CellWidth;
-            CellHeight = state.CellHeight;
-        }
-
-        public override IElementDataTransfer CreateState() => (this as IOriginator<LatticeDataTransfer>).CreateState();
-
-        public override void Save(IElementDataTransfer state) => (this as IOriginator<LatticeDataTransfer>).Save((LatticeDataTransfer) state);
-
-        public override void Restore(IElementDataTransfer state) => (this as IOriginator<LatticeDataTransfer>).Restore((LatticeDataTransfer)state);
+        
     }
 
 }

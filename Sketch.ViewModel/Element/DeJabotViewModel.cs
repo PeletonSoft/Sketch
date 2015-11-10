@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model;
@@ -73,5 +74,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
+
+        public override IElementDataTransfer CreateState()
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

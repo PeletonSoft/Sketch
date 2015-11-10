@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
 using PeletonSoft.Sketch.ViewModel.Geometry;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath;
