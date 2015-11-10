@@ -12,7 +12,7 @@ using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>
+    public sealed class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>
     {
         public new RomanBlind Model => (RomanBlind) base.Model;
 

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Memento.Element.Service;
-using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 

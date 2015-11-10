@@ -15,7 +15,6 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
     public sealed class HardPelmetMemento : CustomElementMemento, IMemento<HardPelmetViewModel>
     {
         public DecorativeBorderMemento DecorativeBorder { get; set; }
-        public IList<Point> Points { get; set; }
 
         protected override void GetState(IElementViewModel originator)
         {

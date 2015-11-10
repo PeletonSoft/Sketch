@@ -199,14 +199,15 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         }
         public void Restore(ElementListDataTransfer state)
         {
+            Clear();
             foreach (var item in state.List)
             {
                 foreach (var factory in Factories)
                 {
                     var types = factory.GetType().GetGenericArgs(typeof (IElementFactoryViewModel<>))
-                        .SelectMany(type => type.GetGenericArgs(typeof (IOriginator<>)))
                         .Where(type => type.IsSealed)
-                        .Select(type => type.Name);
+                        .Select(type => type.ToString())
+                        .ToList();
 
                     if (types.Contains(item.Type))
                     {

@@ -10,7 +10,7 @@ using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public class ScanViewModel : AlignableElementViewModel, INotifyViewModel<Scan>
+    public sealed class ScanViewModel : AlignableElementViewModel, INotifyViewModel<Scan>
     {
 
         public new Scan Model => (Scan) base.Model;

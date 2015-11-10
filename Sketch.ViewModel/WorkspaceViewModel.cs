@@ -127,6 +127,9 @@ namespace PeletonSoft.Sketch.ViewModel
 
             Caretaker.Save(path);
             ImageBox?.WriteToFile(Path.Combine(path, "content.png"));
+
+            var x = (this as IOriginator<WorkspaceDataTransfer>).Save();
+            (this as IOriginator<WorkspaceDataTransfer>).Restore(x);
         }
 
 
