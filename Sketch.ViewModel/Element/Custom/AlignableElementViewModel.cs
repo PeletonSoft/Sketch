@@ -21,7 +21,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 {
-    public abstract class AlignableElementViewModel : IAlignableElementViewModel, IOriginator<AlignableElementDataTransfer>
+    public abstract class AlignableElementViewModel : IAlignableElementViewModel
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -127,25 +127,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         protected IWorkspaceBit WorkspaceBit { get; }
         protected IScreenViewModel Screen => WorkspaceBit.Screen;
 
-
-        public abstract IElementDataTransfer CreateState();
-
-        public virtual void Save(IElementDataTransfer state)
-        {
-            (this as IOriginator<AlignableElementDataTransfer>).Save((AlignableElementDataTransfer)state);
-        }
-
-        public virtual void Restore(IElementDataTransfer state)
-        {
-            (this as IOriginator<AlignableElementDataTransfer>).Restore((AlignableElementDataTransfer)state);
-        }
-
-        AlignableElementDataTransfer IOriginator<AlignableElementDataTransfer>.CreateState()
-        {
-            return (AlignableElementDataTransfer)CreateState();
-        }
-
-        void IOriginator<AlignableElementDataTransfer>.Save(AlignableElementDataTransfer state)
+        #region implement IOriginator
+        private void Save(AlignableElementDataTransfer state)
         {
             state.Width = Width;
             state.Height = Height;
@@ -155,9 +138,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             state.Opacity = Opacity;
             state.Description = Description;
             state.Layout = Layouts.GetKeyByValue(Layout);
+            state.Clothe = Clothe.Save();
         }
 
-        void IOriginator<AlignableElementDataTransfer>.Restore(AlignableElementDataTransfer state)
+        private void Restore(AlignableElementDataTransfer state)
         {
             Width = state.Width;
             Height = state.Height;
@@ -167,8 +151,12 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             Opacity = state.Opacity;
             Description = state.Description;
             Layout = Layouts.GetValueByKeyOrDefault(state.Layout);
+            Clothe.Restore(state.Clothe);
         }
 
-
+        public virtual IElementDataTransfer CreateState() => new AlignableElementDataTransfer();
+        public virtual void Save(IElementDataTransfer state) => Save((AlignableElementDataTransfer)state);
+        public virtual void Restore(IElementDataTransfer state) => Restore((AlignableElementDataTransfer)state);
+        #endregion
     }
 }

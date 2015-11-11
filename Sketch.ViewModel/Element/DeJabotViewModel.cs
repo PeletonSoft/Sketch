@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class DeJabotViewModel : AlignableElementViewModel, INotifyViewModel<DeJabot>
+    public sealed class DeJabotViewModel : AlignableElementViewModel, INotifyViewModel<DeJabot>, IOriginator<DeJabotDataTransfer>
     {
         public new DeJabot Model => (DeJabot) base.Model;
 
@@ -75,10 +77,35 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
         public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
 
-        public override IElementDataTransfer CreateState()
+        #region implement IOriginator
+        DeJabotDataTransfer IOriginator<DeJabotDataTransfer>.CreateState() => new DeJabotDataTransfer();
+
+        void IOriginator<DeJabotDataTransfer>.Save(DeJabotDataTransfer state)
         {
-            throw new System.NotImplementedException();
+            base.Save(state);
+            state.Alignment = Alignment;
+            state.SmallHeight = SmallHeight;
+            state.WaveAlignment = WaveAlignment;
+            state.WaveHeight = WaveHeight;
+            state.WaveCount = WaveCount;
         }
 
+        void IOriginator<DeJabotDataTransfer>.Restore(DeJabotDataTransfer state)
+        {
+            base.Restore(state);
+            Alignment = state.Alignment;
+            SmallHeight = state.SmallHeight;
+            WaveAlignment = state.WaveAlignment;
+            WaveHeight = state.WaveHeight;
+            WaveCount = state.WaveCount;
+        }
+
+        public override IElementDataTransfer CreateState() => 
+            (this as IOriginator<DeJabotDataTransfer>).CreateState();
+        public override void Save(IElementDataTransfer state) => 
+            (this as IOriginator<DeJabotDataTransfer>).Save((DeJabotDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) =>
+            (this as IOriginator<DeJabotDataTransfer>).Restore((DeJabotDataTransfer)state);
+        #endregion
     }
 }

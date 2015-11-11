@@ -11,10 +11,5 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             : base(workspaceBit, model)
         {
         }
-
-        public override IElementDataTransfer CreateState()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

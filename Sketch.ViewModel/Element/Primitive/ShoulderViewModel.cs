@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.RightsManagement;
 using PeletonSoft.Sketch.Model.Element.Primitive;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -10,7 +12,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class ShoulderViewModel : IOriginator, INotifyViewModel<Shoulder>, ISynchViewModel<ShoulderViewModel>
+    public sealed class ShoulderViewModel : IOriginator, INotifyViewModel<Shoulder>, ISynchViewModel<ShoulderViewModel>, IOriginator<ShoulderDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,5 +72,21 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             set { SetField(() => Model.Slope, v => Model.Slope = v, value); }
         }
 
+        public ShoulderDataTransfer CreateState() => new ShoulderDataTransfer();
+        public void Save(ShoulderDataTransfer state)
+        {
+            state.WaveHeight = WaveHeight;
+            state.Length = Length;
+            state.OffsetY = OffsetY;
+            state.Slope = Slope;
+        }
+        public void Restore(ShoulderDataTransfer state)
+        {
+            WaveHeight = state.WaveHeight;
+            Length = state.Length;
+            OffsetY = state.OffsetY;
+            Slope = state.Slope;
+
+        }
     }
 }

@@ -3,9 +3,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Interface.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
@@ -13,7 +16,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class ClotheViewModel : IClotheViewModel, INotifyViewModel<IClothe>
+    public sealed class ClotheViewModel : IClotheViewModel, INotifyViewModel<IClothe>, IOriginator<IClotheDataTransfer>
     {
 
         #region implement INotifyPropertyChanged
@@ -79,5 +82,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             CalculateCommand = commandFactory.CreateCommand(Calculate);
         }
 
+        public IClotheDataTransfer CreateState() => new ClotheDataTransfer();
+        public void Save(IClotheDataTransfer state)
+        {
+            state.Width = Width;
+            state.Height = Height;
+        }
+        public void Restore(IClotheDataTransfer state)
+        {
+            Width = state.Width;
+            Height = state.Height;
+        }
     }
 }

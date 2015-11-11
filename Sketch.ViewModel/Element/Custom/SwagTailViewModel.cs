@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -78,5 +81,22 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         public IEnumerable<Point> Circuit => Model.GetCircuit();
         public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
+
+        private void Save(SwagTailDataTransfer state)
+        {
+            base.Save(state);
+            state.IndentDepth = IndentDepth;
+            state.WaveCount = WaveCount;
+        }
+
+        private void Restore(SwagTailDataTransfer state)
+        {
+            base.Restore(state);
+            WaveCount = state.WaveCount;
+            IndentDepth = state.IndentDepth;
+        }
+        public override void Save(IElementDataTransfer state) => Save((SwagTailDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) => Restore((SwagTailDataTransfer)state);
+        public override IElementDataTransfer CreateState() => new SwagTailDataTransfer();
     }
 }
