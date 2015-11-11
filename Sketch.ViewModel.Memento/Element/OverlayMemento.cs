@@ -82,14 +82,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Element
     {
         public void Register()
         {
-            
             var record = new ElementMementoFactoryRecord(
                 typeof(OverlayFactoryViewModel),
                 typeof(OverlayViewModel),
                 typeof(OverlayMemento),
                 () => new OverlayMemento());
             ElementMementoFactoryService.Register(record);
-            
         }
     }
 }

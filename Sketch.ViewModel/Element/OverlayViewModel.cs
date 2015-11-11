@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Element.Null;
@@ -155,19 +156,29 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         public Rect OverRect => Model.GetOverRect();
-        public IElementDataTransfer CreateState()
+
+        public IElementDataTransfer CreateState() => new OverlayDataTransfer();
+        public void Save(IElementDataTransfer state) => Save((OverlayDataTransfer)state);
+        public void Restore(IElementDataTransfer state) => Restore((OverlayDataTransfer)state);
+
+        private void Save(OverlayDataTransfer state)
         {
-            throw new NotImplementedException();
+            state.Description = Description;
+            state.SelectedIndex = SelectedIndex;
+            state.OverWidth = OverWidth;
+            state.OverHeight = OverHeight;
+            state.OverOffsetX = OverOffsetX;
+            state.OverOffsetY = OverOffsetY;
         }
 
-        public void Save(IElementDataTransfer state)
+        private void Restore(OverlayDataTransfer state)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Restore(IElementDataTransfer state)
-        {
-            throw new NotImplementedException();
+            Description = state.Description;
+            SelectedIndex = state.SelectedIndex;
+            OverWidth = state.OverWidth;
+            OverHeight = state.OverHeight;
+            OverOffsetX = state.OverOffsetX;
+            OverOffsetY = state.OverOffsetY;
         }
     }
 }

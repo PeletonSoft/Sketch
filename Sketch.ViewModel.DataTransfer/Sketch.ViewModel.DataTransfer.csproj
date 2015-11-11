@@ -46,11 +46,13 @@
     <Compile Include="Element\ApplicationDataTransfer.cs" />
     <Compile Include="Element\Custom\AlignableElementDataTransfer.cs" />
     <Compile Include="Element\Custom\EqualSwagTailDataTransfer.cs" />
+    <Compile Include="Element\Custom\PleatableDataTransfer.cs" />
     <Compile Include="Element\Custom\ScaleneSwagTailDataTransfer.cs" />
     <Compile Include="Element\Custom\SwagTailDataTransfer.cs" />
     <Compile Include="Element\DeJabotDataTransfer.cs" />
     <Compile Include="Element\HardPelmetDataTransfer.cs" />
     <Compile Include="Element\LatticeDataTransfer.cs" />
+    <Compile Include="Element\OverlayDataTransfer.cs" />
     <Compile Include="Element\Primitive\ClotheDataTransfer.cs" />
     <Compile Include="Element\Primitive\DecorativeBorderDataTransfer.cs" />
     <Compile Include="Element\Primitive\ShoulderDataTransfer.cs" />

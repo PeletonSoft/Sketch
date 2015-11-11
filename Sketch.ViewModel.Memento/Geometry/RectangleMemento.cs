@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.File;
@@ -30,10 +31,16 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
         {
             if (originator != null)
             {
-                TopLeft.SetState(originator.TopLeft);
-                BottomRight.SetState(originator.BottomRight);
-                TopRight.SetState(originator.TopRight);
-                BottomLeft.SetState(originator.BottomLeft);
+                try
+                {
+                    TopLeft.SetState(originator.TopLeft);
+                    BottomRight.SetState(originator.BottomRight);
+                    TopRight.SetState(originator.TopRight);
+                    BottomLeft.SetState(originator.BottomLeft);
+                }
+                catch (NullReferenceException)
+                {
+                }
             }
         }
 

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using PeletonSoft.Sketch.Model.Element.Custom;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Element.Null;
@@ -187,19 +188,28 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public ILayoutViewModel Layout { get; }
         public Rect Rect => Model.GetRect();
 
-        public IElementDataTransfer CreateState()
+        public IElementDataTransfer CreateState() => new PleatableDataTransfer();
+        public void Save(IElementDataTransfer state) => Save((PleatableDataTransfer)state);
+        public void Restore(IElementDataTransfer state) => Restore((PleatableDataTransfer)state);
+
+        private void Save(PleatableDataTransfer state)
         {
-            throw new NotImplementedException();
+            state.Visibility = Visibility;
+            state.Opacity = Opacity;
+            state.Description = Description;
+            state.Alignment = Alignment;
+            state.WaveCount = WaveCount;
+            state.DenseWidth = DenseWidth;
         }
 
-        public void Save(IElementDataTransfer state)
+        private void Restore(PleatableDataTransfer state)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Restore(IElementDataTransfer state)
-        {
-            throw new NotImplementedException();
+            Visibility = state.Visibility;
+            Opacity = state.Opacity;
+            Description = state.Description;
+            Alignment = state.Alignment;
+            WaveCount = state.WaveCount;
+            DenseWidth = state.DenseWidth;
         }
     }
 }

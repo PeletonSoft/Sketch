@@ -1,5 +1,4 @@
-﻿using System;
-using PeletonSoft.Sketch.Model.Element;
+﻿using PeletonSoft.Sketch.Model.Element;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 
