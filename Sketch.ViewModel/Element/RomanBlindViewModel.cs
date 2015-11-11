@@ -13,14 +13,11 @@ using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>,
-        IOriginator<RomanBlindDataTransfer>
+    public sealed class RomanBlindViewModel : AlignableElementViewModel, INotifyViewModel<RomanBlind>
     {
 
         #region implement IOriginator
-        RomanBlindDataTransfer IOriginator<RomanBlindDataTransfer>.CreateState() => new RomanBlindDataTransfer();
-
-        void IOriginator<RomanBlindDataTransfer>.Save(RomanBlindDataTransfer state)
+        private void Save(RomanBlindDataTransfer state)
         {
             base.Save(state);
             state.CoulisseThickness = CoulisseThickness;
@@ -29,7 +26,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             state.DecorativeBorder = DecorativeBorder.Save();
         }
 
-        void IOriginator<RomanBlindDataTransfer>.Restore(RomanBlindDataTransfer state)
+        private void Restore(RomanBlindDataTransfer state)
         {
             base.Restore(state);
             CoulisseThickness = state.CoulisseThickness;
@@ -38,14 +35,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             DecorativeBorder.Restore(state.DecorativeBorder);
         }
 
-        public override IElementDataTransfer CreateState() =>
-            (this as IOriginator<RomanBlindDataTransfer>).CreateState();
-
-        public override void Save(IElementDataTransfer state) =>
-            (this as IOriginator<RomanBlindDataTransfer>).Save((RomanBlindDataTransfer)state);
-
-        public override void Restore(IElementDataTransfer state) =>
-            (this as IOriginator<RomanBlindDataTransfer>).Restore((RomanBlindDataTransfer)state);
+        public override IElementDataTransfer CreateState() => new RomanBlindDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((RomanBlindDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) => Restore((RomanBlindDataTransfer)state);
 
         #endregion
         public new RomanBlind Model => (RomanBlind) base.Model;

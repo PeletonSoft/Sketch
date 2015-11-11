@@ -5,35 +5,30 @@ using PeletonSoft.Sketch.ViewModel.DataTransfer.Element;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
-using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class LatticeViewModel : AlignableElementViewModel, IOriginator<LatticeDataTransfer>
+    public sealed class LatticeViewModel : AlignableElementViewModel
     {
         #region implement IOriginator
 
-        LatticeDataTransfer IOriginator<LatticeDataTransfer>.CreateState() => new LatticeDataTransfer();
-        void IOriginator<LatticeDataTransfer>.Save(LatticeDataTransfer state)
+        private void Save(LatticeDataTransfer state)
         {
             base.Save(state);
             state.CellWidth = CellWidth;
             state.CellHeight = CellHeight;
         }
-        void IOriginator<LatticeDataTransfer>.Restore(LatticeDataTransfer state)
+        private void Restore(LatticeDataTransfer state)
         {
             base.Restore(state);
             CellWidth = state.CellWidth;
             CellHeight = state.CellHeight;
         }
 
-        public override IElementDataTransfer CreateState() =>
-            (this as IOriginator<LatticeDataTransfer>).CreateState();
-        public override void Save(IElementDataTransfer state) =>
-            (this as IOriginator<LatticeDataTransfer>).Save((LatticeDataTransfer)state);
-        public override void Restore(IElementDataTransfer state) =>
-            (this as IOriginator<LatticeDataTransfer>).Restore((LatticeDataTransfer)state);
+        public override IElementDataTransfer CreateState() => new LatticeDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((LatticeDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) => Restore((LatticeDataTransfer)state);
         #endregion
 
         private new Lattice Model => (Lattice) base.Model;

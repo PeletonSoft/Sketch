@@ -12,31 +12,26 @@ using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class HardPelmetViewModel : AlignableElementViewModel, IViewModel<HardPelmet>, IOriginator<HardPelmetDataTransfer>
+    public sealed class HardPelmetViewModel : AlignableElementViewModel, IViewModel<HardPelmet>
     {
         #region implement Ioriginator
-        HardPelmetDataTransfer IOriginator<HardPelmetDataTransfer>.CreateState() => new HardPelmetDataTransfer();
 
-        void IOriginator<HardPelmetDataTransfer>.Save(HardPelmetDataTransfer state)
+        private void Save(HardPelmetDataTransfer state)
         {
             base.Save(state);
             state.DecorativeBorder = DecorativeBorder.Save();
         }
 
-        void IOriginator<HardPelmetDataTransfer>.Restore(HardPelmetDataTransfer state)
+        private void Restore(HardPelmetDataTransfer state)
         {
             base.Restore(state);
             DecorativeBorder.Restore(state.DecorativeBorder);
         }
 
-        public override IElementDataTransfer CreateState() =>
-            (this as IOriginator<HardPelmetDataTransfer>).CreateState();
+        public override IElementDataTransfer CreateState() => new HardPelmetDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((HardPelmetDataTransfer)state);
 
-        public override void Save(IElementDataTransfer state) =>
-            (this as IOriginator<HardPelmetDataTransfer>).Save((HardPelmetDataTransfer)state);
-
-        public override void Restore(IElementDataTransfer state) =>
-            (this as IOriginator<HardPelmetDataTransfer>).Restore((HardPelmetDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) => Restore((HardPelmetDataTransfer)state);
         #endregion
 
         public new HardPelmet Model => (HardPelmet) base.Model;

@@ -13,7 +13,7 @@ using PeletonSoft.Tools.Model.SketchMath.Wave;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class DeJabotViewModel : AlignableElementViewModel, INotifyViewModel<DeJabot>, IOriginator<DeJabotDataTransfer>
+    public sealed class DeJabotViewModel : AlignableElementViewModel, INotifyViewModel<DeJabot>
     {
         public new DeJabot Model => (DeJabot) base.Model;
 
@@ -78,9 +78,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         public IWavyBorder<IEnumerable<Point>> WavySurface => Model.GetWavySurface();
 
         #region implement IOriginator
-        DeJabotDataTransfer IOriginator<DeJabotDataTransfer>.CreateState() => new DeJabotDataTransfer();
-
-        void IOriginator<DeJabotDataTransfer>.Save(DeJabotDataTransfer state)
+        private void Save(DeJabotDataTransfer state)
         {
             base.Save(state);
             state.Alignment = Alignment;
@@ -90,7 +88,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             state.WaveCount = WaveCount;
         }
 
-        void IOriginator<DeJabotDataTransfer>.Restore(DeJabotDataTransfer state)
+        private void Restore(DeJabotDataTransfer state)
         {
             base.Restore(state);
             Alignment = state.Alignment;
@@ -100,12 +98,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             WaveCount = state.WaveCount;
         }
 
-        public override IElementDataTransfer CreateState() => 
-            (this as IOriginator<DeJabotDataTransfer>).CreateState();
-        public override void Save(IElementDataTransfer state) => 
-            (this as IOriginator<DeJabotDataTransfer>).Save((DeJabotDataTransfer)state);
-        public override void Restore(IElementDataTransfer state) =>
-            (this as IOriginator<DeJabotDataTransfer>).Restore((DeJabotDataTransfer)state);
+        public override IElementDataTransfer CreateState() => new DeJabotDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((DeJabotDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) =>Restore((DeJabotDataTransfer)state);
+
         #endregion
     }
 }

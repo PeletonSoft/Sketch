@@ -56,8 +56,10 @@
     <Compile Include="Element\Primitive\ClotheDataTransfer.cs" />
     <Compile Include="Element\Primitive\DecorativeBorderDataTransfer.cs" />
     <Compile Include="Element\Primitive\ShoulderDataTransfer.cs" />
+    <Compile Include="Element\Primitive\TieBackSideDataTransfer.cs" />
     <Compile Include="Element\RomanBlindDataTransfer.cs" />
     <Compile Include="Element\ScanDataTransfer.cs" />
+    <Compile Include="Element\TieBackDataTransfer.cs" />
     <Compile Include="Geometry\RectangleDataTransfer.cs" />
     <Compile Include="Geometry\SuperimposeOptionDataTransfer.cs" />
     <Compile Include="Geometry\TransformationDataTransfer.cs" />

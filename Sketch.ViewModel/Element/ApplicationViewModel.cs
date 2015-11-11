@@ -17,7 +17,7 @@ using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
     public sealed class ApplicationViewModel : AlignableElementViewModel, IReflectableViewModel, 
-        IViewModel<Application>, IOriginator<ApplicationDataTransfer>
+        IViewModel<Application>
     {
         public new Application Model => (Application)base.Model;
 
@@ -81,9 +81,10 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             }
         }
 
-        ApplicationDataTransfer IOriginator<ApplicationDataTransfer>.CreateState() => new ApplicationDataTransfer();
-
-        void IOriginator<ApplicationDataTransfer>.Save(ApplicationDataTransfer state)
+        public override IElementDataTransfer CreateState() => new ApplicationDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((ApplicationDataTransfer) state);
+        public override void Restore(IElementDataTransfer state) => Restore((ApplicationDataTransfer)state);
+        private void Save(ApplicationDataTransfer state)
         {
             base.Save(state);
             state.Thickness = Thickness;
@@ -91,7 +92,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             state.Outline = Outlines.GetKeyByValue(Outline);
         }
 
-        void IOriginator<ApplicationDataTransfer>.Restore(ApplicationDataTransfer state)
+        private void Restore(ApplicationDataTransfer state)
         {
             base.Restore(state);
             Thickness = state.Thickness;
@@ -99,12 +100,5 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             Reflection = Reflections.GetValueByKeyOrDefault(state.Reflection);
         }
 
-        public override IElementDataTransfer CreateState() => 
-            (this as IOriginator<ApplicationDataTransfer>).CreateState();
-
-        public override void Save(IElementDataTransfer state) => 
-            (this as IOriginator<ApplicationDataTransfer>).Save((ApplicationDataTransfer) state);
-        public override void Restore(IElementDataTransfer state) =>
-            (this as IOriginator<ApplicationDataTransfer>).Restore((ApplicationDataTransfer)state);
     }
 }

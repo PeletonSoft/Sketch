@@ -13,7 +13,7 @@ using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element
 {
-    public sealed class ScanViewModel : AlignableElementViewModel, INotifyViewModel<Scan>, IOriginator<ScanDataTransfer>
+    public sealed class ScanViewModel : AlignableElementViewModel, INotifyViewModel<Scan>
     {
         public new Scan Model => (Scan) base.Model;
 
@@ -86,8 +86,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         }
 
         #region implement IOriginator
-        ScanDataTransfer IOriginator<ScanDataTransfer>.CreateState() => new ScanDataTransfer();
-        void IOriginator<ScanDataTransfer>.Save(ScanDataTransfer state)
+        private void Save(ScanDataTransfer state)
         {
             base.Save(state);
             state.ImageBox = ImageBox;
@@ -95,7 +94,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             state.SuperimposeOption = SuperimposeOption.Save();
             state.Rectangle = Rectangle.Save();
         }
-        void IOriginator<ScanDataTransfer>.Restore(ScanDataTransfer state)
+        private void Restore(ScanDataTransfer state)
         {
             base.Restore(state);
             ImageBox = state.ImageBox;
@@ -103,12 +102,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element
             SuperimposeOption.Restore(state.SuperimposeOption);
             Rectangle.Restore(state.Rectangle);
         }
-        public override IElementDataTransfer CreateState() => 
-            (this as IOriginator<ScanDataTransfer>).CreateState();
-        public override void Save(IElementDataTransfer state) => 
-            (this as IOriginator<ScanDataTransfer>).Save((ScanDataTransfer) state);
-        public override void Restore(IElementDataTransfer state) => 
-            (this as IOriginator<ScanDataTransfer>).Restore((ScanDataTransfer)state);
+        public override IElementDataTransfer CreateState() => new ScanDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((ScanDataTransfer) state);
+        public override void Restore(IElementDataTransfer state) => Restore((ScanDataTransfer)state);
         #endregion
     }
 }

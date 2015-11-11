@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.Model.Element.Primitive;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
@@ -10,7 +11,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class TieBackSideViewModel : INotifyViewModel<TieBackSide>, IOriginator
+    public sealed class TieBackSideViewModel : INotifyViewModel<TieBackSide>, IOriginator, IOriginator<TieBackSideDataTransfer>
     {
         #region implement INotifyPropertyChanged
 
@@ -18,9 +19,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         private void OnPropertyChanged(string propertyName) => 
             this.OnPropertyChanged(PropertyChanged, propertyName);
-
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) => 
-            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) => 
             SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
@@ -51,6 +49,18 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             Model = model;
             TailScatter = 0;
             Weight = 0.1;
+        }
+
+        public TieBackSideDataTransfer CreateState() => new TieBackSideDataTransfer();
+        public void Save(TieBackSideDataTransfer state)
+        {
+            state.Weight = Weight;
+            state.TailScatter = TailScatter;
+        }
+        public void Restore(TieBackSideDataTransfer state)
+        {
+            Weight = state.Weight;
+            TailScatter = state.TailScatter;
         }
     }
 }

@@ -188,9 +188,9 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public ILayoutViewModel Layout { get; }
         public Rect Rect => Model.GetRect();
 
-        public IElementDataTransfer CreateState() => new PleatableDataTransfer();
-        public void Save(IElementDataTransfer state) => Save((PleatableDataTransfer)state);
-        public void Restore(IElementDataTransfer state) => Restore((PleatableDataTransfer)state);
+        public virtual IElementDataTransfer CreateState() => new PleatableDataTransfer();
+        public virtual void Save(IElementDataTransfer state) => Save((PleatableDataTransfer)state);
+        public virtual void Restore(IElementDataTransfer state) => Restore((PleatableDataTransfer)state);
 
         private void Save(PleatableDataTransfer state)
         {

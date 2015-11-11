@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Windows;
 using PeletonSoft.Sketch.Model.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Element;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Logic;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
@@ -35,6 +38,40 @@ namespace PeletonSoft.Sketch.ViewModel.Element
         #region implement IClotheableViewModel
 
         public IClotheViewModel Clothe { get; }
+
+        #endregion
+
+        #region implement IOriginator
+
+        public override IElementDataTransfer CreateState() => new TieBackDataTransfer();
+        public override void Save(IElementDataTransfer state) => Save((TieBackDataTransfer)state);
+        public override void Restore(IElementDataTransfer state) => Restore((TieBackDataTransfer)state);
+
+        private void Save(TieBackDataTransfer state)
+        {
+            base.Save(state);
+            state.OffsetX = OffsetX;
+            state.OffsetY = OffsetY;
+            state.Length = Length;
+            state.Depth = Depth;
+            state.DropHeight = DropHeight;
+            state.Protrusion = Protrusion;
+            state.LeftSide = LeftSide.Save();
+            state.RightSide = RightSide.Save();
+        }
+
+        private void Restore(TieBackDataTransfer state)
+        {
+            base.Restore(state);
+            OffsetX = state.OffsetX;
+            OffsetY = state.OffsetY;
+            Length = state.Length;
+            Depth = state.Depth;
+            DropHeight = state.DropHeight;
+            Protrusion = state.Protrusion;
+            LeftSide.Restore(state.LeftSide);
+            RightSide.Restore(state.RightSide);
+        }
 
         #endregion
 
