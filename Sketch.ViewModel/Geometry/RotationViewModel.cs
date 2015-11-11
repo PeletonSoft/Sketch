@@ -12,15 +12,7 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             _rotation = rotation;
         }
 
-        public double Angle
-        {
-            get { return _rotation.Angle; }
-        }
-
-        public Size Rotate(Size size)
-        {
-            return _rotation.Rotate(size);
-        }
-
+        public double Angle => _rotation.Angle;
+        public Size Rotate(Size size) => _rotation.Rotate(size);
     }
 }

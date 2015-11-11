@@ -4,9 +4,7 @@ using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Interface.Draw;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.Dragable;
-using PeletonSoft.Tools.Model.Draw;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
-using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
 {
@@ -19,10 +17,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
         {
             this.OnPropertyChanged(PropertyChanged, propertyName);
         }
-        #endregion
-
-        #region implement IOriginator
-        public void RestoreDefault() => DoNothing();
         #endregion
 
         private IPointViewModel _start;

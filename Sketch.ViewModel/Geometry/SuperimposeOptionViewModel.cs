@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
 using PeletonSoft.Tools.Model.Memento;

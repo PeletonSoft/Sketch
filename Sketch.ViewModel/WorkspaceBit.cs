@@ -29,29 +29,20 @@ namespace PeletonSoft.Sketch.ViewModel
             }
             remove
             {
-                _itemChanged += value;
+                _itemChanged -= value;
             }
         }
 
         private void OnElementListChanged(ItemChangedInfo changedInfo)
         {
             var handler = _itemChanged;
-            if (handler != null)
-            {
-                handler(this, new ItemChangedEventArgs(changedInfo));
-            }
+            handler?.Invoke(this, new ItemChangedEventArgs(changedInfo));
         }
         #endregion
 
-        public ICommandFactory CommandFactory
-        {
-            get { return Workspace.CommandFactory; }
-        }
-
-        public RenderChangedDispatcher<IElementViewModel, IElementViewModel, IEnumerable<Point>> RenderChangedDispatcher
-        {
-            get { return Workspace.ElementList.RenderChangedDispatcher; }
-        }
+        public ICommandFactory CommandFactory => Workspace.CommandFactory;
+        public RenderChangedDispatcher<IElementViewModel, IElementViewModel, IEnumerable<Point>> RenderChangedDispatcher => 
+            Workspace.ElementList.RenderChangedDispatcher;
 
         public WorkspaceBit(IWorkspaceViewModel workspace)
         {
@@ -59,22 +50,10 @@ namespace PeletonSoft.Sketch.ViewModel
             Workspace = workspace;
         }
 
-        private IWorkspaceViewModel Workspace { get; set; }
+        private IWorkspaceViewModel Workspace { get; }
+        public IScreenViewModel Screen => Workspace.Screen;
+        public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories => Workspace.Factories;
 
-        public IScreenViewModel Screen
-        {
-            get { return Workspace.Screen; }
-        }
-
-        public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories
-        {
-            get { return Workspace.Factories; }
-        }
-
-        public IReadOnlyList<IElementViewModel> GetBelowElements(IElementViewModel element)
-        {
-            return Workspace.ElementList.GetBelow(element);
-        }
-
+        public IReadOnlyList<IElementViewModel> GetBelowElements(IElementViewModel element) => Workspace.ElementList.GetBelow(element);
     }
 }

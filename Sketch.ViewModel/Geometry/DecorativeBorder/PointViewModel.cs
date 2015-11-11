@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using PeletonSoft.Sketch.ViewModel.Interface.Draw;
 using PeletonSoft.Tools.Model.Dependency;
-using PeletonSoft.Tools.Model.Draw;
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry.DecorativeBorder
 {

@@ -59,7 +59,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public virtual void BeforeDelete()
         {
             WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
-            Sheet = NullSheet;
+            //Sheet = NullSheet;
         }
         #endregion
 

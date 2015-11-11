@@ -5,6 +5,7 @@ using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Element.Layout;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Null
 {
@@ -59,19 +60,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             Clothe = new NullClotheViewModel();
         }
 
-        public IElementDataTransfer CreateState()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Save(IElementDataTransfer state)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Restore(IElementDataTransfer state)
-        {
-            throw new System.NotImplementedException();
-        }
+        public IElementDataTransfer CreateState() => null;
+        public void Save(IElementDataTransfer state) => DoNothing();
+        public void Restore(IElementDataTransfer state) => DoNothing();
     }
 }

@@ -20,11 +20,11 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
                 TopLeft.Point = new Point(0, 0);
                 BottomRight.Point = new Point(width, height);
                 TopRight.Point = new Point(width, 0);
-                BottomLeft.Point = new Point(0, height);    
+                BottomLeft.Point = new Point(0, height);
             });
         }
 
-        private LockFlag LockFlag { get; }= new LockFlag();
+        private LockFlag LockFlag { get; } = new LockFlag();
 
         public ScanRectangleViewModel(double width, double height)
         {
@@ -61,10 +61,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
         }
 
         public IEnumerable<Point> Points => Vertices.Select(v => v.Point);
-
-
         public Point Center => new Point(TopLeft.X, TopLeft.Y);
-
         public double Angle => Math.Atan2(TopRight.Y - TopLeft.Y, TopRight.X - TopLeft.X);
 
         public Size Size

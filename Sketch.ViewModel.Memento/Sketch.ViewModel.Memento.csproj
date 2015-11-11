@@ -53,8 +53,6 @@
   <ItemGroup>
     <Compile Include="Container\WorkModeContainerMemento.cs" />
     <Compile Include="Container\PresentContainerMemento.cs" />
-    <Compile Include="Draw\LineMememto.cs" />
-    <Compile Include="Draw\PointMemento.cs" />
     <Compile Include="ElementListMemento.cs" />
     <Compile Include="Element\ApplicationMemento.cs" />
     <Compile Include="Element\Custom\PleatableMemento.cs" />

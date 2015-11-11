@@ -48,9 +48,13 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
 
         private void RaiseRenderChanged(TR responder)
         {
-            var renderData = GetSuscribeByResponder(responder).Values
-                .Select(value => value());
+            var subscribes = GetSuscribeByResponder(responder);
+
+            var renderData = subscribes.Values
+                .Select(value => value())
+                .ToList();
             var args = new RenderChangedEventHandlerArgs<IEnumerable<TD>>(renderData);
+
             var handler = RenderChanged;
             handler?.Invoke(responder, args);
         }

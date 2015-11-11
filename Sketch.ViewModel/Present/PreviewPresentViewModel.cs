@@ -51,23 +51,14 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             set { SetField(ref _imageBox, value); }
         }
 
-        public Point ScreenScale
-        {
-            get
-            {
-                return ImageBox != null
-                    ? new Point(
-                        ImageBox.Width/Workspace.Screen.Width, 
-                        ImageBox.Height/Workspace.Screen.Width)
-                    : new Point(0, 0);
-            }
-        }
+        public Point ScreenScale => ImageBox != null
+            ? new Point(
+                ImageBox.Width/Workspace.Screen.Width, 
+                ImageBox.Height/Workspace.Screen.Width)
+            : new Point(0, 0);
 
 
-        public double Ratio
-        {
-            get { return ImageBox != null ? ImageBox.Height/(double) ImageBox.Width : 1; }
-        }
+        public double Ratio => ImageBox != null ? ImageBox.Height/(double) ImageBox.Width : 1;
 
         private PresentQuadrangleViewModel _quadrangle;
         public PresentQuadrangleViewModel Quadrangle 

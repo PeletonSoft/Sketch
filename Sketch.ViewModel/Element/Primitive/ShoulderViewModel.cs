@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Security.RightsManagement;
 using PeletonSoft.Sketch.Model.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
 using PeletonSoft.Tools.Model.Logic;
@@ -16,13 +15,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
-
-        private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
-            SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
-
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
         #endregion

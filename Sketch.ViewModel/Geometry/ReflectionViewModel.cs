@@ -14,10 +14,7 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             return _reflection.GetPoints(points, new Size(layout.Width, layout.Height));
         }
 
-        public Point Scale
-        {
-            get { return _reflection.Scale; }
-        }
+        public Point Scale => _reflection.Scale;
 
         public ReflectionViewModel(Reflection reflection)
         {
