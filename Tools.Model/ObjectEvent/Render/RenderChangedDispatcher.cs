@@ -41,7 +41,6 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
                 subscribes.Remove(sender);
                 RaiseRenderChanged(responder);
             }
-            
         }
 
         public event RenderChangedEventHandler<IEnumerable<TD>> RenderChanged;
