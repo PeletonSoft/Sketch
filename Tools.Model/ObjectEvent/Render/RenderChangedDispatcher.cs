@@ -30,7 +30,6 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
             }
             RaiseRenderChanged(responder);
             return () => RaiseRenderChanged(responder);
-            
         }
 
         public void Unsubscribe(TS sender, TR responder)
