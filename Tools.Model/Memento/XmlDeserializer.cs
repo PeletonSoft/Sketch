@@ -21,29 +21,24 @@ namespace PeletonSoft.Tools.Model.Memento
 
         public IDataTransfer Deserialize(XElement xml, Type target)
         {
-            var isList = target.IsGenericType && target.GetGenericTypeDefinition() == typeof (IListDataTransfer<>);
-
-            object result = null;
-
-            if (!isList)
+            if (target.IsGenericType && target.GetGenericTypeDefinition() == typeof (IListDataTransfer<>))
             {
-                if (target.IsInterface)
-                {
-                    result = Types
-                        .Where(t => t.GetInterfaces().Contains(target) && t.IsClass)
-                        .Select(Activator.CreateInstance)
-                        .FirstOrDefault(); 
-                }
-                else
-                {
-                    result = Activator.CreateInstance(target);
-                }
-            }
+                return DeserializeList(xml, target);
+            };
+
+            var result = target.IsInterface
+                ? Types
+                    .Where(t => t.GetInterfaces().Contains(target) && t.IsClass)
+                    .Select(Activator.CreateInstance)
+                    .FirstOrDefault()
+                : Activator.CreateInstance(target);
+            
+
 
             foreach (var property in target.GetProperties())
             {
                 var name = property.Name;
-                var element = isList ? xml : xml.Element(name);
+                var element = xml.Element(name);
 
                 if (element == null)
                 {
@@ -78,38 +73,6 @@ namespace PeletonSoft.Tools.Model.Memento
                 {
                     property.SetValue(result, Deserialize(element, property.PropertyType));
                 }
-                else if (name == "List" && isList)
-                {
-                    var genericType = typeof (ListDataTransfer<>).MakeGenericType(target.GetGenericArguments());
-                    result = Activator.CreateInstance(genericType);
-                    var listProperty = genericType.GetProperty("List");
-                    var list = (IList) listProperty.GetValue(result);
-
-                    var contentType = typeof (TypeContentDataTransfer<>).MakeGenericType(target.GetGenericArguments());
-                    var records = xml.Elements("Item")
-                        .Select(
-                        el => new
-                        {
-                            Type = (string) el.Element("Type"),
-                            DataTransferType = (string)el.Element("DataTransferType"),
-                            Content = el.Element("Content")
-                        })
-                        .Select(
-                            rec => new
-                            {
-                                Instance = Activator.CreateInstance(contentType),
-                                rec.Type, rec.DataTransferType,
-                                Content = Deserialize(rec.Content, Types.Single(t => t.Name == rec.DataTransferType))
-                            })
-                        .ToList();
-                    records.ForEach(rec =>
-                    {
-                        contentType.GetProperty("Type").SetValue(rec.Instance, rec.Type);
-                        contentType.GetProperty("DataTransferType").SetValue(rec.Instance, rec.DataTransferType);
-                        contentType.GetProperty("Content").SetValue(rec.Instance, rec.Content);
-                        list.Add(rec.Instance);
-                    });
-                }
                 else if (property.PropertyType == typeof(Point))
                 {
                     var point = new Point()
@@ -143,6 +106,41 @@ namespace PeletonSoft.Tools.Model.Memento
                 }
 
             }
+            return (IDataTransfer)result;
+        }
+
+        public IDataTransfer DeserializeList(XElement xml, Type target)
+        {
+            var genericType = typeof(ListDataTransfer<>).MakeGenericType(target.GetGenericArguments());
+            var result = Activator.CreateInstance(genericType);
+            var listProperty = genericType.GetProperty("List");
+            var list = (IList)listProperty.GetValue(result);
+
+            var contentType = typeof(TypeContentDataTransfer<>).MakeGenericType(target.GetGenericArguments());
+            var records = xml.Elements("Item")
+                .Select(
+                el => new
+                {
+                    Type = (string)el.Element("Type"),
+                    DataTransferType = (string)el.Element("DataTransferType"),
+                    Content = el.Element("Content")
+                })
+                .Select(
+                    rec => new
+                    {
+                        Instance = Activator.CreateInstance(contentType),
+                        rec.Type,
+                        rec.DataTransferType,
+                        Content = Deserialize(rec.Content, Types.Single(t => t.Name == rec.DataTransferType))
+                    })
+                .ToList();
+            records.ForEach(rec =>
+            {
+                contentType.GetProperty("Type").SetValue(rec.Instance, rec.Type);
+                contentType.GetProperty("DataTransferType").SetValue(rec.Instance, rec.DataTransferType);
+                contentType.GetProperty("Content").SetValue(rec.Instance, rec.Content);
+                list.Add(rec.Instance);
+            });
             return (IDataTransfer)result;
         }
     }

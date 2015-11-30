@@ -30,11 +30,16 @@ namespace PeletonSoft.Tools.Model.Memento
             var type = dataTransfer.GetType();
 
             var isList = type.GetInterfaces()
-                .Any(x =>
-                    x.IsGenericType &&
-                    x.GetGenericTypeDefinition() == typeof (IListDataTransfer<>));
+                .Any(
+                    x =>
+                        x.IsGenericType &&
+                        x.GetGenericTypeDefinition() == typeof (IListDataTransfer<>));
+            if (isList)
+            {
+                return SerializeList(dataTransfer);
+            }
 
-            foreach (var property in type.GetProperties())
+            foreach (var property in type.GetProperties().OrderBy(t => t.Name))
             {
                 var name = property.Name;
                 var value = property.GetValue(dataTransfer);
@@ -44,14 +49,7 @@ namespace PeletonSoft.Tools.Model.Memento
                     continue;
                 }
 
-                if (name == "List" && isList)
-                {
-                    foreach (IDataTransfer rec in (IEnumerable)value)
-                    {
-                        xml.Add(new XElement("Item", Serialize(rec).Elements()));
-                    }
-                }
-                else if (property.PropertyType == typeof (int))
+                if (property.PropertyType == typeof (int))
                 {
                     xml.Add(new XElement(name, (int)value));
                 }
@@ -106,6 +104,18 @@ namespace PeletonSoft.Tools.Model.Memento
                 {
                     xml.Add(new XElement(name, Serialize((IDataTransfer) value).Elements()));
                 }
+            }
+            return xml;
+        }
+
+        private XElement SerializeList(IDataTransfer dataTransfer)
+        {
+            var xml = new XElement("root");
+            var property = dataTransfer.GetType().GetProperty("List");
+            var value = property.GetValue(dataTransfer);
+            foreach (IDataTransfer rec in (IEnumerable)value)
+            {
+                xml.Add(new XElement("Item", Serialize(rec).Elements()));
             }
             return xml;
         }

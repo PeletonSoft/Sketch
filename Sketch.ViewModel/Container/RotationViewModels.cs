@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PeletonSoft.Sketch.Model.Element.Transformation.Rotation;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Tools.Model.Collection;
-using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
@@ -26,14 +25,10 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             _lazyItems = new Lazy<IEnumerable<IContainerRecord<RotationViewModel>>>(
                 () => new[]
                 {
-                    new ContainerRecord<RotationViewModel>(Types.By0,
-                        typeof (RotationViewModel), new RotationViewModel(new RotationBy0())),
-                    new ContainerRecord<RotationViewModel>(Types.By90,
-                        typeof (RotationViewModel), new RotationViewModel(new RotationBy90())),
-                    new ContainerRecord<RotationViewModel>(Types.By180,
-                        typeof (RotationViewModel), new RotationViewModel(new RotationBy180())),
-                    new ContainerRecord<RotationViewModel>(Types.By270,
-                        typeof (RotationViewModel), new RotationViewModel(new RotationBy270()))
+                    new ContainerRecord<RotationViewModel>(Types.By0, new RotationViewModel(new RotationBy0())),
+                    new ContainerRecord<RotationViewModel>(Types.By90, new RotationViewModel(new RotationBy90())),
+                    new ContainerRecord<RotationViewModel>(Types.By180, new RotationViewModel(new RotationBy180())),
+                    new ContainerRecord<RotationViewModel>(Types.By270, new RotationViewModel(new RotationBy270()))
                 });
         }
     }

@@ -26,14 +26,10 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             _lazyItems = new Lazy<IEnumerable<IContainerRecord<IReflectionViewModel>>>(
                 () => new[]
                 {
-                    new ContainerRecord<IReflectionViewModel>(Types.Same,
-                        typeof (ReflectionViewModel), new ReflectionViewModel(new SameReflection())),
-                    new ContainerRecord<IReflectionViewModel>(Types.HFlip,
-                        typeof (ReflectionViewModel), new ReflectionViewModel(new HFlipReflection())),
-                    new ContainerRecord<IReflectionViewModel>(Types.VFlip,
-                        typeof (ReflectionViewModel), new ReflectionViewModel(new VFlipReflection())),
-                    new ContainerRecord<IReflectionViewModel>(Types.DFlip,
-                        typeof (ReflectionViewModel), new ReflectionViewModel(new DFlipReflection()))
+                    new ContainerRecord<IReflectionViewModel>(Types.Same, new ReflectionViewModel(new SameReflection())),
+                    new ContainerRecord<IReflectionViewModel>(Types.HFlip, new ReflectionViewModel(new HFlipReflection())),
+                    new ContainerRecord<IReflectionViewModel>(Types.VFlip, new ReflectionViewModel(new VFlipReflection())),
+                    new ContainerRecord<IReflectionViewModel>(Types.DFlip, new ReflectionViewModel(new DFlipReflection()))
                 });
         }
     }

@@ -45,8 +45,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             Layouts = new ContainerOriginator<ILayoutViewModel>(
                 new[]
                 {
-                    new ContainerRecord<ILayoutViewModel>("Null", typeof (NullLayoutViewModel),
-                        new NullLayoutViewModel())
+                    new ContainerRecord<ILayoutViewModel>("Null", new NullLayoutViewModel())
                 });
         }
 

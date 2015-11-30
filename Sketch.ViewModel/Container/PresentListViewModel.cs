@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
-using PeletonSoft.Sketch.ViewModel.DataTransfer.Present;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Container;
 using PeletonSoft.Sketch.ViewModel.Present;
@@ -39,10 +38,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             _lazyItems = new Lazy<IEnumerable<IContainerRecord<IPresentViewModel>>>(
                 () => new[]
                 {
-                    new ContainerRecord<IPresentViewModel>(Types.Preview,
-                        typeof (PreviewPresentViewModel), PreviewPresent),
-                    new ContainerRecord<IPresentViewModel>(Types.Layout,
-                        typeof (LayoutPresentViewModel), LayoutPresent)
+                    new ContainerRecord<IPresentViewModel>(Types.Preview, PreviewPresent),
+                    new ContainerRecord<IPresentViewModel>(Types.Layout, LayoutPresent)
                 });
         }
 

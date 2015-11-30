@@ -29,20 +29,13 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             _lazyItems = new Lazy<IEnumerable<IContainerRecord<OutlineViewModel>>>(
                 () => new[]
                 {
-                    new ContainerRecord<OutlineViewModel>(Types.Band,
-                        typeof (OutlineViewModel), new OutlineViewModel(new BandOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.Parallelogram,
-                        typeof (OutlineViewModel), new OutlineViewModel(new ParallelogramOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.Trapezium,
-                        typeof (OutlineViewModel), new OutlineViewModel(new TrapeziumOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.Triangle,
-                        typeof (OutlineViewModel), new OutlineViewModel(new TriangleOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.VRectangle,
-                        typeof (OutlineViewModel), new OutlineViewModel(new VRectangleOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.HRectangle,
-                        typeof (OutlineViewModel), new OutlineViewModel(new HRectangleOutline())),
-                    new ContainerRecord<OutlineViewModel>(Types.Hexagon,
-                        typeof (OutlineViewModel), new OutlineViewModel(new HexagonOutline()))
+                    new ContainerRecord<OutlineViewModel>(Types.Band, new OutlineViewModel(new BandOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Parallelogram, new OutlineViewModel(new ParallelogramOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Trapezium, new OutlineViewModel(new TrapeziumOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Triangle, new OutlineViewModel(new TriangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.VRectangle, new OutlineViewModel(new VRectangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.HRectangle, new OutlineViewModel(new HRectangleOutline())),
+                    new ContainerRecord<OutlineViewModel>(Types.Hexagon, new OutlineViewModel(new HexagonOutline()))
                 });
         }
     }

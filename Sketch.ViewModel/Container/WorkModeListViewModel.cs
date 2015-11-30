@@ -28,10 +28,8 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
             Items = new[]
             {
-                new ContainerRecord<IWorkModeViewModel>("Editor",
-                    typeof (EditorWorkModeViewModel), Editor),
-                new ContainerRecord<IWorkModeViewModel>("Report",
-                    typeof (ReportWorkModeViewModel), Report)
+                new ContainerRecord<IWorkModeViewModel>("Editor", Editor),
+                new ContainerRecord<IWorkModeViewModel>("Report", Report)
             };
         }
 

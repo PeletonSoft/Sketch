@@ -17,16 +17,14 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         public LayoutViewModels(IWorkspaceBit workspaceBit, IAlignableElementViewModel element)
         {
-            LeftLayout = new LeftLayoutViewModel(workspaceBit,element);
+            LeftLayout = new LeftLayoutViewModel(workspaceBit, element);
             RightLayout = new RightLayoutViewModel(workspaceBit, element);
 
             _lazyItems = new Lazy<IEnumerable<IContainerRecord<ILayoutViewModel>>>(
                 () => new[]
                 {
-                    new ContainerRecord<ILayoutViewModel>("Left",
-                        typeof (LeftLayoutViewModel), LeftLayout),
-                    new ContainerRecord<ILayoutViewModel>("Right",
-                        typeof (RightLayoutViewModel), RightLayout),
+                    new ContainerRecord<ILayoutViewModel>("Left", LeftLayout),
+                    new ContainerRecord<ILayoutViewModel>("Right", RightLayout),
                 });
         }
 

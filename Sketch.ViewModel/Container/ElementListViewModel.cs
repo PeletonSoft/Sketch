@@ -54,7 +54,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
             get
             {
                 return List.Select(el => new ContainerRecord<IElementViewModel>(
-                    el.GetType().ToString(), el.GetType(), el));
+                    el.GetType().ToString(), el));
             }
         }
 
