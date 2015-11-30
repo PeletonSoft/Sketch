@@ -1,7 +1,6 @@
 ﻿using System;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Tools.Model;
-using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Custom
 {
