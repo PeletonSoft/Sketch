@@ -35,7 +35,7 @@ namespace PeletonSoft.Sketch.Runner.Setting
             bool readOnly;
             try
             {
-                readOnly = Convert.ToBoolean(args[1]);
+                readOnly = Convert.ToBoolean(args[2]);
             }
             catch
             {
@@ -47,6 +47,7 @@ namespace PeletonSoft.Sketch.Runner.Setting
                 ConnectionString = preferences.ConnectionString,
                 SavePath = preferences.SavePath,
                 OrderId = Convert.ToInt32(args[0]),
+                Folder = args[1],
                 ReadOnly = readOnly,
                 Version =  assembly.Version,
                 ProgramName =  assembly.Name

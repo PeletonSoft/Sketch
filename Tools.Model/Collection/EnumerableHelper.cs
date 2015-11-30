@@ -70,5 +70,24 @@ namespace PeletonSoft.Tools.Model.Collection
             var comparer = EqualityComparer<T>.Default;
             return source.TakeWhile(el => !comparer.Equals(element, el));
         }
+
+        public static IEnumerable<TR> FilteredSelect<T, TR>(
+            this IEnumerable<T> source,
+            IDictionary<Func<T, bool>, Func<T, TR>> filter) where TR : class =>
+                source
+                    .Select(
+                        item => filter
+                            .Where(pair => pair.Key(item))
+                            .Select(pair => pair.Value(item))
+                            .FirstOrDefault())
+                    .Where(mapped => mapped != null);
+
+        public static void FilteredForEach<T>(
+            this List<T> source, IDictionary<Func<T, bool>, Action<T>> filter) =>
+                source.ForEach(
+                    item => filter
+                        .Where(pair => pair.Key(item))
+                        .ToList()
+                        .ForEach(pair => pair.Value(item)));
     }
 }

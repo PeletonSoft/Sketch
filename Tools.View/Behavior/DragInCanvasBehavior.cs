@@ -69,10 +69,7 @@ namespace PeletonSoft.Tools.View.Behavior
                 AssociatedObject.ReleaseMouseCapture();
                 _isDragging = false;
             }
-
         }
-
-
 
         void MouseMove(object sender, MouseEventArgs e)
         {
@@ -83,8 +80,6 @@ namespace PeletonSoft.Tools.View.Behavior
                 _object.SetValue(Canvas.LeftProperty, p.X - _mouseOffset.X);
             }
         }
-
-
 
         void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

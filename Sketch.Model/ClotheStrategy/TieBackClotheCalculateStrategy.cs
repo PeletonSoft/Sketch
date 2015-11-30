@@ -5,7 +5,7 @@ namespace PeletonSoft.Sketch.Model.ClotheStrategy
 {
     public class TieBackClotheCalculateStrategy : IClotheCalculateStrategy
     {
-        private TieBack Element { get; set; }
+        private TieBack Element { get; }
         public void Calculate(IClothe clothe)
         {
             clothe.Width = 2.5*Element.Length;

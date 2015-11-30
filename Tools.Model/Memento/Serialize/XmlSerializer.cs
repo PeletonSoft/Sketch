@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Xml.Linq;
+using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.File;
 
 namespace PeletonSoft.Tools.Model.Memento.Serialize
@@ -27,9 +27,15 @@ namespace PeletonSoft.Tools.Model.Memento.Serialize
             return Serialize(DataTransfer);
         }
 
+        private class SerializeRecord
+        {
+            public Type Type { get; set; }
+            public string Name { get; set; }
+            public object Value { get; set; }
+        }
+
         private XElement Serialize(IDataTransfer dataTransfer)
         {
-            var xml = new XElement("root");
             var type = dataTransfer.GetType();
 
             if (type.GetInterfaces().Any(t => t.IsListDataTransfer()))
@@ -37,34 +43,24 @@ namespace PeletonSoft.Tools.Model.Memento.Serialize
                 return SerializeList(dataTransfer);
             }
 
-            foreach (var property in type.GetProperties().OrderBy(t => t.Name))
-            {
-                var name = property.Name;
-                var value = property.GetValue(dataTransfer);
-
-                if (value == null)
-                {
-                    continue;
-                }
-
-                if (Primitives.ContainsKey(property.PropertyType))
-                {
-                    xml.Add(Primitives[property.PropertyType].Serializer(name, value));
-                }
-                else if (property.PropertyType.IsEnum)
-                {
-                    xml.Add(new XElement(name, value.ToString()));
-                }
-                else if (property.PropertyType == typeof (ImageBox))
-                {
-                    xml.Add(Serialize(name, (ImageBox)value));
-                }
-                else if (value is IDataTransfer)
-                {
-                    xml.Add(new XElement(name, Serialize((IDataTransfer) value).Elements()));
-                }
-            }
-            return xml;
+            return new XElement("root",
+                type.GetProperties()
+                    .OrderBy(t => t.Name)
+                    .Select(
+                        p =>
+                            new SerializeRecord {Type = p.PropertyType, Name = p.Name, Value = p.GetValue(dataTransfer)})
+                    .Where(rec => rec.Value != null)
+                    .FilteredSelect(new Dictionary<Func<SerializeRecord, bool>, Func<SerializeRecord, XElement>>()
+                    {
+                        [rec => Primitives.ContainsKey(rec.Type)] =
+                            rec => Primitives[rec.Type].Serializer(rec.Name, rec.Value),
+                        [rec => rec.Type.IsEnum] =
+                            rec => new XElement(rec.Name, rec.Value.ToString()),
+                        [rec => rec.Type == typeof (ImageBox)] =
+                            rec => Serialize(rec.Name, (ImageBox) rec.Value),
+                        [rec => rec.Value is IDataTransfer] =
+                            rec => new XElement(rec.Name, Serialize((IDataTransfer) rec.Value).Elements())
+                    }));
         }
 
         private XElement Serialize(string name, ImageBox imageBox)
