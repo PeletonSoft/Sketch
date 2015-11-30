@@ -17,6 +17,7 @@ using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
+using PeletonSoft.Tools.Model.Memento.Serialize;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
@@ -120,7 +121,7 @@ namespace PeletonSoft.Sketch.ViewModel
             }
 
             var dataTransfer = (this as IOriginator<WorkspaceDataTransfer>).Save();
-            var serializer = new XmlSerializer(dataTransfer);
+            var serializer = new XmlSerializer(StandardXmlPrimitive.Primitives, dataTransfer);
             var xml = serializer.Serialize();
 
             xml.Save(Path.Combine(path, "content.xml"));
@@ -146,13 +147,12 @@ namespace PeletonSoft.Sketch.ViewModel
 
             var xml = XElement.Load(Path.Combine(path, "content.xml"));
 
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(x => x.GetName().Name == "Sketch.ViewModel.DataTransfer")
-                .SelectMany(x => x.GetTypes())
-                .Where(x => x.GetInterfaces().Any(i => i == typeof (IDataTransfer)))
-                .ToArray();
-
-            var deserializer = new XmlDeserializer(types,
+            var deserializer = new XmlDeserializer(StandardXmlPrimitive.Primitives,
+                AppDomain.CurrentDomain.GetAssemblies()
+                    .Where(x => x.GetName().Name == "Sketch.ViewModel.DataTransfer")
+                    .SelectMany(x => x.GetTypes())
+                    .Where(x => x.GetInterfaces().Any(i => i == typeof (IDataTransfer)))
+                    .ToArray(),
                 (fileName, size) =>
                 {
                     var fullFileName = Path.Combine(path, fileName);

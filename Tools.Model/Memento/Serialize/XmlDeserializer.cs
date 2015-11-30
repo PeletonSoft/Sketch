@@ -2,26 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Xml.Linq;
 using PeletonSoft.Tools.Model.File;
 
-namespace PeletonSoft.Tools.Model.Memento
+namespace PeletonSoft.Tools.Model.Memento.Serialize
 {
     public sealed class XmlDeserializer
     {
+        public IDictionary<Type, XmlPrimitive> Primitives { get; }
         public Type[] Types { get; }
         public Func<string,Size,ImageBox> Resolver { get; }
 
-        public XmlDeserializer(Type[] types, Func<string, Size, ImageBox> resolver)
+        public XmlDeserializer(IDictionary<Type, XmlPrimitive> primitives,
+            Type[] types, Func<string, Size, ImageBox> resolver)
         {
+            Primitives = primitives;
             Types = types;
             Resolver = resolver;
         }
 
         public IDataTransfer Deserialize(XElement xml, Type target)
         {
-            if (target.IsGenericType && target.GetGenericTypeDefinition() == typeof (IListDataTransfer<>))
+            if (target.IsListDataTransfer())
             {
                 return DeserializeList(xml, target);
             };
@@ -32,8 +36,6 @@ namespace PeletonSoft.Tools.Model.Memento
                     .Select(Activator.CreateInstance)
                     .FirstOrDefault()
                 : Activator.CreateInstance(target);
-            
-
 
             foreach (var property in target.GetProperties())
             {
@@ -45,25 +47,9 @@ namespace PeletonSoft.Tools.Model.Memento
                     continue;
                 }
 
-                if (property.PropertyType == typeof (int))
+                if (Primitives.ContainsKey(property.PropertyType))
                 {
-                    property.SetValue(result, (int) element);
-                }
-                else if (property.PropertyType == typeof (string))
-                {
-                    property.SetValue(result, (string) element);
-                }
-                else if (property.PropertyType == typeof (double))
-                {
-                    property.SetValue(result, (double) element);
-                }
-                else if (property.PropertyType == typeof (bool))
-                {
-                    property.SetValue(result, (bool) element);
-                }
-                else if (property.PropertyType == typeof (double?))
-                {
-                    property.SetValue(result, (double?) element);
+                    Primitives[property.PropertyType].Deserializer(property, result, element);
                 }
                 else if (property.PropertyType.IsEnum)
                 {
@@ -73,42 +59,23 @@ namespace PeletonSoft.Tools.Model.Memento
                 {
                     property.SetValue(result, Deserialize(element, property.PropertyType));
                 }
-                else if (property.PropertyType == typeof(Point))
-                {
-                    var point = new Point()
-                    {
-                        X = (double) element.Attribute(nameof(Point.X)),
-                        Y = (double) element.Attribute(nameof(Point.Y))
-                    };
-                    property.SetValue(result, point);
-                }
-                else if (property.PropertyType == typeof(List<Point>))
-                {
-                    var list = (IList) property.GetValue(result);
-                    element.Elements(nameof(Point))
-                        .Select(el =>
-                            new Point()
-                            {
-                                X = (double) el.Attribute(nameof(Point.X)),
-                                Y = (double) el.Attribute(nameof(Point.Y))
-                            })
-                        .ToList()
-                        .ForEach(p => list.Add(p));
-                }
                 else if (property.PropertyType == typeof(ImageBox))
                 {
-                    var fileName = (string)element.Attribute("FileName");
-                    var width = (double)element.Attribute("Width");
-                    var height = (double)element.Attribute("Height");
-                    var size = new Size(width, height);
-                    var imageBox = Resolver(fileName, size);
-                    property.SetValue(result, imageBox);
+                    Deserialize(property, result, element);
                 }
-
             }
             return (IDataTransfer)result;
         }
 
+        public void Deserialize(PropertyInfo property, object instance, XElement element)
+        {
+            var fileName = (string)element.Attribute("FileName");
+            var width = (double)element.Attribute("Width");
+            var height = (double)element.Attribute("Height");
+            var size = new Size(width, height);
+            var imageBox = Resolver(fileName, size);
+            property.SetValue(instance, imageBox);
+        }
         public IDataTransfer DeserializeList(XElement xml, Type target)
         {
             var genericType = typeof(ListDataTransfer<>).MakeGenericType(target.GetGenericArguments());

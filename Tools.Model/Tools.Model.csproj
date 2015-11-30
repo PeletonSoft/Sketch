@@ -82,10 +82,12 @@
     <Compile Include="Memento\IListDataTransfer.cs" />
     <Compile Include="Memento\ListDataTransfer.cs" />
     <Compile Include="Memento\OriginatorHelper.cs" />
+    <Compile Include="Memento\Serialize\StandardXmlPrimitive.cs" />
+    <Compile Include="Memento\Serialize\XmlPrimitive.cs" />
     <Compile Include="Memento\TypeContentDataTransfer.cs" />
     <Compile Include="Memento\TypeContentDataTransferHelper.cs" />
-    <Compile Include="Memento\XmlDeserializer.cs" />
-    <Compile Include="Memento\XmlSerializer.cs" />
+    <Compile Include="Memento\Serialize\XmlDeserializer.cs" />
+    <Compile Include="Memento\Serialize\XmlSerializer.cs" />
     <Compile Include="MetaData\TypeHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangeableCollectionHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
