@@ -54,9 +54,9 @@
   <ItemGroup>
     <Compile Include="Container\LayoutViewModels.cs" />
     <Compile Include="Container\OutlineViewModels.cs" />
-    <Compile Include="Container\PresentViewModels.cs" />
+    <Compile Include="Container\PresentListViewModel.cs" />
     <Compile Include="Container\RotationViewModels.cs" />
-    <Compile Include="Container\WorkModeViewModels.cs" />
+    <Compile Include="Container\WorkModeListViewModel.cs" />
     <Compile Include="Element\Custom\PleatableViewModel.cs" />
     <Compile Include="Element\Layout\PleatableLayoutViewModel.cs" />
     <Compile Include="Element\Null\NullElementViewModel.cs" />

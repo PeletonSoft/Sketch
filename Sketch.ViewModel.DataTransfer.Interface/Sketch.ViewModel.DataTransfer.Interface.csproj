@@ -43,8 +43,9 @@
   <ItemGroup>
     <Compile Include="IClotheDataTransfer.cs" />
     <Compile Include="IElementDataTransfer.cs" />
-    <Compile Include="IElementListDataTransfer.cs" />
+    <Compile Include="IPresentDataTransfer.cs" />
     <Compile Include="IScreenDataTransfer.cs" />
+    <Compile Include="IWorkModeDataTransfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

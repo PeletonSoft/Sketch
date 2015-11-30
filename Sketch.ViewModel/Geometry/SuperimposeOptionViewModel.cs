@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Geometry;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
@@ -8,7 +10,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public class SuperimposeOptionViewModel : IOriginator, INotifyPropertyChanged, IOriginator<SuperimposeOptionDataTransfer>
+    public class SuperimposeOptionViewModel : ISuperimposeOptionViewModel
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -79,5 +81,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
             MarkerOpacity = state.MarkerOpacity;
             MarkerRadius = state.MarkerRadius;
         }
+
     }
 }

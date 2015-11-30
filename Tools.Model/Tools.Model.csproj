@@ -41,6 +41,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -75,11 +76,16 @@
     <Compile Include="File\ImageBox.cs" />
     <Compile Include="Logic\IViewModel.cs" />
     <Compile Include="Collection\IContainerRecord.cs" />
+    <Compile Include="Memento\Container\ListOriginatorHelper.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
     <Compile Include="Memento\IDataTransfer.cs" />
+    <Compile Include="Memento\IListDataTransfer.cs" />
+    <Compile Include="Memento\ListDataTransfer.cs" />
     <Compile Include="Memento\OriginatorHelper.cs" />
     <Compile Include="Memento\TypeContentDataTransfer.cs" />
     <Compile Include="Memento\TypeContentDataTransferHelper.cs" />
+    <Compile Include="Memento\XmlDeserializer.cs" />
+    <Compile Include="Memento\XmlSerializer.cs" />
     <Compile Include="MetaData\TypeHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangeableCollectionHelper.cs" />
     <Compile Include="ObjectEvent\ChangedItem\ChangedInfo\AppendItemChangedInfo.cs" />
@@ -116,7 +122,7 @@
     <Compile Include="Setting\ISettingProvider.cs" />
     <Compile Include="Memento\Caretaker.cs" />
     <Compile Include="Memento\Container\ContainerMemento.cs" />
-    <Compile Include="Memento\Container\IContainerOriginator.cs" />
+    <Compile Include="Memento\Container\IListOriginator.cs" />
     <Compile Include="File\FileHelper.cs" />
     <Compile Include="Memento\IMementoService.cs" />
     <Compile Include="Setting\ISettingService.cs" />

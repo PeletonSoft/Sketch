@@ -1,25 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Present;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Container;
 using PeletonSoft.Sketch.ViewModel.Present;
 using PeletonSoft.Tools.Model.Collection;
+using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Container;
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
-    public class PresentViewModels : IContainerOriginator<IPresentViewModel>
+    public class PresentListViewModel : IPresentListViewModel
     {
         private enum Types
         {
             Preview,
             Layout
         };
+
         private readonly Lazy<IEnumerable<IContainerRecord<IPresentViewModel>>> _lazyItems;
+
         public IEnumerable<IContainerRecord<IPresentViewModel>> Items => _lazyItems.Value;
+        public IPresentViewModel Default => LayoutPresent;
 
-        public IPresentViewModel Default => this.GetValueByKey(Types.Layout);
+        IOriginator<IPresentDataTransfer> IContainer<IOriginator<IPresentDataTransfer>>.Default => Default;
 
-        public PresentViewModels(WorkspaceViewModel workspace)
+        IEnumerable<IContainerRecord<IOriginator<IPresentDataTransfer>>> IContainer<IOriginator<IPresentDataTransfer>>.
+            Items => Items;
+
+
+
+        public PresentListViewModel(WorkspaceViewModel workspace)
         {
             LayoutPresent = new LayoutPresentViewModel(workspace);
             PreviewPresent = new PreviewPresentViewModel(workspace);
@@ -40,6 +52,19 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         public void RestoreDefault()
         {
+        }
+
+        public IListDataTransfer<IPresentDataTransfer> CreateState() =>
+            new ListDataTransfer<IPresentDataTransfer>();
+
+        public void Save(IListDataTransfer<IPresentDataTransfer> state)
+        {
+            this.PlainSave(state);
+        }
+
+        public void Restore(IListDataTransfer<IPresentDataTransfer> state)
+        {
+            this.ZipRestore(state);
         }
     }
 }

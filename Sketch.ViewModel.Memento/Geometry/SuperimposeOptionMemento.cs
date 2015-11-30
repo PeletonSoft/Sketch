@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using PeletonSoft.Sketch.ViewModel.Geometry;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
 {
-    public class SuperimposeOptionMemento : IMemento<SuperimposeOptionViewModel>
+    public class SuperimposeOptionMemento : IMemento<ISuperimposeOptionViewModel>
     {
         public double MarkerRadius { get; set; }
         public double MarkerOpacity { get; set; }
@@ -14,7 +14,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
         public double BackgroundOpacity { get; set; }
 
 
-        public void GetState(SuperimposeOptionViewModel originator)
+        public void GetState(ISuperimposeOptionViewModel originator)
         {
             BackgroundOpacity = originator.BackgroundOpacity;
             ForegroundOpacity = originator.ForegroundOpacity;
@@ -22,7 +22,7 @@ namespace PeletonSoft.Sketch.ViewModel.Memento.Geometry
             MarkerRadius = originator.MarkerRadius;
         }
 
-        public void SetState(SuperimposeOptionViewModel originator)
+        public void SetState(ISuperimposeOptionViewModel originator)
         {
             originator.RestoreDefault();
             originator.BackgroundOpacity = BackgroundOpacity;

@@ -2,8 +2,7 @@
 
 namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Interface
 {
-    public interface IElementListDataTransfer : IDataTransfer
+    public interface IWorkModeDataTransfer : IDataTransfer
     {
-
     }
 }

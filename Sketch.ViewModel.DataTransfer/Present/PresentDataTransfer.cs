@@ -1,9 +1,11 @@
-﻿using PeletonSoft.Tools.Model.Memento;
+﻿using System;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 
 namespace PeletonSoft.Sketch.ViewModel.DataTransfer.Present
 {
-    public class PresentDataTransfer : IDataTransfer
+    [Serializable]
+    public class PresentDataTransfer : IPresentDataTransfer
     {
-        public double Zomm { get; set; }
+        public double Zoom { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.WorkMode;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 
 namespace PeletonSoft.Sketch.ViewModel.WorkMode
 {
-    public class CustomWorkModeViewModel : IWorkModeViewModel
+    public abstract class CustomWorkModeViewModel : IWorkModeViewModel
     {
         #region implement INotifyPropertyChanged
 
@@ -13,7 +16,7 @@ namespace PeletonSoft.Sketch.ViewModel.WorkMode
 
         public IWorkspaceViewModel Workspace { get; }
 
-        public CustomWorkModeViewModel(IWorkspaceViewModel workspace)
+        protected CustomWorkModeViewModel(IWorkspaceViewModel workspace)
         {
             Workspace = workspace;
         }
@@ -21,5 +24,11 @@ namespace PeletonSoft.Sketch.ViewModel.WorkMode
         public virtual void RestoreDefault()
         {
         }
+
+        public virtual IWorkModeDataTransfer CreateState() => new WorkModeDataTransfer();
+
+        public virtual void Save(IWorkModeDataTransfer state) => DoNothing();
+
+        public virtual void Restore(IWorkModeDataTransfer state) => DoNothing();
     }
 }

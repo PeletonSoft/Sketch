@@ -11,8 +11,8 @@ namespace PeletonSoft.Tools.Model.Memento.Container
         {
         }
 
-        public IEnumerable<IContainerRecord<T>> Items { get; private set; }
-        public T Default { get; private set; }
+        public IEnumerable<IContainerRecord<T>> Items { get; }
+        public T Default { get; }
 
         public ContainerOriginator(IEnumerable<IContainerRecord<T>> items)
         {

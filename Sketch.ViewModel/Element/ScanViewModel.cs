@@ -6,6 +6,7 @@ using PeletonSoft.Sketch.ViewModel.Element.Custom;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
@@ -65,7 +66,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
         public TransformationViewModel Transformation { get; } = new TransformationViewModel();
         public ScanRectangleViewModel Rectangle { get; } = new ScanRectangleViewModel(0, 0);
-        public SuperimposeOptionViewModel SuperimposeOption { get; } = new SuperimposeOptionViewModel();
+        public ISuperimposeOptionViewModel SuperimposeOption { get; } = new SuperimposeOptionViewModel();
 
         public ICommand OpenFileCommand { get; private set; }
         public ICommand CancelRectangeCommand { get; private set; }

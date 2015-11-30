@@ -5,10 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using PeletonSoft.Sketch.ViewModel.DataTransfer;
-using PeletonSoft.Sketch.ViewModel.DataTransfer.Container;
 using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Container;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dragable;
@@ -23,13 +22,15 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Container
 {
-    public sealed class ElementListViewModel : IElementListViewModel, IOriginator<ElementListDataTransfer>
+    public sealed class ElementListViewModel : IElementListViewModel
     {
         #region implement INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName) =>
             this.OnPropertyChanged(PropertyChanged, propertyName);
+
         private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
@@ -38,6 +39,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #region implement INotifyItemChanged
 
         public event ItemChangedEventHandler ItemChanged;
+
         private void OnItemChanged(ItemChangedInfo changedInfo)
         {
             ItemChanged?.Invoke(this, new ItemChangedEventArgs(changedInfo));
@@ -46,7 +48,9 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #endregion
 
         #region implement IOriginator
+
         public void RestoreDefault() => DoNothing();
+
         #endregion
 
         #region implement IContainer
@@ -72,6 +76,7 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         #endregion
 
         #region implement ISelectableList
+
         private int _selectedIndex;
 
         public int SelectedIndex
@@ -81,11 +86,12 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         }
 
         public IElementViewModel SelectedItem => List.IsValidIndex(SelectedIndex) ? List[SelectedIndex] : null;
+
         #endregion
 
         #region implement IChangeableCollection
 
-        public void MoveTo(int sourceIndex, int destinationIndex) => 
+        public void MoveTo(int sourceIndex, int destinationIndex) =>
             this.DoMoveTo(List, OnItemChanged, sourceIndex, destinationIndex);
 
         public bool IsEmpty => this.IsEmpty();
@@ -108,11 +114,12 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         public INotifyChangedReadOnlyCollection<IElementViewModel> Collection => _list;
         private IList<IElementViewModel> List => _list;
 
-        private void MoveTo(DataTransition<IElementViewModel, IElementViewModel> dt) => 
+        private void MoveTo(DataTransition<IElementViewModel, IElementViewModel> dt) =>
             MoveTo(List.IndexOf(dt.Source), List.IndexOf(dt.Destination));
 
-        private void CreateElement(DataTransition<IElementFactoryViewModel<IElementViewModel>, IElementListViewModel> dt) => 
-            AppendElement(dt.Source);
+        private void CreateElement(DataTransition<IElementFactoryViewModel<IElementViewModel>, IElementListViewModel> dt)
+            =>
+                AppendElement(dt.Source);
 
         public IElementViewModel AppendElement(IElementFactoryViewModel<IElementViewModel> factory)
         {
@@ -186,62 +193,36 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         public IScreenViewModel Screen => WorkspaceBit.Screen;
         public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories => WorkspaceBit.Factories;
 
-        ElementListDataTransfer IOriginator<ElementListDataTransfer>.CreateState()
+
+        public void Save(IListDataTransfer<IElementDataTransfer> state)
         {
-            return new ElementListDataTransfer();
+            List.ToList()
+                .ForEach(item => state.List.Add(item.GetDataTransfer()));
         }
 
-        public void Save(ElementListDataTransfer state)
-        {
-            foreach (var item in List)
-            {
-                state.List.Add(item.GetDataTransfer());
-            }
-        }
-        public void Restore(ElementListDataTransfer state)
+        public void Restore(IListDataTransfer<IElementDataTransfer> state)
         {
             Clear();
             foreach (var item in state.List)
             {
-                foreach (var factory in Factories)
-                {
-                    var types = factory.GetType().GetGenericArgs(typeof (IElementFactoryViewModel<>))
-                        .Where(type => type.IsSealed)
-                        .Select(type => type.ToString())
-                        .ToList();
+                var factory = Factories
+                    .SelectMany(f => f.GetType().GetGenericArgs(typeof (IElementFactoryViewModel<>))
+                        .Select(t => new {Factory = f, Type = t}))
+                    .Where(rec => rec.Type.IsSealed && rec.Type.Name == item.Type)
+                    .Select(rec => rec.Factory)
+                    .FirstOrDefault();
 
-                    if (types.Contains(item.Type))
-                    {
-                        try
-                        {
-                            var element = AppendElement(factory);
-                            element.Restore(item.Content);
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            // ignored
-                        }
-                    }
+                if (factory == null)
+                {
+                    continue;
                 }
+
+                var element = AppendElement(factory);
+                element.Restore(item.Content);
             }
         }
 
-        IElementListDataTransfer IOriginator<IElementListDataTransfer>.CreateState()
-        {
-            return (this as IOriginator<ElementListDataTransfer>).CreateState();
-        }
 
-        void IOriginator<IElementListDataTransfer>.Save(IElementListDataTransfer state)
-        {
-            (this as IOriginator<ElementListDataTransfer>).Save((ElementListDataTransfer)state);
-        }
-
-
-        void IOriginator<IElementListDataTransfer>.Restore(IElementListDataTransfer state)
-        {
-            (this as IOriginator<ElementListDataTransfer>).Restore((ElementListDataTransfer)state);
-        }
-
+        public IListDataTransfer<IElementDataTransfer> CreateState() => new ListDataTransfer<IElementDataTransfer>();
     }
 }

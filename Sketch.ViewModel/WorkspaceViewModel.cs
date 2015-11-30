@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Xml.Linq;
 using PeletonSoft.Sketch.Model;
 using PeletonSoft.Sketch.Model.Interface;
 using PeletonSoft.Sketch.ViewModel.Container;
 using PeletonSoft.Sketch.ViewModel.DataTransfer;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Container;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.Memento.Container;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel
 {
-    public sealed class WorkspaceViewModel : IWorkspaceViewModel, IOriginator<WorkspaceDataTransfer>
+    public sealed class WorkspaceViewModel : IWorkspaceViewModel
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -55,8 +57,8 @@ namespace PeletonSoft.Sketch.ViewModel
         public WorkspaceViewModel()
         {
             Model = new Workspace();
-            WorkModes = new WorkModeViewModels(this);
-            Presents = new PresentViewModels(this);
+            WorkModes = new WorkModeListViewModel(this);
+            Presents = new PresentListViewModel(this);
 
             WorkMode = WorkModes.Default;
             Present = Presents.Default;
@@ -74,7 +76,7 @@ namespace PeletonSoft.Sketch.ViewModel
         public IElementListViewModel ElementList { get; }
         public IScreenViewModel Screen { get; set; }
 
-        public IContainerOriginator<IPresentViewModel> Presents { get; }
+        public IPresentListViewModel Presents { get; }
         private IPresentViewModel _present;
         public IPresentViewModel Present
         {
@@ -88,7 +90,7 @@ namespace PeletonSoft.Sketch.ViewModel
             set { SetField(() => Model.ImageBox, v => Model.ImageBox = v, value); }
         }
 
-        public IContainerOriginator<IWorkModeViewModel> WorkModes { get; }
+        public IWorkModeListViewModel WorkModes { get; }
         private IWorkModeViewModel _workMode;
         public IWorkModeViewModel WorkMode
         {
@@ -125,17 +127,22 @@ namespace PeletonSoft.Sketch.ViewModel
                 Directory.CreateDirectory(path);
             }
 
-            Caretaker.Save(path);
+            var dataTransfer = (this as IOriginator<WorkspaceDataTransfer>).Save();
+            var serializer = new XmlSerializer(dataTransfer);
+            var xml = serializer.Serialize();
+
+            xml.Save(Path.Combine(path, "content.xml"));
             ImageBox?.WriteToFile(Path.Combine(path, "content.png"));
 
-            var x = (this as IOriginator<WorkspaceDataTransfer>).Save();
-            (this as IOriginator<WorkspaceDataTransfer>).Restore(x);
+            foreach (var file in serializer.List)
+            {
+                file.Value.WriteToFile(Path.Combine(path, file.Key));
+            }
         }
 
 
         public void Restore()
         {
-            
             var settingData = SettingProvider.GetSettingData();
             var path = settingData.GetOrderSavePath();
 
@@ -145,25 +152,44 @@ namespace PeletonSoft.Sketch.ViewModel
                 return;
             }
 
-            Caretaker.Load(path);
-            Caretaker.SetState(this);
-           
+            var xml = XElement.Load(Path.Combine(path, "content.xml"));
+
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => x.GetName().Name == "Sketch.ViewModel.DataTransfer")
+                .SelectMany(x => x.GetTypes())
+                .Where(x => x.GetInterfaces().Any(i => i == typeof (IDataTransfer)))
+                .ToArray();
+
+            var deserializer = new XmlDeserializer(types,
+                (fileName, size) =>
+                {
+                    var fullFileName = Path.Combine(path, fileName);
+                    if (!File.Exists(fullFileName))
+                    {
+                        return null;
+                    }
+                    return new PngImageBox(
+                        File.ReadAllBytes(fullFileName),
+                        (int) size.Width, (int) size.Height);
+                });
+
+            var dataTransfer = (WorkspaceDataTransfer)deserializer.Deserialize(xml, typeof(WorkspaceDataTransfer));
+            Restore(dataTransfer);
         }
 
-        void IOriginator<WorkspaceDataTransfer>.Restore(WorkspaceDataTransfer state)
+        public WorkspaceDataTransfer CreateState() => new WorkspaceDataTransfer();
+
+        public void Restore(WorkspaceDataTransfer state)
         {
-            Present = Presents.GetValueByKeyOrDefault(state.Present);
-            WorkMode = WorkModes.GetValueByKeyOrDefault(state.WorkMode);
+            Presents.Restore(state.Presents);
+            WorkModes.Restore(state.WorkModes);
+            Present = (IPresentViewModel)Presents.GetValueByKeyOrDefault(state.Present);
+            WorkMode = (IWorkModeViewModel)WorkModes.GetValueByKeyOrDefault(state.WorkMode);
             Screen.Restore(state.Screen);
             ElementList.Restore(state.ElementList);
         }
 
-        public WorkspaceDataTransfer CreateState()
-        {
-            return new WorkspaceDataTransfer();
-        }
-
-        void IOriginator<WorkspaceDataTransfer>.Save(WorkspaceDataTransfer state)
+        public void Save(WorkspaceDataTransfer state)
         {
             var settingData = SettingProvider.GetSettingData();
 
@@ -173,6 +199,8 @@ namespace PeletonSoft.Sketch.ViewModel
             state.Version = settingData.Version;
             state.Screen = Screen.Save();
             state.ElementList = ElementList.Save();
+            state.WorkModes = WorkModes.Save();
+            state.Presents = Presents.Save();
         }
     }
 }

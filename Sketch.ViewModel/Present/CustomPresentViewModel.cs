@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Present;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
@@ -38,5 +40,17 @@ namespace PeletonSoft.Sketch.ViewModel.Present
         }
 
         public virtual void RestoreDefault() => DoNothing();
+
+        public virtual IPresentDataTransfer CreateState() => new PresentDataTransfer();
+
+        public virtual void Save(IPresentDataTransfer state)
+        {
+            state.Zoom = Zoom;
+        }
+
+        public virtual void Restore(IPresentDataTransfer state)
+        {
+            Zoom = state.Zoom;
+        }
     }
 }

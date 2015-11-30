@@ -11,7 +11,6 @@ using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Geometry;
 using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Logic;
-using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element

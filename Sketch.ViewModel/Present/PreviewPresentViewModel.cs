@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Interface;
+using PeletonSoft.Sketch.ViewModel.DataTransfer.Present;
 using PeletonSoft.Sketch.ViewModel.Element.Primitive;
 using PeletonSoft.Sketch.ViewModel.Geometry;
 using PeletonSoft.Sketch.ViewModel.Interface;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.File;
+using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Present
 {
@@ -76,8 +80,35 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             }
         }
 
-        public SuperimposeOptionViewModel SuperimposeOption { get; }
+        public ISuperimposeOptionViewModel SuperimposeOption { get; }
 
+        public override IPresentDataTransfer CreateState() => new PreviewPresentDataTransfer();
+
+        public override void Save(IPresentDataTransfer state)
+        {
+            Save((PreviewPresentDataTransfer)state);
+        }
+
+        public override void Restore(IPresentDataTransfer state)
+        {
+            Restore((PreviewPresentDataTransfer)state);
+        }
+
+        public void Save(PreviewPresentDataTransfer state)
+        {
+            base.Save(state);
+            state.ImageBox = ImageBox;
+            state.SuperimposeOption = SuperimposeOption.Save();
+            state.Quadrangle = Quadrangle.Save();
+        }
+
+        public void Restore(PreviewPresentDataTransfer state)
+        {
+            base.Restore(state);
+            ImageBox = state.ImageBox;
+            SuperimposeOption.Restore(state.SuperimposeOption);
+            Quadrangle?.Restore(state.Quadrangle);
+        }
 
     }
 }

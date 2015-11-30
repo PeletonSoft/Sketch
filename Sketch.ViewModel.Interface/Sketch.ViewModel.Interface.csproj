@@ -52,6 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Container\IPresentListViewModel.cs" />
+    <Compile Include="Container\IWorkModeListViewModel.cs" />
     <Compile Include="Draw\IDrawViewModel.cs" />
     <Compile Include="Draw\ILineViewModel.cs" />
     <Compile Include="Draw\IPointViewModel.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Element\ISheetElementViewModel.cs" />
     <Compile Include="Element\IClotheViewModel.cs" />
     <Compile Include="Element\ILayoutable.cs" />
+    <Compile Include="Element\ISuperimposeOptionViewModel.cs" />
     <Compile Include="Element\ISwagTailViewModel.cs" />
     <Compile Include="IFactoryCollection.cs" />
     <Compile Include="Geometry\IReflectableViewModel.cs" />
@@ -68,7 +71,7 @@
     <Compile Include="Geometry\IRotableViewModel.cs" />
     <Compile Include="Geometry\IRotationViewModel.cs" />
     <Compile Include="IElementFactoryViewModel.cs" />
-    <Compile Include="IElementListViewModel.cs" />
+    <Compile Include="Container\IElementListViewModel.cs" />
     <Compile Include="Element\IElementViewModel.cs" />
     <Compile Include="Visual\IElementVisualViewModel.cs" />
     <Compile Include="Tools\INotifyOpacityMaskRenderChanged.cs" />
@@ -90,6 +93,10 @@
     <ProjectReference Include="..\Sketch.ViewModel.DataTransfer.Interface\Sketch.ViewModel.DataTransfer.Interface.csproj">
       <Project>{7a496595-5bb1-4a0b-92f3-0a142ac43d71}</Project>
       <Name>Sketch.ViewModel.DataTransfer.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sketch.ViewModel.DataTransfer\Sketch.ViewModel.DataTransfer.csproj">
+      <Project>{531A805E-1773-4CB1-B829-260FE97E3D3B}</Project>
+      <Name>Sketch.ViewModel.DataTransfer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools.Model\Tools.Model.csproj">
       <Project>{8186a7aa-0320-4bf9-a9ee-6784c605da01}</Project>

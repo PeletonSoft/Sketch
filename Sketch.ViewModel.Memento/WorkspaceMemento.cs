@@ -27,12 +27,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             ElementList = new ElementListMemento();
 
             Screen.GetState(originator.Screen);
-            Presents.GetState(originator.Presents);
+            //Presents.GetState(originator.Presents);
+            //WorkModes.GetState(originator.WorkModes);
             ElementList.GetState(originator.ElementList);
-            WorkModes.GetState(originator.WorkModes);
 
-            Present = originator.Presents.GetKeyByValue(originator.Present);
-            WorkMode = originator.WorkModes.GetKeyByValue(originator.WorkMode);
+            //Present = originator.Presents.GetKeyByValue(originator.Present);
+            //WorkMode = originator.WorkModes.GetKeyByValue(originator.WorkMode);
             var settingData = originator.SettingProvider.GetSettingData();
             ProgramName = settingData.ProgramName;
             Version = settingData.Version;
@@ -43,12 +43,12 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             originator.RestoreDefault();
 
             Screen.SetState(originator.Screen);
-            Presents.SetState(originator.Presents);
-            WorkModes.SetState(originator.WorkModes);
+            //Presents.SetState(originator.Presents);
+            //WorkModes.SetState(originator.WorkModes);
             ElementList.SetState(originator.ElementList);
 
-            originator.Present = originator.Presents.GetValueByKeyOrDefault(Present);
-            originator.WorkMode = originator.WorkModes.GetValueByKeyOrDefault(WorkMode);
+            //originator.Present = originator.Presents.GetValueByKeyOrDefault(Present);
+            //originator.WorkMode = originator.WorkModes.GetValueByKeyOrDefault(WorkMode);
         }
 
         public IEnumerable<IFileBox> GetFiles()
@@ -68,11 +68,11 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
             return new XElement("root",
                 new XElement("ProgramName", ProgramName),
                 new XElement("Version", Version),
-                new XElement("Present", Present),
-                new XElement("WorkMode", WorkMode),
+                //new XElement("Present", Present),
+                //new XElement("WorkMode", WorkMode),
                 new XElement("Screen", Screen.GetXml(files).Elements()),
-                new XElement("Presents", Presents.GetXml(files).Elements()),
-                new XElement("WorkModes", WorkModes.GetXml(files).Elements()),
+                //new XElement("Presents", Presents.GetXml(files).Elements()),
+                //new XElement("WorkModes", WorkModes.GetXml(files).Elements()),
                 new XElement("ElementList", ElementList.GetXml(files).Elements())
                 );
         }
@@ -80,16 +80,16 @@ namespace PeletonSoft.Sketch.ViewModel.Memento
         public void SetXml(XElement xml, string path)
         {
             Screen = new ScreenMemento();
-            Presents = new PresentContainerMemento();
-            WorkModes = new WorkModeContainerMemento();
+            //Presents = new PresentContainerMemento();
+            //WorkModes = new WorkModeContainerMemento();
             ElementList = new ElementListMemento();
 
             Screen.SetXml(xml.Element("Screen"), path);
-            Presents.SetXml(xml.Element("Presents"), path);
-            WorkModes.SetXml(xml.Element("WorkModes"), path);
+            //Presents.SetXml(xml.Element("Presents"), path);
+            //WorkModes.SetXml(xml.Element("WorkModes"), path);
             ElementList.SetXml(xml.Element("ElementList"), path);
-            Present = (string) xml.Element("Present");
-            WorkMode = (string)xml.Element("WorkMode");
+            //Present = (string) xml.Element("Present");
+            //WorkMode = (string)xml.Element("WorkMode");
         }
     }
 

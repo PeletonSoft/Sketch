@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Geometry;
+using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
@@ -24,7 +25,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         public double Size { get; }
 
-        public PresentQuadrangleViewModel(double size, SuperimposeOptionViewModel superimposeOption)
+        public PresentQuadrangleViewModel(double size, ISuperimposeOptionViewModel superimposeOption)
         {
             Size = size;
             SuperimposeOption = superimposeOption;
@@ -44,7 +45,7 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             get { return Vertices.Select(v => new Point(v.X/Size, 1 - v.Y/Size)); }
         }
 
-        public SuperimposeOptionViewModel SuperimposeOption { get; private set; }
+        public ISuperimposeOptionViewModel SuperimposeOption { get; private set; }
 
     }
 }

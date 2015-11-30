@@ -7,11 +7,11 @@ using PeletonSoft.Tools.Model.Collection;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 
-namespace PeletonSoft.Sketch.ViewModel.Interface
+namespace PeletonSoft.Sketch.ViewModel.Interface.Container
 {
     public interface IElementListViewModel : IOriginator, IContainer<IElementViewModel>,
         IChangeableCollection<IElementViewModel>, INotifyOpacityMaskRenderChanged,
-        IOriginator<IElementListDataTransfer>
+        IOriginator<IListDataTransfer<IElementDataTransfer>>
 
     {
         IReadOnlyList<IElementViewModel> GetBelow(IElementViewModel element);

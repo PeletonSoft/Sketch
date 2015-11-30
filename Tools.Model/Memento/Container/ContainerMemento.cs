@@ -47,9 +47,8 @@ namespace PeletonSoft.Tools.Model.Memento.Container
 
         public IEnumerable<IFileBox> GetFiles()
         {
-            var filess = Mementoes
-                .Select(x => x.Value.GetFiles());
-            return filess.GetFiles();
+            var filess = Mementoes?.Select(x => x.Value.GetFiles());
+            return filess?.GetFiles();
         }
 
         public XElement GetXml(Dictionary<string, IFileBox> files)
