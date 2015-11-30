@@ -77,7 +77,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
             }
         }
 
-        public DecorativeBorderViewModel Element { get; private set; }
+        public DecorativeBorderViewModel Element { get; }
         private VisualOptions VisualOptions { get; set; }
 
         private IList<IDrawViewModel> _chains;

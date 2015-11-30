@@ -17,10 +17,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
             remove { }
         }
 
-        public void RestoreDefault()
-        {
-        }
-
         public ILayoutViewModel Layout { get; }
 
         public string Description

@@ -23,11 +23,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
 
         #endregion
 
-        #region implement IOriginator
-
-        public void RestoreDefault() => DoNothing();
-        #endregion
-
         private double _foregroundOpacity;
         public double ForegroundOpacity
         {

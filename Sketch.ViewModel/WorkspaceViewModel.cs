@@ -38,13 +38,6 @@ namespace PeletonSoft.Sketch.ViewModel
             SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
         #endregion
 
-        #region implement IOriginator
-        public void RestoreDefault()
-        {
-            ElementList.Clear();
-        }
-        #endregion
-
         #region implement IViewModel
         public IWorkspace Model { get; }
         #endregion
@@ -114,7 +107,6 @@ namespace PeletonSoft.Sketch.ViewModel
                 return;
             }
 
-            Caretaker.GetState(this);
             if (!Directory.Exists(settingData.SavePath))
             {
                 return;

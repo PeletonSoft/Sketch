@@ -9,12 +9,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
     public class PresentQuadrangleViewModel : RectangleViewModel
     {
-        #region implement IOriginator
-
-        public override void RestoreDefault() => Default();
-
-        #endregion
-
         private void Default()
         {
             TopLeft.Point = new Point(0, 0);

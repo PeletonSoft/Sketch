@@ -14,7 +14,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class DecorativeBorderViewModel : IOriginator, INotifyViewModel<DecorativeBorder>, IOriginator<DecorativeBorderDataTransfer>
+    public sealed class DecorativeBorderViewModel : INotifyViewModel<DecorativeBorder>, IOriginator<DecorativeBorderDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,13 +27,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
-        #endregion
-
-        #region implement IOriginator
-        public void RestoreDefault()
-        {
-            ResetChains();
-        }
         #endregion
 
         #region implement IViewModel

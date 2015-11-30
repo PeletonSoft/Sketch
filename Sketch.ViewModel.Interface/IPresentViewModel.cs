@@ -4,7 +4,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
-    public interface IPresentViewModel : IOriginator, INotifyPropertyChanged, IOriginator<IPresentDataTransfer>
+    public interface IPresentViewModel : INotifyPropertyChanged, IOriginator<IPresentDataTransfer>
     {
         IWorkspaceViewModel Workspace { get; }
         double Zoom { get; set; }

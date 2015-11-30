@@ -11,9 +11,6 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 {
     public class WorkModeListViewModel : IWorkModeListViewModel
     {
-        public void RestoreDefault()
-        {
-        }
 
         public IEnumerable<ContainerRecord<IWorkModeViewModel>> Items { get; }
         public IWorkModeViewModel Default => Editor;

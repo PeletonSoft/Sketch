@@ -82,10 +82,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         protected IAlignableElementViewModel Element { get; }
 
-        public void RestoreDefault()
-        {
-        }
-
         private IEnumerable<IEnumerable<Point>> _opacityMask;
         public IEnumerable<IEnumerable<Point>> OpacityMask
         {

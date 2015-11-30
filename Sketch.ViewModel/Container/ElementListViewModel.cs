@@ -47,12 +47,6 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         #endregion
 
-        #region implement IOriginator
-
-        public void RestoreDefault() => DoNothing();
-
-        #endregion
-
         #region implement IContainer
 
         public IEnumerable<IContainerRecord<IElementViewModel>> Items

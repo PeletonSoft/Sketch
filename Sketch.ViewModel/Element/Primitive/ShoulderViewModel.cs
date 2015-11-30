@@ -6,12 +6,11 @@ using PeletonSoft.Sketch.ViewModel.DataTransfer.Element.Primitive;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
-using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 {
-    public sealed class ShoulderViewModel : IOriginator, INotifyViewModel<Shoulder>, ISynchViewModel<ShoulderViewModel>, IOriginator<ShoulderDataTransfer>
+    public sealed class ShoulderViewModel : INotifyViewModel<Shoulder>, ISynchViewModel<ShoulderViewModel>, IOriginator<ShoulderDataTransfer>
     {
         #region implement INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,11 +18,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
             this.OnPropertyChanged(PropertyChanged, propertyName);
         private void SetField<T>(Func<T> getValue, Action<T> setValue, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), getValue, setValue, value);
-        #endregion
-
-        #region implement IOriginator 
-
-        public void RestoreDefault() => DoNothing();
         #endregion
 
         #region implement ViewModel

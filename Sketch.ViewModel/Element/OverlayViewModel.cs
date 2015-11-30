@@ -39,10 +39,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element
 
         #endregion
 
-        #region implement IOriginator
-        public void RestoreDefault() => DoNothing();
-        #endregion
-
         #region implement ISelectableList
         private int _selectedIndex = -1;
         public int SelectedIndex

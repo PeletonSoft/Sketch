@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.View", "Tools.View\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.View", "Sketch.View\Sketch.View.csproj", "{2E3884A0-7585-4DDF-9C6C-A063209E66EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Memento", "Sketch.ViewModel.Memento\Sketch.ViewModel.Memento.csproj", "{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Interface", "Sketch.ViewModel.Interface\Sketch.ViewModel.Interface.csproj", "{A6AA3629-2AB9-4624-B0F8-15F0F67F5EE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Visual", "Sketch.ViewModel.Visual\Sketch.ViewModel.Visual.csproj", "{4C5A48FC-A803-4195-9068-5564F7619D83}"
@@ -55,10 +53,6 @@ Global
 		{2E3884A0-7585-4DDF-9C6C-A063209E66EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E3884A0-7585-4DDF-9C6C-A063209E66EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E3884A0-7585-4DDF-9C6C-A063209E66EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39F3103A-9D28-44A6-AD61-CC3E20D9DDA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6AA3629-2AB9-4624-B0F8-15F0F67F5EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6AA3629-2AB9-4624-B0F8-15F0F67F5EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6AA3629-2AB9-4624-B0F8-15F0F67F5EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU

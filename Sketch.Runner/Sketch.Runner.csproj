@@ -139,10 +139,6 @@
       <Project>{a6aa3629-2ab9-4624-b0f8-15f0f67f5ee2}</Project>
       <Name>Sketch.ViewModel.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sketch.ViewModel.Memento\Sketch.ViewModel.Memento.csproj">
-      <Project>{39f3103a-9d28-44a6-ad61-cc3e20d9dda2}</Project>
-      <Name>Sketch.ViewModel.Memento</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sketch.ViewModel.Visual\Sketch.ViewModel.Visual.csproj">
       <Project>{4c5a48fc-a803-4195-9068-5564f7619d83}</Project>
       <Name>Sketch.ViewModel.Visual</Name>

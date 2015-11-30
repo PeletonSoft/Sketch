@@ -50,10 +50,6 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 
         public IPresentViewModel LayoutPresent { get; }
 
-        public void RestoreDefault()
-        {
-        }
-
         public IListDataTransfer<IPresentDataTransfer> CreateState() =>
             new ListDataTransfer<IPresentDataTransfer>();
 

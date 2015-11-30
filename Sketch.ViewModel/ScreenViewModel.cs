@@ -27,11 +27,6 @@ namespace PeletonSoft.Sketch.ViewModel
 
         #endregion
 
-        #region implement IOriginator
-
-        public void RestoreDefault() => DoNothing();
-        #endregion
-
         public Screen Model { get; }
 
         public double Width

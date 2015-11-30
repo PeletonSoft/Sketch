@@ -5,7 +5,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Element
 {
-    public interface IClotheViewModel : INotifyPropertyChanged, IOriginator, IOriginator<IClotheDataTransfer>
+    public interface IClotheViewModel : INotifyPropertyChanged, IOriginator<IClotheDataTransfer>
     {
         double? Height { get; set; }
         double? Width { get; set; }

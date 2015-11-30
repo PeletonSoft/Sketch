@@ -36,11 +36,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
 
         #endregion
 
-        #region implement IOriginator
-
-        public virtual void RestoreDefault() => DoNothing();
-        #endregion
-
         #region implement IAlignable
         public double Width
         {

@@ -34,16 +34,8 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Primitive
 
         #endregion
 
-        #region implement IOriginator
-
-        public void RestoreDefault() => DoNothing();
-
-        #endregion
-
         #region implement IViewModel
-
         public IClothe Model { get; }
-
         #endregion
 
         public double? Width

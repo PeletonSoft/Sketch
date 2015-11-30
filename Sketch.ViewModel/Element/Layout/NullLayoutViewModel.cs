@@ -10,8 +10,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
     public class NullLayoutViewModel : ILayoutViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void RestoreDefault() => DoNothing();
-
         public IElementViewModel Element { get; } = null;
         public double Width { get; } = 0;
         public double Height { get; } = 0;

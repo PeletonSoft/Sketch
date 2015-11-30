@@ -12,7 +12,7 @@ using PeletonSoft.Tools.Model.Setting;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
-    public interface IWorkspaceViewModel : INotifyViewModel<IWorkspace>, IOriginator, IOriginator<WorkspaceDataTransfer>
+    public interface IWorkspaceViewModel : INotifyViewModel<IWorkspace>, IOriginator<WorkspaceDataTransfer>
     {
         IScreenViewModel Screen { get; set; }
         IWorkModeViewModel WorkMode { get; set; }

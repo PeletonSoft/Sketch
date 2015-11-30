@@ -21,10 +21,6 @@ namespace PeletonSoft.Sketch.ViewModel.WorkMode
             Workspace = workspace;
         }
 
-        public virtual void RestoreDefault()
-        {
-        }
-
         public virtual IWorkModeDataTransfer CreateState() => new WorkModeDataTransfer();
 
         public virtual void Save(IWorkModeDataTransfer state) => DoNothing();

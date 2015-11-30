@@ -39,8 +39,6 @@ namespace PeletonSoft.Sketch.ViewModel.Present
             Zoom = 1;
         }
 
-        public virtual void RestoreDefault() => DoNothing();
-
         public virtual IPresentDataTransfer CreateState() => new PresentDataTransfer();
 
         public virtual void Save(IPresentDataTransfer state)

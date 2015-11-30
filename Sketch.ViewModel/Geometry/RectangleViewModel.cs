@@ -10,7 +10,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public abstract class RectangleViewModel : INotifyPropertyChanged, IOriginator, IOriginator<RectangleDataTransfer>
+    public abstract class RectangleViewModel : INotifyPropertyChanged, IOriginator<RectangleDataTransfer>
     {
 
         #region implement INotifyPropertyChanged
@@ -21,11 +21,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
 
         protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
-        #endregion
-
-        #region implement IOriginator
-        public virtual void RestoreDefault() => DoNothing();
-
         #endregion
 
         public VertexViewModel TopLeft { get; }

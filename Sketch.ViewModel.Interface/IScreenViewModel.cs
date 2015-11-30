@@ -4,7 +4,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
-    public interface IScreenViewModel : INotifyViewModel, IOriginator, IOriginator<IScreenDataTransfer>
+    public interface IScreenViewModel : INotifyViewModel, IOriginator<IScreenDataTransfer>
     {
         double Width { get; set; }
         double Height { get; set; }

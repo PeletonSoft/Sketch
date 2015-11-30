@@ -20,8 +20,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Null
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void RestoreDefault() => DoNothing();
-
         public double? Height { get; set; } = 0;
 
         public double? Width { get; set; } = 0;

@@ -6,7 +6,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Layout
 {
-    public interface ILayoutViewModel : INotifyViewModel, IOriginator
+    public interface ILayoutViewModel : INotifyViewModel
     {
         IElementViewModel Element { get; }
         double Width { get; }

@@ -12,7 +12,7 @@ using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyCha
 
 namespace PeletonSoft.Sketch.ViewModel.Geometry
 {
-    public class TransformationViewModel : INotifyPropertyChanged, IOriginator, IReflectableViewModel, IRotableViewModel, 
+    public class TransformationViewModel : INotifyPropertyChanged, IReflectableViewModel, IRotableViewModel, 
         IOriginator<TransformationDataTransfer>
     {
         #region implement INotifyPropertyChanged
@@ -25,11 +25,6 @@ namespace PeletonSoft.Sketch.ViewModel.Geometry
         private void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) =>
             SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
 
-        #endregion
-
-        #region implement IOriginator
-
-        public void RestoreDefault() => DoNothing();
         #endregion
 
         private IRotationViewModel _rotation;

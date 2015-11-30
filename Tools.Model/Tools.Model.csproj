@@ -121,17 +121,13 @@
     <Compile Include="Setting\ISettingData.cs" />
     <Compile Include="Setting\ISettingProvider.cs" />
     <Compile Include="Memento\Caretaker.cs" />
-    <Compile Include="Memento\Container\ContainerMemento.cs" />
     <Compile Include="Memento\Container\IListOriginator.cs" />
     <Compile Include="File\FileHelper.cs" />
-    <Compile Include="Memento\IMementoService.cs" />
     <Compile Include="Setting\ISettingService.cs" />
     <Compile Include="Setting\SettingDataExtention.cs" />
     <Compile Include="SketchMath\Catenary.cs" />
     <Compile Include="Dragable\DataTransition.cs" />
     <Compile Include="ElementAlignment.cs" />
-    <Compile Include="Memento\IMemento.cs" />
-    <Compile Include="Memento\IMementoRegister.cs" />
     <Compile Include="Dragable\PointTransit.cs" />
     <Compile Include="Memento\IOriginator.cs" />
     <Compile Include="Collection\ContainerExtention.cs" />

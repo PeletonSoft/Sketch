@@ -7,7 +7,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Element
 {
-    public interface IElementViewModel : INotifyViewModel, IOriginator, ILayoutable, ICollectionItem, IOriginator<IElementDataTransfer>
+    public interface IElementViewModel : INotifyViewModel, ILayoutable, ICollectionItem, IOriginator<IElementDataTransfer>
     {
         string Description { get; set; }
         bool Visibility { get; set; }

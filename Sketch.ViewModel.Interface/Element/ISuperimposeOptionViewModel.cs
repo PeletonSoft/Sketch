@@ -4,7 +4,7 @@ using PeletonSoft.Tools.Model.Memento;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Element
 {
-    public interface ISuperimposeOptionViewModel : IOriginator, INotifyPropertyChanged,
+    public interface ISuperimposeOptionViewModel : INotifyPropertyChanged,
         IOriginator<SuperimposeOptionDataTransfer>
     {
         double ForegroundOpacity { get; set; }

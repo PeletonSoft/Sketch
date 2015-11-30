@@ -45,10 +45,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         public Pleatable Model { get; }
         #endregion
 
-        #region implement IOriginator
-        public void RestoreDefault() => DoNothing();
-        #endregion
-
         #region implment ICollectionItem
         public virtual void AfterInsert()
         {

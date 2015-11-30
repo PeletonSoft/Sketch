@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:memento="clr-namespace:PeletonSoft.Sketch.ViewModel.Memento;assembly=Sketch.ViewModel.Memento"
                     xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
                     xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel"
                     xmlns:command="clr-namespace:PeletonSoft.Tools.View.XamlExtention.Command;assembly=Tools.View">
@@ -30,19 +29,12 @@
         <factory:ScaleneTailFactoryViewModel PointCount="{StaticResource PointCount}"/>
     </viewModel:FactoryCollection>
 
-    <viewModel:WorkspaceCaretaker x:Key="Caretaker">
-        <viewModel:WorkspaceCaretaker.Memento>
-            <memento:WorkspaceMemento/>        
-        </viewModel:WorkspaceCaretaker.Memento>
-    </viewModel:WorkspaceCaretaker>
-    
     <command:CommandFactory x:Key="CommandFactory"/>
 
     <viewModel:WorkspaceViewModel x:Key="WorkspaceModelView"
         Screen ="{StaticResource ScreenViewModel}"
         SettingProvider="{StaticResource SettingProvider}"
         Factories="{StaticResource FactoryCollection}"
-        CommandFactory="{StaticResource CommandFactory}"                           
-        Caretaker="{StaticResource Caretaker}"/>
+        CommandFactory="{StaticResource CommandFactory}"/>
     
 </ResourceDictionary>

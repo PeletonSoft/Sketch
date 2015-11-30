@@ -27,10 +27,6 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Layout
             SetFieldValue(() => OnPropertyChanged(propertyName), ref field, value);
         #endregion
 
-        #region implement IOriginator
-        public void RestoreDefault() => DoNothing();
-        #endregion
-
         public double Width => Rect.Width;
         public double Height => Rect.Height;
         public double Left => Transform(Element.Rect).X;

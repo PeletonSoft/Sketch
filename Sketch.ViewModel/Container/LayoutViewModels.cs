@@ -11,10 +11,6 @@ namespace PeletonSoft.Sketch.ViewModel.Container
 {
     public class LayoutViewModels : IContainerOriginator<ILayoutViewModel>
     {
-        public void RestoreDefault()
-        {
-        }
-
         private readonly Lazy<IEnumerable<IContainerRecord<ILayoutViewModel>>> _lazyItems;
         public IEnumerable<IContainerRecord<ILayoutViewModel>> Items => _lazyItems.Value;
         public ILayoutViewModel Default => LeftLayout;

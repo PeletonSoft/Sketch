@@ -7,10 +7,6 @@ namespace PeletonSoft.Tools.Model.Memento.Container
 {
     public sealed class ContainerOriginator<T> : IContainerOriginator<T>
     {
-        public void RestoreDefault()
-        {
-        }
-
         public IEnumerable<IContainerRecord<T>> Items { get; }
         public T Default { get; }
 

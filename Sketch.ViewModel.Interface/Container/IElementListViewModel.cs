@@ -9,7 +9,7 @@ using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Container
 {
-    public interface IElementListViewModel : IOriginator, IContainer<IElementViewModel>,
+    public interface IElementListViewModel : IContainer<IElementViewModel>,
         IChangeableCollection<IElementViewModel>, INotifyOpacityMaskRenderChanged,
         IOriginator<IListDataTransfer<IElementDataTransfer>>
 
