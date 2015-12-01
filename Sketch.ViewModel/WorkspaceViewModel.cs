@@ -18,6 +18,7 @@ using PeletonSoft.Tools.Model.Dependency;
 using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Memento;
 using PeletonSoft.Tools.Model.Memento.Serialize;
+using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.Setting;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
@@ -64,11 +65,27 @@ namespace PeletonSoft.Sketch.ViewModel
                 CommandFactory.CreateCommand(Restore));
 
             ElementList = new ElementListViewModel(new WorkspaceBit(this));
-            this.SetPropertyChanged(nameof(WorkMode), () => ElementList.Unselect());
+            this
+                .SetPropertyChanged(nameof(WorkMode), () => ElementList.Unselect())
+                .SetPropertyChanged(
+                    this.ExtractGetter(nameof(Screen), el => el.Screen),
+                    new [] { nameof(Screen.Width), nameof(Screen.Height)},
+                    () =>
+                    {
+                        var state = ElementList.Save();
+                        ElementList.Restore(state);
+                    });
         }
 
         public IElementListViewModel ElementList { get; }
-        public IScreenViewModel Screen { get; set; }
+
+        private IScreenViewModel _screen;
+
+        public IScreenViewModel Screen
+        {
+            get { return _screen; }
+            set { SetField( ref _screen, value); }
+        }
 
         public IPresentListViewModel Presents { get; }
         private IPresentViewModel _present;

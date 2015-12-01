@@ -35,14 +35,12 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Ширина" Width="55"/>
                         <controls:NumericBox Width="110"
-                        IsEnabled="{Binding ElementList.IsEmpty}" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Screen.Width, Mode=TwoWay}" />
+                            StringFormat="{StaticResource NumericFormat}"
+                            Value="{Binding Screen.Width, Mode=TwoWay}" />
                         <Label Content="Высота" Width="55"/>
                         <controls:NumericBox Width="110"
-                        IsEnabled="{Binding ElementList.IsEmpty}" 
-                        StringFormat="{StaticResource NumericFormat}"
-                        Value="{Binding Screen.Height, Mode=TwoWay}" />
+                            StringFormat="{StaticResource NumericFormat}"
+                            Value="{Binding Screen.Height, Mode=TwoWay}" />
                     </StackPanel>
                 </GroupBox>
 

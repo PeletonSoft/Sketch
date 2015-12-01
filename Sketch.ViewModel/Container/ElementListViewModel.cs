@@ -17,7 +17,6 @@ using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem;
 using PeletonSoft.Tools.Model.ObjectEvent.ChangedItem.ChangedInfo;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
 using PeletonSoft.Tools.Model.ObjectEvent.Render;
-using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 namespace PeletonSoft.Sketch.ViewModel.Container
