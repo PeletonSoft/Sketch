@@ -188,7 +188,6 @@ namespace PeletonSoft.Sketch.ViewModel
             Presents.Restore(state.Presents);
             WorkModes.Restore(state.WorkModes);
             Present = (IPresentViewModel)Presents.GetValueByKeyOrDefault(state.Present);
-            WorkMode = (IWorkModeViewModel)WorkModes.GetValueByKeyOrDefault(state.WorkMode);
             Screen.Restore(state.Screen);
             ElementList.Restore(state.ElementList);
         }
@@ -198,7 +197,6 @@ namespace PeletonSoft.Sketch.ViewModel
             var settingData = SettingProvider.GetSettingData();
 
             state.Present = Presents.GetKeyByValue(Present);
-            state.WorkMode = WorkModes.GetKeyByValue(WorkMode);
             state.ProgramName = settingData.ProgramName;
             state.Version = settingData.Version;
             state.Screen = Screen.Save();

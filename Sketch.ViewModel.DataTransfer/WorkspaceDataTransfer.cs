@@ -12,7 +12,6 @@ namespace PeletonSoft.Sketch.ViewModel.DataTransfer
         
         public IScreenDataTransfer Screen { get; set; }
         public IListDataTransfer<IElementDataTransfer> ElementList { get; set; }
-        public string WorkMode { get; set; }
         public IListDataTransfer<IWorkModeDataTransfer>  WorkModes { get; set; }
         public string Present { get; set; }
         public IListDataTransfer<IPresentDataTransfer> Presents { get; set; }

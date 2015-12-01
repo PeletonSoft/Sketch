@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:controls1="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
-             xmlns:behavior1="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
+             xmlns:controls="clr-namespace:PeletonSoft.Tools.View.Controls;assembly=Tools.View"
+             xmlns:behavior="clr-namespace:PeletonSoft.Tools.View.Behavior;assembly=Tools.View"
              xmlns:workMode1="clr-namespace:PeletonSoft.Sketch.ViewModel.WorkMode;assembly=Sketch.ViewModel"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance workMode1:ReportWorkModeViewModel}"
@@ -20,11 +20,11 @@
     </UserControl.Resources>
     
     <Grid DataContext="{Binding Workspace}">
-        <controls1:FixedDocumentViewer>
+        <controls:FixedDocumentViewer>
             <i:Interaction.Behaviors>
-                <behavior1:AddPageContentBehavior FormatPageContent="{StaticResource StandartLayoutReport}"/>
+                <behavior:AddPageContentBehavior FormatPageContent="{StaticResource StandartLayoutReport}"/>
             </i:Interaction.Behaviors>
-        </controls1:FixedDocumentViewer>
+        </controls:FixedDocumentViewer>
     </Grid>
     
 </UserControl>

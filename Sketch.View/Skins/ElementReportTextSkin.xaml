@@ -14,7 +14,7 @@
         </StackPanel>
         
     </DataTemplate>
-    <DataTemplate DataType="{x:Type element:TieBackViewModel}">
+    <DataTemplate DataType="{x:Type custom:PleatableViewModel}">
         <StackPanel Orientation="Vertical">
             <report:ElementReportView/>
         </StackPanel>
