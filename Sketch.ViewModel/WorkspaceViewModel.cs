@@ -59,28 +59,23 @@ namespace PeletonSoft.Sketch.ViewModel
             Present = Presents.Default;
 
             _saveCommandLazy = new Lazy<ICommand>(() =>
-                CommandFactory.CreateCommand(Save,
+                CommandFactory.CreateCommand(SaveToFile,
                     () => !SettingProvider.GetSettingData().ReadOnly));
             _restoreCommandLazy = new Lazy<ICommand>(() =>
-                CommandFactory.CreateCommand(Restore));
+                CommandFactory.CreateCommand(RestoreFromFile));
 
             ElementList = new ElementListViewModel(new WorkspaceBit(this));
             this
                 .SetPropertyChanged(nameof(WorkMode), () => ElementList.Unselect())
                 .SetPropertyChanged(
                     this.ExtractGetter(nameof(Screen), el => el.Screen),
-                    new [] { nameof(Screen.Width), nameof(Screen.Height)},
-                    () =>
-                    {
-                        var state = ElementList.Save();
-                        ElementList.Restore(state);
-                    });
+                    new[] {nameof(Screen.Width), nameof(Screen.Height)},
+                    () => ElementList.Restore(ElementList.Save()));
         }
 
         public IElementListViewModel ElementList { get; }
 
         private IScreenViewModel _screen;
-
         public IScreenViewModel Screen
         {
             get { return _screen; }
@@ -116,7 +111,7 @@ namespace PeletonSoft.Sketch.ViewModel
         private readonly Lazy<ICommand> _restoreCommandLazy;
         public ICommand RestoreCommand => _restoreCommandLazy.Value;
 
-        public void Save()
+        public void SaveToFile()
         {
             var settingData = SettingProvider.GetSettingData();
 
@@ -137,7 +132,7 @@ namespace PeletonSoft.Sketch.ViewModel
                 Directory.CreateDirectory(path);
             }
 
-            var dataTransfer = (this as IOriginator<WorkspaceDataTransfer>).Save();
+            var dataTransfer = this.Save();
             var serializer = new XmlSerializer(StandardXmlPrimitive.Primitives, dataTransfer);
             var xml = serializer.Serialize();
 
@@ -151,7 +146,7 @@ namespace PeletonSoft.Sketch.ViewModel
         }
 
 
-        public void Restore()
+        public void RestoreFromFile()
         {
             var settingData = SettingProvider.GetSettingData();
             var path = settingData.GetOrderSavePath();
