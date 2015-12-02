@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.DataTransf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.DataTransfer.Interface", "Sketch.ViewModel.DataTransfer.Interface\Sketch.ViewModel.DataTransfer.Interface.csproj", "{7A496595-5BB1-4A0B-92F3-0A142AC43D71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Test", "Sketch.ViewModel.Test\Sketch.ViewModel.Test.csproj", "{1D1C46A8-D20C-4783-954E-8393E85151CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{7A496595-5BB1-4A0B-92F3-0A142AC43D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A496595-5BB1-4A0B-92F3-0A142AC43D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A496595-5BB1-4A0B-92F3-0A142AC43D71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

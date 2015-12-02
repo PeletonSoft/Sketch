@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using PeletonSoft.Sketch.ViewModel.Interface.Layout;
 using PeletonSoft.Sketch.ViewModel.Interface.Visual;
@@ -20,7 +21,7 @@ namespace PeletonSoft.Sketch.ViewModel.Visual.Element.Primitive
         public double Height => PixelPerUnit.Transform(Element.Height);
         public double Top => PixelPerUnit.Transform(Element.Top);
         public double Left => PixelPerUnit.Transform(Element.Left);
-        public IEnumerable<IEnumerable<Point>> OpacityMask => PixelPerUnit.Transform(Element.OpacityMask);
+        public IEnumerable<IEnumerable<Point>> OpacityMask => PixelPerUnit.Transform(Element.OpacityMask)?.ToList();
 
         public Rect Rect => PixelPerUnit.Transform(Element.Rect);
 

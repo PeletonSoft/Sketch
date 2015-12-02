@@ -57,5 +57,9 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
             handler?.Invoke(responder, args);
         }
 
+        public void Clear()
+        {
+            _subscribes.Clear();                                    
+        }
     }
 }

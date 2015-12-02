@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PeletonSoft.Tools.View.XamlUtility.XamlExtention
+namespace PeletonSoft.Tools.View.XamlExtention
 {
     public class InterfaceTemplateSelector : DataTemplateSelector
     {

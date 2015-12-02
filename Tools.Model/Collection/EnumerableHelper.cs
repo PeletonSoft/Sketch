@@ -87,6 +87,7 @@ namespace PeletonSoft.Tools.Model.Collection
                 source.ForEach(
                     item => filter
                         .Where(pair => pair.Key(item))
+                        .Take(1)
                         .ToList()
                         .ForEach(pair => pair.Value(item)));
     }
