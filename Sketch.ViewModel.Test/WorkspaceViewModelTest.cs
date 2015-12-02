@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Core;
 using NUnit.Framework;
 using PeletonSoft.Sketch.ViewModel.Factory;
@@ -45,6 +46,9 @@ namespace PeletonSoft.Sketch.ViewModel.Test
             elementList.AppendElement(factories[2]);
 
             Assert.That(elementList.Count(), Is.EqualTo(3));
+            Assert.That(elementList.Collection.Last().Layout.OpacityMask, Is.Null);
+            screen.Width = 5;
+            Assert.That(elementList.Collection.Last().Layout.OpacityMask, Is.Null);
 
         }
     }
