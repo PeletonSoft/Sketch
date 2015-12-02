@@ -17,8 +17,8 @@ using PeletonSoft.Tools.Model;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.ObjectEvent;
 using PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged;
+using PeletonSoft.Tools.Model.ObjectEvent.Render;
 using PeletonSoft.Tools.Model.SketchMath.Wave;
-using static PeletonSoft.Tools.Model.ObjectEvent.EventAction;
 using static PeletonSoft.Tools.Model.ObjectEvent.NotifyChanged.NotifyPropertyChangedHelper;
 
 
@@ -48,14 +48,16 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
         #region implment ICollectionItem
         public virtual void AfterInsert()
         {
+            RenderChangedDispatcher = WorkspaceBit.RenderChangedDispatcher;
             ChangeSheet();
             DenseWidth = Math.Min(0.6 * Sheet.Height, 0.6 * Sheet.Width);
         }
 
         public virtual void BeforeDelete()
         {
-            WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
-            //Sheet = NullSheet;
+            RenderChangedDispatcher.Unsubscribe(this, Sheet);
+            RenderChangedDispatcher.Unsubscribe(this, NullSheet);
+            RenderChangedDispatcher = null;
         }
         #endregion
 
@@ -100,16 +102,19 @@ namespace PeletonSoft.Sketch.ViewModel.Element.Custom
             private set { SetField(ref _sheet, value); }
         }
 
+        public RenderChangedDispatcher<IElementViewModel, IElementViewModel, IEnumerable<Point>>
+            RenderChangedDispatcher { get; private set; }
+
         private void ChangeSheet()
         {
             var newSheet = GetSheet();
 
             if (Sheet != newSheet)
             {
-                WorkspaceBit.RenderChangedDispatcher.Unsubscribe(this, Sheet);
+                RenderChangedDispatcher?.Unsubscribe(this, Sheet);
                 Sheet = newSheet;
-                NotifyRenderChangedAction = WorkspaceBit.RenderChangedDispatcher
-                    .Subscribe(this, Sheet, () => Model.GetRenderArea());
+                NotifyRenderChangedAction = RenderChangedDispatcher
+                    ?.Subscribe(this, Sheet, () => Model.GetRenderArea());
             }
         }
 

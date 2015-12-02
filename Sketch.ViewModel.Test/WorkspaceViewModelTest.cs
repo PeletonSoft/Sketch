@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NUnit.Core;
+﻿using System.Linq;
 using NUnit.Framework;
 using PeletonSoft.Sketch.ViewModel.Factory;
-using PeletonSoft.Sketch.ViewModel.Factory.Custom;
 using PeletonSoft.Sketch.ViewModel.Interface;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Dependency;

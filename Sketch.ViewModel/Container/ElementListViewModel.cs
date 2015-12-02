@@ -196,7 +196,6 @@ namespace PeletonSoft.Sketch.ViewModel.Container
         public void Restore(IListDataTransfer<IElementDataTransfer> state)
         {
             Clear();
-            RenderChangedDispatcher.Clear();
             foreach (var item in state.List)
             {
                 var factory = Factories

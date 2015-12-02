@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PeletonSoft.Tools.Model.ObjectEvent.Render
@@ -7,6 +8,12 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
     public class RenderChangedDispatcher<TR, TS,  TD>
     {
         private readonly Dictionary<TR, Dictionary<TS, Func<TD>>> _subscribes = new Dictionary<TR, Dictionary<TS, Func<TD>>>();
+
+        public IReadOnlyDictionary<TR, IReadOnlyDictionary<TS, Func<TD>>> Subscribes =>
+            new ReadOnlyDictionary<TR, IReadOnlyDictionary<TS, Func<TD>>>(
+                _subscribes.ToDictionary(
+                    pair => pair.Key,
+                    pair => (IReadOnlyDictionary<TS, Func<TD>>) new ReadOnlyDictionary<TS, Func<TD>>(pair.Value)));
 
         private Dictionary<TS, Func<TD>> GetSuscribeByResponder(TR responder)
         {
@@ -53,8 +60,7 @@ namespace PeletonSoft.Tools.Model.ObjectEvent.Render
                 .ToList();
             var args = new RenderChangedEventHandlerArgs<IEnumerable<TD>>(renderData);
 
-            var handler = RenderChanged;
-            handler?.Invoke(responder, args);
+            RenderChanged?.Invoke(responder, args);
         }
 
         public void Clear()
