@@ -136,7 +136,6 @@
     <Compile Include="WorkMode\CustomWorkModeViewModel.cs" />
     <Compile Include="WorkMode\EditorWorkModeViewModel.cs" />
     <Compile Include="WorkMode\ReportWorkModeViewModel.cs" />
-    <Compile Include="WorkspaceCaretaker.cs" />
     <Compile Include="WorkspaceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

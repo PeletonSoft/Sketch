@@ -4,15 +4,12 @@ using PeletonSoft.Sketch.ViewModel.DataTransfer;
 using PeletonSoft.Sketch.ViewModel.Interface.Container;
 using PeletonSoft.Sketch.ViewModel.Interface.Element;
 using PeletonSoft.Tools.Model.Dependency;
-using PeletonSoft.Tools.Model.File;
 using PeletonSoft.Tools.Model.Logic;
 using PeletonSoft.Tools.Model.Memento;
-using PeletonSoft.Tools.Model.Memento.Container;
-using PeletonSoft.Tools.Model.Setting;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface
 {
-    public interface IWorkspaceViewModel : INotifyViewModel<IWorkspace>, IOriginator<WorkspaceDataTransfer>
+    public interface IWorkspaceViewModel : INotifyViewModel<IWorkspace>, IVisualOriginator<WorkspaceDataTransfer>
     {
         IScreenViewModel Screen { get; set; }
         IWorkModeViewModel WorkMode { get; set; }
@@ -22,7 +19,5 @@ namespace PeletonSoft.Sketch.ViewModel.Interface
         IElementListViewModel ElementList { get; }
         IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories { get; }
         ICommandFactory CommandFactory { get;  }
-        ImageBox ImageBox { get; set; }
-        ISettingProvider SettingProvider { get;}
     }
 }

@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewModel="clr-namespace:PeletonSoft.Sketch.ViewModel;assembly=Sketch.ViewModel"
                     xmlns:factory="clr-namespace:PeletonSoft.Sketch.ViewModel.Factory;assembly=Sketch.ViewModel"
-                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.XamlExtention.Command;assembly=Tools.View">
+                    xmlns:command="clr-namespace:PeletonSoft.Tools.View.XamlExtention.Command;assembly=Tools.View"
+                    xmlns:memento="clr-namespace:PeletonSoft.Sketch.Runner.Memento">
 
     <viewModel:ScreenViewModel x:Key="ScreenViewModel"
         Width="{StaticResource CanvasWidth}"
@@ -30,11 +31,13 @@
     </viewModel:FactoryCollection>
 
     <command:CommandFactory x:Key="CommandFactory"/>
+    <memento:CaretakerFactory x:Key="CaretakerFactory"/>
 
     <viewModel:WorkspaceViewModel x:Key="WorkspaceModelView"
         Screen ="{StaticResource ScreenViewModel}"
         SettingProvider="{StaticResource SettingProvider}"
         Factories="{StaticResource FactoryCollection}"
-        CommandFactory="{StaticResource CommandFactory}"/>
+        CommandFactory="{StaticResource CommandFactory}"
+        CaretakerFactory="{StaticResource CaretakerFactory}"/>
     
 </ResourceDictionary>

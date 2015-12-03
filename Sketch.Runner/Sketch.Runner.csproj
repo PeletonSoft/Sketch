@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Memento\Caretaker.cs" />
+    <Compile Include="Memento\CaretakerFactory.cs" />
     <Compile Include="Setting\SettingData.cs" />
     <Compile Include="Setting\SettingProvider.cs" />
     <Compile Include="Setting\SettingService.cs" />

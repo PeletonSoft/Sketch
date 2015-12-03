@@ -18,7 +18,6 @@ namespace PeletonSoft.Sketch.ViewModel.Test
         [Test]
         public void ElementList_ThreeLayerAndChangeSize_FreeOpacityMask()
         {
-            
             var factories = new IElementFactoryViewModel<IElementViewModel>[]
             {
                 new PortiereFactoryViewModel(), 
@@ -53,7 +52,6 @@ namespace PeletonSoft.Sketch.ViewModel.Test
         [Test]
         public void ElementList_AddAllElement_NoError()
         {
-
             var factories = new IElementFactoryViewModel<IElementViewModel>[]
             {
                 new PortiereFactoryViewModel(),
@@ -79,7 +77,6 @@ namespace PeletonSoft.Sketch.ViewModel.Test
                 Width = 4,
                 Height = 2
             };
-
 
             var settingData = MockRepository.GenerateStub<ISettingData>();
             settingData.Stub(sd => sd.ProgramName).Return("MyName");
@@ -111,7 +108,6 @@ namespace PeletonSoft.Sketch.ViewModel.Test
             });
             workspace.Restore(dataTransfer);
             Assert.That(elementList.Count(), Is.EqualTo(factories.Length));
-
         }
 
     }

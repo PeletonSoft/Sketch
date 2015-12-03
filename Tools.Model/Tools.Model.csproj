@@ -78,8 +78,10 @@
     <Compile Include="Collection\IContainerRecord.cs" />
     <Compile Include="Memento\Container\ListOriginatorHelper.cs" />
     <Compile Include="Memento\ICaretaker.cs" />
+    <Compile Include="Memento\ICareTakerFactory.cs" />
     <Compile Include="Memento\IDataTransfer.cs" />
     <Compile Include="Memento\IListDataTransfer.cs" />
+    <Compile Include="Memento\IVisualOriginator.cs" />
     <Compile Include="Memento\ListDataTransfer.cs" />
     <Compile Include="Memento\OriginatorHelper.cs" />
     <Compile Include="Memento\Serialize\StandardXmlPrimitive.cs" />
@@ -122,7 +124,6 @@
     <Compile Include="Register\RegisterComposite.cs" />
     <Compile Include="Setting\ISettingData.cs" />
     <Compile Include="Setting\ISettingProvider.cs" />
-    <Compile Include="Memento\Caretaker.cs" />
     <Compile Include="Memento\Container\IListOriginator.cs" />
     <Compile Include="File\FileHelper.cs" />
     <Compile Include="Setting\ISettingService.cs" />
