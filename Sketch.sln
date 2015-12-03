@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.DataTransf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.ViewModel.Test", "Sketch.ViewModel.Test\Sketch.ViewModel.Test.csproj", "{1D1C46A8-D20C-4783-954E-8393E85151CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketch.Scheme", "Sketch.Scheme\Sketch.Scheme.csproj", "{98C51BFF-FEC2-451E-AC9A-8EA0DE7A39CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D1C46A8-D20C-4783-954E-8393E85151CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C51BFF-FEC2-451E-AC9A-8EA0DE7A39CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C51BFF-FEC2-451E-AC9A-8EA0DE7A39CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C51BFF-FEC2-451E-AC9A-8EA0DE7A39CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C51BFF-FEC2-451E-AC9A-8EA0DE7A39CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
