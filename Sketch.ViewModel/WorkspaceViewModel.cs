@@ -90,6 +90,31 @@ namespace PeletonSoft.Sketch.ViewModel
         public ICommandFactory CommandFactory { get; set; }
         public IEnumerable<IElementFactoryViewModel<IElementViewModel>> Factories { get; set; }
 
+        public IElementListViewModel ElementList { get; }
+
+        private IScreenViewModel _screen;
+        public IScreenViewModel Screen
+        {
+            get { return _screen; }
+            set { SetField(ref _screen, value); }
+        }
+
+        public IPresentListViewModel Presents { get; }
+        private IPresentViewModel _present;
+        public IPresentViewModel Present
+        {
+            get { return _present; }
+            set { SetField(ref _present, value); }
+        }
+
+        public IWorkModeListViewModel WorkModes { get; }
+        private IWorkModeViewModel _workMode;
+        public IWorkModeViewModel WorkMode
+        {
+            get { return _workMode; }
+            set { SetField(ref _workMode, value); }
+        }
+
         public WorkspaceViewModel()
         {
             Model = new Workspace();
@@ -116,31 +141,6 @@ namespace PeletonSoft.Sketch.ViewModel
                     this.ExtractGetter(nameof(Screen), el => el.Screen),
                     new[] {nameof(Screen.Width), nameof(Screen.Height)},
                     () => ElementList.Restore(ElementList.Save()));
-        }
-
-        public IElementListViewModel ElementList { get; }
-
-        private IScreenViewModel _screen;
-        public IScreenViewModel Screen
-        {
-            get { return _screen; }
-            set { SetField( ref _screen, value); }
-        }
-
-        public IPresentListViewModel Presents { get; }
-        private IPresentViewModel _present;
-        public IPresentViewModel Present
-        {
-            get { return _present; }
-            set { SetField(ref _present, value); }
-        }
-
-        public IWorkModeListViewModel WorkModes { get; }
-        private IWorkModeViewModel _workMode;
-        public IWorkModeViewModel WorkMode
-        {
-            get { return _workMode; }
-            set { SetField(ref _workMode, value); }
         }
     }
 }
