@@ -5,8 +5,8 @@ using PeletonSoft.Tools.Model.ObjectEvent.Render;
 
 namespace PeletonSoft.Sketch.ViewModel.Interface.Tools
 {
-    public interface INotifyOpacityMaskRenderChanged : 
-        INotifyRenderChanged<IElementViewModel, IElementViewModel,IEnumerable<Point>>
+    public interface INotifyOpacityMaskRenderChanged :
+        INotifyRenderChanged<IElementViewModel, IElementViewModel, IEnumerable<Point>>
     {
     }
 }

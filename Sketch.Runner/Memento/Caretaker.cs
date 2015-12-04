@@ -63,13 +63,11 @@ namespace PeletonSoft.Sketch.Runner.Memento
                 (fileName, size) =>
                 {
                     var fullFileName = Path.Combine(SettingData.GetOrderSavePath(), fileName);
-                    if (!File.Exists(fullFileName))
-                    {
-                        return null;
-                    }
-                    return new PngImageBox(
-                        File.ReadAllBytes(fullFileName),
-                        (int)size.Width, (int)size.Height);
+                    return File.Exists(fullFileName)
+                        ? new PngImageBox(
+                            File.ReadAllBytes(fullFileName),
+                            (int) size.Width, (int) size.Height)
+                        : null;
                 });
 
             var dataTransfer = (WorkspaceDataTransfer)deserializer.Deserialize(xml, typeof(WorkspaceDataTransfer));
